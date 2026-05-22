@@ -1,0 +1,1017 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AI Landscape Briefing | Major Players & Tier Analysis</title>
+<meta name="description" content="A clear breakdown of the major AI players, their positions, and where the next war is being fought.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,700&family=IBM+Plex+Mono:wght@400;600&family=Source+Serif+4:ital,wght@0,300;0,400;0,600;1,300;1,400&display=swap" rel="stylesheet">
+<style>
+:root {
+  --ink: #0d0f0e;
+  --paper: #f5f2eb;
+  --paper-2: #ece8df;
+  --paper-3: #e2ddd2;
+  --rule: #c8c2b4;
+  --rule-lt: #ddd8ce;
+  --text: #1a1c1b;
+  --text-2: #4a4d4b;
+  --text-3: #7a7d7a;
+  --accent: #b8340a;
+  --accent-2: #1a4d2e;
+  --gold: #c49a22;
+  --blue-ink: #1a2d4a;
+  --mono: 'IBM Plex Mono', monospace;
+  --serif: 'Source Serif 4', Georgia, serif;
+  --display: 'Playfair Display', Georgia, serif;
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+html { font-size: 16px; scroll-behavior: smooth; }
+
+body {
+  background: var(--paper);
+  color: var(--text);
+  font-family: var(--serif);
+  font-weight: 300;
+  line-height: 1.7;
+  min-height: 100vh;
+}
+
+/* ── MASTHEAD ─────────────────────────────────────── */
+.masthead {
+  background: var(--ink);
+  padding: 0;
+  border-bottom: 3px solid var(--accent);
+  position: relative;
+  overflow: hidden;
+}
+.masthead::after {
+  content: '';
+  position: absolute;
+  top: 0; right: 0;
+  width: 40%;
+  height: 100%;
+  background: repeating-linear-gradient(
+    90deg,
+    transparent,
+    transparent 2px,
+    rgba(255,255,255,0.015) 2px,
+    rgba(255,255,255,0.015) 4px
+  );
+  pointer-events: none;
+}
+.masthead-inner {
+  max-width: 1160px;
+  margin: 0 auto;
+  padding: 40px 40px 36px;
+  position: relative;
+  z-index: 1;
+}
+.masthead-kicker {
+  font-family: var(--mono);
+  font-size: 0.65rem;
+  font-weight: 600;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--accent);
+  margin-bottom: 16px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+.masthead-kicker::before {
+  content: '';
+  display: inline-block;
+  width: 20px;
+  height: 1px;
+  background: var(--accent);
+}
+.masthead h1 {
+  font-family: var(--display);
+  font-size: clamp(2.4rem, 5vw, 4.2rem);
+  font-weight: 900;
+  color: #f5f2eb;
+  line-height: 1.0;
+  letter-spacing: -0.02em;
+  margin-bottom: 20px;
+  max-width: 780px;
+}
+.masthead h1 em {
+  color: var(--accent);
+  font-style: italic;
+}
+.masthead-meta {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+  flex-wrap: wrap;
+}
+.masthead-byline {
+  font-family: var(--mono);
+  font-size: 0.72rem;
+  color: rgba(245,242,235,0.5);
+  letter-spacing: 0.06em;
+}
+.masthead-tag {
+  font-family: var(--mono);
+  font-size: 0.65rem;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  padding: 3px 10px;
+  border: 1px solid rgba(245,242,235,0.2);
+  border-radius: 2px;
+  color: rgba(245,242,235,0.5);
+}
+
+/* ── LAYOUT ──────────────────────────────────────── */
+.page-wrap {
+  max-width: 1160px;
+  margin: 0 auto;
+  padding: 0 40px 80px;
+}
+
+/* ── SECTION LABELS ──────────────────────────────── */
+.section-rule {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 48px 0 28px;
+}
+.section-rule-label {
+  font-family: var(--mono);
+  font-size: 0.65rem;
+  font-weight: 600;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--text-3);
+  white-space: nowrap;
+}
+.section-rule-line {
+  flex: 1;
+  height: 1px;
+  background: var(--rule);
+}
+
+/* ── PLAYER GRID ─────────────────────────────────── */
+.player-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 2px;
+  background: var(--rule);
+  border: 1px solid var(--rule);
+  border-radius: 4px;
+  overflow: hidden;
+  margin-bottom: 2px;
+}
+.player-grid.two-col {
+  grid-template-columns: repeat(2, 1fr);
+}
+
+.player-card {
+  background: var(--paper);
+  padding: 28px 26px 24px;
+  position: relative;
+  transition: background 0.18s;
+}
+.player-card:hover { background: var(--paper-2); }
+
+.player-num {
+  font-family: var(--mono);
+  font-size: 0.6rem;
+  font-weight: 600;
+  color: var(--text-3);
+  letter-spacing: 0.1em;
+  margin-bottom: 10px;
+}
+.player-name {
+  font-family: var(--display);
+  font-size: 1.3rem;
+  font-weight: 700;
+  color: var(--text);
+  line-height: 1.15;
+  margin-bottom: 4px;
+}
+.player-model {
+  font-family: var(--mono);
+  font-size: 0.7rem;
+  color: var(--accent-2);
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  margin-bottom: 14px;
+}
+.player-meta {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  margin-bottom: 16px;
+  padding-bottom: 14px;
+  border-bottom: 1px solid var(--rule-lt);
+}
+.player-meta-row {
+  display: flex;
+  gap: 8px;
+  font-size: 0.8rem;
+  line-height: 1.4;
+}
+.player-meta-key {
+  font-family: var(--mono);
+  font-size: 0.65rem;
+  font-weight: 600;
+  color: var(--text-3);
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  min-width: 52px;
+  margin-top: 1px;
+  flex-shrink: 0;
+}
+.player-meta-val {
+  color: var(--text-2);
+  font-size: 0.82rem;
+}
+.player-notable {
+  list-style: none;
+  padding: 0;
+  margin: 0 0 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+.player-notable li {
+  font-size: 0.83rem;
+  color: var(--text-2);
+  line-height: 1.45;
+  padding-left: 14px;
+  position: relative;
+}
+.player-notable li::before {
+  content: '\2013';
+  position: absolute;
+  left: 0;
+  color: var(--rule);
+}
+.player-position {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  font-family: var(--mono);
+  font-size: 0.67rem;
+  font-weight: 600;
+  letter-spacing: 0.05em;
+  color: var(--accent);
+  text-transform: uppercase;
+  padding: 5px 10px;
+  background: rgba(184,52,10,0.07);
+  border: 1px solid rgba(184,52,10,0.18);
+  border-radius: 2px;
+}
+.player-position::before {
+  content: '';
+  display: inline-block;
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: var(--accent);
+  flex-shrink: 0;
+}
+.player-position.blue {
+  color: var(--blue-ink);
+  background: rgba(26,45,74,0.06);
+  border-color: rgba(26,45,74,0.18);
+}
+.player-position.blue::before { background: var(--blue-ink); }
+.player-position.gold {
+  color: var(--gold);
+  background: rgba(196,154,34,0.07);
+  border-color: rgba(196,154,34,0.25);
+}
+.player-position.gold::before { background: var(--gold); }
+.player-position.green {
+  color: var(--accent-2);
+  background: rgba(26,77,46,0.07);
+  border-color: rgba(26,77,46,0.2);
+}
+.player-position.green::before { background: var(--accent-2); }
+
+/* Special card: warning */
+.player-card.correction {
+  background: #fdf7f0;
+  border-left: 3px solid var(--gold);
+}
+.player-card.correction:hover { background: #faf0e4; }
+.correction-label {
+  font-family: var(--mono);
+  font-size: 0.65rem;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--gold);
+  margin-bottom: 10px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.correction-candidates {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  margin: 12px 0 14px;
+}
+.correction-candidate {
+  font-size: 0.85rem;
+  color: var(--text-2);
+  padding: 7px 12px;
+  background: var(--paper-2);
+  border-radius: 3px;
+  border-left: 2px solid var(--rule);
+}
+.correction-candidate strong {
+  color: var(--text);
+  font-weight: 600;
+}
+
+/* ── TIER SECTION ────────────────────────────────── */
+.tier-wrap {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+  margin-bottom: 16px;
+}
+.tier-card {
+  padding: 26px 24px;
+  border-radius: 3px;
+}
+.tier-card.t1 {
+  background: var(--ink);
+  border: 1px solid rgba(245,242,235,0.06);
+}
+.tier-card.t2 {
+  background: var(--paper-2);
+  border: 1px solid var(--rule);
+}
+.tier-card.t3 {
+  background: var(--paper-2);
+  border: 1px solid var(--rule);
+}
+.tier-label {
+  font-family: var(--mono);
+  font-size: 0.62rem;
+  font-weight: 600;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  margin-bottom: 6px;
+}
+.tier-card.t1 .tier-label { color: rgba(245,242,235,0.4); }
+.tier-card.t2 .tier-label { color: var(--text-3); }
+.tier-card.t3 .tier-label { color: var(--text-3); }
+.tier-title {
+  font-family: var(--display);
+  font-size: 1.05rem;
+  font-weight: 700;
+  margin-bottom: 16px;
+}
+.tier-card.t1 .tier-title { color: #f5f2eb; }
+.tier-card.t2 .tier-title { color: var(--text); }
+.tier-card.t3 .tier-title { color: var(--text); }
+.tier-names {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+.tier-name {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.88rem;
+  font-weight: 600;
+}
+.tier-card.t1 .tier-name { color: #f5f2eb; }
+.tier-card.t2 .tier-name { color: var(--text); }
+.tier-card.t3 .tier-name { color: var(--text); }
+.tier-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+.t1 .tier-dot { background: var(--accent); }
+.t2 .tier-dot { background: var(--gold); }
+.t3 .tier-dot { background: var(--rule); }
+.tier-sub {
+  font-size: 0.75rem;
+  font-weight: 400;
+  margin-left: 14px;
+}
+.tier-card.t1 .tier-sub { color: rgba(245,242,235,0.45); }
+.tier-card.t2 .tier-sub { color: var(--text-3); }
+.tier-card.t3 .tier-sub { color: var(--text-3); }
+
+/* ── NEW LAYER ───────────────────────────────────── */
+.new-layer-card {
+  background: var(--accent-2);
+  padding: 26px 28px;
+  border-radius: 3px;
+  display: flex;
+  align-items: center;
+  gap: 32px;
+}
+.new-layer-label {
+  font-family: var(--mono);
+  font-size: 0.62rem;
+  font-weight: 600;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: rgba(245,242,235,0.5);
+  margin-bottom: 6px;
+}
+.new-layer-title {
+  font-family: var(--display);
+  font-size: 1.05rem;
+  font-weight: 700;
+  color: #f5f2eb;
+  margin-bottom: 4px;
+}
+.new-layer-note {
+  font-size: 0.82rem;
+  color: rgba(245,242,235,0.6);
+}
+.new-layer-badge {
+  font-family: var(--mono);
+  font-size: 0.65rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  padding: 5px 12px;
+  background: rgba(245,242,235,0.12);
+  border: 1px solid rgba(245,242,235,0.2);
+  border-radius: 2px;
+  color: #f5f2eb;
+  white-space: nowrap;
+}
+
+/* ── THE THREE LAYERS ────────────────────────────── */
+.layers-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 2px;
+  background: var(--rule);
+  border: 1px solid var(--rule);
+  border-radius: 4px;
+  overflow: hidden;
+}
+.layer-card {
+  background: var(--paper);
+  padding: 30px 26px;
+  position: relative;
+}
+.layer-card::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0;
+  width: 100%;
+  height: 3px;
+}
+.layer-card.lc-1::before { background: var(--accent); }
+.layer-card.lc-2::before { background: var(--gold); }
+.layer-card.lc-3::before { background: var(--accent-2); }
+.layer-num {
+  font-family: var(--mono);
+  font-size: 2rem;
+  font-weight: 600;
+  color: var(--rule);
+  line-height: 1;
+  margin-bottom: 12px;
+}
+.layer-title {
+  font-family: var(--display);
+  font-size: 1.2rem;
+  font-weight: 700;
+  color: var(--text);
+  margin-bottom: 10px;
+  line-height: 1.2;
+}
+.layer-examples {
+  font-family: var(--mono);
+  font-size: 0.72rem;
+  color: var(--text-3);
+  margin-bottom: 14px;
+  letter-spacing: 0.03em;
+}
+.layer-desc {
+  font-size: 0.87rem;
+  color: var(--text-2);
+  line-height: 1.6;
+}
+
+/* ── INSIGHT BOX ─────────────────────────────────── */
+.insight-box {
+  background: var(--ink);
+  padding: 44px 48px;
+  margin-top: 16px;
+  border-radius: 3px;
+  position: relative;
+  overflow: hidden;
+}
+.insight-box::before {
+  content: '\201C';
+  position: absolute;
+  top: -20px;
+  right: 24px;
+  font-family: var(--display);
+  font-size: 14rem;
+  color: rgba(245,242,235,0.04);
+  line-height: 1;
+  pointer-events: none;
+}
+.insight-label {
+  font-family: var(--mono);
+  font-size: 0.62rem;
+  font-weight: 600;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--accent);
+  margin-bottom: 20px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+.insight-label::before {
+  content: '';
+  display: inline-block;
+  width: 16px;
+  height: 1px;
+  background: var(--accent);
+}
+.insight-box h3 {
+  font-family: var(--display);
+  font-size: clamp(1.4rem, 2.5vw, 2rem);
+  font-weight: 700;
+  color: #f5f2eb;
+  line-height: 1.25;
+  margin-bottom: 20px;
+  max-width: 760px;
+}
+.insight-box h3 em {
+  color: var(--accent);
+  font-style: italic;
+}
+.insight-two-col {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 40px;
+  margin-top: 10px;
+}
+.insight-point {
+  padding-top: 18px;
+  border-top: 1px solid rgba(245,242,235,0.1);
+}
+.insight-point-label {
+  font-family: var(--mono);
+  font-size: 0.65rem;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: rgba(245,242,235,0.35);
+  margin-bottom: 8px;
+}
+.insight-point p {
+  font-size: 0.9rem;
+  color: rgba(245,242,235,0.65);
+  line-height: 1.65;
+}
+.insight-point strong {
+  color: #f5f2eb;
+  font-weight: 600;
+}
+
+/* ── FOOTER ──────────────────────────────────────── */
+.page-footer {
+  border-top: 1px solid var(--rule);
+  padding: 24px 0 0;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-top: 48px;
+}
+.page-footer-note {
+  font-family: var(--mono);
+  font-size: 0.65rem;
+  color: var(--text-3);
+  letter-spacing: 0.06em;
+}
+
+/* ── STAGGER ANIMATION ───────────────────────────── */
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(14px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+.player-card, .tier-card, .layer-card {
+  animation: fadeUp 0.4s ease both;
+}
+.player-grid .player-card:nth-child(1)  { animation-delay: 0.05s; }
+.player-grid .player-card:nth-child(2)  { animation-delay: 0.10s; }
+.player-grid .player-card:nth-child(3)  { animation-delay: 0.15s; }
+.player-grid .player-card:nth-child(4)  { animation-delay: 0.20s; }
+.player-grid .player-card:nth-child(5)  { animation-delay: 0.25s; }
+.player-grid .player-card:nth-child(6)  { animation-delay: 0.30s; }
+.player-grid .player-card:nth-child(7)  { animation-delay: 0.35s; }
+.player-grid .player-card:nth-child(8)  { animation-delay: 0.40s; }
+.player-grid .player-card:nth-child(9)  { animation-delay: 0.45s; }
+
+/* ── RESPONSIVE ──────────────────────────────────── */
+@media (max-width: 900px) {
+  .player-grid, .player-grid.two-col { grid-template-columns: 1fr 1fr; }
+  .tier-wrap { grid-template-columns: 1fr; }
+  .layers-grid { grid-template-columns: 1fr; }
+  .insight-two-col { grid-template-columns: 1fr; gap: 24px; }
+  .new-layer-card { flex-direction: column; gap: 16px; align-items: flex-start; }
+  .page-wrap { padding: 0 24px 60px; }
+  .masthead-inner { padding: 32px 24px 28px; }
+}
+@media (max-width: 600px) {
+  .player-grid, .player-grid.two-col { grid-template-columns: 1fr; }
+  .insight-box { padding: 28px 24px; }
+}
+</style>
+</head>
+<body>
+
+<!-- ── MASTHEAD ───────────────────────────────────────────── -->
+<div class="masthead">
+  <div class="masthead-inner">
+    <div class="masthead-kicker">Intelligence Briefing</div>
+    <h1>Major AI Players:<br><em>A Clear Breakdown</em></h1>
+    <div class="masthead-meta">
+      <span class="masthead-byline">Joshua Bechtel &nbsp;&middot;&nbsp; AI Strategy &amp; Enablement</span>
+      <span class="masthead-tag">Reference Document</span>
+      <span class="masthead-tag">Updated 2025</span>
+    </div>
+  </div>
+</div>
+
+<!-- ── MAIN CONTENT ───────────────────────────────────────── -->
+<div class="page-wrap">
+
+  <!-- Players grid -->
+  <div class="section-rule">
+    <span class="section-rule-label">The players</span>
+    <div class="section-rule-line"></div>
+    <span class="section-rule-label">10 entries</span>
+  </div>
+
+  <div class="player-grid">
+
+    <!-- 01 OpenAI -->
+    <div class="player-card">
+      <div class="player-num">01 &mdash; Frontier</div>
+      <div class="player-name">OpenAI</div>
+      <div class="player-model">GPT &nbsp;/&nbsp; ChatGPT</div>
+      <div class="player-meta">
+        <div class="player-meta-row">
+          <span class="player-meta-key">Founded</span>
+          <span class="player-meta-val">2015 &mdash; GPT models began ~2018</span>
+        </div>
+        <div class="player-meta-row">
+          <span class="player-meta-key">Backed by</span>
+          <span class="player-meta-val">OpenAI + deep Microsoft partnership</span>
+        </div>
+      </div>
+      <ul class="player-notable">
+        <li>Creator of ChatGPT</li>
+        <li>Pioneer of the modern generative AI boom</li>
+        <li>Strong in reasoning, coding, multimodal systems</li>
+      </ul>
+      <span class="player-position">Center of gravity in enterprise AI</span>
+    </div>
+
+    <!-- 02 Anthropic -->
+    <div class="player-card">
+      <div class="player-num">02 &mdash; Frontier</div>
+      <div class="player-name">Anthropic</div>
+      <div class="player-model">Claude</div>
+      <div class="player-meta">
+        <div class="player-meta-row">
+          <span class="player-meta-key">Founded</span>
+          <span class="player-meta-val">2021</span>
+        </div>
+        <div class="player-meta-row">
+          <span class="player-meta-key">Backed by</span>
+          <span class="player-meta-val">Anthropic &mdash; major Amazon &amp; Google investment</span>
+        </div>
+      </div>
+      <ul class="player-notable">
+        <li>Heavy focus on AI safety and alignment</li>
+        <li>Strong long-context and reasoning performance</li>
+        <li>Main rival to OpenAI in quality and safety</li>
+      </ul>
+      <span class="player-position">Main rival to OpenAI in quality + safety</span>
+    </div>
+
+    <!-- 03 Google -->
+    <div class="player-card">
+      <div class="player-num">03 &mdash; Frontier</div>
+      <div class="player-name">Google</div>
+      <div class="player-model">Gemini</div>
+      <div class="player-meta">
+        <div class="player-meta-row">
+          <span class="player-meta-key">Founded</span>
+          <span class="player-meta-val">AI since 2010s &mdash; Gemini launched 2023</span>
+        </div>
+        <div class="player-meta-row">
+          <span class="player-meta-key">Owned by</span>
+          <span class="player-meta-val">Alphabet</span>
+        </div>
+      </div>
+      <ul class="player-notable">
+        <li>Invented the transformer architecture (all modern AI builds on this)</li>
+        <li>Multimodal models: text, image, video</li>
+        <li>Deep integration into Search, Android, and Workspace</li>
+      </ul>
+      <span class="player-position blue">Most vertically integrated AI ecosystem</span>
+    </div>
+
+    <!-- 04 xAI -->
+    <div class="player-card">
+      <div class="player-num">04 &mdash; Ecosystem</div>
+      <div class="player-name">xAI</div>
+      <div class="player-model">Grok</div>
+      <div class="player-meta">
+        <div class="player-meta-row">
+          <span class="player-meta-key">Founded</span>
+          <span class="player-meta-val">2023</span>
+        </div>
+        <div class="player-meta-row">
+          <span class="player-meta-key">Owned by</span>
+          <span class="player-meta-val">xAI &mdash; linked to X (formerly Twitter)</span>
+        </div>
+      </div>
+      <ul class="player-notable">
+        <li>Grok chatbot integrated directly into X</li>
+        <li>Real-time internet data access</li>
+        <li>Positioned as less restrictive in responses</li>
+      </ul>
+      <span class="player-position">The "anti-censorship" AI angle</span>
+    </div>
+
+    <!-- 05 DeepSeek -->
+    <div class="player-card">
+      <div class="player-num">05 &mdash; Frontier</div>
+      <div class="player-name">DeepSeek</div>
+      <div class="player-model">DeepSeek-V3 &nbsp;/&nbsp; R1</div>
+      <div class="player-meta">
+        <div class="player-meta-row">
+          <span class="player-meta-key">Founded</span>
+          <span class="player-meta-val">~2023</span>
+        </div>
+        <div class="player-meta-row">
+          <span class="player-meta-key">Owned by</span>
+          <span class="player-meta-val">DeepSeek &mdash; Chinese startup</span>
+        </div>
+      </div>
+      <ul class="player-notable">
+        <li>High-performance at dramatically lower cost</li>
+        <li>Strong open-weight model releases</li>
+        <li>Efficient training innovations: MoE architecture</li>
+      </ul>
+      <span class="player-position gold">The global cost disruptor</span>
+    </div>
+
+    <!-- 06 Baidu -->
+    <div class="player-card">
+      <div class="player-num">06 &mdash; Regional</div>
+      <div class="player-name">Baidu</div>
+      <div class="player-model">ERNIE</div>
+      <div class="player-meta">
+        <div class="player-meta-row">
+          <span class="player-meta-key">Founded</span>
+          <span class="player-meta-val">ERNIE ~2019</span>
+        </div>
+        <div class="player-meta-row">
+          <span class="player-meta-key">Owned by</span>
+          <span class="player-meta-val">Baidu (publicly traded)</span>
+        </div>
+      </div>
+      <ul class="player-notable">
+        <li>China's earliest GPT-style system at scale</li>
+        <li>Deep integration into Chinese search and services</li>
+        <li>Competing with Western models domestically</li>
+      </ul>
+      <span class="player-position blue">China's Google equivalent in AI</span>
+    </div>
+
+    <!-- 07 Mistral -->
+    <div class="player-card">
+      <div class="player-num">07 &mdash; Open Weights</div>
+      <div class="player-name">Mistral AI</div>
+      <div class="player-model">Mistral &nbsp;/&nbsp; Mixtral</div>
+      <div class="player-meta">
+        <div class="player-meta-row">
+          <span class="player-meta-key">Founded</span>
+          <span class="player-meta-val">2023</span>
+        </div>
+        <div class="player-meta-row">
+          <span class="player-meta-key">Based in</span>
+          <span class="player-meta-val">Paris, France &mdash; independent</span>
+        </div>
+      </div>
+      <ul class="player-notable">
+        <li>Open-weight high-performance models</li>
+        <li>Strong focus on efficiency and EU AI sovereignty</li>
+        <li>Proving smaller models can challenge larger ones</li>
+      </ul>
+      <span class="player-position green">Open-weight Western challenger</span>
+    </div>
+
+    <!-- 08 Meta -->
+    <div class="player-card">
+      <div class="player-num">08 &mdash; Ecosystem</div>
+      <div class="player-name">Meta</div>
+      <div class="player-model">LLaMA</div>
+      <div class="player-meta">
+        <div class="player-meta-row">
+          <span class="player-meta-key">Founded</span>
+          <span class="player-meta-val">LLaMA released 2023</span>
+        </div>
+        <div class="player-meta-row">
+          <span class="player-meta-key">Owned by</span>
+          <span class="player-meta-val">Meta Platforms</span>
+        </div>
+      </div>
+      <ul class="player-notable">
+        <li>Open-ish model ecosystem &mdash; widely accessible</li>
+        <li>Massive influence on open-source AI development</li>
+        <li>Widely used by startups and researchers as a base</li>
+      </ul>
+      <span class="player-position green">The open ecosystem enabler</span>
+    </div>
+
+    <!-- 09 Microsoft -->
+    <div class="player-card">
+      <div class="player-num">09 &mdash; Distribution</div>
+      <div class="player-name">Microsoft</div>
+      <div class="player-model">Copilot</div>
+      <div class="player-meta">
+        <div class="player-meta-row">
+          <span class="player-meta-key">Founded</span>
+          <span class="player-meta-val">AI push ~2019 &mdash; Copilot launched 2023</span>
+        </div>
+        <div class="player-meta-row">
+          <span class="player-meta-key">Owned by</span>
+          <span class="player-meta-val">Microsoft (publicly traded)</span>
+        </div>
+      </div>
+      <ul class="player-notable">
+        <li>Embeds AI across Office, Windows, and Azure</li>
+        <li>Infrastructure backbone for OpenAI</li>
+        <li>Largest enterprise AI distribution footprint</li>
+      </ul>
+      <span class="player-position blue">Enterprise distribution king</span>
+    </div>
+
+  </div><!-- /.player-grid -->
+
+  <!-- OpenClaw: standalone wide card -->
+  <div class="player-grid" style="margin-top: 2px; grid-template-columns: 1fr 1fr;">
+    <div class="player-card" style="background: var(--paper-2); border-left: 3px solid var(--accent-2);">
+      <div class="player-num">10 &mdash; Agent Layer &nbsp;&middot;&nbsp; Important Shift</div>
+      <div class="player-name">OpenClaw</div>
+      <div class="player-model">Agentic AI Framework</div>
+      <div class="player-meta">
+        <div class="player-meta-row">
+          <span class="player-meta-key">Founded</span>
+          <span class="player-meta-val">2025 &mdash; creator subsequently joined OpenAI</span>
+        </div>
+        <div class="player-meta-row">
+          <span class="player-meta-key">Type</span>
+          <span class="player-meta-val">Open source agent framework</span>
+        </div>
+      </div>
+      <ul class="player-notable">
+        <li>Autonomous AI agents that <em>take actions</em>, not just chat</li>
+        <li>Runs on top of models: GPT, Claude, Gemini and others</li>
+        <li>Exploding in adoption in China and globally</li>
+      </ul>
+      <span class="player-position green">Not a model &mdash; the "AI that does things" layer</span>
+    </div>
+
+    <!-- Correction card -->
+    <div class="player-card correction">
+      <div class="correction-label">&#9888;&nbsp; Correction &mdash; "Blue Something" (China)</div>
+      <p style="font-size: 0.87rem; color: var(--text-2); margin-bottom: 10px;">No major AI platform by that name exists. Most likely candidates for what was being recalled:</p>
+      <div class="correction-candidates">
+        <div class="correction-candidate"><strong>ByteDance</strong> &mdash; Doubao AI</div>
+        <div class="correction-candidate"><strong>Alibaba</strong> &mdash; Qwen models</div>
+        <div class="correction-candidate"><strong>Tencent</strong> &mdash; Yuanbao AI</div>
+      </div>
+      <span class="player-position gold">Mixed names &mdash; no "Blue Street / Blue State" AI</span>
+    </div>
+  </div>
+
+
+  <!-- TIER ANALYSIS -->
+  <div class="section-rule">
+    <span class="section-rule-label">Synthesis</span>
+    <div class="section-rule-line"></div>
+    <span class="section-rule-label">Who actually matters most</span>
+  </div>
+
+  <div class="tier-wrap">
+    <div class="tier-card t1">
+      <div class="tier-label">Tier 1</div>
+      <div class="tier-title">Frontier Leaders</div>
+      <div class="tier-names">
+        <div class="tier-name"><span class="tier-dot"></span>OpenAI <span class="tier-sub">GPT / ChatGPT</span></div>
+        <div class="tier-name"><span class="tier-dot"></span>Anthropic <span class="tier-sub">Claude</span></div>
+        <div class="tier-name"><span class="tier-dot"></span>Google <span class="tier-sub">Gemini</span></div>
+        <div class="tier-name"><span class="tier-dot"></span>DeepSeek <span class="tier-sub">Cost disruptor</span></div>
+      </div>
+    </div>
+    <div class="tier-card t2">
+      <div class="tier-label">Tier 2</div>
+      <div class="tier-title">Ecosystem &amp; Distribution</div>
+      <div class="tier-names">
+        <div class="tier-name"><span class="tier-dot"></span>Microsoft <span class="tier-sub">Enterprise reach</span></div>
+        <div class="tier-name"><span class="tier-dot"></span>Meta <span class="tier-sub">Open ecosystem</span></div>
+        <div class="tier-name"><span class="tier-dot"></span>xAI <span class="tier-sub">X platform</span></div>
+      </div>
+    </div>
+    <div class="tier-card t3">
+      <div class="tier-label">Tier 3</div>
+      <div class="tier-title">Regional &amp; Specialized</div>
+      <div class="tier-names">
+        <div class="tier-name"><span class="tier-dot"></span>Baidu <span class="tier-sub">China domestic</span></div>
+        <div class="tier-name"><span class="tier-dot"></span>Alibaba <span class="tier-sub">Qwen</span></div>
+        <div class="tier-name"><span class="tier-dot"></span>ByteDance <span class="tier-sub">Doubao</span></div>
+        <div class="tier-name"><span class="tier-dot"></span>Tencent <span class="tier-sub">Yuanbao</span></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="new-layer-card">
+    <div>
+      <div class="new-layer-label">New Layer &mdash; Important Shift</div>
+      <div class="new-layer-title">Agentic AI &mdash; The Next Battleground</div>
+      <div class="new-layer-note">OpenClaw and similar agent frameworks &mdash; AI that acts, not just responds</div>
+    </div>
+    <span class="new-layer-badge">Watch closely</span>
+  </div>
+
+
+  <!-- THE THREE LAYERS -->
+  <div class="section-rule">
+    <span class="section-rule-label">Big insight</span>
+    <div class="section-rule-line"></div>
+    <span class="section-rule-label">The landscape is splitting into 3 layers</span>
+  </div>
+
+  <div class="layers-grid">
+    <div class="layer-card lc-1">
+      <div class="layer-num">01</div>
+      <div class="layer-title">Model Creators</div>
+      <div class="layer-examples">OpenAI &nbsp;&middot;&nbsp; Anthropic &nbsp;&middot;&nbsp; Google &nbsp;&middot;&nbsp; DeepSeek</div>
+      <div class="layer-desc">Building the foundational intelligence. The raw capability layer. Who wins here determines the ceiling for everything above it.</div>
+    </div>
+    <div class="layer-card lc-2">
+      <div class="layer-num">02</div>
+      <div class="layer-title">Distribution Platforms</div>
+      <div class="layer-examples">Microsoft &nbsp;&middot;&nbsp; Meta &nbsp;&middot;&nbsp; X (xAI)</div>
+      <div class="layer-desc">Getting the models into hands that will actually use them at scale. Whoever owns the workflow owns the adoption. Microsoft has a significant head start here in enterprise.</div>
+    </div>
+    <div class="layer-card lc-3">
+      <div class="layer-num">03</div>
+      <div class="layer-title">Agent Frameworks</div>
+      <div class="layer-examples">OpenClaw &nbsp;&middot;&nbsp; Similar emerging tools</div>
+      <div class="layer-desc">The newest and most consequential layer. AI that does not just answer questions but takes actions: browsing, writing, executing, managing. This is where the next competition is being decided.</div>
+    </div>
+  </div>
+
+  <div class="insight-box">
+    <div class="insight-label">The takeaway</div>
+    <h3>The next war is not just "who has the best model."<br>It is <em>"who owns the action layer."</em></h3>
+    <div class="insight-two-col">
+      <div class="insight-point">
+        <div class="insight-point-label">What this means now</div>
+        <p>Choosing an AI vendor is no longer just about text quality. It is about <strong>which platform your workflows will live inside</strong> and who controls the agent layer connecting AI to your actual business operations.</p>
+      </div>
+      <div class="insight-point">
+        <div class="insight-point-label">What to watch</div>
+        <p>Organizations that are only evaluating models are asking the <strong>wrong question one layer too early.</strong> The strategic question is: when AI starts taking actions inside your organization, whose framework is it running on, and do you have governance for that?</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="page-footer">
+    <span class="page-footer-note">Joshua Bechtel &nbsp;&middot;&nbsp; AI Strategy &amp; Enablement &nbsp;&middot;&nbsp; joshbechtel.com</span>
+    <span class="page-footer-note">Reference document &nbsp;&middot;&nbsp; Updated 2025 &nbsp;&middot;&nbsp; Subject to change as landscape evolves</span>
+  </div>
+
+</div><!-- /.page-wrap -->
+
+</body>
+</html>

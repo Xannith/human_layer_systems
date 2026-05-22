@@ -1,0 +1,584 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contractor Cycle Cost Calculator | Joshua Bechtel</title>
+    <style>
+        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+        :root {
+            --forest:  #1F3B1F;
+            --moss:    #3B6B3B;
+            --sage:    #5F8A5F;
+            --mist:    #9FCCA9;
+            --foam:    #CFE8CF;
+            --parchment: #F7F4EE;
+            --white:   #FFFFFF;
+            --slate:   #4A5568;
+            --gold:    #B8860B;
+            --gold-lt: #D4A017;
+            --red-light: #FCEBEB;
+            --red-dark:  #791F1F;
+            --red-mid:   #A32D2D;
+        }
+
+        body {
+            font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+            background: var(--parchment);
+            color: var(--slate);
+            line-height: 1.6;
+        }
+
+        /* ── HEADER ── */
+        .page-header {
+            background: var(--forest);
+            padding: 20px 40px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+        .page-header a {
+            font-family: Georgia, 'Times New Roman', serif;
+            font-size: 1.1rem;
+            color: var(--foam);
+            text-decoration: none;
+            letter-spacing: 0.02em;
+        }
+        .page-header a:hover { color: var(--white); }
+        .back-link {
+            font-size: 0.82rem;
+            color: var(--mist);
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+        .back-link:hover { color: var(--foam); }
+
+        /* ── HERO ── */
+        .calc-hero {
+            background: var(--forest);
+            padding: 60px 40px 50px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+        .calc-hero::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: radial-gradient(ellipse 70% 60% at 50% 50%, rgba(95,140,95,0.15) 0%, transparent 70%);
+            pointer-events: none;
+        }
+        .calc-hero-inner { max-width: 700px; margin: 0 auto; position: relative; }
+        .calc-eyebrow {
+            display: inline-block;
+            font-size: 0.72rem;
+            font-weight: 600;
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+            color: var(--mist);
+            border: 1px solid rgba(159,202,159,0.4);
+            border-radius: 3px;
+            padding: 4px 12px;
+            margin-bottom: 20px;
+        }
+        .calc-hero h1 {
+            font-family: Georgia, 'Times New Roman', serif;
+            font-size: 2.4rem;
+            line-height: 1.15;
+            color: var(--white);
+            margin-bottom: 16px;
+        }
+        .calc-hero h1 em { color: var(--mist); font-style: italic; }
+        .calc-hero p {
+            font-size: 1rem;
+            color: rgba(255,255,255,0.75);
+            line-height: 1.7;
+            max-width: 580px;
+            margin: 0 auto;
+        }
+
+        /* ── MAIN CALCULATOR ── */
+        .calc-wrap {
+            max-width: 960px;
+            margin: 0 auto;
+            padding: 60px 40px;
+        }
+
+        .calc-layout {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 24px;
+            margin-bottom: 32px;
+        }
+
+        /* Controls panel */
+        .controls-panel {
+            background: var(--white);
+            border: 1px solid rgba(95,138,95,0.2);
+            border-radius: 12px;
+            padding: 32px;
+        }
+        .controls-title {
+            font-family: Georgia, 'Times New Roman', serif;
+            font-size: 1.15rem;
+            color: var(--forest);
+            margin-bottom: 28px;
+            padding-bottom: 14px;
+            border-bottom: 1px solid rgba(159,202,159,0.3);
+        }
+        .slider-block { margin-bottom: 28px; }
+        .slider-block:last-child { margin-bottom: 0; }
+        .slider-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: baseline;
+            margin-bottom: 8px;
+        }
+        .slider-name {
+            font-size: 0.72rem;
+            font-weight: 600;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            color: var(--sage);
+        }
+        .slider-value {
+            font-size: 1rem;
+            font-weight: 700;
+            color: var(--forest);
+        }
+        input[type="range"] {
+            width: 100%;
+            height: 4px;
+            -webkit-appearance: none;
+            appearance: none;
+            background: rgba(95,138,95,0.25);
+            border-radius: 2px;
+            outline: none;
+            cursor: pointer;
+        }
+        input[type="range"]::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            appearance: none;
+            width: 18px;
+            height: 18px;
+            border-radius: 50%;
+            background: var(--forest);
+            cursor: pointer;
+            border: 2px solid var(--white);
+            box-shadow: 0 1px 4px rgba(0,0,0,0.2);
+        }
+        input[type="range"]::-moz-range-thumb {
+            width: 18px;
+            height: 18px;
+            border-radius: 50%;
+            background: var(--forest);
+            cursor: pointer;
+            border: 2px solid var(--white);
+            box-shadow: 0 1px 4px rgba(0,0,0,0.2);
+        }
+        .slider-range-label {
+            font-size: 0.75rem;
+            color: var(--sage);
+            margin-top: 5px;
+            opacity: 0.8;
+        }
+
+        /* Results panel */
+        .results-panel {
+            display: flex;
+            flex-direction: column;
+            gap: 14px;
+        }
+        .metric-card {
+            background: var(--white);
+            border: 1px solid rgba(95,138,95,0.2);
+            border-radius: 10px;
+            padding: 20px 22px;
+            flex: 1;
+        }
+        .metric-label {
+            font-size: 0.68rem;
+            font-weight: 600;
+            letter-spacing: 0.09em;
+            text-transform: uppercase;
+            color: var(--sage);
+            margin-bottom: 6px;
+        }
+        .metric-value {
+            font-family: Georgia, 'Times New Roman', serif;
+            font-size: 1.9rem;
+            color: var(--forest);
+            line-height: 1;
+            margin-bottom: 4px;
+        }
+        .metric-sub {
+            font-size: 0.8rem;
+            color: var(--slate);
+            opacity: 0.8;
+            line-height: 1.45;
+        }
+        .metric-card.gut-punch {
+            background: var(--red-light);
+            border-color: rgba(163,45,45,0.25);
+        }
+        .metric-card.gut-punch .metric-label { color: var(--red-mid); }
+        .metric-card.gut-punch .metric-value {
+            font-size: 2.2rem;
+            color: var(--red-dark);
+        }
+        .metric-card.gut-punch .metric-sub { color: var(--red-mid); opacity: 1; }
+
+        /* Style guide breakdown */
+        .breakdown-panel {
+            background: var(--white);
+            border: 1px solid rgba(95,138,95,0.2);
+            border-radius: 12px;
+            overflow: hidden;
+            margin-bottom: 32px;
+        }
+        .breakdown-header {
+            background: var(--forest);
+            padding: 16px 24px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+        .breakdown-header h3 {
+            font-size: 0.8rem;
+            font-weight: 600;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            color: var(--mist);
+        }
+        .breakdown-header span {
+            font-size: 0.75rem;
+            color: rgba(159,202,159,0.7);
+            font-style: italic;
+        }
+        .breakdown-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 13px 24px;
+            border-bottom: 1px solid rgba(159,202,159,0.2);
+            gap: 20px;
+        }
+        .breakdown-row:last-child { border-bottom: none; }
+        .breakdown-row:nth-child(even) { background: var(--parchment); }
+        .breakdown-key {
+            font-size: 0.88rem;
+            color: var(--slate);
+        }
+        .breakdown-val {
+            font-size: 0.9rem;
+            font-weight: 600;
+            color: var(--forest);
+            white-space: nowrap;
+        }
+        .breakdown-val.zero {
+            color: var(--red-mid);
+        }
+
+        /* Footnote */
+        .footnote {
+            font-size: 0.78rem;
+            color: var(--sage);
+            line-height: 1.65;
+            font-style: italic;
+            margin-bottom: 40px;
+            padding: 16px 20px;
+            background: var(--white);
+            border-left: 3px solid var(--mist);
+            border-radius: 0 6px 6px 0;
+        }
+
+        /* CTA */
+        .calc-cta {
+            background: var(--forest);
+            border-radius: 12px;
+            padding: 40px 44px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 32px;
+            flex-wrap: wrap;
+        }
+        .calc-cta-text h3 {
+            font-family: Georgia, 'Times New Roman', serif;
+            font-size: 1.5rem;
+            color: var(--white);
+            margin-bottom: 8px;
+            line-height: 1.2;
+        }
+        .calc-cta-text p {
+            color: rgba(255,255,255,0.72);
+            font-size: 0.92rem;
+            max-width: 480px;
+            line-height: 1.6;
+        }
+        .calc-cta-text p strong { color: var(--foam); }
+        .cta-buttons { display: flex; gap: 12px; flex-wrap: wrap; flex-shrink: 0; }
+
+        .btn {
+            display: inline-block;
+            padding: 12px 24px;
+            border-radius: 5px;
+            font-size: 0.88rem;
+            font-weight: 600;
+            text-decoration: none;
+            cursor: pointer;
+            border: none;
+            transition: transform 0.15s, background 0.15s;
+            letter-spacing: 0.02em;
+        }
+        .btn:hover { transform: translateY(-1px); }
+        .btn-gold { background: var(--gold); color: var(--white); }
+        .btn-gold:hover { background: var(--gold-lt); }
+        .btn-outline-gold {
+            background: transparent;
+            color: var(--gold-lt);
+            border: 1.5px solid var(--gold);
+        }
+        .btn-outline-gold:hover { background: rgba(184,134,11,0.08); }
+
+        /* ── FOOTER ── */
+        .page-footer {
+            background: var(--forest);
+            padding: 20px 40px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 12px;
+        }
+        .page-footer-name {
+            font-family: Georgia, 'Times New Roman', serif;
+            color: var(--foam);
+            font-size: 0.95rem;
+        }
+        .page-footer-note {
+            font-size: 0.78rem;
+            color: rgba(207,232,207,0.55);
+        }
+
+        /* ── RESPONSIVE ── */
+        @media (max-width: 720px) {
+            .calc-hero { padding: 40px 24px 36px; }
+            .calc-hero h1 { font-size: 1.8rem; }
+            .calc-wrap { padding: 40px 24px; }
+            .calc-layout { grid-template-columns: 1fr; }
+            .calc-cta { flex-direction: column; }
+            .page-header { padding: 16px 24px; }
+            .page-footer { padding: 16px 24px; }
+        }
+    </style>
+</head>
+<body>
+
+<header class="page-header">
+    <a href="/">Joshua Bechtel</a>
+    <a class="back-link" href="/">&larr; Back to site</a>
+</header>
+
+<div class="calc-hero">
+    <div class="calc-hero-inner">
+        <span class="calc-eyebrow">Contractor cycle cost calculator</span>
+        <h1>See what the cycle is <em>actually</em> costing you.</h1>
+        <p>Adjust the inputs to match your organization. The number on the right is what you spend every year -- and what you have left on Day 0 of the next cycle.</p>
+    </div>
+</div>
+
+<div class="calc-wrap">
+
+    <div class="calc-layout">
+
+        <!-- CONTROLS -->
+        <div class="controls-panel">
+            <h2 class="controls-title">Your organization</h2>
+
+            <div class="slider-block">
+                <div class="slider-header">
+                    <span class="slider-name">Number of contractors</span>
+                    <span class="slider-value" id="val-contractors">4</span>
+                </div>
+                <input type="range" id="sl-contractors" min="1" max="20" step="1" value="4">
+                <p class="slider-range-label">1 &ndash; 20 contractors per engagement</p>
+            </div>
+
+            <div class="slider-block">
+                <div class="slider-header">
+                    <span class="slider-name">Average hourly rate</span>
+                    <span class="slider-value" id="val-rate">$85 / hr</span>
+                </div>
+                <input type="range" id="sl-rate" min="45" max="175" step="5" value="85">
+                <p class="slider-range-label">$45 &ndash; $175 / hr</p>
+            </div>
+
+            <div class="slider-block">
+                <div class="slider-header">
+                    <span class="slider-name">Engagement length</span>
+                    <span class="slider-value" id="val-months">7 months</span>
+                </div>
+                <input type="range" id="sl-months" min="2" max="12" step="1" value="7">
+                <p class="slider-range-label">2 &ndash; 12 months</p>
+            </div>
+
+            <div class="slider-block">
+                <div class="slider-header">
+                    <span class="slider-name">Cycles per year</span>
+                    <span class="slider-value" id="val-cycles">1.5</span>
+                </div>
+                <input type="range" id="sl-cycles" min="1" max="4" step="0.5" value="1.5">
+                <p class="slider-range-label">1 &ndash; 4 cycles / year</p>
+            </div>
+
+            <div class="slider-block">
+                <div class="slider-header">
+                    <span class="slider-name">Overhead carry rate</span>
+                    <span class="slider-value" id="val-carry">40%</span>
+                </div>
+                <input type="range" id="sl-carry" min="25" max="60" step="5" value="40">
+                <p class="slider-range-label">Recruiting, onboarding, management &mdash; 25% to 60%</p>
+            </div>
+        </div>
+
+        <!-- RESULTS -->
+        <div class="results-panel">
+            <div class="metric-card">
+                <p class="metric-label">Direct contractor spend / year</p>
+                <p class="metric-value" id="out-direct">--</p>
+                <p class="metric-sub">Hours billed at your stated rate across all contractors and cycles</p>
+            </div>
+            <div class="metric-card">
+                <p class="metric-label">Overhead carry cost / year</p>
+                <p class="metric-value" id="out-overhead">--</p>
+                <p class="metric-sub" id="out-carry-label">Recruiting, onboarding, management time at 40%</p>
+            </div>
+            <div class="metric-card">
+                <p class="metric-label">Total annual documentation spend</p>
+                <p class="metric-value" id="out-total">--</p>
+                <p class="metric-sub">What you actually pay each year to keep the lights on</p>
+            </div>
+            <div class="metric-card gut-punch">
+                <p class="metric-label">Permanent infrastructure built</p>
+                <p class="metric-value" id="out-leftbehind">$0</p>
+                <p class="metric-sub">No style guide. No process. No trained staff. Just a pile of documents and an open req.</p>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- STYLE GUIDE BREAKDOWN -->
+    <div class="breakdown-panel">
+        <div class="breakdown-header">
+            <h3>What a style guide alone should have cost &mdash; built correctly</h3>
+            <span>Industry-standard methodology</span>
+        </div>
+        <div class="breakdown-row">
+            <span class="breakdown-key">Minimum team required</span>
+            <span class="breakdown-val">2 Level 3 technical writers</span>
+        </div>
+        <div class="breakdown-row">
+            <span class="breakdown-key">Why two writers minimum</span>
+            <span class="breakdown-val">They have to be able to debate each other. Singular vision produces a bad style guide.</span>
+        </div>
+        <div class="breakdown-row">
+            <span class="breakdown-key">Standard hourly rate (Level 3)</span>
+            <span class="breakdown-val">$45 / hr each</span>
+        </div>
+        <div class="breakdown-row">
+            <span class="breakdown-key">Time to build correctly (5,000 &ndash; 10,000 asset library)</span>
+            <span class="breakdown-val">90 &ndash; 100 days</span>
+        </div>
+        <div class="breakdown-row">
+            <span class="breakdown-key">Professional cost to build correctly</span>
+            <span class="breakdown-val">$64,800 &ndash; $72,000</span>
+        </div>
+        <div class="breakdown-row">
+            <span class="breakdown-key">Style guide your contractors left behind</span>
+            <span class="breakdown-val zero">$0 retained value</span>
+        </div>
+        <div class="breakdown-row">
+            <span class="breakdown-key">Documented update process left behind</span>
+            <span class="breakdown-val zero">$0 retained value</span>
+        </div>
+        <div class="breakdown-row">
+            <span class="breakdown-key">AI literacy or tooling left behind</span>
+            <span class="breakdown-val zero">$0 retained value</span>
+        </div>
+        <div class="breakdown-row">
+            <span class="breakdown-key">Governance policy left behind</span>
+            <span class="breakdown-val zero">$0 retained value</span>
+        </div>
+    </div>
+
+    <!-- FOOTNOTE -->
+    <p class="footnote">
+        Direct spend assumes 160 billable hours per month per contractor. Style guide cost formula based on
+        industry-standard methodology: minimum two Level 3 technical writers at $45/hr for 90&ndash;100 days,
+        for a mid-size asset library of 5,000&ndash;10,000 documents. Overhead defaults to 40%; enterprise
+        reality often runs 45&ndash;55% and sometimes higher in regulated industries. Asset retained value
+        assumes a standard contractor engagement with no framework mandate &mdash; documents delivered,
+        no infrastructure built. These figures use direct labor cost only and exclude delayed project costs,
+        rework costs, and opportunity costs from documentation gaps.
+    </p>
+
+    <!-- CTA -->
+    <div class="calc-cta">
+        <div class="calc-cta-text">
+            <h3>Ready to end the cycle?</h3>
+            <p>The 60-Day AI Fluency Engagement builds your documentation infrastructure, AI literacy program, and internal capacity &mdash; then exits. <strong>Fixed scope. Fixed price. You own everything on Day 61.</strong></p>
+        </div>
+        <div class="cta-buttons">
+            <a class="btn btn-gold" href="/contact.html?type=discovery">Book a Discovery Session</a>
+            <a class="btn btn-outline-gold" href="/services/60-day-engagement.html">See the Engagement</a>
+        </div>
+    </div>
+
+</div>
+
+<footer class="page-footer">
+    <span class="page-footer-name">Joshua Bechtel</span>
+    <span class="page-footer-note">Knowledge Architecture &nbsp;&middot;&nbsp; AI Fluency &nbsp;&middot;&nbsp; Enterprise Content Systems</span>
+</footer>
+
+<script>
+    function fmt(n) {
+        return '$' + Math.round(n).toLocaleString();
+    }
+
+    function calc() {
+        var contractors = parseInt(document.getElementById('sl-contractors').value);
+        var rate        = parseInt(document.getElementById('sl-rate').value);
+        var months      = parseInt(document.getElementById('sl-months').value);
+        var cycles      = parseFloat(document.getElementById('sl-cycles').value);
+        var carry       = parseInt(document.getElementById('sl-carry').value);
+
+        document.getElementById('val-contractors').textContent = contractors;
+        document.getElementById('val-rate').textContent        = '$' + rate + ' / hr';
+        document.getElementById('val-months').textContent      = months + ' month' + (months === 1 ? '' : 's');
+        document.getElementById('val-cycles').textContent      = cycles % 1 === 0 ? cycles.toFixed(0) : cycles.toFixed(1);
+        document.getElementById('val-carry').textContent       = carry + '%';
+        document.getElementById('out-carry-label').textContent = 'Recruiting, onboarding, management time at ' + carry + '%';
+
+        var direct   = contractors * rate * 160 * months * cycles;
+        var overhead = direct * (carry / 100);
+        var total    = direct + overhead;
+
+        document.getElementById('out-direct').textContent    = fmt(direct);
+        document.getElementById('out-overhead').textContent  = fmt(overhead);
+        document.getElementById('out-total').textContent     = fmt(total);
+    }
+
+    ['sl-contractors','sl-rate','sl-months','sl-cycles','sl-carry'].forEach(function(id) {
+        document.getElementById(id).addEventListener('input', calc);
+    });
+
+    calc();
+</script>
+
+</body>
+</html>

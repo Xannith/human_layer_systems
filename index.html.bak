@@ -1,0 +1,824 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Joshua Bechtel | Enterprise Knowledge Architecture & AI Readiness</title>
+    <link rel="stylesheet" href="/styles.css">
+    <style>
+        /* ── HOME-PAGE ONLY STYLES ───────────────────────────
+           Everything in site.css is inherited.
+           Only rules unique to the homepage live here.
+        ──────────────────────────────────────────────────── */
+
+        /* Hero overrides: sidebar pushes the full-bleed hero,
+           so we compensate with negative margin trick */
+        .hero {
+            background: var(--forest);
+            position: relative;
+            overflow: hidden;
+        }
+        .hero::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background:
+                radial-gradient(ellipse 80% 60% at 70% 50%, rgba(95,140,95,0.18) 0%, transparent 70%),
+                radial-gradient(ellipse 40% 40% at 10% 80%, rgba(31,59,31,0.6) 0%, transparent 60%);
+            pointer-events: none;
+        }
+        .hero-inner {
+            display: grid;
+            grid-template-columns: 1.15fr 1fr;
+            gap: 60px;
+            align-items: center;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 90px 40px 80px;
+            position: relative;
+        }
+        .hero-eyebrow {
+            display: inline-block;
+            font-size: 0.78rem;
+            font-weight: 600;
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+            color: var(--mist);
+            border: 1px solid rgba(159,202,159,0.4);
+            border-radius: 3px;
+            padding: 5px 12px;
+            margin-bottom: 24px;
+        }
+        .hero h1 {
+            font-family: 'DM Serif Display', serif;
+            font-size: 3.1rem;
+            line-height: 1.1;
+            color: var(--white);
+            margin-bottom: 24px;
+        }
+        .hero h1 em { color: var(--mist); font-style: italic; }
+        .hero-sub {
+            font-size: 1.15rem;
+            color: rgba(255,255,255,0.78);
+            max-width: 560px;
+            margin-bottom: 14px;
+            line-height: 1.7;
+        }
+        .hero-credibility {
+            font-size: 0.85rem;
+            color: var(--mist);
+            opacity: 0.9;
+            margin-bottom: 36px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .hero-credibility::before {
+            content: '';
+            display: inline-block;
+            width: 24px;
+            height: 1px;
+            background: var(--mist);
+            opacity: 0.6;
+        }
+        .hero-ctas { display: flex; flex-wrap: wrap; gap: 12px; }
+
+        /* Hero CTA button variants */
+        .btn-hire   { background: var(--gold);  color: var(--white); }
+        .btn-hire:hover { background: var(--gold-lt); transform: translateY(-1px); }
+        .btn-consult {
+            background: transparent;
+            color: var(--foam);
+            border: 1.5px solid var(--mist);
+        }
+        .btn-consult:hover { background: rgba(159,202,159,0.12); transform: translateY(-1px); }
+        .btn-speak {
+            background: transparent;
+            color: var(--mist);
+            border: 1.5px solid rgba(159,202,159,0.4);
+            font-size: 0.85rem;
+            padding: 11px 22px;
+        }
+        .btn-speak:hover { background: rgba(159,202,159,0.08); }
+
+        /* Shared hero button variants reused across sections */
+        .btn-primary-green { background: var(--moss); color: var(--white); }
+        .btn-primary-green:hover { background: var(--forest); transform: translateY(-1px); }
+        .btn-outline-dark {
+            background: transparent;
+            color: var(--moss);
+            border: 1.5px solid var(--sage);
+        }
+        .btn-outline-dark:hover { background: var(--foam); }
+        .btn-outline-gold {
+            background: transparent;
+            color: var(--gold);
+            border: 1.5px solid var(--gold);
+        }
+        .btn-outline-gold:hover { background: rgba(184,134,11,0.07); }
+
+        /* Hero photo */
+        .hero-photo-wrap { display: flex; justify-content: center; align-items: center; }
+        .hero-photo-frame { position: relative; max-width: 420px; width: 100%; }
+        .hero-photo-frame::before {
+            content: '';
+            position: absolute;
+            inset: -12px -12px 12px 12px;
+            border: 1.5px solid rgba(159,202,159,0.3);
+            border-radius: 14px;
+            pointer-events: none;
+        }
+        .hero-photo-frame figure {
+            background: rgba(255,255,255,0.06);
+            border: 1px solid rgba(159,202,159,0.25);
+            border-radius: 12px;
+            padding: 12px;
+            text-align: center;
+            backdrop-filter: blur(4px);
+        }
+        .hero-photo-frame img { width: 100%; border-radius: 8px; display: block; }
+        .hero-photo-frame figcaption {
+            font-size: 0.82rem;
+            color: var(--mist);
+            font-style: italic;
+            margin-top: 10px;
+            opacity: 0.8;
+        }
+
+        /* Trust bar */
+        .trust-bar { background: var(--moss); padding: 18px 40px; }
+        .trust-bar-inner {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            gap: 40px;
+            align-items: center;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+        .trust-item {
+            color: var(--foam);
+            font-size: 0.82rem;
+            font-weight: 500;
+            letter-spacing: 0.04em;
+            text-transform: uppercase;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            opacity: 0.9;
+        }
+        .trust-item::before { content: '◆'; font-size: 0.5rem; color: var(--mist); }
+
+        /* Homepage sections */
+        .section {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 80px 40px;
+        }
+        .section-label {
+            font-size: 0.75rem;
+            font-weight: 600;
+            letter-spacing: 0.14em;
+            text-transform: uppercase;
+            color: var(--sage);
+            margin-bottom: 14px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .section-label::after {
+            content: '';
+            flex: 1;
+            max-width: 40px;
+            height: 1px;
+            background: var(--mist);
+        }
+        .section-heading {
+            font-family: 'DM Serif Display', serif;
+            font-size: 2.3rem;
+            color: var(--forest);
+            line-height: 1.15;
+            margin-bottom: 16px;
+        }
+        .section-subhead {
+            font-size: 1.05rem;
+            color: var(--slate);
+            max-width: 680px;
+            margin-bottom: 48px;
+            line-height: 1.7;
+        }
+
+        /* Outcomes */
+        .help-section {
+            background: var(--white);
+            border-top: 1px solid rgba(159,202,159,0.3);
+            border-bottom: 1px solid rgba(159,202,159,0.3);
+        }
+        .outcomes-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 2px;
+            background: rgba(159,202,159,0.2);
+            border: 1px solid rgba(159,202,159,0.3);
+            border-radius: 10px;
+            overflow: hidden;
+        }
+        .outcome-item { background: var(--white); padding: 32px 36px; transition: background 0.2s; }
+        .outcome-item:hover { background: var(--parchment); }
+        .outcome-icon { font-size: 1.5rem; margin-bottom: 12px; display: block; }
+        .outcome-item h3 {
+            font-family: 'DM Serif Display', serif;
+            font-size: 1.15rem;
+            color: var(--forest);
+            margin-bottom: 8px;
+        }
+        .outcome-item p { font-size: 0.95rem; color: var(--slate); line-height: 1.65; margin: 0; }
+
+        /* Consulting */
+        .consulting-section { background: var(--parchment); }
+        .engagements-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+            margin-bottom: 44px;
+        }
+        .engagement-card {
+            background: var(--white);
+            border: 1px solid rgba(95,138,95,0.2);
+            border-top: 3px solid var(--sage);
+            border-radius: 8px;
+            padding: 28px 26px;
+            transition: box-shadow 0.2s, transform 0.2s;
+        }
+        .engagement-card:hover {
+            box-shadow: 0 8px 28px rgba(31,59,31,0.1);
+            transform: translateY(-2px);
+        }
+        .engagement-card h3 {
+            font-family: 'DM Serif Display', serif;
+            font-size: 1.1rem;
+            color: var(--forest);
+            margin-bottom: 10px;
+        }
+        .engagement-card p { font-size: 0.9rem; color: var(--slate); line-height: 1.6; margin-bottom: 14px; }
+        .engagement-deliverable {
+            font-size: 0.78rem;
+            font-weight: 600;
+            color: var(--sage);
+            letter-spacing: 0.06em;
+            text-transform: uppercase;
+        }
+        .consulting-cta {
+            background: var(--forest);
+            border-radius: 10px;
+            padding: 40px 44px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 40px;
+            flex-wrap: wrap;
+        }
+        .consulting-cta-text h3 {
+            font-family: 'DM Serif Display', serif;
+            font-size: 1.5rem;
+            color: var(--white);
+            margin-bottom: 8px;
+        }
+        .consulting-cta-text p { color: rgba(255,255,255,0.72); font-size: 0.95rem; max-width: 500px; margin: 0; }
+        .consulting-cta-buttons { display: flex; gap: 12px; flex-shrink: 0; flex-wrap: wrap; }
+
+        /* Speaking */
+        .speaking-section {
+            background: var(--white);
+            border-top: 1px solid rgba(159,202,159,0.3);
+        }
+        .speaking-inner { display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: center; }
+        .speaking-topics { display: flex; flex-direction: column; gap: 14px; margin: 28px 0 36px; }
+        .speaking-topic-item {
+            display: flex;
+            gap: 14px;
+            align-items: flex-start;
+            padding: 16px 20px;
+            background: var(--parchment);
+            border-radius: 7px;
+            border-left: 3px solid var(--sage);
+        }
+        .speaking-topic-item h4 { font-size: 0.95rem; font-weight: 600; color: var(--forest); margin-bottom: 3px; }
+        .speaking-topic-item p { font-size: 0.85rem; color: var(--slate); margin: 0; }
+        .speaking-photo { position: relative; }
+        .speaking-photo figure {
+            border-radius: 12px;
+            overflow: hidden;
+            border: 1px solid rgba(159,202,159,0.3);
+            box-shadow: 0 16px 48px rgba(31,59,31,0.15);
+        }
+        .speaking-photo img { width: 100%; display: block; }
+        .speaking-photo figcaption {
+            font-size: 0.82rem;
+            color: var(--sage);
+            font-style: italic;
+            text-align: center;
+            padding: 12px;
+            background: var(--parchment);
+        }
+        .speaking-badge {
+            position: absolute;
+            top: -16px;
+            right: -16px;
+            background: var(--gold);
+            color: var(--white);
+            font-size: 0.72rem;
+            font-weight: 700;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            padding: 8px 14px;
+            border-radius: 4px;
+            box-shadow: 0 4px 12px rgba(184,134,11,0.4);
+        }
+
+        /* Positioning */
+        .positioning-section {
+            background: linear-gradient(135deg, var(--forest) 0%, #263d26 100%);
+            position: relative;
+            overflow: hidden;
+        }
+        .positioning-section::before {
+            content: '"';
+            position: absolute;
+            top: -20px;
+            left: 30px;
+            font-family: 'DM Serif Display', serif;
+            font-size: 20rem;
+            color: rgba(255,255,255,0.04);
+            line-height: 1;
+            pointer-events: none;
+        }
+        .positioning-inner { max-width: 1200px; margin: 0 auto; padding: 80px 40px; position: relative; }
+        .positioning-inner .section-label { color: var(--mist); }
+        .positioning-inner .section-label::after { background: var(--mist); }
+        .positioning-inner .section-heading { color: var(--white); }
+        .positioning-body { display: grid; grid-template-columns: 1.2fr 1fr; gap: 60px; align-items: start; }
+        .positioning-text p { color: rgba(255,255,255,0.78); font-size: 1rem; line-height: 1.8; margin-bottom: 18px; }
+        .positioning-text p strong { color: var(--foam); }
+        .positioning-distinctions { display: flex; flex-direction: column; gap: 16px; }
+        .distinction {
+            background: rgba(255,255,255,0.06);
+            border: 1px solid rgba(159,202,159,0.2);
+            border-radius: 8px;
+            padding: 20px 22px;
+        }
+        .distinction h4 {
+            color: var(--mist);
+            font-size: 0.82rem;
+            font-weight: 600;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            margin-bottom: 6px;
+        }
+        .distinction p { color: rgba(255,255,255,0.65); font-size: 0.9rem; line-height: 1.55; margin: 0; }
+
+        /* Hire */
+        .hire-section { background: var(--parchment); }
+        .hire-two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; }
+        .hire-card {
+            background: var(--white);
+            border: 1px solid rgba(95,138,95,0.2);
+            border-radius: 10px;
+            padding: 36px;
+        }
+        .hire-card-label {
+            font-size: 0.72rem;
+            font-weight: 700;
+            letter-spacing: 0.14em;
+            text-transform: uppercase;
+            color: var(--sage);
+            margin-bottom: 16px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .hire-card-label span { display: inline-block; width: 24px; height: 1px; background: var(--mist); }
+        .hire-card h3 {
+            font-family: 'DM Serif Display', serif;
+            font-size: 1.5rem;
+            color: var(--forest);
+            margin-bottom: 12px;
+        }
+        .hire-card p { font-size: 0.95rem; color: var(--slate); line-height: 1.7; margin-bottom: 18px; }
+        .hire-card-detail {
+            font-size: 0.82rem;
+            color: var(--sage);
+            font-weight: 500;
+            margin-bottom: 26px;
+            padding: 10px 14px;
+            background: var(--parchment);
+            border-radius: 5px;
+        }
+        .hire-card-buttons { display: flex; gap: 10px; flex-wrap: wrap; }
+
+        /* Final CTA */
+        .final-cta { background: var(--moss); text-align: center; padding: 80px 40px; }
+        .final-cta h2 {
+            font-family: 'DM Serif Display', serif;
+            font-size: 2.4rem;
+            color: var(--white);
+            margin-bottom: 16px;
+            max-width: 700px;
+            margin-left: auto;
+            margin-right: auto;
+            line-height: 1.2;
+        }
+        .final-cta h2 em { color: var(--mist); font-style: italic; }
+        .final-cta p {
+            color: rgba(255,255,255,0.75);
+            max-width: 560px;
+            margin: 0 auto 36px;
+            font-size: 1.05rem;
+            line-height: 1.7;
+        }
+        .final-cta-buttons { display: flex; gap: 14px; justify-content: center; flex-wrap: wrap; }
+
+        /* Footer overrides (homepage uses footer-left/footer-right, site.css uses footer-name/footer-tagline) */
+        .footer-left {
+            font-family: 'DM Serif Display', serif;
+            color: var(--foam);
+            font-size: 1rem;
+        }
+        .footer-right { font-size: 0.82rem; color: rgba(207,232,207,0.6); }
+
+        /* ── RESPONSIVE (homepage-specific breakpoints) ───── */
+        @media (max-width: 960px) {
+            .hero-inner       { grid-template-columns: 1fr; gap: 48px; padding: 60px 24px; }
+            .hero h1          { font-size: 2.4rem; }
+            .hero-photo-wrap  { order: -1; }
+            .hero-photo-frame { max-width: 360px; }
+            .outcomes-grid    { grid-template-columns: 1fr; }
+            .engagements-grid { grid-template-columns: 1fr; }
+            .speaking-inner   { grid-template-columns: 1fr; }
+            .speaking-photo   { order: -1; }
+            .speaking-badge   { top: 10px; right: 10px; }
+            .positioning-body { grid-template-columns: 1fr; gap: 36px; }
+            .hire-two-col     { grid-template-columns: 1fr; }
+            .consulting-cta   { flex-direction: column; text-align: center; }
+            .section          { padding: 60px 24px; }
+        }
+        @media (max-width: 600px) {
+            .hero h1          { font-size: 2rem; }
+            .section-heading  { font-size: 1.8rem; }
+            .trust-bar-inner  { gap: 20px; }
+            .trust-item       { font-size: 0.75rem; }
+        }
+    </style>
+</head>
+<body class="page-shell has-sidebar">
+
+<!-- ── SIDEBAR ──────────────────────────────────────────── -->
+<button class="sidebar-toggle" id="sidebarToggle" aria-label="Open navigation">&#9776;</button>
+<div class="sidebar-overlay" id="sidebarOverlay"></div>
+
+<aside class="sidebar" id="sidebar"></aside>
+
+<!-- ── PAGE BODY ─────────────────────────────────────────── -->
+<div class="page-body">
+
+<!-- ── HEADER ───────────────────────────────────────────── -->
+<header class="site-header">
+    <a class="wordmark" href="/">Joshua Bechtel</a>
+    <p class="site-tagline">Enterprise Knowledge Architecture &nbsp;&middot;&nbsp; AI Readiness &nbsp;&middot;&nbsp; Content Systems</p>
+</header>
+
+<nav class="top-nav"></nav>
+
+<!-- ── HERO ─────────────────────────────────────────────── -->
+<section class="hero">
+    <div class="hero-inner">
+        <div class="hero-text">
+            <span class="hero-eyebrow">Enterprise Knowledge Architecture &amp; AI Readiness</span>
+            <h1>Your knowledge problem is not a writing problem. It is a <em>systems problem.</em></h1>
+            <p class="hero-sub">
+                Fragmented documentation, failed AI retrieval, and tribal knowledge that leaves with every
+                departing employee are symptoms of missing architecture &mdash; not missing writers.
+                I design the systems that fix that.
+            </p>
+            <p class="hero-credibility">
+                Senior-level enterprise experience &mdash; financial services, large-scale technology, 11,000+ employees served
+            </p>
+            <div class="hero-ctas">
+                <a class="btn btn-hire" href="/contact.html?type=hire">Discuss a Role</a>
+                <a class="btn btn-consult" href="/contact.html?type=consult">Explore a Project</a>
+                <a class="btn btn-speak" href="/contact.html?type=speak">Book a Speaking Engagement</a>
+            </div>
+        </div>
+        <div class="hero-photo-wrap">
+            <div class="hero-photo-frame">
+                <figure>
+                    <img src="/img/JBechtel_lecture1.PNG"
+                         alt="Joshua Bechtel presenting on enterprise knowledge architecture at a conference">
+                    <figcaption>Speaking on knowledge architecture and AI-ready content systems</figcaption>
+                </figure>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ── TRUST BAR ─────────────────────────────────────────── -->
+<div class="trust-bar">
+    <div class="trust-bar-inner">
+        <span class="trust-item">Financial Services Enterprise</span>
+        <span class="trust-item">11,000+ Employees Served</span>
+        <span class="trust-item">RAG &amp; LLM Content Systems</span>
+        <span class="trust-item">Post-Merger Knowledge Integration</span>
+        <span class="trust-item">AI Readiness Transformation</span>
+    </div>
+</div>
+
+<!-- ── BRAND BANNER ─────────────────────────────────────────── -->
+<div class="brand-banner-wrap">
+    <img
+        src="/img/Banner v2 2026-03-18.jpg"
+        alt="Built to reach people. Measured to prove it. — Joshua Bechtel, Knowledge Architecture & AI Strategy"
+        class="brand-banner-img"
+    >
+</div>
+    
+<!-- ── HOW I HELP ─────────────────────────────────────────── -->
+<section class="help-section">
+    <div class="section">
+        <p class="section-label">The business case</p>
+        <h2 class="section-heading">Your teams are paying for broken knowledge systems every day.</h2>
+        <p class="section-subhead">
+            Every hour spent searching for the right answer, every AI tool that returns outdated content,
+            every new hire who cannot find what they need &mdash; these are measurable costs. They trace
+            back to the same root cause: no governing architecture. Here is what changes when that is fixed.
+        </p>
+        <div class="outcomes-grid">
+            <div class="outcome-item">
+                <span class="outcome-icon">⚡</span>
+                <h3>Reduced Time-to-Information</h3>
+                <p>When content is structured and findable, employees stop depending on colleagues to locate basic answers. Faster access means fewer delays, fewer escalations, and less duplicated effort.</p>
+            </div>
+            <div class="outcome-item">
+                <span class="outcome-icon">🏗️</span>
+                <h3>Content That Stays Reliable</h3>
+                <p>Without governance, content drifts. Policies conflict. Outdated procedures circulate alongside current ones. A structured, metadata-driven architecture eliminates that drift and keeps content trustworthy at scale.</p>
+            </div>
+            <div class="outcome-item">
+                <span class="outcome-icon">🤖</span>
+                <h3>AI Retrieval That Actually Works</h3>
+                <p>Most enterprise AI implementations underperform because the content feeding them was never designed for machine retrieval. I build systems structured for LLMs and RAG from the ground up &mdash; not adapted after deployment.</p>
+            </div>
+            <div class="outcome-item">
+                <span class="outcome-icon">📈</span>
+                <h3>Knowledge Infrastructure That Scales</h3>
+                <p>Growth, mergers, and team changes do not have to reset your knowledge base. A well-designed architecture absorbs organizational change without requiring a rebuild. You scale the content, not the chaos.</p>
+            </div>
+            <div class="outcome-item">
+                <span class="outcome-icon">🗄️</span>
+                <h3>Legacy Knowledge Made Usable</h3>
+                <p>Decades of policy, process, and institutional knowledge buried in outdated formats can be restructured into a single, searchable, AI-ready content library. What was a liability becomes an asset.</p>
+            </div>
+            <div class="outcome-item">
+                <span class="outcome-icon">🛡️</span>
+                <h3>Governance Without the Bottleneck</h3>
+                <p>Content governance fails when it creates more process than it prevents risk. I design oversight models that enforce quality and accuracy standards without slowing down the teams who need to create and update content.</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ── CONSULTING ─────────────────────────────────────────── -->
+<section class="consulting-section">
+    <div class="section">
+        <p class="section-label">How I engage</p>
+        <h2 class="section-heading">Structured engagements. Defined outcomes. No ambiguity about what you get.</h2>
+        <p class="section-subhead">
+            I work with a limited number of organizations at a time. Each engagement is scoped around a
+            specific business problem &mdash; not a general retainer. If your challenge maps to one of
+            these, we should talk.
+        </p>
+        <div class="engagements-grid">
+            <div class="engagement-card">
+                <h3>Knowledge System Audit</h3>
+                <p>You have a knowledge problem but are not sure where it starts. This engagement maps your current content ecosystem, identifies structural gaps, duplication, and AI readiness blockers, and gives you a prioritized path forward.</p>
+                <span class="engagement-deliverable">Deliverable: Gap analysis &amp; prioritized roadmap</span>
+            </div>
+            <div class="engagement-card">
+                <h3>Content Architecture Design</h3>
+                <p>Your content exists but has no unifying structure. This engagement produces a complete knowledge architecture: taxonomy, metadata schema, content types, governance model, and lifecycle framework.</p>
+                <span class="engagement-deliverable">Deliverable: Architecture blueprint &amp; governance model</span>
+            </div>
+            <div class="engagement-card">
+                <h3>AI Readiness Transformation</h3>
+                <p>Your AI tools are deployed but underperforming. In most cases the problem is the content feeding them, not the model. This engagement restructures your knowledge assets for reliable LLM and RAG consumption.</p>
+                <span class="engagement-deliverable">Deliverable: Structured content system + AI readiness report</span>
+            </div>
+            <div class="engagement-card">
+                <h3>Legacy Documentation Modernization</h3>
+                <p>Years of policy, process, and institutional knowledge in formats no modern system can use effectively. This engagement migrates that content into a structured, stateless model suitable for search and AI retrieval.</p>
+                <span class="engagement-deliverable">Deliverable: Migrated, structured content library</span>
+            </div>
+            <div class="engagement-card">
+                <h3>Embedded Strategic Advisory</h3>
+                <p>Your team is navigating a knowledge transformation and needs senior-level guidance without a full-time hire. I embed as a strategic partner for a defined period, providing architectural direction and implementation oversight.</p>
+                <span class="engagement-deliverable">Deliverable: Strategic guidance + implementation support</span>
+            </div>
+            <div class="engagement-card">
+                <h3>Content Production Modernization</h3>
+                <p>Your content creation process is too slow, too inconsistent, or too dependent on individuals. This engagement redesigns the workflow with AI-assisted pipelines, editorial standards, and quality checkpoints.</p>
+                <span class="engagement-deliverable">Deliverable: Workflow redesign + tooling recommendations</span>
+            </div>
+        </div>
+        <div class="consulting-cta">
+            <div class="consulting-cta-text">
+                <h3>Not sure which engagement fits?</h3>
+                <p>A 30-minute scoping call is usually enough to identify the right starting point. There is no obligation to proceed, and you will leave with a clearer picture of the problem regardless.</p>
+            </div>
+            <div class="consulting-cta-buttons">
+                <a class="btn btn-gold" href="/contact.html?type=consult">Explore a Project</a>
+                <a class="btn btn-outline-gold" href="/work/case-studies.html">See Case Studies First</a>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ── SPEAKING ────────────────────────────────────────────── -->
+<section class="speaking-section">
+    <div class="section">
+        <div class="speaking-inner">
+            <div class="speaking-content">
+                <p class="section-label">Speaking &amp; events</p>
+                <h2 class="section-heading">Bringing knowledge architecture to your audience</h2>
+                <p class="section-subhead">
+                    I speak to enterprise leadership teams, industry conferences, and professional groups
+                    on the practical side of knowledge systems, AI readiness, and organizational information
+                    strategy. These are not abstract talks &mdash; they are grounded in real implementation experience.
+                </p>
+                <div class="speaking-topics">
+                    <div class="speaking-topic-item">
+                        <div>
+                            <h4>The Future of Enterprise Knowledge Systems</h4>
+                            <p>Why most organizations are unprepared for AI adoption and what redesigning information architecture actually requires</p>
+                        </div>
+                    </div>
+                    <div class="speaking-topic-item">
+                        <div>
+                            <h4>From Documentation Chaos to Scalable Knowledge</h4>
+                            <p>A practical framework for moving legacy content into structured, AI-ready systems without losing institutional history</p>
+                        </div>
+                    </div>
+                    <div class="speaking-topic-item">
+                        <div>
+                            <h4>AI Readiness Starts With Content Architecture</h4>
+                            <p>The reason most enterprise AI tools underperform &mdash; and why fixing the knowledge layer is the only reliable solution</p>
+                        </div>
+                    </div>
+                    <div class="speaking-topic-item">
+                        <div>
+                            <h4>Stateless Content Design for the Modern Enterprise</h4>
+                            <p>How modular, context-independent content architecture eliminates duplication, reduces maintenance burden, and improves retrieval accuracy</p>
+                        </div>
+                    </div>
+                </div>
+                <div style="display:flex; gap:12px; flex-wrap:wrap;">
+                    <a class="btn btn-primary-green" href="/contact.html?type=speak">Request a Speaking Engagement</a>
+                    <a class="btn btn-outline-dark" href="/speaking/">All Speaking Topics</a>
+                </div>
+            </div>
+            <div class="speaking-photo">
+                <span class="speaking-badge">Available to Book</span>
+                <figure>
+                    <img src="/img/JBechtel_lecture1.PNG"
+                         alt="Joshua Bechtel presenting on enterprise knowledge architecture at a conference">
+                    <figcaption>Speaking on knowledge systems and AI readiness for enterprise organizations</figcaption>
+                </figure>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ── POSITIONING ────────────────────────────────────────── -->
+<section class="positioning-section">
+    <div class="positioning-inner">
+        <p class="section-label">What I actually do</p>
+        <h2 class="section-heading" style="color:white; margin-bottom:48px;">Most knowledge problems are not writing problems.<br>They are architecture problems.</h2>
+        <div class="positioning-body">
+            <div class="positioning-text">
+                <p>
+                    When documentation is inconsistent, it is usually not because the writing was poor.
+                    It is because there was no <strong>content model, no taxonomy, no governance layer</strong>
+                    &mdash; nothing that tells the organization how knowledge should be structured, owned,
+                    updated, or retired.
+                </p>
+                <p>
+                    When AI tools fail to retrieve accurate answers, it is rarely a model problem.
+                    It is a <strong>content architecture problem.</strong> The information exists somewhere,
+                    but it was never structured to be found reliably.
+                </p>
+                <p>
+                    I design the systems that make knowledge usable &mdash; at scale, over time, across teams,
+                    and by machines. I work at the level where those architectural decisions are made,
+                    <strong>partnering with Directors, VPs, and operational leaders</strong>
+                    before a single piece of content is written or migrated.
+                </p>
+                <p>
+                    The examples on this site demonstrate what that looks like in practice.
+                    They are outputs of a system designed to produce them. <strong>The system is what I build.</strong>
+                    If you need someone to produce documents, I am not the right fit. If you need someone
+                    to design the infrastructure that makes your knowledge work &mdash; let&rsquo;s talk.
+                </p>
+            </div>
+            <div class="positioning-distinctions">
+                <div class="distinction">
+                    <h4>Not this</h4>
+                    <p>A contractor who writes content, delivers files, and moves on</p>
+                </div>
+                <div class="distinction">
+                    <h4>This</h4>
+                    <p>A senior operator who designs the architecture, governs the system, and is accountable for whether organizational knowledge actually works</p>
+                </div>
+                <div class="distinction">
+                    <h4>Operating level</h4>
+                    <p>Director / Senior Manager / Principal &mdash; setting direction alongside executive leadership, not executing tasks handed down from it</p>
+                </div>
+                <div class="distinction">
+                    <h4>Typical scope</h4>
+                    <p>Enterprise knowledge transformation, AI content readiness, legacy modernization, post-merger knowledge integration, cross-functional content strategy</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ── HIRE SECTION ───────────────────────────────────────── -->
+<section class="hire-section">
+    <div class="section">
+        <p class="section-label">Two ways to engage</p>
+        <h2 class="section-heading">Know what you need? Here is how to move forward.</h2>
+        <p class="section-subhead">Whether you are building a team or solving a specific problem, the starting point is the same: a direct conversation.</p>
+        <div class="hire-two-col">
+            <div class="hire-card">
+                <p class="hire-card-label"><span></span>Full-time roles</p>
+                <h3>Building a knowledge or AI content team?</h3>
+                <p>
+                    I am open to Director, Senior Manager, and Principal-level roles where the work centers on
+                    knowledge architecture, AI content strategy, or enterprise content systems. I bring both the
+                    strategic vision and the operational experience to build and lead at that level.
+                </p>
+                <p class="hire-card-detail">
+                    Remote preferred &nbsp;/&nbsp; Relevant titles: Director of Knowledge Management,
+                    Head of Content Architecture, Principal Knowledge Strategist, AI Enablement Lead
+                </p>
+                <div class="hire-card-buttons">
+                    <a class="btn btn-primary-green" href="/contact.html?type=hire">Discuss a Role</a>
+                    <a class="btn btn-outline-dark" href="/about.html">View My Background</a>
+                </div>
+            </div>
+            <div class="hire-card">
+                <p class="hire-card-label"><span></span>Project-based work</p>
+                <h3>Facing a specific knowledge or AI challenge?</h3>
+                <p>
+                    I take a limited number of consulting engagements at a time to ensure the work gets
+                    the attention it requires. If your organization is dealing with a broken knowledge system,
+                    an AI readiness gap, or a documentation crisis following growth or a merger &mdash;
+                    a scoping conversation is the right first step.
+                </p>
+                <p class="hire-card-detail">
+                    Typical engagements: 4 &ndash; 16 weeks &nbsp;/&nbsp; Most begin with a bounded audit or assessment
+                </p>
+                <div class="hire-card-buttons">
+                    <a class="btn btn-gold" href="/contact.html?type=consult">Schedule a Scoping Call</a>
+                    <a class="btn btn-outline-dark" href="/work/case-studies.html">Review Case Studies First</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ── FINAL CTA ──────────────────────────────────────────── -->
+<section class="final-cta">
+    <h2>If the problem is real, the conversation is <em>worth having.</em></h2>
+    <p>
+        Most organizations already know something is wrong with how their knowledge works.
+        The question is whether the cost of fixing it is higher than the cost of leaving it broken.
+        That is usually the right place to start.
+    </p>
+    <div class="final-cta-buttons">
+        <a class="btn btn-hire" href="/contact.html?type=hire">Discuss a Role</a>
+        <a class="btn btn-consult" href="/contact.html?type=consult">Explore a Project</a>
+        <a class="btn btn-speak" href="/contact.html?type=speak">Book Me to Speak</a>
+    </div>
+</section>
+
+<!-- ── FOOTER ─────────────────────────────────────────── -->
+<footer>
+    <div class="footer-left">Joshua Bechtel</div>
+    <div class="footer-right">Knowledge Architecture &nbsp;&middot;&nbsp; AI Readiness &nbsp;&middot;&nbsp; Enterprise Content Systems</div>
+</footer>
+
+</div><!-- /.page-body -->
+
+<script src="/nav.js"></script>
+<script src="/quiz.js"></script>
+<script src="/microinteractions.js"></script>
+</body>
+</html>

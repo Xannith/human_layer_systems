@@ -1,0 +1,1297 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Joshua Bechtel | Enterprise Knowledge Architecture & AI Fluency</title>
+    <link rel="stylesheet" href="/styles.css">
+    <style>
+        /* ── HOME-PAGE ONLY STYLES ─────────────────────────── */
+
+        .hero {
+            background: var(--forest);
+            position: relative;
+            overflow: hidden;
+        }
+        .hero::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background:
+                radial-gradient(ellipse 80% 60% at 70% 50%, rgba(95,140,95,0.18) 0%, transparent 70%),
+                radial-gradient(ellipse 40% 40% at 10% 80%, rgba(31,59,31,0.6) 0%, transparent 60%);
+            pointer-events: none;
+        }
+        .hero-inner {
+            display: grid;
+            grid-template-columns: 1.15fr 1fr;
+            gap: 60px;
+            align-items: center;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 90px 40px 80px;
+            position: relative;
+        }
+        .hero-eyebrow {
+            display: inline-block;
+            font-size: 0.78rem;
+            font-weight: 600;
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+            color: var(--mist);
+            border: 1px solid rgba(159,202,159,0.4);
+            border-radius: 3px;
+            padding: 5px 12px;
+            margin-bottom: 24px;
+        }
+        .hero h1 {
+            font-family: 'DM Serif Display', serif;
+            font-size: 3.1rem;
+            line-height: 1.1;
+            color: var(--white);
+            margin-bottom: 24px;
+        }
+        .hero h1 em { color: var(--mist); font-style: italic; }
+        .hero-sub {
+            font-size: 1.15rem;
+            color: rgba(255,255,255,0.78);
+            max-width: 560px;
+            margin-bottom: 14px;
+            line-height: 1.7;
+        }
+        .hero-credibility {
+            font-size: 0.85rem;
+            color: var(--mist);
+            opacity: 0.9;
+            margin-bottom: 36px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .hero-credibility::before {
+            content: '';
+            display: inline-block;
+            width: 24px;
+            height: 1px;
+            background: var(--mist);
+            opacity: 0.6;
+        }
+        .hero-ctas { display: flex; flex-wrap: wrap; gap: 12px; }
+        .btn-hire { background: var(--gold); color: var(--white); }
+        .btn-hire:hover { background: var(--gold-lt); transform: translateY(-1px); }
+        .btn-consult {
+            background: transparent;
+            color: var(--foam);
+            border: 1.5px solid var(--mist);
+        }
+        .btn-consult:hover { background: rgba(159,202,159,0.12); transform: translateY(-1px); }
+        .btn-primary-green { background: var(--moss); color: var(--white); }
+        .btn-primary-green:hover { background: var(--forest); transform: translateY(-1px); }
+        .btn-outline-dark {
+            background: transparent;
+            color: var(--moss);
+            border: 1.5px solid var(--sage);
+        }
+        .btn-outline-dark:hover { background: var(--foam); }
+        .btn-outline-gold {
+            background: transparent;
+            color: var(--gold);
+            border: 1.5px solid var(--gold);
+        }
+        .btn-outline-gold:hover { background: rgba(184,134,11,0.07); }
+
+        .hero-photo-wrap { display: flex; justify-content: center; align-items: center; }
+        .hero-photo-frame { position: relative; max-width: 420px; width: 100%; }
+        .hero-photo-frame::before {
+            content: '';
+            position: absolute;
+            inset: -12px -12px 12px 12px;
+            border: 1.5px solid rgba(159,202,159,0.3);
+            border-radius: 14px;
+            pointer-events: none;
+        }
+        .hero-photo-frame figure {
+            background: rgba(255,255,255,0.06);
+            border: 1px solid rgba(159,202,159,0.25);
+            border-radius: 12px;
+            padding: 12px;
+            text-align: center;
+            backdrop-filter: blur(4px);
+        }
+        .hero-photo-frame img { width: 100%; border-radius: 8px; display: block; }
+        .hero-photo-frame figcaption {
+            font-size: 0.82rem;
+            color: var(--mist);
+            font-style: italic;
+            margin-top: 10px;
+            opacity: 0.8;
+        }
+
+        /* Trust bar */
+        .trust-bar { background: var(--moss); padding: 18px 40px; }
+        .trust-bar-inner {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            gap: 40px;
+            align-items: center;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+        .trust-item {
+            color: var(--foam);
+            font-size: 0.82rem;
+            font-weight: 500;
+            letter-spacing: 0.04em;
+            text-transform: uppercase;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            opacity: 0.9;
+        }
+        .trust-item::before { content: '◆'; font-size: 0.5rem; color: var(--mist); }
+        .trust-item strong {
+            color: var(--white);
+            font-size: 1rem;
+            font-weight: 700;
+            letter-spacing: 0;
+            text-transform: none;
+        }
+
+        /* Shared section styles */
+        .section {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 80px 40px;
+        }
+        .section-label {
+            font-size: 0.75rem;
+            font-weight: 600;
+            letter-spacing: 0.14em;
+            text-transform: uppercase;
+            color: var(--sage);
+            margin-bottom: 14px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .section-label::after {
+            content: '';
+            flex: 1;
+            max-width: 40px;
+            height: 1px;
+            background: var(--mist);
+        }
+        .section-heading {
+            font-family: 'DM Serif Display', serif;
+            font-size: 2.3rem;
+            color: var(--forest);
+            line-height: 1.15;
+            margin-bottom: 16px;
+        }
+        .section-subhead {
+            font-size: 1.05rem;
+            color: var(--slate);
+            max-width: 680px;
+            margin-bottom: 48px;
+            line-height: 1.7;
+        }
+
+        /* Positioning -- now section 2 */
+        .positioning-section {
+            background: linear-gradient(135deg, var(--forest) 0%, #263d26 100%);
+            position: relative;
+            overflow: hidden;
+        }
+        .positioning-section::before {
+            content: '"';
+            position: absolute;
+            top: -20px;
+            left: 30px;
+            font-family: 'DM Serif Display', serif;
+            font-size: 20rem;
+            color: rgba(255,255,255,0.04);
+            line-height: 1;
+            pointer-events: none;
+        }
+        .positioning-inner {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 80px 40px;
+            position: relative;
+        }
+        .positioning-inner .section-label { color: var(--mist); }
+        .positioning-inner .section-label::after { background: var(--mist); }
+        .positioning-inner .section-heading { color: var(--white); margin-bottom: 48px; }
+        .positioning-body {
+            display: grid;
+            grid-template-columns: 1.2fr 1fr;
+            gap: 60px;
+            align-items: start;
+        }
+        .positioning-text p {
+            color: rgba(255,255,255,0.78);
+            font-size: 1rem;
+            line-height: 1.8;
+            margin-bottom: 18px;
+        }
+        .positioning-text p strong { color: var(--foam); }
+        .positioning-distinctions { display: flex; flex-direction: column; gap: 16px; }
+        .distinction {
+            background: rgba(255,255,255,0.06);
+            border: 1px solid rgba(159,202,159,0.2);
+            border-radius: 8px;
+            padding: 20px 22px;
+        }
+        .distinction h4 {
+            color: var(--mist);
+            font-size: 0.82rem;
+            font-weight: 600;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            margin-bottom: 6px;
+        }
+        .distinction p {
+            color: rgba(255,255,255,0.65);
+            font-size: 0.9rem;
+            line-height: 1.55;
+            margin: 0;
+        }
+
+        /* 60-Day Engagement feature section */
+        .flagship-section { background: var(--parchment); }
+        .flagship-inner {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 60px;
+            align-items: start;
+            margin-bottom: 48px;
+        }
+        .flagship-label {
+            display: inline-block;
+            background: var(--forest);
+            color: var(--mist);
+            font-size: 0.72rem;
+            font-weight: 700;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            padding: 5px 12px;
+            border-radius: 3px;
+            margin-bottom: 20px;
+        }
+        .flagship-text h2 {
+            font-family: 'DM Serif Display', serif;
+            font-size: 2.1rem;
+            color: var(--forest);
+            line-height: 1.15;
+            margin-bottom: 16px;
+        }
+        .flagship-text p {
+            font-size: 1rem;
+            color: var(--slate);
+            line-height: 1.75;
+            margin-bottom: 16px;
+        }
+        .flagship-text p strong { color: var(--forest); }
+        .flagship-proof {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+            margin: 28px 0 32px;
+        }
+        .proof-stat {
+            background: var(--white);
+            border: 1px solid rgba(95,138,95,0.2);
+            border-radius: 8px;
+            padding: 18px 20px;
+        }
+        .proof-stat-num {
+            font-family: 'DM Serif Display', serif;
+            font-size: 1.8rem;
+            color: var(--forest);
+            line-height: 1;
+            margin-bottom: 4px;
+        }
+        .proof-stat-desc {
+            font-size: 0.82rem;
+            color: var(--slate);
+            line-height: 1.45;
+        }
+        .flagship-tiers {
+            background: var(--white);
+            border: 1px solid rgba(95,138,95,0.2);
+            border-radius: 10px;
+            overflow: hidden;
+        }
+        .tier-row {
+            display: grid;
+            grid-template-columns: 1fr 2fr auto;
+            gap: 20px;
+            align-items: center;
+            padding: 20px 24px;
+            border-bottom: 1px solid rgba(159,202,159,0.25);
+            transition: background 0.2s;
+        }
+        .tier-row:last-child { border-bottom: none; }
+        .tier-row:hover { background: var(--parchment); }
+        .tier-row.featured { background: var(--foam); }
+        .tier-row.featured:hover { background: #e8f5e8; }
+        .tier-name-block {}
+        .tier-badge {
+            display: inline-block;
+            font-size: 0.68rem;
+            font-weight: 700;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            padding: 2px 8px;
+            border-radius: 3px;
+            margin-bottom: 4px;
+        }
+        .tier-badge.entry { background: rgba(159,202,159,0.3); color: var(--forest); }
+        .tier-badge.standard { background: var(--forest); color: var(--mist); }
+        .tier-badge.premium { background: var(--gold); color: var(--white); }
+        .tier-title {
+            font-family: 'DM Serif Display', serif;
+            font-size: 1.05rem;
+            color: var(--forest);
+            display: block;
+        }
+        .tier-desc { font-size: 0.85rem; color: var(--slate); line-height: 1.5; }
+        .tier-price {
+            font-family: 'DM Serif Display', serif;
+            font-size: 1.4rem;
+            color: var(--forest);
+            white-space: nowrap;
+            text-align: right;
+        }
+        .tier-price small {
+            display: block;
+            font-family: inherit;
+            font-size: 0.72rem;
+            color: var(--sage);
+            font-weight: 400;
+            letter-spacing: 0.04em;
+            text-transform: uppercase;
+        }
+        .flagship-calculator-cta {
+            background: var(--forest);
+            border-radius: 10px;
+            padding: 32px 36px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 32px;
+            flex-wrap: wrap;
+        }
+        .flagship-calculator-cta p {
+            color: rgba(255,255,255,0.78);
+            font-size: 0.95rem;
+            max-width: 520px;
+            margin: 0;
+            line-height: 1.6;
+        }
+        .flagship-calculator-cta p strong { color: var(--foam); }
+        .flagship-calculator-cta-buttons {
+            display: flex;
+            gap: 12px;
+            flex-shrink: 0;
+            flex-wrap: wrap;
+        }
+
+        /* Consulting engagements -- condensed */
+        .consulting-section { background: var(--white); border-top: 1px solid rgba(159,202,159,0.3); }
+        .engagements-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+            margin-bottom: 44px;
+        }
+        .engagement-card {
+            background: var(--white);
+            border: 1px solid rgba(95,138,95,0.2);
+            border-top: 3px solid var(--sage);
+            border-radius: 8px;
+            padding: 28px 26px;
+            transition: box-shadow 0.2s, transform 0.2s;
+        }
+        .engagement-card:hover {
+            box-shadow: 0 8px 28px rgba(31,59,31,0.1);
+            transform: translateY(-2px);
+        }
+        .engagement-card h3 {
+            font-family: 'DM Serif Display', serif;
+            font-size: 1.1rem;
+            color: var(--forest);
+            margin-bottom: 10px;
+        }
+        .engagement-card p {
+            font-size: 0.9rem;
+            color: var(--slate);
+            line-height: 1.6;
+            margin-bottom: 14px;
+        }
+        .engagement-deliverable {
+            font-size: 0.78rem;
+            font-weight: 600;
+            color: var(--sage);
+            letter-spacing: 0.06em;
+            text-transform: uppercase;
+        }
+
+        /* Outcomes */
+        .help-section {
+            background: var(--parchment);
+            border-top: 1px solid rgba(159,202,159,0.3);
+        }
+        .outcomes-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 2px;
+            background: rgba(159,202,159,0.2);
+            border: 1px solid rgba(159,202,159,0.3);
+            border-radius: 10px;
+            overflow: hidden;
+        }
+        .outcome-item { background: var(--white); padding: 32px 36px; transition: background 0.2s; }
+        .outcome-item:hover { background: var(--parchment); }
+        .outcome-icon { font-size: 1.5rem; margin-bottom: 12px; display: block; }
+        .outcome-item h3 {
+            font-family: 'DM Serif Display', serif;
+            font-size: 1.15rem;
+            color: var(--forest);
+            margin-bottom: 8px;
+        }
+        .outcome-item p { font-size: 0.95rem; color: var(--slate); line-height: 1.65; margin: 0; }
+
+        /* Discovery session */
+        .discovery-section { background: var(--white); border-top: 1px solid rgba(159,202,159,0.3); }
+        .discovery-inner {
+            display: grid;
+            grid-template-columns: 1.1fr 1fr;
+            gap: 60px;
+            align-items: center;
+        }
+        .discovery-text h2 {
+            font-family: 'DM Serif Display', serif;
+            font-size: 2rem;
+            color: var(--forest);
+            line-height: 1.15;
+            margin-bottom: 16px;
+        }
+        .discovery-text p {
+            font-size: 1rem;
+            color: var(--slate);
+            line-height: 1.75;
+            margin-bottom: 16px;
+        }
+        .discovery-steps {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            margin: 0 0 32px;
+        }
+        .discovery-step {
+            display: flex;
+            gap: 16px;
+            align-items: flex-start;
+            padding: 16px 20px;
+            background: var(--parchment);
+            border-radius: 7px;
+            border-left: 3px solid var(--sage);
+        }
+        .discovery-step-num {
+            font-family: 'DM Serif Display', serif;
+            font-size: 1.4rem;
+            color: var(--sage);
+            line-height: 1;
+            flex-shrink: 0;
+            width: 28px;
+        }
+        .discovery-step h4 {
+            font-size: 0.95rem;
+            font-weight: 600;
+            color: var(--forest);
+            margin-bottom: 3px;
+        }
+        .discovery-step p { font-size: 0.85rem; color: var(--slate); margin: 0; line-height: 1.5; }
+        .discovery-card {
+            background: var(--forest);
+            border-radius: 12px;
+            padding: 40px 36px;
+            text-align: center;
+        }
+        .discovery-card-eyebrow {
+            font-size: 0.75rem;
+            font-weight: 600;
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+            color: var(--mist);
+            margin-bottom: 16px;
+        }
+        .discovery-card h3 {
+            font-family: 'DM Serif Display', serif;
+            font-size: 1.8rem;
+            color: var(--white);
+            margin-bottom: 12px;
+            line-height: 1.2;
+        }
+        .discovery-card p {
+            color: rgba(255,255,255,0.72);
+            font-size: 0.92rem;
+            line-height: 1.65;
+            margin-bottom: 28px;
+        }
+        .discovery-card-detail {
+            font-size: 0.8rem;
+            color: var(--mist);
+            opacity: 0.8;
+            margin-top: 16px;
+        }
+
+        /* Final CTA */
+        .final-cta { background: var(--moss); text-align: center; padding: 80px 40px; }
+        .final-cta h2 {
+            font-family: 'DM Serif Display', serif;
+            font-size: 2.4rem;
+            color: var(--white);
+            margin-bottom: 16px;
+            max-width: 700px;
+            margin-left: auto;
+            margin-right: auto;
+            line-height: 1.2;
+        }
+        .final-cta h2 em { color: var(--mist); font-style: italic; }
+        .final-cta p {
+            color: rgba(255,255,255,0.75);
+            max-width: 560px;
+            margin: 0 auto 36px;
+            font-size: 1.05rem;
+            line-height: 1.7;
+        }
+        .final-cta-buttons { display: flex; gap: 14px; justify-content: center; flex-wrap: wrap; }
+
+        .footer-left {
+            font-family: 'DM Serif Display', serif;
+            color: var(--foam);
+            font-size: 1rem;
+        }
+        .footer-right { font-size: 0.82rem; color: rgba(207,232,207,0.6); }
+
+        /* ── RESPONSIVE ─────────────────────────────────────── */
+        @media (max-width: 960px) {
+            .hero-inner         { grid-template-columns: 1fr; gap: 48px; padding: 60px 24px; }
+            .hero h1            { font-size: 2.4rem; }
+            .hero-photo-wrap    { order: -1; }
+            .hero-photo-frame   { max-width: 360px; }
+            .positioning-body   { grid-template-columns: 1fr; gap: 36px; }
+            .flagship-inner     { grid-template-columns: 1fr; }
+            .engagements-grid   { grid-template-columns: 1fr; }
+            .outcomes-grid      { grid-template-columns: 1fr; }
+            .discovery-inner    { grid-template-columns: 1fr; }
+            .flagship-calculator-cta { flex-direction: column; }
+            .section            { padding: 60px 24px; }
+            .tier-row           { grid-template-columns: 1fr; gap: 8px; }
+            .tier-price         { text-align: left; }
+        }
+        @media (max-width: 600px) {
+            .hero h1            { font-size: 2rem; }
+            .section-heading    { font-size: 1.8rem; }
+            .trust-bar-inner    { gap: 20px; }
+            .trust-item         { font-size: 0.75rem; }
+            .flagship-proof     { grid-template-columns: 1fr 1fr; }
+        }
+
+        /* ── EMBEDDED CALCULATOR ───────────────────────────── */
+        .calc-embed {
+            background: var(--parchment);
+            border: 1px solid rgba(95,138,95,0.2);
+            border-radius: 12px;
+            overflow: hidden;
+            margin-top: 40px;
+        }
+        .calc-embed-header {
+            background: var(--forest);
+            padding: 20px 28px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 12px;
+        }
+        .calc-embed-header h3 {
+            font-family: 'DM Serif Display', serif;
+            font-size: 1.1rem;
+            color: var(--white);
+            margin: 0;
+        }
+        .calc-embed-header p {
+            font-size: 0.82rem;
+            color: var(--mist);
+            margin: 0;
+            opacity: 0.85;
+        }
+        .calc-embed-body {
+            padding: 28px;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+        .calc-controls {
+            background: var(--white);
+            border: 1px solid rgba(95,138,95,0.18);
+            border-radius: 10px;
+            padding: 24px;
+        }
+        .calc-controls-title {
+            font-size: 0.72rem;
+            font-weight: 600;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            color: var(--sage);
+            margin-bottom: 20px;
+            padding-bottom: 12px;
+            border-bottom: 1px solid rgba(159,202,159,0.3);
+        }
+        .calc-slider-block { margin-bottom: 20px; }
+        .calc-slider-block:last-child { margin-bottom: 0; }
+        .calc-slider-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: baseline;
+            margin-bottom: 6px;
+        }
+        .calc-slider-name {
+            font-size: 0.72rem;
+            font-weight: 600;
+            letter-spacing: 0.07em;
+            text-transform: uppercase;
+            color: var(--sage);
+        }
+        .calc-slider-val {
+            font-size: 0.95rem;
+            font-weight: 700;
+            color: var(--forest);
+        }
+        .calc-slider-block input[type="range"] {
+            width: 100%;
+            height: 4px;
+            -webkit-appearance: none;
+            appearance: none;
+            background: rgba(95,138,95,0.25);
+            border-radius: 2px;
+            outline: none;
+            cursor: pointer;
+        }
+        .calc-slider-block input[type="range"]::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            width: 16px; height: 16px;
+            border-radius: 50%;
+            background: var(--forest);
+            cursor: pointer;
+            border: 2px solid var(--white);
+            box-shadow: 0 1px 4px rgba(0,0,0,0.2);
+        }
+        .calc-slider-block input[type="range"]::-moz-range-thumb {
+            width: 16px; height: 16px;
+            border-radius: 50%;
+            background: var(--forest);
+            cursor: pointer;
+            border: 2px solid var(--white);
+            box-shadow: 0 1px 4px rgba(0,0,0,0.2);
+        }
+        .calc-slider-range {
+            font-size: 0.7rem;
+            color: var(--sage);
+            margin-top: 4px;
+            opacity: 0.75;
+        }
+        .calc-results {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+        .calc-metric {
+            background: var(--white);
+            border: 1px solid rgba(95,138,95,0.18);
+            border-radius: 8px;
+            padding: 14px 18px;
+            flex: 1;
+        }
+        .calc-metric-label {
+            font-size: 0.65rem;
+            font-weight: 600;
+            letter-spacing: 0.09em;
+            text-transform: uppercase;
+            color: var(--sage);
+            margin-bottom: 4px;
+        }
+        .calc-metric-value {
+            font-family: 'DM Serif Display', serif;
+            font-size: 1.6rem;
+            color: var(--forest);
+            line-height: 1;
+            margin-bottom: 3px;
+        }
+        .calc-metric-sub {
+            font-size: 0.75rem;
+            color: var(--slate);
+            opacity: 0.8;
+            line-height: 1.4;
+        }
+        .calc-metric.gut-punch {
+            background: #FCEBEB;
+            border-color: rgba(163,45,45,0.25);
+        }
+        .calc-metric.gut-punch .calc-metric-label { color: #A32D2D; }
+        .calc-metric.gut-punch .calc-metric-value { color: #791F1F; font-size: 1.8rem; }
+        .calc-metric.gut-punch .calc-metric-sub { color: #A32D2D; opacity: 1; }
+        .calc-embed-footer {
+            padding: 20px 28px;
+            background: var(--white);
+            border-top: 1px solid rgba(159,202,159,0.25);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+        .calc-embed-footnote {
+            font-size: 0.72rem;
+            color: var(--sage);
+            font-style: italic;
+            max-width: 560px;
+            line-height: 1.55;
+        }
+        .calc-embed-cta { display: flex; gap: 10px; flex-wrap: wrap; flex-shrink: 0; }
+        @media (max-width: 800px) {
+            .calc-embed-body { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body class="page-shell has-sidebar">
+
+<!-- ── SIDEBAR ──────────────────────────────────────────── -->
+<button class="sidebar-toggle" id="sidebarToggle" aria-label="Open navigation">&#9776;</button>
+<div class="sidebar-overlay" id="sidebarOverlay"></div>
+<aside class="sidebar" id="sidebar"></aside>
+
+<!-- ── PAGE BODY ─────────────────────────────────────────── -->
+<div class="page-body">
+
+<!-- ── HEADER ───────────────────────────────────────────── -->
+<header class="site-header">
+    <a class="wordmark" href="/">Joshua Bechtel</a>
+    <p class="site-tagline">Enterprise Knowledge Architecture &nbsp;&middot;&nbsp; AI Fluency &nbsp;&middot;&nbsp; Content Systems</p>
+</header>
+
+<nav class="top-nav"></nav>
+
+<!-- ── HERO ─────────────────────────────────────────────── -->
+<section class="hero">
+    <div class="hero-inner">
+        <div class="hero-text">
+            <span class="hero-eyebrow">Enterprise Knowledge Architecture &amp; AI Fluency</span>
+            <h1>Your knowledge problem is not a writing problem. It is a <em>systems problem.</em></h1>
+            <p class="hero-sub">
+                Fragmented documentation, repeat contractor cycles that leave nothing behind, and AI tools
+                that underperform because the content feeding them was never designed for machines.
+                These are architecture problems. I build the systems that fix them &mdash; and leave your
+                organization self-sufficient on Day 61.
+            </p>
+            <p class="hero-credibility">
+                8,568 employees enabled &mdash; 80%+ AI tool retention at 45 days &mdash; delivered in half the projected time
+            </p>
+            <div class="hero-ctas">
+                <a class="btn btn-hire" href="/contact.html?type=discovery">Start with a Discovery Session</a>
+                <a class="btn btn-consult" href="#engagement">See the 60-Day Engagement</a>
+            </div>
+        </div>
+        <div class="hero-photo-wrap">
+            <div class="hero-photo-frame">
+                <figure>
+                    <img src="/img/JBechtel_lecture1.PNG"
+                         alt="Joshua Bechtel presenting on enterprise knowledge architecture">
+                    <figcaption>Speaking on knowledge architecture and AI-ready content systems</figcaption>
+                </figure>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ── TRUST BAR ─────────────────────────────────────────── -->
+<div class="trust-bar">
+    <div class="trust-bar-inner">
+        <span class="trust-item"><strong>8,568</strong> employees enabled</span>
+        <span class="trust-item"><strong>80%+</strong> AI tool retention at 45 days</span>
+        <span class="trust-item"><strong>20+</strong> years enterprise experience</span>
+        <span class="trust-item">Financial services &amp; large-scale technology</span>
+        <span class="trust-item">Post-merger knowledge integration</span>
+    </div>
+</div>
+
+<!-- ── BRAND BANNER ──────────────────────────────────────── -->
+<div class="brand-banner-wrap">
+    <img
+        src="/img/Banner v2 2026-03-18.jpg"
+        alt="Built to reach people. Measured to prove it. -- Joshua Bechtel, Knowledge Architecture & AI Strategy"
+        class="brand-banner-img"
+    >
+</div>
+
+<!-- ── POSITIONING ────────────────────────────────────────── -->
+<section class="positioning-section">
+    <div class="positioning-inner">
+        <p class="section-label">What I actually do</p>
+        <h2 class="section-heading">Most knowledge problems are not writing problems.<br>They are architecture problems.</h2>
+        <div class="positioning-body">
+            <div class="positioning-text">
+                <p>
+                    When documentation is inconsistent, it is usually not because the writing was poor.
+                    It is because there was no <strong>content model, no taxonomy, no governance layer</strong>
+                    &mdash; nothing that tells the organization how knowledge should be structured, owned,
+                    updated, or retired.
+                </p>
+                <p>
+                    When organizations keep cycling through contractors every six to eight months,
+                    it is not a staffing problem. It is because <strong>no one ever built the foundation</strong>
+                    the contractors needed to work from. Every cycle costs $150,000 to $350,000
+                    and leaves nothing permanent behind.
+                </p>
+                <p>
+                    When AI tools fail to retrieve accurate answers, it is rarely a model problem.
+                    It is a <strong>content architecture problem.</strong> The information exists somewhere,
+                    but it was never structured to be found reliably by a machine.
+                </p>
+                <p>
+                    I design the systems that make knowledge usable &mdash; at scale, over time, across teams,
+                    and by machines. I come in, build the framework, train your people, and leave.
+                    <strong>You own everything. The cycle ends.</strong>
+                </p>
+            </div>
+            <div class="positioning-distinctions">
+                <div class="distinction">
+                    <h4>Not this</h4>
+                    <p>A contractor who writes content, delivers files, and moves on &mdash; leaving nothing that survives their departure</p>
+                </div>
+                <div class="distinction">
+                    <h4>This</h4>
+                    <p>A senior operator who builds the architecture, trains your team, and makes your organization self-sufficient before Day 61</p>
+                </div>
+                <div class="distinction">
+                    <h4>What you own on Day 61</h4>
+                    <p>A style guide, a governance model, an AI literacy program, documented processes, and a team that can sustain all of it without me</p>
+                </div>
+                <div class="distinction">
+                    <h4>What you never do again</h4>
+                    <p>Open a contractor req for the same problem you solved eighteen months ago</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ── 60-DAY ENGAGEMENT ──────────────────────────────────── -->
+<section class="flagship-section" id="engagement">
+    <div class="section">
+        <span class="flagship-label">Flagship consulting product</span>
+        <div class="flagship-inner">
+            <div class="flagship-text">
+                <h2>The 60-Day AI Fluency Engagement</h2>
+                <p>
+                    A fixed-scope, fixed-price engagement that builds your documentation infrastructure,
+                    AI literacy program, and internal capacity in 60 days &mdash; then exits.
+                    No retainer. No recurring dependency. <strong>You keep everything.</strong>
+                </p>
+                <p>
+                    The engagement is scoped around six domains of knowledge architecture practice.
+                    Every client selects which domains they need most. Every deliverable has a
+                    specific, observable completion criterion. Nothing is delivered that cannot be
+                    measured against your own definition of success.
+                </p>
+                <div class="flagship-proof">
+                    <div class="proof-stat">
+                        <div class="proof-stat-num">$65K -- $72K</div>
+                        <div class="proof-stat-desc">Minimum professional cost to build a style guide correctly. Included in every engagement.</div>
+                    </div>
+                    <div class="proof-stat">
+                        <div class="proof-stat-num">$150K+</div>
+                        <div class="proof-stat-desc">Typical annual contractor cycle cost this engagement replaces. Permanently.</div>
+                    </div>
+                    <div class="proof-stat">
+                        <div class="proof-stat-num">6</div>
+                        <div class="proof-stat-desc">Domains of knowledge architecture practice. Client selects scope at kickoff.</div>
+                    </div>
+                    <div class="proof-stat">
+                        <div class="proof-stat-num">Day 61</div>
+                        <div class="proof-stat-desc">When I leave. And when your team runs everything I built without me.</div>
+                    </div>
+                </div>
+                <a class="btn btn-primary-green" href="/services/60-day-engagement.html">Full engagement details &rarr;</a>
+            </div>
+
+            <div class="flagship-tiers">
+                <div class="tier-row">
+                    <div class="tier-name-block">
+                        <span class="tier-badge entry">Spark</span>
+                        <span class="tier-title">Foundation</span>
+                    </div>
+                    <div class="tier-desc">Core standards, governance, and AI literacy baseline. For organizations that need to stop the bleeding before they can build anything else.</div>
+                    <div class="tier-price">$45,000<small>Up to 60 days</small></div>
+                </div>
+                <div class="tier-row featured">
+                    <div class="tier-name-block">
+                        <span class="tier-badge standard">Standard</span>
+                        <span class="tier-title">Enablement</span>
+                    </div>
+                    <div class="tier-desc">Foundation plus two elective domains. Crawl/walk/run AI prompt training. Full team session. Most engagements land here.</div>
+                    <div class="tier-price">$65,000<small>Up to 60 days</small></div>
+                </div>
+                <div class="tier-row">
+                    <div class="tier-name-block">
+                        <span class="tier-badge premium">Premium</span>
+                        <span class="tier-title">Transformation</span>
+                    </div>
+                    <div class="tier-desc">All six domains, full AI workflow integration, and a 30-day post-engagement check-in. Scoped at discovery.</div>
+                    <div class="tier-price">$95,000+<small>60 &ndash; 90 days</small></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ── EMBEDDED ROI CALCULATOR ──────────────────────── -->
+        <div class="calc-embed">
+            <div class="calc-embed-header">
+                <div>
+                    <h3>Contractor Cycle Cost Calculator</h3>
+                    <p>Adjust the inputs to match your organization. The number on the right is what you spend every year &mdash; and what you own on Day 0 of the next cycle.</p>
+                </div>
+            </div>
+            <div class="calc-embed-body">
+                <div class="calc-controls">
+                    <p class="calc-controls-title">Your organization</p>
+                    <div class="calc-slider-block">
+                        <div class="calc-slider-header">
+                            <span class="calc-slider-name">Number of contractors</span>
+                            <span class="calc-slider-val" id="hp-val-contractors">4</span>
+                        </div>
+                        <input type="range" id="hp-sl-contractors" min="1" max="20" step="1" value="4">
+                        <p class="calc-slider-range">1 &ndash; 20 contractors per engagement</p>
+                    </div>
+                    <div class="calc-slider-block">
+                        <div class="calc-slider-header">
+                            <span class="calc-slider-name">Average hourly rate</span>
+                            <span class="calc-slider-val" id="hp-val-rate">$85 / hr</span>
+                        </div>
+                        <input type="range" id="hp-sl-rate" min="45" max="175" step="5" value="85">
+                        <p class="calc-slider-range">$45 &ndash; $175 / hr</p>
+                    </div>
+                    <div class="calc-slider-block">
+                        <div class="calc-slider-header">
+                            <span class="calc-slider-name">Engagement length</span>
+                            <span class="calc-slider-val" id="hp-val-months">7 months</span>
+                        </div>
+                        <input type="range" id="hp-sl-months" min="2" max="12" step="1" value="7">
+                        <p class="calc-slider-range">2 &ndash; 12 months</p>
+                    </div>
+                    <div class="calc-slider-block">
+                        <div class="calc-slider-header">
+                            <span class="calc-slider-name">Cycles per year</span>
+                            <span class="calc-slider-val" id="hp-val-cycles">1.5</span>
+                        </div>
+                        <input type="range" id="hp-sl-cycles" min="1" max="4" step="0.5" value="1.5">
+                        <p class="calc-slider-range">1 &ndash; 4 cycles / year</p>
+                    </div>
+                    <div class="calc-slider-block">
+                        <div class="calc-slider-header">
+                            <span class="calc-slider-name">Overhead carry rate</span>
+                            <span class="calc-slider-val" id="hp-val-carry">40%</span>
+                        </div>
+                        <input type="range" id="hp-sl-carry" min="25" max="60" step="5" value="40">
+                        <p class="calc-slider-range">Recruiting, onboarding, management &mdash; 25% to 60%</p>
+                    </div>
+                </div>
+                <div class="calc-results">
+                    <div class="calc-metric">
+                        <p class="calc-metric-label">Direct contractor spend / year</p>
+                        <p class="calc-metric-value" id="hp-out-direct">--</p>
+                        <p class="calc-metric-sub">Hours billed across all contractors and cycles</p>
+                    </div>
+                    <div class="calc-metric">
+                        <p class="calc-metric-label">Overhead carry cost / year</p>
+                        <p class="calc-metric-value" id="hp-out-overhead">--</p>
+                        <p class="calc-metric-sub" id="hp-out-carry-label">Recruiting, onboarding, management at 40%</p>
+                    </div>
+                    <div class="calc-metric">
+                        <p class="calc-metric-label">Total annual documentation spend</p>
+                        <p class="calc-metric-value" id="hp-out-total">--</p>
+                        <p class="calc-metric-sub">What you actually pay to keep the lights on</p>
+                    </div>
+                    <div class="calc-metric gut-punch">
+                        <p class="calc-metric-label">Permanent infrastructure built</p>
+                        <p class="calc-metric-value" id="hp-out-leftbehind">$0</p>
+                        <p class="calc-metric-sub">No style guide. No process. No trained staff. Just documents and an open req.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="calc-embed-footer">
+                <p class="calc-embed-footnote">Direct spend assumes 160 billable hours/month per contractor. Overhead defaults to 40%; enterprise reality often runs 45&ndash;55%. Asset retained value assumes no framework mandate &mdash; documents delivered, no infrastructure built.</p>
+                <div class="calc-embed-cta">
+                    <a class="btn btn-hire" href="/contact.html?type=discovery">Book a Discovery Session</a>
+                    <a class="btn btn-outline-gold" href="/services/roi-calculator.html">Full Calculator &rarr;</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ── OTHER ENGAGEMENTS ──────────────────────────────────── -->
+<section class="consulting-section">
+    <div class="section">
+        <p class="section-label">Other engagements</p>
+        <h2 class="section-heading">Not every problem needs 60 days.</h2>
+        <p class="section-subhead">
+            Some organizations need a focused audit before committing to a full transformation.
+            Others need embedded advisory support through a specific transition.
+            These engagements address those needs directly.
+        </p>
+        <div class="engagements-grid">
+            <div class="engagement-card">
+                <h3>Knowledge System Audit</h3>
+                <p>You have a knowledge problem but are not sure where it starts. This engagement maps your current content ecosystem, identifies structural gaps and AI readiness blockers, and gives you a prioritized path forward.</p>
+                <span class="engagement-deliverable">Deliverable: Gap analysis &amp; prioritized roadmap</span>
+            </div>
+            <div class="engagement-card">
+                <h3>AI Fluency &amp; Transformation</h3>
+                <p>Your AI tools are deployed but underperforming. In most cases the problem is the content feeding them, not the model. This engagement restructures your knowledge assets for reliable LLM and RAG consumption.</p>
+                <span class="engagement-deliverable">Deliverable: Structured content system + AI fluency report</span>
+            </div>
+            <div class="engagement-card">
+                <h3>Embedded Strategic Advisory</h3>
+                <p>Your team is navigating a knowledge transformation and needs senior-level guidance without a full-time hire. I embed as a strategic partner for a defined period, providing architectural direction and oversight.</p>
+                <span class="engagement-deliverable">Deliverable: Strategic guidance + implementation support</span>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ── HOW I HELP ─────────────────────────────────────────── -->
+<section class="help-section">
+    <div class="section">
+        <p class="section-label">The business case</p>
+        <h2 class="section-heading">Your teams are paying for broken knowledge systems every day.</h2>
+        <p class="section-subhead">
+            Every hour spent searching for the right answer, every AI tool that returns outdated content,
+            every contractor cycle that resets at zero &mdash; these are measurable costs.
+            They trace back to the same root cause: no governing architecture. Here is what changes when that is fixed.
+        </p>
+        <div class="outcomes-grid">
+            <div class="outcome-item">
+                <span class="outcome-icon">⚡</span>
+                <h3>Reduced Time-to-Information</h3>
+                <p>When content is structured and findable, employees stop depending on colleagues to locate basic answers. Faster access means fewer delays, fewer escalations, and less duplicated effort.</p>
+            </div>
+            <div class="outcome-item">
+                <span class="outcome-icon">🏗️</span>
+                <h3>Content That Stays Reliable</h3>
+                <p>Without governance, content drifts. Policies conflict. Outdated procedures circulate alongside current ones. A structured, metadata-driven architecture eliminates that drift and keeps content trustworthy at scale.</p>
+            </div>
+            <div class="outcome-item">
+                <span class="outcome-icon">🤖</span>
+                <h3>AI Retrieval That Actually Works</h3>
+                <p>Most enterprise AI implementations underperform because the content feeding them was never designed for machine retrieval. I build systems structured for LLMs and RAG from the ground up &mdash; not adapted after deployment.</p>
+            </div>
+            <div class="outcome-item">
+                <span class="outcome-icon">📈</span>
+                <h3>Knowledge Infrastructure That Scales</h3>
+                <p>Growth, mergers, and team changes do not have to reset your knowledge base. A well-designed architecture absorbs organizational change without requiring a rebuild. You scale the content, not the chaos.</p>
+            </div>
+            <div class="outcome-item">
+                <span class="outcome-icon">🔄</span>
+                <h3>The Contractor Cycle Ends</h3>
+                <p>Organizations that keep rehiring contractors for the same documentation problems are not understaffed. They are under-systematized. A permanent framework replaces the cycle with infrastructure that your own people can sustain.</p>
+            </div>
+            <div class="outcome-item">
+                <span class="outcome-icon">🛡️</span>
+                <h3>Governance Without the Bottleneck</h3>
+                <p>Content governance fails when it creates more process than it prevents risk. I design oversight models that enforce quality and accuracy standards without slowing down the teams who need to create and update content.</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ── SPEAKING ────────────────────────────────────────────── -->
+<section class="speaking-section">
+    <div class="section">
+        <div class="speaking-inner">
+            <div class="speaking-content">
+                <p class="section-label">Speaking &amp; events</p>
+                <h2 class="section-heading">Bringing knowledge architecture to your audience</h2>
+                <p class="section-subhead">
+                    I speak to enterprise leadership teams, industry conferences, and professional groups
+                    on the practical side of knowledge systems, AI fluency, and organizational information
+                    strategy. These are not abstract talks &mdash; they are grounded in real implementation experience.
+                </p>
+                <div class="speaking-topics">
+                    <div class="speaking-topic-item">
+                        <div>
+                            <h4>The Future of Enterprise Knowledge Systems</h4>
+                            <p>Why most organizations are unprepared for AI adoption and what redesigning information architecture actually requires</p>
+                        </div>
+                    </div>
+                    <div class="speaking-topic-item">
+                        <div>
+                            <h4>From Documentation Chaos to Scalable Knowledge</h4>
+                            <p>A practical framework for moving legacy content into structured, AI-ready systems without losing institutional history</p>
+                        </div>
+                    </div>
+                    <div class="speaking-topic-item">
+                        <div>
+                            <h4>AI Readiness Starts With Content Architecture</h4>
+                            <p>The reason most enterprise AI tools underperform &mdash; and why fixing the knowledge layer is the only reliable solution</p>
+                        </div>
+                    </div>
+                    <div class="speaking-topic-item">
+                        <div>
+                            <h4>Stateless Content Design for the Modern Enterprise</h4>
+                            <p>How modular, context-independent content architecture eliminates duplication, reduces maintenance burden, and improves retrieval accuracy</p>
+                        </div>
+                    </div>
+                </div>
+                <div style="display:flex; gap:12px; flex-wrap:wrap;">
+                    <a class="btn btn-primary-green" href="/contact.html?type=speak">Request a Speaking Engagement</a>
+                    <a class="btn btn-outline-dark" href="/speaking/">All Speaking Topics</a>
+                </div>
+            </div>
+            <div class="speaking-photo">
+                <span class="speaking-badge">Available to Book</span>
+                <figure>
+                    <img src="/img/JBechtel_lecture1.PNG"
+                         alt="Joshua Bechtel presenting on enterprise knowledge architecture at a conference">
+                    <figcaption>Speaking on knowledge systems and AI readiness for enterprise organizations</figcaption>
+                </figure>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+<!-- ── DISCOVERY SESSION ──────────────────────────────────── -->
+<section class="discovery-section">
+    <div class="section">
+        <div class="discovery-inner">
+            <div class="discovery-text">
+                <p class="section-label">How it starts</p>
+                <h2>The Discovery Session. No obligation. No pitch. Just the conversation.</h2>
+                <p>
+                    Before a Statement of Work exists, before a scope is defined, before anything is sold &mdash;
+                    there is a conversation. You tell me what your organization does, what is not working,
+                    and what you think you need.
+                </p>
+                <p>
+                    I listen. I ask the questions your contractors never did. And I tell you honestly
+                    whether what I do maps to what you need. If it does not, I will tell you that too.
+                </p>
+                <div class="discovery-steps">
+                    <div class="discovery-step">
+                        <div class="discovery-step-num">1</div>
+                        <div>
+                            <h4>You describe the problem</h4>
+                            <p>Documentation chaos, failed AI adoption, contractor dependency, post-merger knowledge gaps &mdash; wherever the pain is, that is where we start.</p>
+                        </div>
+                    </div>
+                    <div class="discovery-step">
+                        <div class="discovery-step-num">2</div>
+                        <div>
+                            <h4>I map it against the framework</h4>
+                            <p>Six domains of knowledge architecture practice. Most organizations have problems in two or three. The discovery session surfaces which ones and in what priority.</p>
+                        </div>
+                    </div>
+                    <div class="discovery-step">
+                        <div class="discovery-step-num">3</div>
+                        <div>
+                            <h4>We agree on whether there is a fit</h4>
+                            <p>If the engagement is right for your situation, we scope it together. If it is not, you leave with a clearer picture of the problem regardless. That part is always free.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div>
+                <div class="discovery-card">
+                    <p class="discovery-card-eyebrow">Start here</p>
+                    <h3>Book a Discovery Session</h3>
+                    <p>
+                        Free. No obligation. 45 minutes.
+                        For organizations dealing with documentation problems, AI readiness gaps,
+                        or contractor cycles that never seem to end.
+                    </p>
+                    <a class="btn btn-hire" href="/contact.html?type=discovery">Schedule a Session</a>
+                    <p class="discovery-card-detail">
+                        A limited number of discovery sessions are available each month.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ── FINAL CTA ──────────────────────────────────────────── -->
+<section class="final-cta">
+    <h2>If the problem is real, the conversation is <em>worth having.</em></h2>
+    <p>
+        Most organizations already know something is wrong with how their knowledge works.
+        The question is whether the cost of fixing it is higher than the cost of leaving it broken.
+        Run the numbers. Then let's talk.
+    </p>
+    <div class="final-cta-buttons">
+        <a class="btn btn-hire" href="/contact.html?type=discovery">Book a Discovery Session</a>
+        <a class="btn btn-consult" href="/services/roi-calculator.html">Calculate Your Contractor Costs</a>
+    </div>
+</section>
+
+<!-- ── FOOTER ─────────────────────────────────────────── -->
+<footer>
+    <div class="footer-left">Joshua Bechtel</div>
+    <div class="footer-right">Knowledge Architecture &nbsp;&middot;&nbsp; AI Fluency &nbsp;&middot;&nbsp; Enterprise Content Systems</div>
+</footer>
+
+</div><!-- /.page-body -->
+
+<script src="/nav.js"></script>
+<script src="/quiz.js"></script>
+<script src="/microinteractions.js"></script>
+
+<script>
+(function() {
+    function fmt(n) { return '$' + Math.round(n).toLocaleString(); }
+    function hpCalc() {
+        var contractors = parseInt(document.getElementById('hp-sl-contractors').value);
+        var rate        = parseInt(document.getElementById('hp-sl-rate').value);
+        var months      = parseInt(document.getElementById('hp-sl-months').value);
+        var cycles      = parseFloat(document.getElementById('hp-sl-cycles').value);
+        var carry       = parseInt(document.getElementById('hp-sl-carry').value);
+
+        document.getElementById('hp-val-contractors').textContent = contractors;
+        document.getElementById('hp-val-rate').textContent        = '$' + rate + ' / hr';
+        document.getElementById('hp-val-months').textContent      = months + ' month' + (months === 1 ? '' : 's');
+        document.getElementById('hp-val-cycles').textContent      = cycles % 1 === 0 ? cycles.toFixed(0) : cycles.toFixed(1);
+        document.getElementById('hp-val-carry').textContent       = carry + '%';
+        document.getElementById('hp-out-carry-label').textContent = 'Recruiting, onboarding, management at ' + carry + '%';
+
+        var direct   = contractors * rate * 160 * months * cycles;
+        var overhead = direct * (carry / 100);
+        var total    = direct + overhead;
+
+        document.getElementById('hp-out-direct').textContent   = fmt(direct);
+        document.getElementById('hp-out-overhead').textContent = fmt(overhead);
+        document.getElementById('hp-out-total').textContent    = fmt(total);
+    }
+
+    ['hp-sl-contractors','hp-sl-rate','hp-sl-months','hp-sl-cycles','hp-sl-carry'].forEach(function(id) {
+        var el = document.getElementById(id);
+        if (el) el.addEventListener('input', hpCalc);
+    });
+
+    hpCalc();
+}());
+</script>
+</body>
+</html>

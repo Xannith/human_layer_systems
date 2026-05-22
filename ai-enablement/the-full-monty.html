@@ -1,0 +1,454 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Deep AI Transformation | Joshua Bechtel</title>
+    <meta name="description" content="Deep AI Transformation is not an AI training program. It is an AI orchestration engagement. For people who are ready to stop using AI and start deploying it.">
+    <link rel="stylesheet" href="/styles.css">
+    <style>
+        .fm-hero {
+            background: var(--forest);
+            position: relative;
+            overflow: hidden;
+        }
+        .fm-hero::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background:
+                radial-gradient(ellipse 70% 60% at 100% 0%, rgba(184,134,11,0.12) 0%, transparent 60%),
+                radial-gradient(ellipse 50% 70% at 0% 100%, rgba(31,59,31,0.7) 0%, transparent 55%);
+            pointer-events: none;
+        }
+        .fm-hero-inner {
+            max-width: 860px;
+            margin: 0 auto;
+            padding: 88px 40px 80px;
+            position: relative;
+        }
+        .fm-eyebrow {
+            font-size: 0.75rem;
+            font-weight: 700;
+            letter-spacing: 0.18em;
+            text-transform: uppercase;
+            color: var(--gold);
+            margin-bottom: 24px;
+            display: block;
+        }
+        .fm-hero h1 {
+            font-family: 'DM Serif Display', serif;
+            font-size: clamp(2.2rem, 5vw, 3.6rem);
+            line-height: 1.1;
+            color: var(--foam);
+            margin-bottom: 12px;
+        }
+        .fm-hero h1 em {
+            color: var(--gold);
+            font-style: italic;
+        }
+        .fm-subtitle {
+            font-size: 1.05rem;
+            color: rgba(207,232,207,0.75);
+            margin-bottom: 0;
+            font-weight: 400;
+            letter-spacing: 0.04em;
+            text-transform: uppercase;
+        }
+
+        .fm-philosophy {
+            background: var(--ink);
+            padding: 64px 40px;
+        }
+        .fm-philosophy-inner {
+            max-width: 760px;
+            margin: 0 auto;
+        }
+        .fm-philosophy p {
+            font-size: 1.2rem;
+            line-height: 1.75;
+            color: var(--foam);
+            margin-bottom: 1.4rem;
+        }
+        .fm-philosophy p:last-child { margin-bottom: 0; }
+        .fm-philosophy strong { color: var(--gold); font-weight: 600; }
+
+        .fm-section {
+            max-width: 860px;
+            margin: 0 auto;
+            padding: 64px 40px;
+        }
+        .fm-section h2 {
+            font-family: 'DM Serif Display', serif;
+            font-size: 1.9rem;
+            color: var(--forest);
+            margin-bottom: 16px;
+        }
+        .fm-section .lead {
+            font-size: 1.05rem;
+            color: var(--slate);
+            line-height: 1.7;
+            margin-bottom: 40px;
+        }
+
+        .fm-phases {
+            display: grid;
+            gap: 0;
+            border: 1px solid rgba(45,90,45,0.2);
+            border-radius: 10px;
+            overflow: hidden;
+        }
+        .fm-phase {
+            padding: 32px 36px;
+            border-bottom: 1px solid rgba(45,90,45,0.15);
+            display: grid;
+            grid-template-columns: 120px 1fr;
+            gap: 24px;
+            align-items: start;
+        }
+        .fm-phase:last-child { border-bottom: none; }
+        .fm-phase:nth-child(odd) { background: var(--parchment); }
+        .fm-phase:nth-child(even) { background: #fff; }
+        .fm-phase-label {
+            font-size: 0.7rem;
+            font-weight: 700;
+            letter-spacing: 0.14em;
+            text-transform: uppercase;
+            color: var(--gold);
+            padding-top: 4px;
+            line-height: 1.4;
+        }
+        .fm-phase h3 {
+            font-family: 'DM Serif Display', serif;
+            font-size: 1.2rem;
+            color: var(--forest);
+            margin-bottom: 10px;
+        }
+        .fm-phase p {
+            font-size: 0.95rem;
+            color: var(--slate);
+            line-height: 1.7;
+            margin: 0;
+        }
+
+        .fm-gate {
+            background: var(--forest);
+            color: var(--foam);
+            padding: 64px 40px;
+        }
+        .fm-gate-inner {
+            max-width: 760px;
+            margin: 0 auto;
+            text-align: center;
+        }
+        .fm-gate h2 {
+            font-family: 'DM Serif Display', serif;
+            font-size: 2rem;
+            color: var(--foam);
+            margin-bottom: 20px;
+        }
+        .fm-gate h2 em { color: var(--gold); font-style: italic; }
+        .fm-gate p {
+            font-size: 1rem;
+            color: rgba(207,232,207,0.8);
+            line-height: 1.75;
+            margin-bottom: 1.2rem;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        .fm-gate-divider {
+            width: 40px;
+            height: 2px;
+            background: var(--gold);
+            margin: 32px auto;
+            border: none;
+        }
+        .fm-code-block {
+            background: rgba(0,0,0,0.3);
+            border: 1px solid rgba(184,134,11,0.3);
+            border-radius: 8px;
+            padding: 28px 32px;
+            margin: 32px auto;
+            max-width: 480px;
+        }
+        .fm-code-label {
+            font-size: 0.7rem;
+            font-weight: 700;
+            letter-spacing: 0.18em;
+            text-transform: uppercase;
+            color: var(--gold);
+            display: block;
+            margin-bottom: 16px;
+        }
+        .fm-code-input-row {
+            display: flex;
+            gap: 10px;
+        }
+        .fm-code-input {
+            flex: 1;
+            background: rgba(255,255,255,0.08);
+            border: 1px solid rgba(159,202,159,0.25);
+            border-radius: 5px;
+            padding: 11px 16px;
+            color: var(--foam);
+            font-size: 0.95rem;
+            font-family: 'DM Sans', sans-serif;
+            letter-spacing: 0.1em;
+            outline: none;
+        }
+        .fm-code-input::placeholder { color: rgba(207,232,207,0.35); }
+        .fm-code-input:focus { border-color: var(--gold); }
+        .fm-code-btn {
+            background: var(--gold);
+            color: var(--white);
+            border: none;
+            border-radius: 5px;
+            padding: 11px 20px;
+            font-size: 0.88rem;
+            font-weight: 700;
+            font-family: 'DM Sans', sans-serif;
+            cursor: pointer;
+            transition: background 0.2s;
+            white-space: nowrap;
+        }
+        .fm-code-btn:hover { background: var(--gold-lt); }
+        .fm-code-msg {
+            font-size: 0.85rem;
+            margin-top: 12px;
+            min-height: 20px;
+            color: rgba(207,232,207,0.6);
+        }
+        .fm-code-msg.success { color: #7ecf7e; }
+        .fm-code-msg.error   { color: #e07070; }
+
+        /* Hidden pricing section — revealed by correct code */
+        .fm-pricing-reveal {
+            display: none;
+            margin-top: 32px;
+            background: rgba(255,255,255,0.05);
+            border: 1px solid rgba(184,134,11,0.4);
+            border-radius: 10px;
+            padding: 36px 40px;
+            text-align: left;
+        }
+        .fm-pricing-reveal h3 {
+            font-family: 'DM Serif Display', serif;
+            font-size: 1.4rem;
+            color: var(--foam);
+            margin-bottom: 16px;
+        }
+        .fm-pricing-reveal p {
+            color: rgba(207,232,207,0.85);
+            font-size: 0.95rem;
+            max-width: none;
+            margin-bottom: 0.9rem;
+        }
+        .fm-pricing-reveal .price-line {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--gold);
+            margin: 16px 0 8px;
+        }
+
+        @media (max-width: 680px) {
+            .fm-hero-inner { padding: 60px 24px 56px; }
+            .fm-section { padding: 48px 24px; }
+            .fm-phase { grid-template-columns: 1fr; gap: 8px; }
+            .fm-gate { padding: 48px 24px; }
+            .fm-code-input-row { flex-direction: column; }
+        }
+    </style>
+</head>
+<body class="page-shell has-sidebar">
+
+<button class="sidebar-toggle" id="sidebarToggle" aria-label="Open navigation">&#9776;</button>
+<div class="sidebar-overlay" id="sidebarOverlay"></div>
+
+<aside class="sidebar" id="sidebar"></aside>
+<div class="page-body">
+    <header class="site-header">
+        <a class="wordmark" href="/">Joshua Bechtel</a>
+        <p class="site-tagline">Enterprise Knowledge Architecture &nbsp;&middot;&nbsp; AI Fluency &nbsp;&middot;&nbsp; Content Systems</p>
+    </header>
+    <nav class="top-nav"></nav>
+
+    <!-- ── HERO ───────────────────────────────────────────────── -->
+    <section class="fm-hero">
+        <div class="fm-hero-inner">
+            <span class="fm-eyebrow">By Invitation Only</span>
+            <h1>Deep AI Transformation</h1>
+            <p class="fm-subtitle">AI Team Design &amp; Automation Architecture</p>
+        </div>
+    </section>
+
+    <!-- ── PHILOSOPHY ─────────────────────────────────────────── -->
+    <section class="fm-philosophy">
+        <div class="fm-philosophy-inner">
+            <p>This is not an AI training program. It is an <strong>AI orchestration engagement</strong>.</p>
+            <p>Where every other tier teaches people to use AI, Deep AI Transformation teaches people to <strong>conduct it</strong>. The client becomes the composer. The tools become the orchestra. The output is something no single tool could produce alone.</p>
+            <p>This program exists for the rare person who has hit the ceiling of what any one tool can do, can feel there is a next level they have not reached yet, and is ready to stop using AI and <strong>start deploying it</strong>.</p>
+        </div>
+    </section>
+
+    <!-- ── WHO IT IS FOR ──────────────────────────────────────── -->
+    <div class="fm-section">
+        <h2>Who this is for</h2>
+        <p class="lead">This engagement is not publicly listed and is not available to new clients. It is reserved exclusively for people who have completed a prior engagement and demonstrated both the technical readiness and the values alignment to use this responsibly.</p>
+
+        <div class="distinction-list">
+            <div class="distinction-item">
+                <div>
+                    <h4>The readiness markers</h4>
+                    <p>You use AI more than an hour a day. You are comfortable with at least one primary platform. You are asking the question &ldquo;what else is possible?&rdquo; and you are not asking it casually. You are moving from walk to run and you want that run to be the most sophisticated, high-leverage version imaginable.</p>
+                </div>
+            </div>
+            <div class="distinction-item">
+                <div>
+                    <h4>The values requirement</h4>
+                    <p>Nobody should spend this kind of money with someone they do not already know deeply. And nobody should receive this level of access without demonstrating they will use it responsibly. Prior engagement is not a formality. It is the prerequisite.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ── THE FOUR PHASES ────────────────────────────────────── -->
+    <div class="fm-section" style="padding-top:0;">
+        <h2>What it covers</h2>
+        <p class="lead">Four phases. Each one builds the foundation for the next. By the end, you have something that functions less like a set of tools and more like an operational asset that compounds value over time.</p>
+
+        <div class="fm-phases">
+            <div class="fm-phase">
+                <span class="fm-phase-label">Phase 1</span>
+                <div>
+                    <h3>AI Team Design</h3>
+                    <p>Identifying which tools belong in your personal AI stack based on your specific goals, workflows, and cognitive style. Introducing platforms beyond your current use. Building fluency across multiple AI systems and understanding what each one does best. You leave Phase 1 knowing your team.</p>
+                </div>
+            </div>
+            <div class="fm-phase">
+                <span class="fm-phase-label">Phase 2</span>
+                <div>
+                    <h3>Orchestration Architecture</h3>
+                    <p>Learning how to stage work across tools. How to use one AI to prompt another. How to move a piece of work through multiple systems to produce something greater than any single tool could generate. Building the mental model of the human as creative director with AI as the production team.</p>
+                </div>
+            </div>
+            <div class="fm-phase">
+                <span class="fm-phase-label">Phase 3</span>
+                <div>
+                    <h3>Automation and Integration</h3>
+                    <p>Connecting tools through APIs and platforms like Zapier to create automated routines. Morning briefings that pull from your calendar and email. Workflows that trigger without manual initiation. Systems that work while you sleep. Building reliable, tested routines that compound value over time.</p>
+                </div>
+            </div>
+            <div class="fm-phase">
+                <span class="fm-phase-label">Phase 4</span>
+                <div>
+                    <h3>Philosophy and Stewardship</h3>
+                    <p>Establishing your personal AI use philosophy. AI as amplifier, not replacement. You remain the author, the ethical check, the quality filter, and the accountable party for every output. This is not optional context. It is the foundation everything else is built on.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ── THE VALUE PROPOSITION ──────────────────────────────── -->
+    <div class="fm-section" style="background:var(--parchment); max-width:none; padding-left:0; padding-right:0;">
+        <div style="max-width:860px; margin:0 auto; padding:64px 40px;">
+            <h2>What makes this different</h2>
+            <p class="lead">Most AI programs show people what the tools can do. This program shows people what becomes possible when tools work together with a skilled human at the center. That is a completely different value proposition and almost nobody is selling it.</p>
+
+            <div class="distinction-list">
+                <div class="distinction-item">
+                    <div>
+                        <h4>The value is not measured in hours saved</h4>
+                        <p>It is measured in what becomes possible that was previously impossible. A fully orchestrated AI team built around one person&rsquo;s specific business, tools, and goals is an operational asset that compounds for years.</p>
+                    </div>
+                </div>
+                <div class="distinction-item">
+                    <div>
+                        <h4>This is closer to hiring a CTO than taking a course</h4>
+                        <p>A systems architect and a strategic technology partner, simultaneously, built around your specific situation. Once people find out what is possible, they will not believe it &mdash; and then they will not be able to imagine working without it.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ── THE GATE ────────────────────────────────────────────── -->
+    <section class="fm-gate">
+        <div class="fm-gate-inner">
+            <h2>Access is <em>earned</em>, not purchased.</h2>
+            <p>This program is gated. Access is extended by invitation only after a prior engagement. When a client is ready, the conversation happens first. Then a private access code is provided. That code unlocks the pricing details for this page.</p>
+            <p>If you are a prior client and you have received a code, enter it below.</p>
+            <p>If you are not a prior client and you think you might be ready for this conversation, the right first step is one of the earlier programs.</p>
+
+            <hr class="fm-gate-divider">
+
+            <div class="fm-code-block">
+                <span class="fm-code-label">Prior Client Access</span>
+                <div class="fm-code-input-row">
+                    <input class="fm-code-input" type="password" id="fmCodeInput" placeholder="Enter your access code" autocomplete="off">
+                    <button class="fm-code-btn" id="fmCodeBtn">Unlock</button>
+                </div>
+                <p class="fm-code-msg" id="fmCodeMsg"></p>
+            </div>
+
+            <!-- Hidden pricing — revealed by correct code -->
+            <div class="fm-pricing-reveal" id="fmPricingReveal">
+                <h3>Deep AI Transformation &mdash; Pricing</h3>
+                <p>Pricing details will appear here once the full program brief is complete. Check back soon, or reach out directly for a private conversation.</p>
+                <p class="price-line">$100,000</p>
+                <p>Scope, timeline, and structure determined in a private discovery conversation. This engagement is fully custom. There is no standard package.</p>
+                <div class="btn-row" style="margin-top:24px;">
+                    <a href="/contact.html?type=consult" class="btn btn-gold">Start the Conversation</a>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <footer>
+        <div class="footer-name">Joshua Bechtel</div>
+        <div class="footer-tagline">Knowledge Architecture &nbsp;&middot;&nbsp; AI Fluency &nbsp;&middot;&nbsp; Enterprise Content Systems</div>
+    </footer>
+</div>
+
+<script src="/nav.js"></script>
+<script src="/quiz.js"></script>
+<script src="/microinteractions.js"></script>
+<script>
+(function () {
+    // Access code — change this string whenever you want to rotate the code
+    var ACCESS_CODE = 'FULLMONTY2026';
+
+    var input   = document.getElementById('fmCodeInput');
+    var btn     = document.getElementById('fmCodeBtn');
+    var msg     = document.getElementById('fmCodeMsg');
+    var reveal  = document.getElementById('fmPricingReveal');
+
+    btn.addEventListener('click', checkCode);
+    input.addEventListener('keydown', function (e) {
+        if (e.key === 'Enter') checkCode();
+    });
+
+    function checkCode() {
+        var val = input.value.trim().toUpperCase();
+        if (val === ACCESS_CODE) {
+            reveal.style.display = 'block';
+            msg.textContent = 'Access granted. Welcome back.';
+            msg.className = 'fm-code-msg success';
+            input.disabled = true;
+            btn.disabled = true;
+            reveal.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        } else if (val === '') {
+            msg.textContent = 'Please enter your access code.';
+            msg.className = 'fm-code-msg error';
+        } else {
+            msg.textContent = 'That code is not recognized. Reach out if you think something is wrong.';
+            msg.className = 'fm-code-msg error';
+            input.value = '';
+            input.focus();
+        }
+    }
+}());
+</script>
+</body>
+</html>

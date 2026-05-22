@@ -1,0 +1,1194 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Executive AI Intensive | Joshua Bechtel</title>
+    <meta name="description" content="Three sessions. One-on-one. Built entirely around your role, your decisions, and your organization. Personal AI fluency, a judgment framework, and everything you need to bring this to your team.">
+    <link rel="stylesheet" href="/styles.css">
+    <style>
+        /* ── EXECUTIVE INTENSIVE PAGE STYLES ──────────────── */
+
+        /* Hero */
+        .ei-hero {
+            background: var(--forest);
+            position: relative;
+            overflow: hidden;
+        }
+        .ei-hero::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background:
+                radial-gradient(ellipse 60% 70% at 90% 30%, rgba(95,140,95,0.15) 0%, transparent 65%),
+                radial-gradient(ellipse 45% 55% at 0% 100%, rgba(31,59,31,0.6) 0%, transparent 55%);
+            pointer-events: none;
+        }
+        .ei-hero-inner {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 80px 40px 72px;
+            position: relative;
+            display: grid;
+            grid-template-columns: 1.2fr 1fr;
+            gap: 64px;
+            align-items: center;
+        }
+        .ei-eyebrow {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            letter-spacing: 0.13em;
+            text-transform: uppercase;
+            color: var(--mist);
+            margin-bottom: 22px;
+        }
+        .ei-eyebrow::before {
+            content: '';
+            display: inline-block;
+            width: 24px;
+            height: 1px;
+            background: var(--mist);
+            opacity: 0.6;
+        }
+        .ei-hero h1 {
+            font-family: 'DM Serif Display', serif;
+            font-size: 2.8rem;
+            line-height: 1.1;
+            color: var(--white);
+            margin-bottom: 20px;
+        }
+        .ei-hero h1 em {
+            color: var(--mist);
+            font-style: italic;
+        }
+        .ei-hero-sub {
+            font-size: 1.05rem;
+            color: rgba(255,255,255,0.74);
+            line-height: 1.72;
+            margin-bottom: 32px;
+            max-width: 560px;
+        }
+        .ei-hero-ctas {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+        }
+        .btn-ei-primary {
+            background: var(--gold);
+            color: var(--white);
+        }
+        .btn-ei-primary:hover {
+            background: var(--gold-lt);
+            transform: translateY(-1px);
+        }
+        .btn-ei-outline {
+            background: transparent;
+            color: var(--foam);
+            border: 1.5px solid var(--mist);
+        }
+        .btn-ei-outline:hover {
+            background: rgba(159,202,159,0.12);
+            transform: translateY(-1px);
+        }
+
+        /* Hero summary card */
+        .ei-hero-card {
+            background: rgba(255,255,255,0.07);
+            border: 1px solid rgba(159,202,159,0.22);
+            border-radius: 10px;
+            padding: 32px 30px;
+            backdrop-filter: blur(4px);
+        }
+        .ei-hero-card h3 {
+            font-family: 'DM Serif Display', serif;
+            font-size: 1.1rem;
+            color: var(--white);
+            margin-bottom: 20px;
+            padding-bottom: 14px;
+            border-bottom: 1px solid rgba(159,202,159,0.2);
+        }
+        .ei-spec-list {
+            list-style: none;
+            padding: 0;
+            margin: 0 0 24px;
+        }
+        .ei-spec-list li {
+            display: flex;
+            justify-content: space-between;
+            align-items: baseline;
+            padding: 9px 0;
+            border-bottom: 1px solid rgba(255,255,255,0.07);
+            font-size: 0.88rem;
+        }
+        .ei-spec-list li:last-child { border-bottom: none; }
+        .ei-spec-label {
+            color: var(--mist);
+            font-size: 0.74rem;
+            font-weight: 600;
+            letter-spacing: 0.07em;
+            text-transform: uppercase;
+        }
+        .ei-spec-value {
+            color: var(--white);
+            font-weight: 500;
+            text-align: right;
+        }
+        .ei-price-display {
+            background: rgba(255,255,255,0.05);
+            border: 1px solid rgba(159,202,159,0.2);
+            border-radius: 6px;
+            padding: 16px 18px;
+            text-align: center;
+            margin-bottom: 18px;
+        }
+        .ei-price-display .amount {
+            font-family: 'DM Serif Display', serif;
+            font-size: 2.2rem;
+            color: var(--white);
+            display: block;
+            line-height: 1.1;
+        }
+        .ei-price-display .label {
+            font-size: 0.78rem;
+            color: var(--mist);
+            opacity: 0.8;
+            display: block;
+            margin-top: 4px;
+        }
+        .ei-hero-card .btn {
+            width: 100%;
+            text-align: center;
+            display: block;
+        }
+
+        /* Shared section styles */
+        .ei-section {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 80px 40px;
+        }
+        .ei-section-label {
+            font-size: 0.74rem;
+            font-weight: 600;
+            letter-spacing: 0.14em;
+            text-transform: uppercase;
+            color: var(--sage);
+            margin-bottom: 14px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .ei-section-label::after {
+            content: '';
+            flex: 1;
+            max-width: 40px;
+            height: 1px;
+            background: var(--mist);
+        }
+        .ei-section-heading {
+            font-family: 'DM Serif Display', serif;
+            font-size: 2.1rem;
+            color: var(--forest);
+            line-height: 1.15;
+            margin-bottom: 14px;
+        }
+        .ei-section-subhead {
+            font-size: 1rem;
+            color: var(--slate);
+            max-width: 660px;
+            margin-bottom: 52px;
+            line-height: 1.72;
+        }
+
+        /* Who this is for */
+        .for-section { background: var(--white); border-top: 1px solid rgba(159,202,159,0.3); }
+        .for-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 18px;
+        }
+        .for-card {
+            background: var(--parchment);
+            border: 1px solid rgba(95,138,95,0.15);
+            border-top: 3px solid var(--sage);
+            border-radius: 8px;
+            padding: 26px 24px;
+        }
+        .for-card h3 {
+            font-family: 'DM Serif Display', serif;
+            font-size: 1.05rem;
+            color: var(--forest);
+            margin-bottom: 8px;
+        }
+        .for-card p {
+            font-size: 0.88rem;
+            color: var(--slate);
+            line-height: 1.62;
+            margin: 0;
+        }
+        .not-for-card {
+            background: var(--white);
+            border: 1px solid rgba(95,138,95,0.15);
+            border-top: 3px solid rgba(192,57,43,0.4);
+            border-radius: 8px;
+            padding: 26px 24px;
+        }
+        .not-for-card h3 {
+            font-family: 'DM Serif Display', serif;
+            font-size: 1.05rem;
+            color: var(--slate);
+            margin-bottom: 8px;
+        }
+        .not-for-card p {
+            font-size: 0.88rem;
+            color: var(--slate);
+            line-height: 1.62;
+            margin: 0;
+            opacity: 0.8;
+        }
+
+        /* Session by session */
+        .sessions-bg { background: var(--parchment); border-top: 1px solid rgba(159,202,159,0.3); }
+        .sessions-timeline {
+            display: flex;
+            flex-direction: column;
+            gap: 0;
+            position: relative;
+        }
+        .sessions-timeline::before {
+            content: '';
+            position: absolute;
+            left: 28px;
+            top: 44px;
+            bottom: 44px;
+            width: 2px;
+            background: linear-gradient(to bottom, var(--sage), rgba(95,138,95,0.2));
+        }
+        .session-block {
+            display: grid;
+            grid-template-columns: 60px 1fr;
+            gap: 28px;
+            align-items: flex-start;
+            margin-bottom: 32px;
+            position: relative;
+        }
+        .session-block:last-child { margin-bottom: 0; }
+        .session-marker {
+            width: 58px;
+            height: 58px;
+            border-radius: 50%;
+            background: var(--forest);
+            border: 3px solid var(--parchment);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+            position: relative;
+            z-index: 1;
+            box-shadow: 0 4px 12px rgba(31,59,31,0.2);
+        }
+        .session-marker span {
+            font-family: 'DM Serif Display', serif;
+            font-size: 1.1rem;
+            color: var(--white);
+            font-weight: 700;
+        }
+        .session-content {
+            background: var(--white);
+            border: 1px solid rgba(95,138,95,0.18);
+            border-radius: 10px;
+            overflow: hidden;
+            margin-top: 4px;
+        }
+        .session-header {
+            background: var(--forest);
+            padding: 22px 28px 18px;
+        }
+        .session-meta {
+            font-size: 0.72rem;
+            font-weight: 600;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            color: var(--mist);
+            margin-bottom: 6px;
+        }
+        .session-header h3 {
+            font-family: 'DM Serif Display', serif;
+            font-size: 1.35rem;
+            color: var(--white);
+            margin-bottom: 6px;
+            line-height: 1.2;
+        }
+        .session-header p {
+            font-size: 0.88rem;
+            color: rgba(255,255,255,0.7);
+            margin: 0;
+            line-height: 1.6;
+        }
+        .session-body {
+            padding: 24px 28px 26px;
+        }
+        .session-blocks-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 14px;
+            margin-bottom: 22px;
+        }
+        .session-block-item {
+            background: var(--parchment);
+            border-radius: 6px;
+            padding: 16px 16px;
+            border-left: 3px solid var(--sage);
+        }
+        .session-block-item h4 {
+            font-size: 0.78rem;
+            font-weight: 700;
+            color: var(--forest);
+            margin-bottom: 5px;
+            letter-spacing: 0.03em;
+        }
+        .session-block-item p {
+            font-size: 0.82rem;
+            color: var(--slate);
+            line-height: 1.55;
+            margin: 0;
+        }
+        .session-deliverable {
+            display: flex;
+            align-items: flex-start;
+            gap: 12px;
+            background: rgba(95,138,95,0.07);
+            border: 1px solid rgba(95,138,95,0.2);
+            border-radius: 6px;
+            padding: 14px 16px;
+        }
+        .session-deliverable-icon {
+            font-size: 1.1rem;
+            flex-shrink: 0;
+            margin-top: 1px;
+        }
+        .session-deliverable h4 {
+            font-size: 0.76rem;
+            font-weight: 700;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            color: var(--sage);
+            margin-bottom: 3px;
+        }
+        .session-deliverable p {
+            font-size: 0.86rem;
+            color: var(--slate);
+            margin: 0;
+            line-height: 1.55;
+        }
+
+        /* Homework strip between sessions */
+        .session-prep {
+            background: rgba(31,59,31,0.04);
+            border: 1px dashed rgba(95,138,95,0.3);
+            border-radius: 6px;
+            padding: 12px 16px;
+            margin: 0 0 32px 88px;
+            display: flex;
+            align-items: flex-start;
+            gap: 10px;
+        }
+        .session-prep-icon {
+            font-size: 0.9rem;
+            flex-shrink: 0;
+            margin-top: 2px;
+        }
+        .session-prep p {
+            font-size: 0.84rem;
+            color: var(--sage);
+            margin: 0;
+            line-height: 1.55;
+        }
+        .session-prep p strong { color: var(--forest); }
+
+        /* Full deliverables */
+        .deliverables-bg { background: var(--white); border-top: 1px solid rgba(159,202,159,0.3); }
+        .deliverables-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 14px;
+        }
+        .deliverable-item {
+            display: flex;
+            gap: 16px;
+            align-items: flex-start;
+            padding: 20px 20px;
+            background: var(--parchment);
+            border-radius: 8px;
+            border: 1px solid rgba(95,138,95,0.15);
+            transition: box-shadow 0.18s;
+        }
+        .deliverable-item:hover {
+            box-shadow: 0 4px 16px rgba(31,59,31,0.08);
+        }
+        .deliverable-num {
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            background: var(--forest);
+            color: var(--white);
+            font-family: 'DM Serif Display', serif;
+            font-size: 0.9rem;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+        }
+        .deliverable-text h4 {
+            font-size: 0.88rem;
+            font-weight: 600;
+            color: var(--forest);
+            margin-bottom: 4px;
+        }
+        .deliverable-text p {
+            font-size: 0.83rem;
+            color: var(--slate);
+            line-height: 1.55;
+            margin: 0;
+        }
+
+        /* The adoption bridge */
+        .bridge-bg {
+            background: linear-gradient(135deg, var(--forest) 0%, #223823 100%);
+            position: relative;
+            overflow: hidden;
+        }
+        .bridge-bg::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: radial-gradient(ellipse 60% 60% at 85% 20%, rgba(95,140,95,0.12) 0%, transparent 65%);
+            pointer-events: none;
+        }
+        .bridge-inner {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 80px 40px;
+            position: relative;
+        }
+        .bridge-inner .ei-section-label { color: var(--mist); }
+        .bridge-inner .ei-section-label::after { background: var(--mist); }
+        .bridge-inner .ei-section-heading { color: var(--white); }
+        .bridge-inner .ei-section-subhead { color: rgba(255,255,255,0.68); }
+        .bridge-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 16px;
+        }
+        .bridge-card {
+            background: rgba(255,255,255,0.06);
+            border: 1px solid rgba(159,202,159,0.18);
+            border-radius: 8px;
+            padding: 28px 24px;
+            transition: background 0.2s, border-color 0.2s;
+        }
+        .bridge-card:hover {
+            background: rgba(255,255,255,0.09);
+            border-color: rgba(159,202,159,0.35);
+        }
+        .bridge-card-num {
+            font-family: 'DM Serif Display', serif;
+            font-size: 1.6rem;
+            color: var(--mist);
+            opacity: 0.45;
+            margin-bottom: 12px;
+            line-height: 1;
+        }
+        .bridge-card h4 {
+            font-family: 'DM Serif Display', serif;
+            font-size: 1.05rem;
+            color: var(--white);
+            margin-bottom: 8px;
+        }
+        .bridge-card p {
+            font-size: 0.86rem;
+            color: rgba(255,255,255,0.62);
+            line-height: 1.62;
+            margin: 0;
+        }
+
+        /* Investment section */
+        .investment-bg { background: var(--parchment); border-top: 1px solid rgba(159,202,159,0.3); }
+        .investment-grid {
+            display: grid;
+            grid-template-columns: 1.2fr 1fr;
+            gap: 40px;
+            align-items: start;
+        }
+        .investment-detail h3 {
+            font-family: 'DM Serif Display', serif;
+            font-size: 1.4rem;
+            color: var(--forest);
+            margin-bottom: 16px;
+        }
+        .investment-detail p {
+            font-size: 0.95rem;
+            color: var(--slate);
+            line-height: 1.72;
+            margin-bottom: 16px;
+        }
+        .investment-includes {
+            list-style: none;
+            padding: 0;
+            margin: 24px 0 0;
+        }
+        .investment-includes li {
+            font-size: 0.9rem;
+            color: var(--slate);
+            padding: 9px 0;
+            border-bottom: 1px solid rgba(159,202,159,0.2);
+            display: flex;
+            align-items: flex-start;
+            gap: 10px;
+            line-height: 1.5;
+        }
+        .investment-includes li:last-child { border-bottom: none; }
+        .investment-includes li::before {
+            content: '◦';
+            color: var(--sage);
+            flex-shrink: 0;
+            font-size: 1.1rem;
+            margin-top: 0;
+        }
+        .investment-card {
+            background: var(--white);
+            border: 1px solid rgba(95,138,95,0.2);
+            border-radius: 10px;
+            overflow: hidden;
+            position: sticky;
+            top: 24px;
+        }
+        .investment-card-header {
+            background: var(--forest);
+            padding: 28px 28px 22px;
+        }
+        .investment-card-header h3 {
+            font-family: 'DM Serif Display', serif;
+            font-size: 1.2rem;
+            color: var(--white);
+            margin-bottom: 4px;
+        }
+        .investment-card-header p {
+            font-size: 0.84rem;
+            color: rgba(255,255,255,0.65);
+            margin: 0;
+        }
+        .investment-card-body { padding: 26px 28px; }
+        .price-block {
+            text-align: center;
+            padding: 20px 0 24px;
+            border-bottom: 1px solid rgba(159,202,159,0.2);
+            margin-bottom: 20px;
+        }
+        .price-block .price-amount {
+            font-family: 'DM Serif Display', serif;
+            font-size: 2.8rem;
+            color: var(--forest);
+            display: block;
+            line-height: 1;
+            margin-bottom: 6px;
+        }
+        .price-block .price-desc {
+            font-size: 0.82rem;
+            color: var(--slate);
+        }
+        .investment-card-specs {
+            list-style: none;
+            padding: 0;
+            margin: 0 0 22px;
+        }
+        .investment-card-specs li {
+            display: flex;
+            justify-content: space-between;
+            font-size: 0.86rem;
+            padding: 7px 0;
+            border-bottom: 1px solid rgba(159,202,159,0.15);
+            color: var(--slate);
+        }
+        .investment-card-specs li:last-child { border-bottom: none; }
+        .investment-card-specs li span:first-child {
+            color: var(--sage);
+            font-weight: 600;
+            font-size: 0.76rem;
+            letter-spacing: 0.05em;
+            text-transform: uppercase;
+        }
+        .investment-card-note {
+            font-size: 0.8rem;
+            color: var(--slate);
+            line-height: 1.55;
+            margin-bottom: 20px;
+            padding: 12px 14px;
+            background: var(--parchment);
+            border-radius: 5px;
+            font-style: italic;
+        }
+        .investment-card-ctas { display: flex; flex-direction: column; gap: 10px; }
+        .investment-card-ctas .btn { text-align: center; display: block; }
+
+        /* FAQ */
+        .faq-bg { background: var(--white); border-top: 1px solid rgba(159,202,159,0.3); }
+        .faq-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 24px 48px;
+        }
+        .faq-item {}
+        .faq-item h4 {
+            font-family: 'DM Serif Display', serif;
+            font-size: 1.05rem;
+            color: var(--forest);
+            margin-bottom: 10px;
+            line-height: 1.3;
+        }
+        .faq-item p {
+            font-size: 0.9rem;
+            color: var(--slate);
+            line-height: 1.68;
+            margin: 0;
+        }
+
+        /* Final CTA */
+        .ei-final-cta {
+            background: var(--moss);
+            text-align: center;
+            padding: 80px 40px;
+        }
+        .ei-final-cta h2 {
+            font-family: 'DM Serif Display', serif;
+            font-size: 2.2rem;
+            color: var(--white);
+            max-width: 680px;
+            margin: 0 auto 16px;
+            line-height: 1.2;
+        }
+        .ei-final-cta h2 em { color: var(--mist); font-style: italic; }
+        .ei-final-cta p {
+            color: rgba(255,255,255,0.72);
+            max-width: 520px;
+            margin: 0 auto 36px;
+            font-size: 1rem;
+            line-height: 1.7;
+        }
+        .ei-final-buttons {
+            display: flex;
+            gap: 14px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        /* Responsive */
+        @media (max-width: 960px) {
+            .ei-hero-inner {
+                grid-template-columns: 1fr;
+                padding: 56px 24px 48px;
+            }
+            .ei-hero h1 { font-size: 2.2rem; }
+            .for-grid { grid-template-columns: 1fr; }
+            .session-blocks-grid { grid-template-columns: 1fr; }
+            .bridge-grid { grid-template-columns: 1fr; }
+            .investment-grid { grid-template-columns: 1fr; }
+            .faq-grid { grid-template-columns: 1fr; }
+            .deliverables-grid { grid-template-columns: 1fr; }
+            .session-prep { margin-left: 0; }
+            .ei-section { padding: 60px 24px; }
+            .ei-final-cta { padding: 60px 24px; }
+        }
+        @media (max-width: 600px) {
+            .ei-hero h1 { font-size: 1.85rem; }
+            .ei-section-heading { font-size: 1.7rem; }
+            .sessions-timeline::before { display: none; }
+            .session-block { grid-template-columns: 1fr; }
+            .session-marker { display: none; }
+        }
+    </style>
+</head>
+<body class="page-shell has-sidebar">
+
+<!-- ── SIDEBAR ──────────────────────────────────────────── -->
+<button class="sidebar-toggle" id="sidebarToggle" aria-label="Open navigation">&#9776;</button>
+<div class="sidebar-overlay" id="sidebarOverlay"></div>
+
+<aside class="sidebar" id="sidebar"></aside>
+
+<!-- ── PAGE BODY ─────────────────────────────────────────── -->
+<div class="page-body">
+
+<!-- ── HEADER ───────────────────────────────────────────── -->
+<header class="site-header">
+    <a class="wordmark" href="/">Joshua Bechtel</a>
+    <p class="site-tagline">Enterprise Knowledge Architecture &nbsp;&middot;&nbsp; AI Fluency &nbsp;&middot;&nbsp; Content Systems</p>
+</header>
+
+<nav class="top-nav"></nav>
+
+<!-- ── HERO ─────────────────────────────────────────────── -->
+<section class="ei-hero">
+    <div class="ei-hero-inner">
+        <div class="ei-hero-text">
+            <span class="ei-eyebrow">AI Fluency &nbsp;&middot;&nbsp; Executive Track</span>
+            <h1>Three sessions.<br>Built entirely around <em>you.</em></h1>
+            <p class="ei-hero-sub">
+                Not a course. Not a cohort. A one-on-one engagement built from your actual role,
+                your actual decisions, and your actual organization. You leave with personal AI fluency,
+                a judgment framework, and everything you need to bring this to your team.
+            </p>
+            <div class="ei-hero-ctas">
+                <a class="btn btn-ei-primary" href="/contact.html?type=consult">Schedule a Discovery Call</a>
+                <a class="btn btn-ei-outline" href="#sessions">See the Sessions</a>
+            </div>
+        </div>
+        <div class="ei-hero-card">
+            <h3>Program at a Glance</h3>
+            <ul class="ei-spec-list">
+                <li>
+                    <span class="ei-spec-label">Format</span>
+                    <span class="ei-spec-value">3 Sessions</span>
+                </li>
+                <li>
+                    <span class="ei-spec-label">Duration</span>
+                    <span class="ei-spec-value">2 to 2.5 Hours Each</span>
+                </li>
+                <li>
+                    <span class="ei-spec-label">Delivery</span>
+                    <span class="ei-spec-value">Virtual</span>
+                </li>
+                <li>
+                    <span class="ei-spec-label">Participants</span>
+                    <span class="ei-spec-value">1 to 4 Executives</span>
+                </li>
+                <li>
+                    <span class="ei-spec-label">Deliverables</span>
+                    <span class="ei-spec-value">7 Named Documents</span>
+                </li>
+                <li>
+                    <span class="ei-spec-label">Timeline</span>
+                    <span class="ei-spec-value">Typically 2 to 3 Weeks</span>
+                </li>
+            </ul>
+            <div class="ei-price-display">
+                <span class="amount">$27,500</span>
+                <span class="label">All three sessions &nbsp;&middot;&nbsp; All deliverables included</span>
+            </div>
+            <a class="btn btn-ei-primary" href="/contact.html?type=consult">Schedule a Call</a>
+        </div>
+    </div>
+</section>
+
+<!-- ── WHO THIS IS FOR ────────────────────────────────────── -->
+<section class="for-section">
+    <div class="ei-section">
+        <p class="ei-section-label">Who this is for</p>
+        <h2 class="ei-section-heading">Built for executives who lead, decide, and are accountable.</h2>
+        <p class="ei-section-subhead">
+            This program is not for people who want to understand AI conceptually.
+            It is for people who need to use it effectively and govern it responsibly,
+            starting this week.
+        </p>
+        <div class="for-grid">
+            <div class="for-card">
+                <h3>C-Level and Senior Executive</h3>
+                <p>CEOs, Executive Directors, COOs, and senior leaders who want personal AI fluency and the judgment to govern its use across their organization.</p>
+            </div>
+            <div class="for-card">
+                <h3>Nonprofit Leadership</h3>
+                <p>Executive Directors and senior staff at mission-driven organizations navigating AI with limited resources, real compliance considerations, and high accountability to donors and boards.</p>
+            </div>
+            <div class="for-card">
+                <h3>Leaders Preparing to Scale</h3>
+                <p>Executives who have personally committed to AI adoption and want to build their own fluency before championing it to their team. Leadership credibility requires personal competence first.</p>
+            </div>
+            <div class="not-for-card">
+                <h3>Not for you if&hellip;</h3>
+                <p>You are looking for a general AI overview, a group workshop, or a program where someone else drives and you observe. This requires your real work, your real decisions, and your active participation every session.</p>
+            </div>
+            <div class="not-for-card">
+                <h3>Not for you if&hellip;</h3>
+                <p>You are not yet ready to bring AI to your organization at all. This program closes with an enterprise adoption bridge. If the organizational conversation is years away, the timing is not right.</p>
+            </div>
+            <div class="not-for-card">
+                <h3>Not for you if&hellip;</h3>
+                <p>You want someone to build your AI strategy for you. This is coaching, not consulting. You leave capable and self-sufficient. The goal is never dependency.</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ── SESSION BY SESSION ─────────────────────────────────── -->
+<section class="sessions-bg" id="sessions">
+    <div class="ei-section">
+        <p class="ei-section-label">The three sessions</p>
+        <h2 class="ei-section-heading">What actually happens across the three sessions.</h2>
+        <p class="ei-section-subhead">
+            Each session has a specific purpose, a defined structure, and a named deliverable.
+            Nothing is abstract. Everything connects to work that is already on your desk.
+        </p>
+
+        <div class="sessions-timeline">
+
+            <!-- Session 1 -->
+            <div class="session-block">
+                <div class="session-marker"><span>1</span></div>
+                <div class="session-content">
+                    <div class="session-header">
+                        <p class="session-meta">Session 01 &nbsp;&middot;&nbsp; 2 to 2.5 Hours</p>
+                        <h3>Orientation and First Real Work</h3>
+                        <p>We establish your honest baseline, remove the mystery, and get you producing something real with AI before the session ends.</p>
+                    </div>
+                    <div class="session-body">
+                        <div class="session-blocks-grid">
+                            <div class="session-block-item">
+                                <h4>Opening Block &nbsp;&middot;&nbsp; 20 min</h4>
+                                <p>Honest inventory. What you already use, what intimidates you, what is eating your time. No judgment. Builds the Starting Point Map.</p>
+                            </div>
+                            <div class="session-block-item">
+                                <h4>Working Block &nbsp;&middot;&nbsp; 80&ndash;90 min</h4>
+                                <p>You bring something real from your desk right now. A board memo, a difficult email, a decision you are circling. You drive. I guide. We finish it.</p>
+                            </div>
+                            <div class="session-block-item">
+                                <h4>Closing Block &nbsp;&middot;&nbsp; 20 min</h4>
+                                <p>Preview of Sessions 2 and 3. You identify one decision you are wrestling with and one communication task that is costing you time. Setup, not homework.</p>
+                            </div>
+                        </div>
+                        <div class="session-deliverable">
+                            <span class="session-deliverable-icon">◈</span>
+                            <div>
+                                <h4>Session Deliverables</h4>
+                                <p><strong>Personal AI Starting Point Map</strong> &mdash; your honest baseline, built live and handed back before the session ends. Plus the real work product you completed during the working block, ready to use.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Between session 1 and 2 -->
+            <div class="session-prep">
+                <span class="session-prep-icon">◦</span>
+                <p><strong>Before Session 2:</strong> Identify one decision you are currently wrestling with and one communication task that costs you more time than it should. Not written up &mdash; just identified. That is your material for Session 2.</p>
+            </div>
+
+            <!-- Session 2 -->
+            <div class="session-block">
+                <div class="session-marker"><span>2</span></div>
+                <div class="session-content">
+                    <div class="session-header">
+                        <p class="session-meta">Session 02 &nbsp;&middot;&nbsp; 2 to 2.5 Hours</p>
+                        <h3>Prompting, Judgment, and Where the Line Is</h3>
+                        <p>You build a personal prompt library built for your actual role, then establish the precise framework for where your judgment must remain sovereign.</p>
+                    </div>
+                    <div class="session-body">
+                        <div class="session-blocks-grid">
+                            <div class="session-block-item">
+                                <h4>Reconnect &nbsp;&middot;&nbsp; 10 min</h4>
+                                <p>What did you try between sessions? What worked, what confused you, what changed? This feeds the rest of the session.</p>
+                            </div>
+                            <div class="session-block-item">
+                                <h4>Prompting Block &nbsp;&middot;&nbsp; 60 min</h4>
+                                <p>Prompting as a leadership skill. You already know how to brief an analyst. This is the same skill. We build five to seven prompts for your specific role, live, tested, saved.</p>
+                            </div>
+                            <div class="session-block-item">
+                                <h4>Judgment Block &nbsp;&middot;&nbsp; 50 min</h4>
+                                <p>The four lanes: green, yellow, red, and never. What an executive should never delegate to AI. Nonprofit-specific risk. Your personal guardrails document built before the session ends.</p>
+                            </div>
+                        </div>
+                        <div class="session-deliverable">
+                            <span class="session-deliverable-icon">◈</span>
+                            <div>
+                                <h4>Session Deliverables</h4>
+                                <p><strong>Personal Prompt Library</strong> &mdash; five to seven tested prompts built for your role, formatted and saved. Plus your <strong>Personal AI Guardrails</strong> &mdash; a one-page decision framework you keep and use going forward.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Between session 2 and 3 -->
+            <div class="session-prep">
+                <span class="session-prep-icon">◦</span>
+                <p><strong>Before Session 3:</strong> Bring one organizational challenge you have been circling. Not a task &mdash; a challenge. Something with real stakes, competing priorities, or no obvious answer. That is the material for the high-value work.</p>
+            </div>
+
+            <!-- Session 3 -->
+            <div class="session-block">
+                <div class="session-marker"><span>3</span></div>
+                <div class="session-content">
+                    <div class="session-header">
+                        <p class="session-meta">Session 03 &nbsp;&middot;&nbsp; 2 to 2.5 Hours</p>
+                        <h3>Strategic Thinking, Sustainability, and the Enterprise Bridge</h3>
+                        <p>The session most executives tell me they did not expect. AI as a genuine strategic thinking partner, a 90-day integration plan, and everything you need to bring this to your organization.</p>
+                    </div>
+                    <div class="session-body">
+                        <div class="session-blocks-grid">
+                            <div class="session-block-item">
+                                <h4>Strategic Work &nbsp;&middot;&nbsp; 80&ndash;90 min</h4>
+                                <p>Devil's advocate, blind spot finder, scenario builder. Three techniques using your real organizational challenge. This is the session where executives get genuinely surprised.</p>
+                            </div>
+                            <div class="session-block-item">
+                                <h4>Integration Block &nbsp;&middot;&nbsp; 30 min</h4>
+                                <p>Three habit anchors. How to stay current without drowning. How to model AI use for your team without pretending to be an expert. Practical, specific, starts Monday.</p>
+                            </div>
+                            <div class="session-block-item">
+                                <h4>Adoption Bridge &nbsp;&middot;&nbsp; 20 min</h4>
+                                <p>The AI Adoption Readiness Package. Six questions legal and compliance will ask, answered. Deployment guardrails by org size. Three paths forward, none of them a sales pitch.</p>
+                            </div>
+                        </div>
+                        <div class="session-deliverable">
+                            <span class="session-deliverable-icon">◈</span>
+                            <div>
+                                <h4>Session Deliverables</h4>
+                                <p><strong>Strategic Thinking Session Output</strong> on your real challenge. Plus your <strong>90-Day Personal AI Integration Plan</strong> and the complete <strong>AI Adoption Readiness Package</strong> for your legal and compliance team.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</section>
+
+<!-- ── ALL DELIVERABLES ───────────────────────────────────── -->
+<section class="deliverables-bg">
+    <div class="ei-section">
+        <p class="ei-section-label">Complete deliverables</p>
+        <h2 class="ei-section-heading">Seven documents. All built from your actual work.</h2>
+        <p class="ei-section-subhead">
+            These are not handouts or templates with your name on them.
+            They are working documents built during the sessions from your real role,
+            your real organization, and your real challenges.
+        </p>
+        <div class="deliverables-grid">
+            <div class="deliverable-item">
+                <div class="deliverable-num">1</div>
+                <div class="deliverable-text">
+                    <h4>Personal AI Starting Point Map</h4>
+                    <p>A one-page honest baseline: what you use, what intimidates you, what costs you the most time, and what success looks like by Session 3. Built live in Session 1 and used as the navigation document for the engagement.</p>
+                </div>
+            </div>
+            <div class="deliverable-item">
+                <div class="deliverable-num">2</div>
+                <div class="deliverable-text">
+                    <h4>Session 1 Work Product</h4>
+                    <p>A real deliverable from your actual work &mdash; a board memo, a difficult communication, a strategic brief &mdash; completed in the first session using AI. In your voice, AI-assisted, ready to use the same day.</p>
+                </div>
+            </div>
+            <div class="deliverable-item">
+                <div class="deliverable-num">3</div>
+                <div class="deliverable-text">
+                    <h4>Personal Prompt Library</h4>
+                    <p>Five to seven tested prompts built for your specific role, communication patterns, and recurring tasks. Formatted, saved, and ready to use. A living document that grows as your fluency does.</p>
+                </div>
+            </div>
+            <div class="deliverable-item">
+                <div class="deliverable-num">4</div>
+                <div class="deliverable-text">
+                    <h4>Personal AI Guardrails</h4>
+                    <p>A one-page decision framework covering four lanes of AI use, your never list, your verification rule, and your voice check. Your judgment, your commitment, in a format you will actually keep and use.</p>
+                </div>
+            </div>
+            <div class="deliverable-item">
+                <div class="deliverable-num">5</div>
+                <div class="deliverable-text">
+                    <h4>Strategic Thinking Session Output</h4>
+                    <p>Structured analysis of the real organizational challenge you brought to Session 3. The challenge as you framed it, what the techniques surfaced, questions worth sitting with, and next steps you identified. Real content, not a worksheet.</p>
+                </div>
+            </div>
+            <div class="deliverable-item">
+                <div class="deliverable-num">6</div>
+                <div class="deliverable-text">
+                    <h4>90-Day Personal AI Integration Plan</h4>
+                    <p>Three specific habit anchors tied to your existing routine, a framework for staying current without drowning in every new tool, and commitments for modeling AI use with your team. Specific, accountable, fits on one page.</p>
+                </div>
+            </div>
+            <div class="deliverable-item">
+                <div class="deliverable-num">7</div>
+                <div class="deliverable-text">
+                    <h4>AI Adoption Readiness Package</h4>
+                    <p>The enterprise bridge. Six questions your legal and compliance team will ask, answered in plain language. Deployment guardrails scaled to your organization's size. Three paths forward for organizational rollout &mdash; none of them a pitch for more services.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ── THE ADOPTION BRIDGE ────────────────────────────────── -->
+<section class="bridge-bg">
+    <div class="bridge-inner">
+        <p class="ei-section-label">Why this program ends differently</p>
+        <h2 class="ei-section-heading" style="color:var(--white); margin-bottom:14px;">The seventh deliverable is the one that changes what happens next.</h2>
+        <p class="ei-section-subhead">
+            Most AI coaching programs end with the executive personally capable and organizationally stranded.
+            They hit a compliance wall three months later and the momentum dies. The Adoption Readiness Package
+            removes that wall before it appears.
+        </p>
+        <div class="bridge-grid">
+            <div class="bridge-card">
+                <div class="bridge-card-num">01</div>
+                <h4>The Legal and Compliance Guide</h4>
+                <p>The six questions your legal counsel, compliance officer, or IT security lead will ask &mdash; answered in language that satisfies their concerns without killing the initiative. You walk into that meeting prepared, not defensive.</p>
+            </div>
+            <div class="bridge-card">
+                <div class="bridge-card-num">02</div>
+                <h4>Deployment Guardrails by Size</h4>
+                <p>Practical guidance for organizations under 500, under 5,000, and over 5,000 employees. Not generic best practices &mdash; specific recommendations for what governance infrastructure you need before you deploy at scale.</p>
+            </div>
+            <div class="bridge-card">
+                <div class="bridge-card-num">03</div>
+                <h4>Three Paths Forward</h4>
+                <p>Run it yourself with what you now have. Bring me in for the team. Or start with a planning conversation before you commit to anything. All three are legitimate. None of them require you to decide right now.</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ── INVESTMENT ─────────────────────────────────────────── -->
+<section class="investment-bg">
+    <div class="ei-section">
+        <p class="ei-section-label">Investment</p>
+        <h2 class="ei-section-heading">What the engagement costs and what it includes.</h2>
+        <p class="ei-section-subhead">
+            All three sessions. All seven deliverables. No add-ons, no hidden scope.
+        </p>
+        <div class="investment-grid">
+            <div class="investment-detail">
+                <h3>What you are paying for</h3>
+                <p>
+                    This is not a course with pre-recorded videos and a workbook. It is a one-on-one
+                    engagement with a senior practitioner who has spent nearly 30 years building knowledge
+                    systems, content architectures, and AI-ready information infrastructure for enterprise organizations.
+                </p>
+                <p>
+                    Every session is prepared specifically for you based on your intake document, your industry,
+                    your role, and the challenges you bring. The deliverables are built from your actual work,
+                    not populated templates.
+                </p>
+                <p>
+                    The ROI framing is straightforward. One governance failure, one legal exposure from
+                    unmanaged AI use, one board communication that goes out with AI-generated inaccuracies &mdash;
+                    any one of those incidents costs multiples of this engagement to address. This program builds
+                    the judgment that prevents them.
+                </p>
+                <ul class="investment-includes">
+                    <li>Pre-session intake review and session preparation for all three sessions</li>
+                    <li>All three live sessions, two to two and a half hours each</li>
+                    <li>All seven named deliverables, built during the sessions</li>
+                    <li>The AI Adoption Readiness Package including the compliance conversation guide</li>
+                    <li>Email follow-up support for questions arising from sessions within 30 days</li>
+                    <li>Access to the AI Essentials Guide and Prompt Library resources</li>
+                </ul>
+            </div>
+            <div class="investment-card">
+                <div class="investment-card-header">
+                    <h3>Executive AI Intensive</h3>
+                    <p>Full three-session engagement</p>
+                </div>
+                <div class="investment-card-body">
+                    <div class="price-block">
+                        <span class="price-amount">$27,500</span>
+                        <span class="price-desc">per engagement &nbsp;&middot;&nbsp; all sessions included</span>
+                        <span class="price-desc" style="font-size:0.82rem;opacity:0.75;margin-top:6px;display:block;">Price depends on scope of needs.</span>
+                    </div>
+                    <ul class="investment-card-specs">
+                        <li><span>Sessions</span> <span>3 &nbsp;(&times;&nbsp;2&ndash;2.5 hrs)</span></li>
+                        <li><span>Delivery</span> <span>Virtual</span></li>
+                        <li><span>Participants</span> <span>1 to 4 executives</span></li>
+                        <li><span>Deliverables</span> <span>7 documents</span></li>
+                        <li><span>Timeline</span> <span>2 to 3 weeks</span></li>
+                        <li><span>Follow-up</span> <span>30-day email support</span></li>
+                    </ul>
+                    <p class="investment-card-note">
+                        A discovery call is required before booking. This ensures the program is the right fit
+                        and that preparation time is used well. Discovery calls are 30 minutes and free.
+                    </p>
+                    <div class="investment-card-ctas">
+                        <a class="btn btn-ei-primary" href="/contact.html?type=consult">Schedule a Discovery Call</a>
+                        <a class="btn btn-outline-dark" href="/ai-enablement/">View All Programs</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ── FAQ ────────────────────────────────────────────────── -->
+<section class="faq-bg">
+    <div class="ei-section">
+        <p class="ei-section-label">Common questions</p>
+        <h2 class="ei-section-heading">What people ask before they commit.</h2>
+        <p class="ei-section-subhead" style="margin-bottom:44px;">
+            If your question is not here, ask it on the discovery call.
+            That is what discovery calls are for.
+        </p>
+        <div class="faq-grid">
+            <div class="faq-item">
+                <h4>Do I need any technical background?</h4>
+                <p>None. The program is designed for executives whose strength is leadership, judgment, and organizational thinking &mdash; not technology. The AI Essentials Guide, which you receive before Session 1, covers every term and concept you will need. You will not feel talked down to or left behind.</p>
+            </div>
+            <div class="faq-item">
+                <h4>What AI tools do we use in the sessions?</h4>
+                <p>We work with whichever tools are most relevant to your organization. Claude, ChatGPT, and Gemini are the most common. If your organization has already deployed a specific tool, we use that. If you have not committed to any tool yet, we make a recommendation during the intake process.</p>
+            </div>
+            <div class="faq-item">
+                <h4>How far apart are the sessions?</h4>
+                <p>Typically one to two weeks between sessions. This gives you time to try what you learned and bring real questions to the next session. The full engagement usually runs two to three weeks. If your timeline requires compression, we can discuss scheduling sessions closer together.</p>
+            </div>
+            <div class="faq-item">
+                <h4>Can more than one executive participate?</h4>
+                <p>Yes, up to four. Small executive cohorts work well when the participants share an organization and benefit from building a shared framework together. For larger groups or full leadership team programs, contact me to discuss the right structure.</p>
+            </div>
+            <div class="faq-item">
+                <h4>Is this appropriate for a nonprofit executive?</h4>
+                <p>Yes, and it is where this program has particular depth. The compliance considerations, donor data governance, board communication risks, and mission integrity questions that nonprofit executives face are specifically addressed in the guardrails and adoption readiness components of the program.</p>
+            </div>
+            <div class="faq-item">
+                <h4>What happens after the three sessions?</h4>
+                <p>You leave with seven working documents and a 90-day integration plan that does not require me to execute. The goal of the program is your self-sufficiency, not ongoing dependency. Email support is available for 30 days post-program for questions that arise as you put the work into practice. For organizations ready to extend AI Fluency to their team, the Team AI Intensive is the natural next step.</p>
+            </div>
+            <div class="faq-item">
+                <h4>What is the discovery call for?</h4>
+                <p>Thirty minutes. I want to understand your organization, your current relationship with AI, your timeline, and what success looks like for you. You want to know whether this program is the right fit and whether I am the right person to deliver it. If either of us concludes it is not the right fit, that is a good outcome too. No obligation.</p>
+            </div>
+            <div class="faq-item">
+                <h4>Can this be bundled with the Team Intensive?</h4>
+                <p>Yes, and there is a sequencing logic that makes the bundle stronger than buying both separately. The Executive Intensive ideally runs before or in parallel with the Team Intensive so that leadership has personal fluency before they champion the team program. Bundle pricing is available. Discuss it on the discovery call.</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ── FINAL CTA ──────────────────────────────────────────── -->
+<section class="ei-final-cta">
+    <h2>You came in with a vague sense that AI was something you needed to deal with.<br>You will leave with <em>a point of view.</em></h2>
+    <p>
+        A 30-minute discovery call is enough to determine whether this program fits your situation.
+        No obligation. You will leave with clarity regardless of what you decide.
+    </p>
+    <div class="ei-final-buttons">
+        <a class="btn btn-hire" href="/contact.html?type=consult">Schedule a Discovery Call</a>
+        <a class="btn btn-consult" href="/ai-enablement/essentials-guide.html">Read the Free Essentials Guide</a>
+        <a class="btn btn-speak" href="/ai-enablement/">All AI Fluency Programs</a>
+    </div>
+</section>
+
+<!-- ── FOOTER ─────────────────────────────────────────── -->
+<footer>
+    <div class="footer-left">Joshua Bechtel</div>
+    <div class="footer-right">Knowledge Architecture &nbsp;&middot;&nbsp; AI Fluency &nbsp;&middot;&nbsp; Enterprise Content Systems</div>
+</footer>
+
+</div><!-- /.page-body -->
+
+<script src="/nav.js"></script>
+<script src="/quiz.js"></script>
+<script src="/microinteractions.js"></script>
+</body>
+</html>

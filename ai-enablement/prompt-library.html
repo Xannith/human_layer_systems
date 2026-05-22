@@ -1,0 +1,960 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AI Prompt Library | Joshua Bechtel</title>
+<meta name="description" content="200 tested, role-specific AI prompts for executives and administrative professionals. Filterable by role and category. Copy and use immediately.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Mono:wght@400;500&family=Lora:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/styles.css">
+<style>
+/* ── PROMPT LIBRARY PAGE ───────────────────────────────── */
+:root {
+  --pl-forest: #1B3A2A;
+  --pl-moss:   #2E5E42;
+  --pl-sage:   #5A8C6A;
+  --pl-mist:   #9FCAA0;
+  --pl-foam:   #CFE8CF;
+  --pl-parch:  #F5F2EC;
+  --pl-white:  #FFFFFF;
+  --pl-slate:  #3D4A40;
+  --pl-gold:   #B8860B;
+  --pl-exec:   #1B3A2A;
+  --pl-ops:    #2E5E42;
+  --font-disp: 'DM Serif Display', serif;
+  --font-body: 'Lora', serif;
+  --font-mono: 'DM Mono', monospace;
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  font-family: var(--font-body);
+  background: var(--pl-parch);
+  color: var(--pl-slate);
+  line-height: 1.7;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* ── HERO ─────────────────────────────────────────────── */
+.pl-hero {
+  background: var(--pl-forest);
+  padding: 72px 40px 60px;
+  position: relative;
+  overflow: hidden;
+}
+.pl-hero::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(ellipse 70% 80% at 80% 10%, rgba(90,140,106,0.14) 0%, transparent 65%),
+    radial-gradient(ellipse 40% 50% at 0% 100%, rgba(27,58,42,0.7) 0%, transparent 55%);
+  pointer-events: none;
+}
+.pl-hero::after {
+  content: '"';
+  position: absolute;
+  right: 40px;
+  top: -20px;
+  font-family: var(--font-disp);
+  font-size: 22rem;
+  color: rgba(255,255,255,0.03);
+  line-height: 1;
+  pointer-events: none;
+}
+.pl-hero-inner {
+  max-width: 1200px;
+  margin: 0 auto;
+  position: relative;
+}
+.pl-eyebrow {
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  font-weight: 500;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--pl-mist);
+  margin-bottom: 20px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.pl-eyebrow::before {
+  content: '';
+  display: inline-block;
+  width: 24px;
+  height: 1px;
+  background: var(--pl-mist);
+  opacity: 0.6;
+}
+.pl-hero h1 {
+  font-family: var(--font-disp);
+  font-size: clamp(2.2rem, 4vw, 3.4rem);
+  line-height: 1.08;
+  color: #fff;
+  max-width: 680px;
+  margin-bottom: 18px;
+}
+.pl-hero h1 em { color: var(--pl-mist); font-style: italic; }
+.pl-hero-sub {
+  font-size: 1.05rem;
+  color: rgba(255,255,255,0.7);
+  max-width: 580px;
+  line-height: 1.72;
+  margin-bottom: 36px;
+}
+.pl-stats {
+  display: flex;
+  gap: 32px;
+  flex-wrap: wrap;
+}
+.pl-stat {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+.pl-stat-num {
+  font-family: var(--font-disp);
+  font-size: 2rem;
+  color: var(--pl-mist);
+  line-height: 1;
+}
+.pl-stat-label {
+  font-family: var(--font-mono);
+  font-size: 0.64rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.45);
+}
+
+/* ── CONTROLS ─────────────────────────────────────────── */
+.pl-controls {
+  background: var(--pl-moss);
+  padding: 0 40px;
+  position: sticky;
+  top: 0;
+  z-index: 90;
+  box-shadow: 0 2px 16px rgba(27,58,42,0.25);
+}
+.pl-controls-inner {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: flex;
+  align-items: stretch;
+  gap: 0;
+  height: 64px;
+}
+.pl-role-tabs {
+  display: flex;
+  align-items: stretch;
+  gap: 0;
+  margin-right: 24px;
+}
+.pl-role-tab {
+  padding: 0 22px;
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  font-weight: 500;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.55);
+  border: none;
+  background: transparent;
+  cursor: pointer;
+  border-bottom: 3px solid transparent;
+  transition: color 0.18s, border-color 0.18s;
+  white-space: nowrap;
+}
+.pl-role-tab:hover { color: rgba(255,255,255,0.85); }
+.pl-role-tab.active {
+  color: var(--pl-foam);
+  border-bottom-color: var(--pl-mist);
+}
+.pl-role-tab .tab-count {
+  font-size: 0.6rem;
+  opacity: 0.6;
+  margin-left: 5px;
+}
+.pl-divider {
+  width: 1px;
+  background: rgba(255,255,255,0.12);
+  margin: 12px 0;
+  flex-shrink: 0;
+}
+.pl-search-wrap {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  padding: 0 20px;
+}
+.pl-search {
+  width: 100%;
+  background: rgba(255,255,255,0.08);
+  border: 1px solid rgba(255,255,255,0.12);
+  border-radius: 4px;
+  padding: 8px 14px 8px 36px;
+  font-family: var(--font-body);
+  font-size: 0.9rem;
+  color: #fff;
+  outline: none;
+  transition: background 0.18s, border-color 0.18s;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='14' height='14' viewBox='0 0 24 24' fill='none' stroke='rgba(159,202,160,0.6)' stroke-width='2'%3E%3Ccircle cx='11' cy='11' r='8'/%3E%3Cpath d='m21 21-4.35-4.35'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: 12px center;
+}
+.pl-search::placeholder { color: rgba(255,255,255,0.35); }
+.pl-search:focus {
+  background-color: rgba(255,255,255,0.12);
+  border-color: rgba(159,202,160,0.4);
+}
+.pl-count-badge {
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  color: rgba(255,255,255,0.45);
+  white-space: nowrap;
+  padding: 0 16px;
+  letter-spacing: 0.06em;
+  align-self: center;
+  flex-shrink: 0;
+}
+
+/* ── CATEGORY FILTER BAR ──────────────────────────────── */
+.pl-cat-bar {
+  background: var(--pl-white);
+  border-bottom: 1px solid rgba(90,140,106,0.2);
+  padding: 0 40px;
+}
+.pl-cat-bar::-webkit-scrollbar { display: none; }
+.pl-cat-bar-inner {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  padding: 12px 0;
+}
+.pl-cat-btn {
+  padding: 6px 14px;
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  font-weight: 500;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  border: 1px solid rgba(90,140,106,0.25);
+  border-radius: 3px;
+  background: transparent;
+  color: var(--pl-sage);
+  cursor: pointer;
+  transition: all 0.15s;
+  white-space: nowrap;
+}
+.pl-cat-btn:hover {
+  background: rgba(90,140,106,0.08);
+  border-color: var(--pl-sage);
+}
+.pl-cat-btn.active {
+  background: var(--pl-forest);
+  color: var(--pl-foam);
+  border-color: var(--pl-forest);
+}
+
+/* ── GRID ─────────────────────────────────────────────── */
+.pl-main {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 36px 40px 80px;
+}
+.pl-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+  gap: 16px;
+}
+.pl-empty {
+  grid-column: 1 / -1;
+  text-align: center;
+  padding: 80px 40px;
+  color: var(--pl-sage);
+  font-family: var(--font-mono);
+  font-size: 0.85rem;
+  letter-spacing: 0.06em;
+}
+
+/* ── PROMPT CARD ──────────────────────────────────────── */
+.pl-card {
+  background: var(--pl-white);
+  border: 1px solid rgba(90,140,106,0.18);
+  border-radius: 8px;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  transition: box-shadow 0.18s, transform 0.18s;
+  animation: cardIn 0.25s ease both;
+}
+@keyframes cardIn {
+  from { opacity: 0; transform: translateY(8px); }
+  to   { opacity: 1; transform: none; }
+}
+.pl-card:hover {
+  box-shadow: 0 6px 24px rgba(27,58,42,0.1);
+  transform: translateY(-2px);
+}
+.pl-card-header {
+  padding: 16px 18px 12px;
+  border-bottom: 1px solid rgba(90,140,106,0.12);
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 12px;
+}
+.pl-card-meta {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  flex: 1;
+  min-width: 0;
+}
+.pl-card-badges {
+  display: flex;
+  gap: 6px;
+  flex-wrap: wrap;
+}
+.pl-badge {
+  font-family: var(--font-mono);
+  font-size: 0.58rem;
+  font-weight: 500;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  padding: 2px 8px;
+  border-radius: 2px;
+}
+.pl-badge-exec {
+  background: rgba(27,58,42,0.1);
+  color: var(--pl-forest);
+}
+.pl-badge-ops {
+  background: rgba(46,94,66,0.1);
+  color: var(--pl-moss);
+}
+.pl-badge-cat {
+  background: rgba(90,140,106,0.1);
+  color: var(--pl-sage);
+}
+.pl-card-title {
+  font-family: var(--font-disp);
+  font-size: 0.98rem;
+  color: var(--pl-forest);
+  line-height: 1.25;
+  font-weight: 400;
+}
+.pl-card-num {
+  font-family: var(--font-mono);
+  font-size: 0.62rem;
+  color: rgba(90,140,106,0.4);
+  flex-shrink: 0;
+  padding-top: 2px;
+}
+.pl-card-body {
+  padding: 14px 18px;
+  flex: 1;
+}
+.pl-prompt-text {
+  font-size: 0.87rem;
+  color: var(--pl-slate);
+  line-height: 1.65;
+  font-family: var(--font-body);
+}
+.pl-prompt-text .pl-var {
+  background: rgba(184,134,11,0.1);
+  color: var(--pl-gold);
+  border-radius: 2px;
+  padding: 0 4px;
+  font-family: var(--font-mono);
+  font-size: 0.78em;
+  font-style: normal;
+}
+.pl-card-footer {
+  padding: 10px 18px 14px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+}
+.pl-tip {
+  font-size: 0.76rem;
+  color: var(--pl-sage);
+  font-style: italic;
+  line-height: 1.4;
+  flex: 1;
+}
+.pl-copy-btn {
+  padding: 7px 14px;
+  font-family: var(--font-mono);
+  font-size: 0.65rem;
+  font-weight: 500;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  border: 1px solid rgba(90,140,106,0.35);
+  border-radius: 3px;
+  background: transparent;
+  color: var(--pl-sage);
+  cursor: pointer;
+  transition: all 0.15s;
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+.pl-copy-btn:hover {
+  background: var(--pl-forest);
+  color: var(--pl-foam);
+  border-color: var(--pl-forest);
+}
+.pl-copy-btn.copied {
+  background: var(--pl-moss);
+  color: var(--pl-foam);
+  border-color: var(--pl-moss);
+}
+
+/* ── FOOTER ───────────────────────────────────────────── */
+.pl-page-footer {
+  background: var(--pl-forest);
+  padding: 40px;
+  text-align: center;
+}
+.pl-page-footer p {
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  color: rgba(159,202,160,0.5);
+  letter-spacing: 0.08em;
+  margin-bottom: 8px;
+}
+.pl-page-footer a {
+  color: var(--pl-mist);
+  text-decoration: none;
+}
+.pl-page-footer a:hover { text-decoration: underline; }
+
+/* ── RESPONSIVE ───────────────────────────────────────── */
+@media (max-width: 768px) {
+  .pl-hero { padding: 52px 20px 44px; }
+  .pl-controls { padding: 0 20px; }
+  .pl-controls-inner { height: auto; flex-wrap: wrap; padding: 10px 0; gap: 8px; }
+  .pl-role-tabs { width: 100%; }
+  .pl-role-tab { flex: 1; padding: 10px 8px; font-size: 0.65rem; }
+  .pl-search-wrap { padding: 0; width: 100%; }
+  .pl-count-badge { display: none; }
+  .pl-cat-bar { padding: 0 20px; }
+  .pl-main { padding: 24px 20px 60px; }
+  .pl-grid { grid-template-columns: 1fr; }
+}
+</style>
+</head>
+<body class="page-shell has-sidebar">
+
+<!-- ── SIDEBAR ──────────────────────────────────────────── -->
+<button class="sidebar-toggle" id="sidebarToggle" aria-label="Open navigation">&#9776;</button>
+<div class="sidebar-overlay" id="sidebarOverlay"></div>
+
+<aside class="sidebar" id="sidebar"></aside>
+
+<!-- ── PAGE BODY ─────────────────────────────────────────── -->
+<div class="page-body">
+
+<!-- ── HEADER ───────────────────────────────────────────── -->
+<header class="site-header">
+    <a class="wordmark" href="/">Joshua Bechtel</a>
+    <p class="site-tagline">Enterprise Knowledge Architecture &nbsp;&middot;&nbsp; AI Fluency &nbsp;&middot;&nbsp; Content Systems</p>
+</header>
+
+<nav class="top-nav"></nav>
+
+<!-- ── HERO ─────────────────────────────────────────────── -->
+<section class="pl-hero">
+  <div class="pl-hero-inner">
+    <p class="pl-eyebrow">AI Fluency &nbsp;&middot;&nbsp; Prompt Library</p>
+    <h1>200 prompts.<br>Built for the work you <em>actually do.</em></h1>
+    <p class="pl-hero-sub">
+      Copy any prompt, replace the bracketed fields with your specifics, and use it immediately.
+      No AI expertise required. Every prompt is tested, role-specific, and designed to produce
+      something genuinely useful on the first or second try.
+    </p>
+    <div class="pl-stats">
+      <div class="pl-stat">
+        <span class="pl-stat-num">100</span>
+        <span class="pl-stat-label">Executive Prompts</span>
+      </div>
+      <div class="pl-stat">
+        <span class="pl-stat-num">100</span>
+        <span class="pl-stat-label">Operations Prompts</span>
+      </div>
+      <div class="pl-stat">
+        <span class="pl-stat-num">20</span>
+        <span class="pl-stat-label">Categories</span>
+      </div>
+      <div class="pl-stat">
+        <span class="pl-stat-num">0</span>
+        <span class="pl-stat-label">Login Required</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── STICKY CONTROLS ───────────────────────────────────── -->
+<div class="pl-controls" id="controls">
+  <div class="pl-controls-inner">
+    <div class="pl-role-tabs">
+      <button class="pl-role-tab active" data-role="all">All <span class="tab-count">(200)</span></button>
+      <button class="pl-role-tab" data-role="executive">Executive <span class="tab-count">(100)</span></button>
+      <button class="pl-role-tab" data-role="operations">Operations <span class="tab-count">(100)</span></button>
+    </div>
+    <div class="pl-divider"></div>
+    <div class="pl-search-wrap">
+      <input class="pl-search" id="searchInput" type="text" placeholder="Search prompts&hellip;" autocomplete="off">
+    </div>
+    <span class="pl-count-badge" id="countBadge">200 prompts</span>
+  </div>
+</div>
+
+<!-- ── CATEGORY BAR ──────────────────────────────────────── -->
+<div class="pl-cat-bar" id="catBar">
+  <div class="pl-cat-bar-inner" id="catBtns"></div>
+</div>
+
+<!-- ── MAIN GRID ─────────────────────────────────────────── -->
+<main class="pl-main">
+  <div class="pl-grid" id="promptGrid"></div>
+</main>
+
+<!-- ── FOOTER ─────────────────────────────────────────── -->
+<footer>
+    <div class="footer-left">Joshua Bechtel</div>
+    <div class="footer-right">Knowledge Architecture &nbsp;&middot;&nbsp; AI Fluency &nbsp;&middot;&nbsp; Enterprise Content Systems</div>
+</footer>
+
+</div><!-- /.page-body -->
+
+<script src="/nav.js"></script>
+<script src="/quiz.js"></script>
+<script src="/microinteractions.js"></script>
+<script>
+// ═══════════════════════════════════════════════════════
+//  PROMPT DATA — 200 prompts
+//  Fields: id, role (executive|operations), category, title, prompt, tip
+//  [BRACKETS] = user-replaceable variables
+// ═══════════════════════════════════════════════════════
+const PROMPTS = [
+
+// ─────────────────────────────────────────────────────
+// EXECUTIVE PROMPTS (100)
+// ─────────────────────────────────────────────────────
+
+// E1-15: Strategic Thinking & Decision Support
+{ id:'E001', role:'executive', category:'Strategic Thinking', title:'Devil\'s Advocate on a Key Decision', prompt:'I am [your title] at [organization type]. I am considering [decision] and my current leaning is [position]. Argue against my position as strongly and specifically as possible. Do not be diplomatic. Identify the weakest parts of my reasoning, the risks I am underweighting, and the strongest objections a thoughtful skeptic would raise.', tip:'Follow up: "Based on those objections, what would I need to know or do to make my position more defensible?"' },
+{ id:'E002', role:'executive', category:'Strategic Thinking', title:'Blind Spot Finder', prompt:'I am navigating the following situation: [describe situation in 3-5 sentences]. Based on what I have described, what are the most important questions I have not asked? What am I possibly not seeing because I am too close to this? What would an outside observer with relevant expertise want to know before forming a view?', tip:'The questions that make you uncomfortable are almost always the most useful ones.' },
+{ id:'E003', role:'executive', category:'Strategic Thinking', title:'Scenario Builder', prompt:'I am facing a decision about [situation] in the context of [relevant external factors]. Build out three plausible scenarios for how this might unfold over the next 12 to 18 months. For each scenario describe: what conditions would need to be true, what the implications would be for my organization, and what I should be doing now to either prepare for or prevent this outcome.', tip:'Follow up: "Given these three scenarios, what decisions would be valuable across all of them?"' },
+{ id:'E004', role:'executive', category:'Strategic Thinking', title:'Stakeholder Perspective Map', prompt:'I am about to [announce/propose/implement] [decision or change]. Identify the five most important stakeholder groups who will be affected. For each group describe: how they are likely to interpret this, what their primary concern will be, and what I would need to say or do to address that concern credibly.', tip:'Use this before any major announcement to stress-test your messaging.' },
+{ id:'E005', role:'executive', category:'Strategic Thinking', title:'Priority Clarification', prompt:'I am currently facing the following competing demands: [list 5-8 things on your plate]. Given limited time and resources, help me think through how to sequence these. What factors should drive my prioritization? Which of these would benefit most from my personal attention versus delegation? Which can wait without real consequence?', tip:'Be honest about what is on your list. Vague inputs produce vague outputs.' },
+{ id:'E006', role:'executive', category:'Strategic Thinking', title:'Assumption Stress Test', prompt:'I am planning to [initiative or plan]. This plan is based on the following assumptions: [list 3-5 key assumptions]. For each assumption, tell me: how confident should I be that it is true, what evidence would confirm or disconfirm it, and what happens to the plan if it turns out to be wrong?', tip:'This is most useful for plans you are already committed to. Find the cracks before they find you.' },
+{ id:'E007', role:'executive', category:'Strategic Thinking', title:'Competitive Position Analysis', prompt:'My organization is [describe what you do and who you serve]. Our main competitors or alternatives are [list 2-3]. Help me think through our competitive position honestly. Where are we genuinely differentiated? Where are we vulnerable? What would a well-resourced competitor do to take market share from us in the next 12 months?', tip:'Ask AI to argue from the competitor\'s perspective, not yours.' },
+{ id:'E008', role:'executive', category:'Strategic Thinking', title:'Second-Order Consequences', prompt:'I am considering [decision or change]. The first-order consequence is [intended outcome]. What are the likely second-order and third-order consequences I have not fully thought through? What might this decision make harder, more expensive, or less likely down the road?', tip:'Most strategic errors are first-order correct and second-order wrong.' },
+{ id:'E009', role:'executive', category:'Strategic Thinking', title:'Resource Allocation Review', prompt:'My organization has [approximate budget or team size]. I am currently allocating resources across these priorities: [list priorities and rough allocation]. Given our goal of [primary organizational goal], where are we likely over-investing, where are we likely under-investing, and what reallocation would you recommend I consider?', tip:'This works best when you are honest about where resources actually go, not where you intend them to go.' },
+{ id:'E010', role:'executive', category:'Strategic Thinking', title:'Strategic Narrative Draft', prompt:'I need to articulate our organizational strategy for [audience: board, staff, funders, etc.]. Our mission is [mission]. Our current strategic priorities are [priorities]. The key challenge we are navigating is [challenge]. Draft a strategic narrative that is honest, compelling, and clear enough that anyone who reads it understands what we are doing and why. Aim for 300 words.', tip:'Good strategic narratives name the hard thing you are dealing with, not just the vision.' },
+{ id:'E011', role:'executive', category:'Strategic Thinking', title:'Risk Register Starter', prompt:'My organization is [describe]. Our top strategic initiatives this year are [list 3-4]. For each initiative, identify the three most significant risks that could prevent success. For each risk describe: likelihood, potential impact, and one practical mitigation step. Format as a table.', tip:'Ask for a risk you have not named yet as a follow-up.' },
+{ id:'E012', role:'executive', category:'Strategic Thinking', title:'Exit Strategy Thinking', prompt:'I am considering exiting [program, initiative, contract, or relationship]. The reason I am considering this is [reason]. What are the arguments for acting sooner rather than later? What are the arguments for waiting? What would I need to know to make a confident decision? What are the transition risks I need to plan for regardless of timing?', tip:'Useful when you already know something is not working but need to think through the exit carefully.' },
+{ id:'E013', role:'executive', category:'Strategic Thinking', title:'Partnership Evaluation', prompt:'I am evaluating a potential partnership with [type of organization]. The proposed terms are [summary of arrangement]. What are the most important things I should verify or clarify before agreeing? What are the ways this partnership could go wrong that are not obvious from the initial proposal? What would a healthy versus an unhealthy version of this partnership look like in two years?', tip:'Ask AI to identify the partnership dynamic most likely to create friction.' },
+{ id:'E014', role:'executive', category:'Strategic Thinking', title:'Organizational Design Question', prompt:'I am thinking about [reorganizing a team / changing a reporting structure / creating a new role]. The problem I am trying to solve is [problem]. The constraints I am working within are [constraints]. What are two or three ways I could restructure to address this problem? What are the tradeoffs of each approach? What am I likely underestimating about the difficulty of implementation?', tip:'Org design questions benefit from asking what stays broken even after the change.' },
+{ id:'E015', role:'executive', category:'Strategic Thinking', title:'Annual Planning Prompt', prompt:'I am beginning annual planning for [organization type]. Our mission is [mission]. Last year\'s biggest wins were [wins]. Last year\'s biggest misses were [misses]. The external environment has shifted in these ways: [shifts]. Help me identify the three most important strategic questions I need to answer before I can build a credible plan for the coming year.', tip:'Start with questions before jumping to goals. The right questions produce better goals.' },
+
+// E16-25: Board & Governance Communication
+{ id:'E016', role:'executive', category:'Board & Governance', title:'Board Update Memo', prompt:'I am writing a board update for [organization type]. The key developments since our last meeting are: [list 3-5 items]. The decisions I need the board to make or weigh in on are: [list]. The tone should be direct and confident without being alarming. Our board chair has a [background] background. Draft this as a professional memo under 400 words.', tip:'Always name the decision you need, not just the information you are sharing.' },
+{ id:'E017', role:'executive', category:'Board & Governance', title:'Board Meeting Agenda', prompt:'I am preparing the agenda for our [board / committee] meeting on [topic areas]. The meeting is [duration] long. The most important decision we need to make is [decision]. The items that require board discussion versus information only are [breakdown]. Draft a tight agenda with time allocations and a clear statement of what we need from the board on each item.', tip:'Good agendas name the decision required, not just the topic.' },
+{ id:'E018', role:'executive', category:'Board & Governance', title:'Difficult Board Communication', prompt:'I need to communicate to my board that [difficult news: budget shortfall, program failure, personnel issue, etc.]. The facts are: [facts]. What we are doing in response is: [response plan]. The board members most likely to have strong reactions are [describe their backgrounds/concerns]. Draft a communication that is honest, takes appropriate responsibility, and frames our response with confidence.', tip:'Boards respect executives who name the problem clearly and show they have a plan.' },
+{ id:'E019', role:'executive', category:'Board & Governance', title:'Governance Policy Draft', prompt:'I need to create a [type of governance policy: conflict of interest / AI use / financial controls / etc.] for our [organization type]. We have [number] board members and [number] staff. The key behaviors this policy needs to govern are [behaviors]. The tone should be clear and practical, not legalistic. Draft a one-page policy that our board can actually use.', tip:'Policies that are too long or too legalistic do not get followed. Aim for one page.' },
+{ id:'E020', role:'executive', category:'Board & Governance', title:'Board Recruitment Brief', prompt:'I am recruiting a new board member for [organization type]. Our current board has gaps in [skills or backgrounds needed]. The ideal candidate would bring [specific expertise]. The commitment required is [time and financial commitment]. Draft a brief that describes our organization compellingly, makes the opportunity feel meaningful, and clearly states what we need from this person.', tip:'The best board recruitment briefs are honest about the commitment required.' },
+{ id:'E021', role:'executive', category:'Board & Governance', title:'Executive Committee Talking Points', prompt:'I am presenting [topic] to our executive committee. The key points I need to make are [points]. The likely objections are [objections]. I need the committee to [decision or action needed]. Help me structure talking points that are persuasive, anticipate the pushback, and move us toward a decision rather than more deliberation.', tip:'Name the decision you need in your opening sentence.' },
+{ id:'E022', role:'executive', category:'Board & Governance', title:'Board Conflict Navigation', prompt:'There is tension between board members over [issue]. The positions are: [position A] versus [position B]. As the executive, my role is [describe your governance relationship]. I need to facilitate resolution without taking sides in a way that damages relationships. What are my options for moving this forward? What are the risks of each approach?', tip:'Sometimes the right move is to name the tension explicitly rather than work around it.' },
+{ id:'E023', role:'executive', category:'Board & Governance', title:'Annual Report Narrative', prompt:'I am writing the executive letter for our annual report. This year our organization [key accomplishments]. We faced [key challenges]. The theme I want to communicate is [theme]. Our audience includes donors, community members, and partners. Draft an executive letter of approximately 350 words that is honest, specific, and makes the reader feel the work matters.', tip:'Annual report letters that are too positive feel dishonest. Name at least one real challenge.' },
+{ id:'E024', role:'executive', category:'Board & Governance', title:'CEO Evaluation Self-Assessment', prompt:'I am preparing my self-assessment for my annual board evaluation. My role is [title] at [organization type]. This year my key accomplishments were [accomplishments]. My areas for growth are [areas]. The organizational challenges that affected my performance were [challenges]. Help me write a self-assessment that is honest, appropriately confident, and frames my growth areas as active commitments rather than admissions of failure.', tip:'Boards evaluate executives who are honest about limitations more favorably than those who are not.' },
+{ id:'E025', role:'executive', category:'Board & Governance', title:'Financial Explanation for Non-Finance Board', prompt:'I need to explain [financial situation: variance, deficit, new investment, etc.] to board members who do not have finance backgrounds. The key numbers are [numbers]. The cause is [cause]. The plan is [plan]. Draft an explanation that is accurate, uses plain language, and helps non-financial board members understand both the situation and what we need from them.', tip:'Avoid jargon. If you would not say it to a thoughtful neighbor, do not say it to your board.' },
+
+// E26-35: Executive Communication & Messaging
+{ id:'E026', role:'executive', category:'Executive Communication', title:'All-Staff Communication', prompt:'I need to communicate [announcement or change] to our all-staff. The key facts are [facts]. The reason for this change is [reason]. The impact on different teams is [impact]. The tone should be [transparent / reassuring / energizing]. Draft an all-staff message under 300 words that is honest, avoids corporate language, and treats our staff as the intelligent adults they are.', tip:'Staff can tell the difference between authentic communication and managed messaging. Be direct.' },
+{ id:'E027', role:'executive', category:'Executive Communication', title:'Sensitive Personnel Announcement', prompt:'I need to communicate to staff that [person] is [leaving / being let go / changing roles]. I want to be respectful to the individual, honest with the team, and avoid speculation. I cannot share [information that must remain confidential]. Draft a brief communication that acknowledges the change, thanks the person appropriately, and gives staff the information they need without creating more questions than it answers.', tip:'Do not say more than you can say truthfully. Vagueness is better than a false statement.' },
+{ id:'E028', role:'executive', category:'Executive Communication', title:'Vision Statement Draft', prompt:'I am articulating a vision for [organization / team / initiative]. Our mission is [mission]. The world we are trying to create is [describe]. The people we serve are [people]. Draft three versions of a vision statement: one that is short and memorable (under 20 words), one that is descriptive and inspiring (50-75 words), and one that is specific enough to guide decisions (100-150 words). I will choose or combine elements.', tip:'A vision statement that could apply to any organization is not a vision statement.' },
+{ id:'E029', role:'executive', category:'Executive Communication', title:'Difficult Conversation Preparation', prompt:'I need to have a difficult conversation with [person\'s role] about [topic: performance, behavior, disagreement, etc.]. The key points I need to make are [points]. The outcome I am hoping for is [outcome]. What I am concerned about is [concern about the conversation]. Help me think through how to open this conversation, what to say at the key moment, and how to handle the most likely defensive responses.', tip:'Name what you want the person to walk away feeling, not just what you want to say.' },
+{ id:'E030', role:'executive', category:'Executive Communication', title:'Organizational Change Announcement', prompt:'Our organization is undergoing [change: restructure, new strategy, new system, etc.]. The reason is [reason]. The impact on staff is [impact]. The timeline is [timeline]. What staff is probably thinking is [concerns]. Draft an announcement that leads with the reason, addresses the concern they have not voiced yet, and is honest about what we do not know yet.', tip:'Staff trust leaders who acknowledge uncertainty more than those who project false confidence.' },
+{ id:'E031', role:'executive', category:'Executive Communication', title:'Partner or Funder Communication', prompt:'I need to write to [partner organization / funder] about [topic: program update, problem, request, new opportunity]. The relationship history is [context]. What I need from them is [need]. What I can offer in return is [offer]. Draft a communication that respects the relationship, is direct about the ask, and makes it easy for them to say yes.', tip:'Funders and partners appreciate directness. Burying the ask makes it harder to say yes.' },
+{ id:'E032', role:'executive', category:'Executive Communication', title:'Speaking Remarks Outline', prompt:'I am speaking at [event] to [audience] for approximately [time]. The topic is [topic]. The one thing I want this audience to believe or feel differently about after my remarks is [one thing]. The three points that support that are [points]. Draft a speaking outline with an opening hook, the three points with transitions, and a closing that lands the main message.', tip:'One main message is better than five. What is the one thing they should remember?' },
+{ id:'E033', role:'executive', category:'Executive Communication', title:'Media Statement Draft', prompt:'Our organization needs to respond to [situation: media inquiry, public concern, incident, etc.]. The facts as we understand them are [facts]. What we cannot confirm yet is [unknowns]. Our position is [position]. The audience includes [audiences]. Draft a brief public statement that is honest, takes appropriate responsibility, and does not say more than we can currently stand behind.', tip:'Less is more in public statements. Say exactly what you know and what you are doing.' },
+{ id:'E034', role:'executive', category:'Executive Communication', title:'Keynote Opening Hook', prompt:'I am opening a [type of event or conference] with remarks about [topic]. My audience is [audience]. The conventional wisdom about this topic is [conventional wisdom]. I want to challenge that by saying [your perspective]. Write three different opening hooks I could use: one that starts with a surprising statistic, one that starts with a story, and one that starts with a direct challenge to the audience\'s assumptions.', tip:'The best openings make the audience feel slightly uncomfortable in a productive way.' },
+{ id:'E035', role:'executive', category:'Executive Communication', title:'Apology or Recovery Communication', prompt:'Our organization [made an error / caused harm / fell short] in the following way: [describe]. The people affected are [affected parties]. What we did or failed to do is [action/inaction]. What we are doing to make it right is [remedy]. Draft a communication that takes clear and specific responsibility, avoids defensive language, describes the remedy specifically, and does not over-promise.', tip:'An apology that explains why it happened before saying sorry is not an apology.' },
+
+// E36-45: People & Leadership
+{ id:'E036', role:'executive', category:'People & Leadership', title:'Performance Feedback Draft', prompt:'I need to give [role] performance feedback. The strengths I want to recognize are [strengths with specific examples]. The development areas I need to name are [areas with specific examples]. The overall message I want to leave them with is [message]. Draft feedback that is direct, specific, and kind. It should not soften the development areas to the point of confusion.', tip:'Vague positive feedback is not helpful. Vague critical feedback is harmful. Be specific on both.' },
+{ id:'E037', role:'executive', category:'People & Leadership', title:'Job Description That Attracts the Right Person', prompt:'I am hiring a [role title] for [organization type]. The actual work they will do is [describe honestly]. The person who will thrive in this role is [describe character and working style]. The person who will struggle is [describe]. The compensation is [range]. Draft a job description that attracts the right person and honestly signals what this role actually is, not what we wish it were.', tip:'Job descriptions that hide the hard parts attract candidates who leave when they discover them.' },
+{ id:'E038', role:'executive', category:'People & Leadership', title:'Team Recognition Message', prompt:'I want to recognize [person or team] for [specific accomplishment]. The context is [context]. What made this remarkable was [what made it remarkable]. The audience is [who will read or hear this]. Draft a recognition message that is specific enough to feel earned, connects the achievement to what we care about as an organization, and avoids generic praise.', tip:'Recognition that names exactly what someone did is worth ten times more than "great job."' },
+{ id:'E039', role:'executive', category:'People & Leadership', title:'Delegation Brief', prompt:'I need to delegate [task or project] to [role or person]. What I need from them is [outcome, not activity]. The constraints they need to know are [constraints]. The decision authority they have is [scope]. The check-ins I want are [frequency and format]. Draft a delegation brief that gives them what they need to succeed without micromanaging the how.', tip:'Good delegation defines the outcome and the constraints, not the steps.' },
+{ id:'E040', role:'executive', category:'People & Leadership', title:'Underperformance Conversation Prep', prompt:'I need to have a performance conversation with [role] about [specific performance gap]. The impact of this gap is [impact on team or org]. I have previously [addressed/not addressed] this. The outcome I need is [outcome]. What I am worried about in this conversation is [worry]. Help me think through how to open, what to say if they become defensive, and how to end with a clear shared understanding.', tip:'Name the business impact, not just the behavior. It shifts the conversation from personal to professional.' },
+{ id:'E041', role:'executive', category:'People & Leadership', title:'Culture Assessment Questions', prompt:'I want to understand the current state of culture in my organization without getting managed answers. I lead a team of approximately [number] people. My concerns about our culture are [concerns]. What questions could I ask in one-on-one conversations, skip-level meetings, or an anonymous survey that would surface honest information about what it is actually like to work here?', tip:'Anonymous surveys often surface what direct conversations will not. Use both.' },
+{ id:'E042', role:'executive', category:'People & Leadership', title:'Staff Retention Risk Assessment', prompt:'I am concerned about retaining [type of staff or specific role level]. The reasons I think they may be at risk are [reasons]. What we currently offer is [compensation and culture summary]. What competitors or alternatives offer is [what you know]. What questions should I be asking to assess retention risk honestly? What levers do I actually have to address it?', tip:'Retention conversations are better held six months before the risk is acute.' },
+{ id:'E043', role:'executive', category:'People & Leadership', title:'Succession Planning Prompt', prompt:'I am thinking about succession planning for [role, including my own]. The core competencies this role requires are [competencies]. Internal candidates who might be ready or developing are [names or descriptions]. Gaps between current capability and role requirements are [gaps]. Help me think through a development plan for the most promising candidate and what the organization needs to do to reduce key person dependency.', tip:'Include yourself in this exercise. What happens to your organization if you leave suddenly?' },
+{ id:'E044', role:'executive', category:'People & Leadership', title:'Onboarding Plan for Senior Hire', prompt:'I am onboarding a new [role title]. Their first 90 days should leave them with [outcomes]. The people they need to meet are [people]. The things they need to understand about our culture that are not written down are [unwritten norms]. The early wins available to them are [early wins]. Draft a 30-60-90 day onboarding plan that sets them up to succeed without overwhelming them.', tip:'The best onboarding plans tell new leaders what is unwritten as well as what is documented.' },
+{ id:'E045', role:'executive', category:'People & Leadership', title:'Exit Interview Analysis', prompt:'I have received feedback from a departing employee that [summarize key themes]. This person left because [stated reason]. The things that surprised me in their feedback were [surprises]. What does this feedback suggest about systemic issues I should investigate further? What questions should I ask of current staff to see if this feedback is an isolated view or a signal of something broader?', tip:'Exit feedback is often the most honest feedback you will receive. Take it seriously.' },
+
+// E46-55: AI Governance & Strategy
+{ id:'E046', role:'executive', category:'AI Governance', title:'AI Acceptable Use Policy Draft', prompt:'I need to create an AI Acceptable Use Policy for [organization type] with approximately [number] staff. The AI tools we are currently using or considering are [tools]. Our main concerns are [data privacy / confidentiality / accuracy / liability]. Draft a one-page policy in plain language that our staff will actually read, covering: what AI can be used for, what it cannot be used for, what requires review before use, and what never goes into AI tools.', tip:'A policy that is longer than one page will not be read. Prioritize clarity over comprehensiveness.' },
+{ id:'E047', role:'executive', category:'AI Governance', title:'Board AI Briefing', prompt:'I need to brief my board on AI and its implications for our organization. My board members have [limited / moderate] technical familiarity. The key things I want them to understand are: what AI tools we are using or considering, the benefits and the risks, and what governance oversight is appropriate for the board versus staff. Draft a briefing document of approximately 400 words written for a thoughtful non-technical board.', tip:'Boards need to understand the governance question, not the technical one.' },
+{ id:'E048', role:'executive', category:'AI Governance', title:'AI Incident Response Plan', prompt:'I want to create a simple incident response plan for AI-related problems in our organization. Examples of incidents might include: AI output that was inaccurate and caused harm, confidential data accidentally entered into an AI tool, AI-generated content published without review. For each type of incident, draft a brief response protocol covering: who is notified, what is assessed, and how we communicate internally and externally.', tip:'Having a plan before an incident is the difference between a managed and unmanaged crisis.' },
+{ id:'E049', role:'executive', category:'AI Governance', title:'Vendor AI Assessment', prompt:'We are evaluating [vendor or tool] which uses AI in [describe how it uses AI]. I need to assess whether this is appropriate for our organization. The key concerns are [data handling / accuracy / liability / vendor lock-in]. What questions should I ask this vendor? What answers would satisfy my concerns versus raise red flags? What should our contract require before we proceed?', tip:'Ask vendors specifically what happens to your data and get it in writing.' },
+{ id:'E050', role:'executive', category:'AI Governance', title:'AI Communication to Donors or Clients', prompt:'I need to communicate to [donors / clients / community members] about how our organization is using AI. We use AI for [uses]. We do not use AI for [non-uses]. Our safeguards are [safeguards]. The concern our audience is most likely to have is [concern]. Draft a transparent, plain-language communication that addresses that concern directly and builds trust rather than eroding it.', tip:'Proactive transparency about AI use builds more trust than waiting for someone to ask.' },
+{ id:'E051', role:'executive', category:'AI Governance', title:'AI Decision Authority Matrix', prompt:'I want to create a decision matrix for AI use in our organization. For each of the following use cases, help me determine: who can approve, what review is required, and what is off-limits entirely. Use cases include: drafting external communications, analyzing internal data, generating financial projections, creating client-facing content, making hiring decisions, and responding to legal or compliance matters.', tip:'A decision matrix reduces the number of times staff has to ask permission, which increases adoption.' },
+{ id:'E052', role:'executive', category:'AI Governance', title:'AI Champion Activation', prompt:'I want to identify and activate internal AI champions in my organization. I have approximately [number] staff across [functions]. The characteristics of a good AI champion are [describe]. The role I want them to play is [describe]. The support I can provide is [support]. Draft a brief I can share with potential champions that explains what I am asking of them and why it matters.', tip:'Champions need permission and visibility, not just encouragement.' },
+{ id:'E053', role:'executive', category:'AI Governance', title:'Legal and Compliance Briefing', prompt:'I need to brief our [legal counsel / compliance officer / board] on our AI adoption plans. Their likely concerns are [concerns]. Our plan is [plan summary]. The safeguards we have built in are [safeguards]. The residual risks we acknowledge are [risks]. Draft a briefing that leads with governance, not enthusiasm, and makes clear that we have thought carefully about the risks before proceeding.', tip:'Legal and compliance stakeholders respond better to "here is how we are managing risk" than "here is the opportunity."' },
+{ id:'E054', role:'executive', category:'AI Governance', title:'90-Day AI Adoption Review', prompt:'It has been 90 days since we launched AI adoption in our organization. The things that are working are [working]. The things that are not working are [not working]. Staff feedback has been [feedback]. Unexpected issues that arose were [issues]. Help me structure a 90-day review that honestly assesses progress, identifies what needs to change, and sets realistic goals for the next 90 days.', tip:'The first 90-day review sets the expectation that AI adoption is a continuous improvement process.' },
+{ id:'E055', role:'executive', category:'AI Governance', title:'AI Spend Justification', prompt:'I need to justify [AI tool / program / consultant] spend of approximately [amount] to [board / finance committee / funder]. The investment addresses [problem]. The expected return is [return, quantified if possible]. The cost of not investing is [cost]. Draft a justification that speaks to business outcomes and risk reduction, not features and technology excitement.', tip:'Justify AI investment in the same terms you would justify any other investment: risk, return, and strategic fit.' },
+
+// E56-65: Meeting & Calendar Intelligence
+{ id:'E056', role:'executive', category:'Meeting Intelligence', title:'Pre-Meeting Brief', prompt:'I have a meeting with [person or group] about [topic]. The context of our relationship is [context]. The outcome I want from this meeting is [outcome]. What they probably want from it is [their likely goal]. The most important thing to establish in the first five minutes is [thing]. Give me a one-page prep brief including: key background, my three most important points, and three smart questions I should ask.', tip:'The question "what would a great outcome look like for you?" is almost always worth asking.' },
+{ id:'E057', role:'executive', category:'Meeting Intelligence', title:'Post-Meeting Summary', prompt:'The meeting I just had covered [topics]. The decisions made were [decisions]. The action items are [items with owners]. The open questions still to resolve are [questions]. Draft a post-meeting summary I can send to participants within the hour that is brief, specific about decisions and owners, and clear about what happens next.', tip:'Send post-meeting summaries the same day. Memory degrades fast.' },
+{ id:'E058', role:'executive', category:'Meeting Intelligence', title:'Negotiation Prep', prompt:'I am entering a negotiation with [party] about [subject]. My ideal outcome is [ideal]. My walkaway point is [minimum acceptable]. What they probably want is [their likely position]. The leverage I have is [leverage]. The leverage they have is [their leverage]. What are the three most important things I should establish in the opening conversation? What are the creative solutions that might satisfy both sides?', tip:'Name your walkaway point before the negotiation starts, not during it.' },
+{ id:'E059', role:'executive', category:'Meeting Intelligence', title:'Weekly Calendar Synthesis', prompt:'Here are my meetings and commitments for this week: [paste or describe calendar]. Synthesize this into: the three most important outcomes I need to achieve this week, the meetings where I am most at risk of wasting time, the decisions that need to happen before Friday, and the one thing I should protect time for that is not currently on my calendar.', tip:'Run this Monday morning. It takes five minutes and changes how you see your week.' },
+{ id:'E060', role:'executive', category:'Meeting Intelligence', title:'Agenda Tightener', prompt:'Here is the current agenda for our [meeting type]: [paste agenda]. Redesign this agenda to: cut items that could be handled asynchronously, sequence remaining items with the most important decision first, add explicit decision points and owners, and fit within [time limit]. The most important outcome of this meeting is [outcome]. Build the agenda around getting there.', tip:'A good agenda asks "what decision does each item require?" not just "what do we discuss?"' },
+{ id:'E061', role:'executive', category:'Meeting Intelligence', title:'Conflict Resolution Meeting Prep', prompt:'I need to facilitate a conversation between [parties] who are in conflict over [issue]. The positions are [position A] and [position B]. My role is [describe: neutral facilitator / executive sponsor / etc.]. The outcome I need is [outcome]. What is the most productive way to structure this conversation? What ground rules should I set? What is the most likely derailment and how do I handle it?', tip:'Name the shared interest before the conflict. What do both parties actually want in common?' },
+{ id:'E062', role:'executive', category:'Meeting Intelligence', title:'All-Hands Meeting Structure', prompt:'I need to run an all-hands meeting for [number] staff. The purpose is [purpose: quarterly update / strategy announcement / culture reset / etc.]. The key messages I need to deliver are [messages]. The tone I want to set is [tone]. The audience is probably feeling [likely emotional state]. Draft an agenda with time allocations, suggested opening remarks, transition language, and a strong closing that leaves people feeling [desired feeling].', tip:'All-hands meetings often fail because they are broadcast, not conversation. Build in genuine Q&A time.' },
+{ id:'E063', role:'executive', category:'Meeting Intelligence', title:'One-on-One Agenda', prompt:'I have a one-on-one with [role] tomorrow. Recent context includes [recent developments]. Things I want to check in on are [items]. Things they have been working through are [their context]. What I want to understand better about their experience is [question]. Draft a brief agenda for a 30-minute one-on-one that balances task update with genuine connection and leaves them feeling heard.', tip:'The best one-on-one question is often: "What is making your work harder than it needs to be right now?"' },
+{ id:'E064', role:'executive', category:'Meeting Intelligence', title:'Funder Meeting Prep', prompt:'I have a meeting with [funder name or type] about [purpose: renewal, new request, relationship building]. The history of our relationship is [context]. What I need from this meeting is [need]. What they probably want to know is [their likely concerns]. The ask, if there is one, is [ask]. Help me prepare: the three things I must communicate, the three questions I should ask them, and how to handle the moment when they ask about [likely difficult topic].', tip:'Funder meetings go better when you ask about their goals before you present your own.' },
+{ id:'E065', role:'executive', category:'Meeting Intelligence', title:'Interview Question Set', prompt:'I am interviewing candidates for [role title]. The most important qualities I am assessing are [qualities]. The standard questions candidates will have prepared for are [common questions]. Design five interview questions that go beyond the prepared answers and actually surface [quality 1], [quality 2], and [quality 3]. Include what a strong answer would include and what a weak answer would signal.', tip:'Behavioral questions ("tell me about a time when") surface real evidence more than hypotheticals.' },
+
+// E66-75: Financial & Operational Clarity
+{ id:'E066', role:'executive', category:'Financial & Operational', title:'Financial Summary Narrative', prompt:'Here are our key financial figures for [period]: [paste or describe numbers]. Write a plain-language narrative of approximately 200 words that explains what these numbers mean, what is driving the variances, and what we are doing about anything that needs attention. The audience is [board / senior staff / funders] who are not all financial professionals.', tip:'Good financial narratives tell a story. What is the headline, and what caused it?' },
+{ id:'E067', role:'executive', category:'Financial & Operational', title:'Budget Variance Explanation', prompt:'Our [revenue / expense] came in [over / under] budget by [amount or percentage]. The planned amount was [amount]. The actual amount was [amount]. The primary reasons are [reasons]. The impact on our full-year position is [impact]. Draft a brief, plain-language explanation I can share with [board / finance committee] that explains the variance without minimizing it and outlines our response.', tip:'Explain the cause before the impact. People need context before consequences.' },
+{ id:'E068', role:'executive', category:'Financial & Operational', title:'New Investment Case', prompt:'I am proposing an investment of [amount] in [initiative]. The problem this addresses is [problem]. The expected return is [return, quantified if possible]. The cost of not investing is [cost]. The risks are [risks]. The timeline to payback or impact is [timeline]. Draft a one-page investment case for [board / funder / finance committee] that is honest about both the upside and the risk.', tip:'The strongest investment cases name the downside explicitly. It shows you have thought it through.' },
+{ id:'E069', role:'executive', category:'Financial & Operational', title:'Cost Reduction Options Analysis', prompt:'I need to identify ways to reduce our operating cost by approximately [amount or percentage]. Our major cost categories are [categories with rough percentages]. Our non-negotiable commitments are [non-negotiables]. What are the three or four most realistic options, and what would each option cost us in terms of capacity, risk, or staff impact? Present as a decision framework, not a recommendation.', tip:'Cost reductions always have hidden costs. Name them explicitly.' },
+{ id:'E070', role:'executive', category:'Financial & Operational', title:'Cash Flow Communication', prompt:'Our organization is currently facing [describe cash flow situation: tight cash, delayed receivable, unexpected expense, etc.]. The cause is [cause]. The timeline to resolution is [timeline]. The steps we are taking are [steps]. I need to communicate this to [board / bank / key funder] in a way that is transparent, demonstrates control, and does not trigger a confidence crisis. Draft a communication that is direct and calm.', tip:'Surprise is more damaging than bad news. Communicate cash issues early.' },
+{ id:'E071', role:'executive', category:'Financial & Operational', title:'Operational Review Summary', prompt:'I am writing an operational review of [department / program / initiative] for [period]. Key metrics were [metrics]. What worked well was [positives]. What did not work was [negatives]. The root causes of the challenges were [causes]. What we are changing going forward is [changes]. Draft a review summary of approximately 300 words that is honest, specific, and forward-looking without being defensive.', tip:'Operational reviews that only report wins are not useful. Name what did not work and why.' },
+{ id:'E072', role:'executive', category:'Financial & Operational', title:'Vendor Contract Review Questions', prompt:'I am reviewing a contract with [vendor type] for [service or product]. The key terms are [terms]. My concerns are [concerns]. The areas I want legal or financial review on are [areas]. What are the five most important questions I should ask before signing? What terms should I push to negotiate? What red flags, if present, should cause me to walk away?', tip:'Always ask what happens when things go wrong, not just when they go right.' },
+{ id:'E073', role:'executive', category:'Financial & Operational', title:'KPI Dashboard Interpretation', prompt:'Here are our key performance indicators for [period]: [paste data]. What is the most important story this data is telling? What metrics are moving in a concerning direction that I should pay attention to now? What metrics look fine on the surface but may be masking a problem? What question does this data raise that I should investigate further?', tip:'AI is good at pattern recognition. Use it to surface questions you have not asked yet.' },
+{ id:'E074', role:'executive', category:'Financial & Operational', title:'Audit Prep Summary', prompt:'We are preparing for an [audit type: financial / compliance / program] audit. The areas the auditor will likely focus on are [areas]. Our known vulnerabilities going into this are [vulnerabilities]. The documentation we need to have ready is [documentation]. Draft a prep summary for our finance and operations team that tells them clearly what they need to have ready, by when, and why it matters.', tip:'Audits rarely surface surprises that were not already known internally. Address the known issues first.' },
+{ id:'E075', role:'executive', category:'Financial & Operational', title:'Program Impact Report', prompt:'I need to write an impact report for [program]. The outputs were [outputs: number served, activities completed]. The outcomes we measured were [outcomes]. The outcomes we believe happened but did not fully measure are [outcomes]. The story that best illustrates the impact is [story]. Draft an impact narrative of approximately 400 words that is honest about what we know versus what we believe and makes the case for continued investment.', tip:'The difference between outputs and outcomes matters. Be clear about which you are claiming.' },
+
+// E76-85: Client & Stakeholder Management
+{ id:'E076', role:'executive', category:'Stakeholder Management', title:'Major Donor Cultivation Message', prompt:'I want to reach out to [donor type or specific donor] to deepen our relationship. Our history with them is [history]. The program area they care most about is [area]. Something significant has happened in our work that they would care about is [development]. I am not making a specific ask in this communication. Draft a cultivation message that is genuine, specific, and builds toward a future conversation.', tip:'Cultivation messages that feel like they are setting up an ask are transparent. Be genuinely relational.' },
+{ id:'E077', role:'executive', category:'Stakeholder Management', title:'Relationship Recovery Letter', prompt:'Our relationship with [stakeholder: donor, partner, client, board member] has been damaged by [what happened]. The impact on them was [impact]. What we should have done differently is [reflection]. What we are doing to make it right is [remedy]. Draft a relationship recovery communication that takes clear responsibility, is specific about what we are changing, and does not over-explain or over-apologize.', tip:'One genuine sentence of responsibility is worth more than three paragraphs of explanation.' },
+{ id:'E078', role:'executive', category:'Stakeholder Management', title:'Cold Outreach to Prospective Partner', prompt:'I want to reach out to [organization type or specific target] about a potential partnership. What we do is [description]. What I believe we have in common is [shared interest]. What I am hoping to explore is [partnership possibility]. I have no prior relationship with them. Draft a cold outreach message that is brief (under 150 words), leads with shared interest not our needs, and makes a specific ask for a conversation.', tip:'Cold outreach that leads with your needs fails. Lead with what you noticed about their work.' },
+{ id:'E079', role:'executive', category:'Stakeholder Management', title:'Stakeholder Briefing Package', prompt:'I need to brief [stakeholder group] on [topic]. They need to understand [key information]. They do not need to know [information to exclude]. The decision or action I need from them is [decision/action]. The concern they are most likely to raise is [concern]. Draft a one-page briefing document with a clear summary, the key facts, and a specific call to action.', tip:'One page. One decision. Make it easy to say yes.' },
+{ id:'E080', role:'executive', category:'Stakeholder Management', title:'Reference Request', prompt:'I am asking [person] to serve as a reference for [purpose: job, grant, award, partnership]. The things I most want them to speak to are [qualities or accomplishments]. The context of our work together that is most relevant is [context]. Draft a reference request that makes it easy for them to say yes, gives them exactly what they need to write a strong reference, and respects their time.', tip:'Reference requests that include what you want emphasized produce better references.' },
+{ id:'E081', role:'executive', category:'Stakeholder Management', title:'Complaint Response', prompt:'A [donor / client / community member / partner] has contacted us with the following concern: [describe complaint]. The facts as we understand them are [facts]. Where we fell short is [gap]. What we have done or will do to address it is [remedy]. Draft a response that acknowledges their concern specifically, takes responsibility where appropriate, explains what we are doing, and treats them as a valued relationship.', tip:'The first sentence of a complaint response should acknowledge the concern, not explain your position.' },
+{ id:'E082', role:'executive', category:'Stakeholder Management', title:'Grant Application Executive Summary', prompt:'I am writing the executive summary for a grant application to [funder type]. The grant is for [amount] to fund [program]. The problem we are addressing is [problem]. Our approach is [approach]. Our evidence of effectiveness is [evidence]. The funder\'s priorities are [funder priorities]. Draft an executive summary of approximately 300 words that leads with the problem, demonstrates our credibility, and aligns our work to their priorities.', tip:'Grant summaries that lead with the funder\'s priority, not your program name, perform better.' },
+{ id:'E083', role:'executive', category:'Stakeholder Management', title:'Difficult Donor Conversation Prep', prompt:'I need to have a conversation with [donor type] about [difficult topic: declining renewal, program change that affects their gift, performance concern they have raised]. What I know about their position is [position]. What I need to communicate is [message]. The outcome I am hoping for is [outcome]. Help me prepare: how to open, what to say at the difficult moment, and how to end regardless of outcome.', tip:'Difficult donor conversations are better when you say the hard thing early rather than building to it.' },
+{ id:'E084', role:'executive', category:'Stakeholder Management', title:'Community Update Communication', prompt:'I need to update our community [clients, neighbors, constituents, members] on [development]. The key facts are [facts]. What this means for them is [impact on them]. What we are doing to support them through this is [support]. The tone should be [transparent / reassuring / empowering]. Draft a community communication of approximately 250 words that treats our community as partners rather than audiences.', tip:'Community communications that acknowledge impact on the community rather than impact on the organization land better.' },
+{ id:'E085', role:'executive', category:'Stakeholder Management', title:'End-of-Year Donor Thank You', prompt:'I want to write an end-of-year thank you to our donors that feels genuine and specific rather than form-letter generic. Our organization achieved [accomplishments] this year. The thing that most surprised or moved me this year was [specific moment or story]. The impact of donor support made possible [specific impact]. Draft a thank you letter of approximately 250 words that makes donors feel they funded something real, not an organization.', tip:'The most effective year-end letters name one specific story that made the year meaningful.' },
+
+// E86-100: Personal Executive Effectiveness & AI-specific
+{ id:'E086', role:'executive', category:'Personal Effectiveness', title:'Weekly Leadership Reflection', prompt:'This week I [describe what happened: key decisions, interactions, challenges, wins]. The moment I handled well was [moment]. The moment I wish I had handled differently was [moment]. The thing that is weighing on me going into next week is [thing]. Write a brief leadership reflection that identifies the one insight I should carry forward and one specific behavior I want to practice next week.', tip:'Consistent weekly reflection over six months produces more leadership growth than most training programs.' },
+{ id:'E087', role:'executive', category:'Personal Effectiveness', title:'Email Inbox Triage', prompt:'Here is a summary of emails in my inbox that need attention: [describe or paste subject lines and senders]. For each email, help me determine: does this require my personal response or can it be delegated, what is the urgency, and what is the one thing I need to say or decide. Give me a prioritized action list I can work through in 30 minutes.', tip:'AI is good at helping you see which emails actually need you versus which ones feel urgent.' },
+{ id:'E088', role:'executive', category:'Personal Effectiveness', title:'Decision Journal Entry', prompt:'I made the following decision today: [decision]. The information I had was [information]. The information I did not have was [unknowns]. The options I considered were [options]. The reason I chose what I chose was [reasoning]. The assumptions I am making that could be wrong are [assumptions]. Write this up as a brief decision journal entry that I can review in six months to learn from the outcome.', tip:'Keeping a decision journal is one of the highest-leverage leadership habits available.' },
+{ id:'E089', role:'executive', category:'Personal Effectiveness', title:'90-Day Priority Reset', prompt:'I am at the beginning of a new quarter. My organizational priorities for this quarter are [priorities]. My personal leadership development focus is [focus]. The things that consumed my time last quarter that I should do less of are [time sinks]. The things I should do more of to lead effectively are [more of]. Draft a one-page 90-day personal leadership plan with three professional outcomes and two personal leadership commitments.', tip:'90-day plans work better than annual plans because they are short enough to stay accountable.' },
+{ id:'E090', role:'executive', category:'Personal Effectiveness', title:'Thinking Through a Hard Decision', prompt:'I am trying to decide whether to [decision]. The arguments for are [for]. The arguments against are [against]. My gut says [gut instinct]. What my gut might be wrong about is [challenge your own instinct]. What the person I most trust would say if I called them right now is [trusted voice]. Help me think through this more clearly. What question am I not asking that might make this easier to decide?', tip:'Sometimes the best use of AI is as a sounding board for decisions you have already mostly made.' },
+{ id:'E091', role:'executive', category:'Personal Effectiveness', title:'Career Decision Framework', prompt:'I am considering [career decision: new role, new organization, expanded scope, etc.]. The reasons I am drawn to it are [reasons]. The reasons I am hesitant are [hesitations]. What I would be giving up is [tradeoffs]. What I would be gaining is [gains]. My non-negotiables are [non-negotiables]. Help me build a decision framework that clarifies what I actually value and tests whether this decision is consistent with those values.', tip:'Career decisions made quickly often reflect what we want to escape, not what we are moving toward.' },
+{ id:'E092', role:'executive', category:'Personal Effectiveness', title:'Feedback Synthesis', prompt:'I have received the following feedback recently from multiple sources: [summarize feedback themes]. The feedback that is consistent across sources is [consistent feedback]. The feedback that surprised me is [surprising feedback]. The feedback I am tempted to dismiss but probably should not is [resisted feedback]. Help me make sense of this feedback and identify the one or two things that, if I changed them, would have the most positive impact on my leadership.', tip:'Feedback that you resist most strongly is usually the feedback most worth listening to.' },
+{ id:'E093', role:'executive', category:'Personal Effectiveness', title:'Preparing for a Difficult Peer Conversation', prompt:'I need to have a direct conversation with [peer: another executive, board member, partner, etc.] about [issue]. The issue is affecting [impact on organization or work]. I have hesitated because [reason for hesitation]. The outcome I need is [outcome]. What I am afraid will happen if I raise this is [fear]. Help me think through how to raise this in a way that is direct, professional, and protects the relationship.', tip:'The fear about how someone will react is almost always worse than the actual reaction.' },
+{ id:'E094', role:'executive', category:'Personal Effectiveness', title:'Personal Brand Statement', prompt:'I am [title] with [years] years of experience in [field]. My distinctive strengths are [strengths]. The problems I am uniquely well-equipped to solve are [problems]. The kind of organizations I do my best work in are [organizations]. Draft three versions of a professional bio: one sentence for introductions, two sentences for email signatures or conference programs, and one paragraph for a website or LinkedIn summary.', tip:'A bio that names the problems you solve is more memorable than one that lists your credentials.' },
+{ id:'E095', role:'executive', category:'Personal Effectiveness', title:'Burnout Self-Assessment', prompt:'I am noticing the following signs that I may be approaching burnout: [describe what you are noticing physically, emotionally, and in your work]. The demands currently driving this are [demands]. The things that have historically restored my energy are [restorers]. The things I have let go of that used to sustain me are [dropped habits]. What are the most important changes I should make in the next 30 days? What would I tell a colleague in this situation?', tip:'Leaders who monitor their own sustainability lead more sustainably. This is not self-indulgent.' },
+{ id:'E096', role:'executive', category:'Personal Effectiveness', title:'Public Speaking Anxiety Prep', prompt:'I am presenting [topic] to [audience] in [time frame]. I am anxious about [specific anxiety: questions I cannot answer, audience skepticism, technical failure, forgetting my content]. Help me prepare for the three most likely difficult moments in this presentation and give me a strategy for each. Also give me the one sentence I should say to myself right before I walk in the room.', tip:'Preparation for the things that could go wrong produces more confidence than rehearsing what will go right.' },
+{ id:'E097', role:'executive', category:'Personal Effectiveness', title:'Delegation Audit', prompt:'Here are the things I personally handled in the last two weeks: [list]. For each item, help me assess: was this the best use of my time and authority, could this have been handled by someone on my team, and if I delegated it, what would I need to put in place for that to work well. Give me a delegation plan for at least three items on this list.', tip:'Executives who cannot delegate are not leading. They are executing.' },
+{ id:'E098', role:'executive', category:'Personal Effectiveness', title:'Learning Agenda Builder', prompt:'I want to build a personal learning agenda for the next six months. My role is [role]. The skills or knowledge areas I most need to develop are [areas]. The format that works best for my learning style is [format: reading, conversation, doing, etc.]. I have approximately [time] per week available for deliberate learning. Design a six-month learning plan that is specific enough to actually do and realistic given my time.', tip:'Learning plans with specific actions outperform ones with topics. "Read one book on X" beats "learn more about X."' },
+{ id:'E099', role:'executive', category:'Personal Effectiveness', title:'Monthly Leadership Summary', prompt:'This month I [describe key events, decisions, and developments]. The things I am most proud of are [proud of]. The things I am least satisfied with are [dissatisfied with]. The things that were outside my control that affected my work were [external factors]. Draft a monthly leadership summary of approximately 250 words that I can send to my board chair, coach, or use as personal documentation of my leadership journey.', tip:'Monthly summaries sent to a mentor or coach create accountability that private journaling often does not.' },
+{ id:'E100', role:'executive', category:'Personal Effectiveness', title:'AI-Assisted Strategic Brief', prompt:'I am [title] at [organization]. I am working on [strategic challenge]. I have been thinking about it this way: [your current framing]. The constraints I am working within are [constraints]. The outcome I am trying to achieve is [outcome]. Act as a senior strategic advisor. Challenge my framing, identify assumptions I may not have examined, and suggest an alternative approach I have not considered.', tip:'The best use of AI as a strategic tool is to challenge your existing thinking, not confirm it.' },
+
+// ─────────────────────────────────────────────────────
+// OPERATIONS PROMPTS (100)
+// ─────────────────────────────────────────────────────
+
+// O1-15: Writing & Communication
+{ id:'O001', role:'operations', category:'Writing & Communication', title:'Professional Email Draft', prompt:'I need to write an email to [recipient role or name] about [topic]. The context is [context]. The tone should be [professional / direct / warm / formal]. The one thing I need them to do or know after reading this is [outcome]. Draft an email under 150 words that gets to the point, uses plain language, and has a clear next step at the end.', tip:'If your email requires more than 150 words, you probably need a meeting instead.' },
+{ id:'O002', role:'operations', category:'Writing & Communication', title:'Email Rewrite for Tone', prompt:'Here is an email draft I wrote: [paste email]. Please rewrite it to sound more [professional / warm / direct / confident / diplomatic]. Keep all the same information but adjust the tone and language. Also flag any phrases that might land badly with the recipient.', tip:'Reading your own email out loud before sending catches most tone problems AI will also catch.' },
+{ id:'O003', role:'operations', category:'Writing & Communication', title:'Bullet Points to Professional Paragraph', prompt:'Here are my notes or bullet points: [paste bullets]. Turn these into a professional, well-structured paragraph (or short document section) in [formal / conversational / technical] tone. Keep all the key information but make it flow naturally and sound like it was written, not listed.', tip:'Good prose from bullets requires adding transitions. Ask AI to explain why each point follows the last.' },
+{ id:'O004', role:'operations', category:'Writing & Communication', title:'Shorten Without Losing Meaning', prompt:'Here is a piece of writing: [paste content]. It is currently [word count] words. Please shorten it to approximately [target word count] words without losing any of the essential information or key messages. If anything must be cut, tell me what you removed and why.', tip:'Ask AI to tell you what it cut. You may disagree with some choices.' },
+{ id:'O005', role:'operations', category:'Writing & Communication', title:'Difficult Message Draft', prompt:'I need to write a [message type: email / memo / text] to [recipient] about [difficult topic: missed deadline, error, conflict, bad news]. The facts are [facts]. I want to be honest without being harsh. I want to address the issue without damaging the relationship. Draft a message that is direct, professional, and leaves room for a constructive response.', tip:'State the impact before the ask. "This caused X" is more effective than "you need to Y."' },
+{ id:'O006', role:'operations', category:'Writing & Communication', title:'Response to a Complaint', prompt:'A [client / colleague / stakeholder] sent the following complaint or concern: [paste or describe message]. The facts of the situation are [facts]. Where we fell short is [gap]. What we are doing about it is [remedy]. Draft a response that acknowledges their concern specifically, takes responsibility where appropriate, and explains what comes next without being defensive or over-apologetic.', tip:'The first sentence should acknowledge what they said, not explain your position.' },
+{ id:'O007', role:'operations', category:'Writing & Communication', title:'Thank You That Does Not Sound Generic', prompt:'I need to write a thank you to [person or organization] for [specific thing they did]. What made this particularly meaningful was [specific detail]. The impact of their contribution was [impact]. Draft a thank you message that is specific enough to feel genuine rather than a form letter. Keep it under 100 words.', tip:'One specific detail makes a thank you message feel real. Generic thanks feel like an obligation.' },
+{ id:'O008', role:'operations', category:'Writing & Communication', title:'Meeting Request That Gets a Yes', prompt:'I need to request a meeting with [person] about [topic]. They are [busy / skeptical / senior / unfamiliar with me]. The reason they should say yes is [value to them]. What I am asking for is [time and format]. Draft a meeting request under 75 words that leads with the value to them, not the value to me.', tip:'Meeting requests that explain the benefit to the recipient get accepted at higher rates.' },
+{ id:'O009', role:'operations', category:'Writing & Communication', title:'Follow-Up That Does Not Sound Desperate', prompt:'I sent [proposal / email / application] to [recipient] approximately [time] ago and have not heard back. I want to follow up without seeming pushy. The context is [context]. Draft a follow-up message under 75 words that adds a small piece of value, references the original message, and makes it easy for them to respond either way.', tip:'Follow-ups that add something new (a relevant article, an updated timeline) perform better than "just checking in."' },
+{ id:'O010', role:'operations', category:'Writing & Communication', title:'Announcement That Builds Excitement', prompt:'I need to announce [new initiative / program / hire / event] to [audience]. The key facts are [facts]. The reason this matters to our audience is [relevance]. The tone should be [energetic / professional / warm]. Draft an announcement of approximately 150 words that builds genuine excitement without overpromising and ends with a clear call to action.', tip:'Announcements that explain why this matters to the reader outperform ones that explain why it matters to you.' },
+{ id:'O011', role:'operations', category:'Writing & Communication', title:'Bio or Profile Update', prompt:'I need to update my professional bio for [context: website / conference program / LinkedIn / grant application]. My current role is [role]. My most relevant experience is [experience]. The audience reading this is [audience]. The impression I want to make is [impression]. Draft a bio in [first / third] person that is approximately [word count] words and feels confident without sounding braggy.', tip:'Bios written in first person feel more human. Third person is still expected in some formal contexts.' },
+{ id:'O012', role:'operations', category:'Writing & Communication', title:'Proposal Executive Summary', prompt:'I am writing a proposal for [audience] requesting [what you are proposing]. The problem being addressed is [problem]. Our approach is [approach]. The outcomes we expect are [outcomes]. The cost is [cost]. Draft an executive summary of approximately 200 words that leads with the problem, explains our approach clearly, and makes the outcome feel worth the investment.', tip:'Executive summaries read by busy people need the most important sentence in the first sentence.' },
+{ id:'O013', role:'operations', category:'Writing & Communication', title:'Report Section Narrative', prompt:'Here is the data or information I need to turn into a report section: [paste data or notes]. The section title is [title]. The audience is [audience]. The key message I want this section to communicate is [message]. Turn this into a well-written prose section of approximately [word count] words that tells a clear story from the data and ends with a conclusion or implication.', tip:'Data without interpretation is just numbers. Tell the reader what the data means.' },
+{ id:'O014', role:'operations', category:'Writing & Communication', title:'Social Media Post from Longer Content', prompt:'Here is a longer piece of content: [paste article, report, or description]. Create three different social media posts from this content for [platform: LinkedIn / Twitter / Instagram]. Each post should: highlight a different angle, be platform-appropriate in length and tone, and end with a question or call to action that encourages engagement.', tip:'The best social posts make one point, not three.' },
+{ id:'O015', role:'operations', category:'Writing & Communication', title:'Instructions That Are Actually Clear', prompt:'I need to write instructions for [process or task]. The person following these instructions is [describe their background and familiarity]. The most common mistakes people make with this process are [mistakes]. Write step-by-step instructions that are numbered, use plain language, call out the most common mistake as a warning, and include a "how do you know it worked" check at the end.', tip:'Good instructions are written for the person who does not know, not the person who does.' },
+
+// O16-25: Summarization & Digestion
+{ id:'O016', role:'operations', category:'Summarization', title:'Long Document Summary', prompt:'Here is a document I need to summarize: [paste document or describe it]. Please provide: a three-sentence summary of the main point, a list of the five most important facts or findings, any action items or decisions required, and any deadlines or dates mentioned. Format as a brief structured summary I can share with someone who does not have time to read the original.', tip:'Ask for the "so what" in every summary. What does this mean and what should happen next?' },
+{ id:'O017', role:'operations', category:'Summarization', title:'Meeting Notes to Action Items', prompt:'Here are notes from a meeting: [paste notes]. Extract: all decisions made (with decision-maker named), all action items (with owner and deadline if mentioned), all open questions still to resolve, and any follow-up meetings needed. Format as a structured post-meeting summary I can send to participants today.', tip:'Send meeting summaries the same day. Memory degrades overnight.' },
+{ id:'O018', role:'operations', category:'Summarization', title:'Email Thread Summary', prompt:'Here is an email thread: [paste thread]. Summarize: what the original issue or question was, what has been decided or agreed so far, what is still unresolved, who needs to do what next, and any deadlines mentioned. I need this as a one-paragraph summary I can forward to someone who needs context without reading the whole thread.', tip:'Email thread summaries save enormous time in organizations where decisions get buried in replies.' },
+{ id:'O019', role:'operations', category:'Summarization', title:'Research Summary for Non-Experts', prompt:'Here is research or a technical document I need to summarize for a non-expert audience: [paste or describe content]. Summarize the key findings in plain language, avoid jargon, explain why this matters for our work, and flag any limitations or caveats the original authors noted. Aim for 200 words maximum.', tip:'Good plain-language summaries do not dumb down, they translate. There is a difference.' },
+{ id:'O020', role:'operations', category:'Summarization', title:'Policy Document Plain Language Summary', prompt:'Here is a policy or regulatory document: [paste relevant sections]. Write a plain-language summary that explains: what this policy requires us to do, what the consequences of non-compliance are, who in our organization is responsible, and any deadlines. The audience is staff who need to understand their obligations, not legal counsel.', tip:'Policy summaries for staff should answer "what does this mean for my daily work?" above all else.' },
+{ id:'O021', role:'operations', category:'Summarization', title:'Weekly Update Summary', prompt:'Here are the things I accomplished or worked on this week: [list activities, meetings, outputs]. Write a concise weekly update of approximately 150 words that I can send to my manager or team. Organize by theme rather than day. Highlight what was completed, what is in progress, and what needs input or decision.', tip:'Weekly updates that mention blockers get faster help than those that only report progress.' },
+{ id:'O022', role:'operations', category:'Summarization', title:'Competitor or Market Summary', prompt:'Here is information about [competitor or market development]: [paste articles, descriptions, or notes]. Summarize: what they are doing or what has changed, why this matters for our organization, what our response options are, and what we should be watching for next. Keep it under 200 words.', tip:'Market summaries are most useful when they end with a "therefore, we should consider..." sentence.' },
+{ id:'O023', role:'operations', category:'Summarization', title:'Conference or Training Takeaways', prompt:'I attended [conference / training / workshop] on [topic]. The key things I learned were [your notes or memory]. The most surprising or useful insight was [insight]. The things I want to apply to our work are [applications]. Write a one-page summary I can share with my team that captures the most actionable takeaways, not just what was covered.', tip:'Training summaries that include "here is how we can use this" get more traction than pure content summaries.' },
+{ id:'O024', role:'operations', category:'Summarization', title:'End-of-Day Summary', prompt:'Today I worked on: [list what you did]. The most important thing I accomplished was [accomplishment]. The thing I did not finish that I need to carry forward is [unfinished item]. The decisions or inputs I am waiting on from others are [dependencies]. Write a brief end-of-day summary I can use to start tomorrow more efficiently.', tip:'End-of-day summaries written consistently become a valuable work history and audit trail.' },
+{ id:'O025', role:'operations', category:'Summarization', title:'Data Set Plain Language Interpretation', prompt:'Here is a data set or report: [paste data]. Please interpret this in plain language. What are the three most important things this data is telling me? What trends should I pay attention to? What looks normal but might not be? What questions should I investigate further based on what I see here?', tip:'AI is genuinely good at first-pass data interpretation. Always verify the conclusions independently.' },
+
+// O26-35: Research & Comparison
+{ id:'O026', role:'operations', category:'Research & Comparison', title:'Pros and Cons Decision Aid', prompt:'I need to decide between [option A] and [option B] for [purpose]. Here is what I know about each: [what you know]. The most important factors in my decision are [factors]. Build a structured pros and cons comparison that is honest about the tradeoffs on both sides, and end with the question I should answer to make this decision.', tip:'The most useful part of a pros/cons list is often the question at the end, not the list itself.' },
+{ id:'O027', role:'operations', category:'Research & Comparison', title:'Explain This to Me Simply', prompt:'I need to understand [concept, term, or topic] well enough to [explain it to others / make a decision / use it in my work]. Please explain it the way you would explain it to a smart person who has no background in this area. Use a concrete example if possible. Keep it under 200 words.', tip:'If you can explain something simply, you understand it. Use AI to test your understanding by asking it to push back on your explanation.' },
+{ id:'O028', role:'operations', category:'Research & Comparison', title:'Questions to Ask Before a Decision', prompt:'I am about to [make a decision or commitment]: [describe]. What are the most important questions I should answer before proceeding? What information am I probably missing? What assumptions should I validate? What would a cautious, experienced person in my field want to know before moving forward?', tip:'This prompt is most valuable when you already have momentum toward a decision. Use it to slow down productively.' },
+{ id:'O029', role:'operations', category:'Research & Comparison', title:'Vendor or Tool Comparison', prompt:'I am comparing [vendor A / tool A] and [vendor B / tool B] for [purpose]. What I know about each is [what you know]. My most important requirements are [requirements]. My budget is approximately [budget]. Build a comparison framework that addresses my requirements and identifies what I need to research further before making a decision.', tip:'Ask AI to identify the questions you have not thought to ask about each option.' },
+{ id:'O030', role:'operations', category:'Research & Comparison', title:'Contract Clause Explanation', prompt:'Here is a contract clause I do not fully understand: [paste clause]. Explain what this clause means in plain language, what it requires me to do or prohibits me from doing, what the risk is if I agree to it, and whether there is anything in this clause I should push back on or seek legal review for.', tip:'AI can help you understand a clause but cannot replace legal advice. Use AI to prepare for the legal conversation.' },
+{ id:'O031', role:'operations', category:'Research & Comparison', title:'Industry Jargon Translator', prompt:'I am working with [industry / organization / team] and encountering terminology I am not fully familiar with. Here are the terms I need to understand: [list terms]. For each term, give me: a plain language definition, how it is typically used in context, and any common misuse or confusion I should watch out for.', tip:'Understanding the language of a domain before entering a meeting makes you instantly more credible.' },
+{ id:'O032', role:'operations', category:'Research & Comparison', title:'Options Analysis', prompt:'I am trying to solve [problem]. The options I have identified are [options]. The constraints I am working within are [constraints]. For each option, help me assess: what it would actually require to execute, what could go wrong, and what the realistic outcome looks like in six months. I am not looking for a recommendation yet, just a clear-eyed analysis of each path.', tip:'Options that look equal often become clearly differentiated when you map out execution reality.' },
+{ id:'O033', role:'operations', category:'Research & Comparison', title:'Best Questions for a Reference Check', prompt:'I am checking references for [role type]. The most important qualities I am trying to verify are [qualities]. The concern I want to probe without telegraphing is [concern]. Design five reference check questions that surface honest information about this person\'s [strengths / working style / areas of difficulty] and explain what strong versus weak answers to each question would sound like.', tip:'The best reference questions ask about situations, not qualities. "Tell me about a time when..." beats "would you describe them as reliable?"' },
+{ id:'O034', role:'operations', category:'Research & Comparison', title:'Grant Opportunity Fit Assessment', prompt:'Here is a grant opportunity I am considering: [describe funder, focus area, requirements, amount]. Here is what our organization does: [describe]. Help me assess: how well does our work align with their stated priorities, what is our strongest case for fit, where are the gaps between what we do and what they want to fund, and is this worth the time to apply?', tip:'A grant that requires you to reframe your work significantly to fit the funder is usually not worth pursuing.' },
+{ id:'O035', role:'operations', category:'Research & Comparison', title:'Technology Decision Framework', prompt:'We are considering adopting [technology or system] for [purpose]. Our current situation is [current situation]. Our requirements are [requirements]. Our team\'s technical capacity is [describe]. Our budget is [budget]. What factors should drive this decision? What questions should I ask vendors? What implementation risks am I probably underestimating?', tip:'Technology decisions fail most often because of people and process issues, not technology. Ask about the change management plan.' },
+
+// O36-45: Organization & Planning
+{ id:'O036', role:'operations', category:'Organization & Planning', title:'Brain Dump to Task List', prompt:'Here is everything that is in my head right now: [write everything out, messy is fine]. Please organize this into: urgent tasks that need to happen today, important tasks for this week, things to delegate or defer, and things that are anxiety rather than actual tasks. Format as a prioritized action list.', tip:'Brain dumps work best when you write without editing first. Capture the noise, then sort it.' },
+{ id:'O037', role:'operations', category:'Organization & Planning', title:'Project Plan Starter', prompt:'I need to plan [project]. The goal is [goal]. The deadline is [deadline]. The people involved are [people and roles]. The resources available are [resources]. The most likely risks are [risks]. Build a project plan with: phases, key milestones, owner for each milestone, and the three things most likely to cause delay.', tip:'Project plans that name the risks upfront catch delays before they become crises.' },
+{ id:'O038', role:'operations', category:'Organization & Planning', title:'Weekly Priority List', prompt:'Here is my list of things to accomplish this week: [list everything]. Here is what is going on in my organization this week: [context]. Here is what I know about upcoming deadlines: [deadlines]. Organize this into a weekly priority list with: the top three must-complete items, the items I should batch together, the items I should delegate, and the items that can wait.', tip:'Prioritization is easier when you name the criteria. What makes something a priority: urgency, importance, or dependency?' },
+{ id:'O039', role:'operations', category:'Organization & Planning', title:'Event or Meeting Checklist', prompt:'I need to plan [event / meeting type] for approximately [number] people on [date]. The purpose is [purpose]. The logistics I need to manage are [logistics]. Please generate a comprehensive planning checklist organized by timeline (6 weeks out, 4 weeks out, 2 weeks out, 1 week out, day of, day after) and flagging the items most often forgotten.', tip:'The items most often forgotten in event planning are usually post-event logistics: follow-up, payment, thank you notes.' },
+{ id:'O040', role:'operations', category:'Organization & Planning', title:'SOP First Draft', prompt:'I need to write a standard operating procedure for [process]. The person following this SOP is [describe their role and familiarity]. The steps in the process are [describe steps]. The most common mistakes or variations are [mistakes]. Write a clear SOP with: purpose statement, who this applies to, step-by-step instructions, and a quality check at the end.', tip:'SOPs written by the expert often skip the steps that feel obvious to the expert. Write for the person who is doing this for the first time.' },
+{ id:'O041', role:'operations', category:'Organization & Planning', title:'Agenda for a Productive Meeting', prompt:'I need to run a [type] meeting for [number] people lasting [duration]. The single most important outcome of this meeting is [outcome]. The items we need to cover are [items]. Please design an agenda that: leads with the most important decision, times each item, assigns a facilitator role for each discussion, and includes a two-minute close to confirm next steps.', tip:'The agenda item that says "discussion" without a decision point is where meetings go to die.' },
+{ id:'O042', role:'operations', category:'Organization & Planning', title:'Content Calendar Starter', prompt:'I need to create a content calendar for [platform or channel] for the next [time period]. Our audience is [audience]. Our goals are [goals]. The topics we could cover are [topics]. The resources I have to create content are [resources: time, team, budget]. Design a content calendar framework with: posting frequency, content types, topic rotation, and a realistic production workflow.', tip:'Content calendars fail when the production capacity is not matched to the publishing frequency. Be honest about what you can actually make.' },
+{ id:'O043', role:'operations', category:'Organization & Planning', title:'Change Management Communication Plan', prompt:'We are implementing [change] that will affect [who is affected] in the following ways: [impacts]. The timeline is [timeline]. The resistance I anticipate is [resistance]. The champions I have are [champions]. Build a communication plan with: what to communicate and when, who delivers each message, how we handle the anticipated resistance, and how we know if adoption is happening.', tip:'Change management communication that acknowledges the loss involved (not just the gain) gets better uptake.' },
+{ id:'O044', role:'operations', category:'Organization & Planning', title:'Goal Setting for a New Initiative', prompt:'I am launching [initiative]. The outcome I want in 12 months is [outcome]. The inputs I can commit are [resources, time, people]. The milestones that would tell me I am on track at 30, 60, and 90 days are [what you expect]. Help me write SMART goals for this initiative and identify the leading indicators I should track monthly.', tip:'Lagging indicators tell you what happened. Leading indicators tell you what is about to happen. Track both.' },
+{ id:'O045', role:'operations', category:'Organization & Planning', title:'Retrospective Questions', prompt:'I am running a retrospective for [project / quarter / program] that [went well / had challenges / ended]. The team involved is [team]. I want to surface honest reflection without blame. Please design ten retrospective questions that balance: celebrating what worked, diagnosing what did not, understanding root causes rather than symptoms, and identifying specific changes for next time.', tip:'Retrospectives that skip the celebration phase feel punitive and produce defensive responses.' },
+
+// O46-55: Customer & Client Communication
+{ id:'O046', role:'operations', category:'Client Communication', title:'Onboarding Welcome Message', prompt:'I need to write a welcome message for a new [client / member / participant] who is just starting with our [service / program / organization]. What they need to feel is [welcomed / confident / informed]. The three most important things they should know right now are [things]. What comes next in their journey is [next steps]. Draft a warm, clear welcome message under 200 words.', tip:'Onboarding messages that focus on one next step are more effective than ones that try to cover everything.' },
+{ id:'O047', role:'operations', category:'Client Communication', title:'Service Update to Clients', prompt:'I need to update clients on [service change / new feature / process change]. The change is [change]. Why we are making it is [reason]. How it affects them is [impact on them]. When it takes effect is [date]. What they need to do, if anything, is [action]. Draft a client communication that leads with the impact on them, explains the reason briefly, and makes the action step clear.', tip:'Client communications about changes should lead with "here is what this means for you" not "we are excited to announce."' },
+{ id:'O048', role:'operations', category:'Client Communication', title:'Difficult Client Email', prompt:'I need to address a situation with a client who is [frustrated / disappointed / in dispute / making unreasonable requests]. The facts are [facts]. Where we have fallen short, if at all, is [gap]. What I can and cannot offer is [offer and limits]. Draft a response that is empathetic without being weak, direct without being harsh, and moves us toward resolution rather than more back-and-forth.', tip:'Difficult client emails that lead with acknowledgment before explanation resolve faster.' },
+{ id:'O049', role:'operations', category:'Client Communication', title:'Renewal or Upsell Message', prompt:'I need to reach out to [client] about renewing [service / contract] or expanding to [additional service]. Our relationship history is [context]. The value we have provided is [value]. The renewal or expansion I am proposing is [proposal]. Draft a message that does not feel like a sales pitch, leads with the value we have delivered, and makes the ask feel like a natural next step.', tip:'Renewal conversations go better when you remind the client of specific outcomes, not just general satisfaction.' },
+{ id:'O050', role:'operations', category:'Client Communication', title:'Service Recovery Communication', prompt:'A client experienced [problem] with our service. The impact on them was [impact]. What caused it was [cause]. What we have done or will do to fix it is [fix]. What we are doing to prevent recurrence is [prevention]. Draft a service recovery communication that takes clear responsibility, explains the fix specifically, and offers something meaningful (not just an apology) if appropriate.', tip:'Service recovery that offers a specific remedy outperforms service recovery that only apologies.' },
+{ id:'O051', role:'operations', category:'Client Communication', title:'FAQ Response Pack', prompt:'Here are the five most common questions we receive from [clients / customers / program participants]: [list questions]. For each question, draft a clear, plain-language response under 75 words that: answers the question directly, anticipates the follow-up question, and ends with a clear next step or resource.', tip:'FAQ responses that anticipate the follow-up reduce support volume significantly.' },
+{ id:'O052', role:'operations', category:'Client Communication', title:'Survey or Feedback Request', prompt:'I want to ask [clients / participants / staff] for feedback on [service / program / event]. The most important things I want to understand are [questions]. I want a high response rate. Design a survey of no more than five questions that: asks only what we will actually act on, mixes closed and open questions, and ends with a question that surfaces what we have not thought to ask.', tip:'The most valuable survey question is often: "Is there anything we should have asked that we did not?"' },
+{ id:'O053', role:'operations', category:'Client Communication', title:'Case Study or Success Story Draft', prompt:'I want to write a case study about [client / program participant / project]. The situation before was [before]. What we did was [our work]. The outcome was [outcome]. The client\'s own words included [quote if available]. Draft a case study of approximately 300 words that tells this as a story with a beginning, middle, and end, and makes the reader want to have the same outcome.', tip:'Case studies written in story form are remembered. Case studies written as bullet points are skimmed.' },
+{ id:'O054', role:'operations', category:'Client Communication', title:'Out-of-Office or Coverage Message', prompt:'I will be out of office from [dates] and need to set expectations with clients and colleagues. While I am out, [colleague name] will be covering [coverage area]. My response to urgent matters will be [response time / method]. Please draft an out-of-office message that is helpful, sets realistic expectations, and does not make it sound like the organization will grind to a halt without me.', tip:'Out-of-office messages that give a specific contact and coverage scope are far more useful than generic ones.' },
+{ id:'O055', role:'operations', category:'Client Communication', title:'Newsletter or Update Draft', prompt:'I need to write a [monthly / quarterly] update for [audience: members / clients / community / donors]. Topics to cover: [topics]. The tone should be [conversational / professional / warm]. The length should be approximately [word count]. The one thing I want readers to feel after reading this is [feeling]. Draft the update with a brief introduction, coverage of each topic, and a closing call to action.', tip:'Newsletters that open with a story or observation outperform ones that open with a list of announcements.' },
+
+// O56-65: Data & Reporting Help
+{ id:'O056', role:'operations', category:'Data & Reporting', title:'Data Narrative Summary', prompt:'Here is data I need to turn into a summary for [audience]: [paste data or describe it]. Write a plain-language narrative that: identifies the most important trend or finding, explains what is driving it, notes anything unusual or concerning, and ends with what this means for our decision-making or next steps. Avoid jargon and do not just restate the numbers.', tip:'Data narratives that say "this means we should consider..." are more useful than ones that say "the data shows."' },
+{ id:'O057', role:'operations', category:'Data & Reporting', title:'Status Report from Bullet Points', prompt:'Here are my project status notes: [paste notes]. Turn these into a formatted status report with: executive summary (2-3 sentences), accomplishments this period, work in progress, upcoming milestones, risks and issues, and support needed. Tone should be professional and factual.', tip:'Status reports that name risks get help. Status reports that hide risks compound problems.' },
+{ id:'O058', role:'operations', category:'Data & Reporting', title:'Results Explanation for Non-Technical Audience', prompt:'I need to explain [technical results / data analysis / research findings] to [audience who does not have technical background]. The key findings are [findings]. The implications are [implications]. Please rewrite this explanation in plain language, using an analogy if helpful, and focusing on what these results mean practically rather than how they were generated.', tip:'Analogies that connect technical concepts to everyday experience are remembered far longer than technical explanations.' },
+{ id:'O059', role:'operations', category:'Data & Reporting', title:'Grant Report Narrative', prompt:'I need to write a narrative for a grant report to [funder]. The grant funded [program]. The outputs were [outputs: numbers served, activities]. The outcomes we measured were [outcomes]. The challenges we faced were [challenges]. The things we learned are [learnings]. Draft a grant report narrative of approximately 400 words that is honest about both successes and challenges and demonstrates we used the funds as intended.', tip:'Grant reports that honestly name challenges and learnings build more funder trust than reports that only highlight wins.' },
+{ id:'O060', role:'operations', category:'Data & Reporting', title:'Dashboard Interpretation', prompt:'Here is data from our [program / operations / financial] dashboard for [period]: [describe or paste data]. Interpret this for me: what is the headline story, what is trending in the wrong direction, what looks fine on the surface but may need a closer look, and what question does this raise that I should investigate?', tip:'Dashboards that tell you what happened are reports. Dashboards that tell you what to do next are tools.' },
+{ id:'O061', role:'operations', category:'Data & Reporting', title:'Year-End Report Section', prompt:'I am writing the [section title] section of our annual report. The audience includes [donors / community members / board]. The key information to convey is [information]. The story that best illustrates this section is [story]. The tone should be [honest / inspiring / professional]. Draft this section in approximately [word count] words, leading with the most important point and ending with a forward-looking statement.', tip:'Annual report sections that connect numbers to human stories are read. Sections that are only numbers are skimmed.' },
+{ id:'O062', role:'operations', category:'Data & Reporting', title:'Evaluation Framework', prompt:'I need to evaluate [program / initiative / process]. The goals it was designed to achieve are [goals]. The people it is meant to serve are [beneficiaries]. What I can realistically measure with current resources are [measurable items]. What I believe is happening but cannot easily measure is [outcomes]. Help me design a simple evaluation framework with: indicators for each goal, data collection methods, and a realistic review cycle.', tip:'Evaluation frameworks designed for reporting often miss the learning dimension. Ask: what would we do differently if we found X?' },
+{ id:'O063', role:'operations', category:'Data & Reporting', title:'Survey Results Summary', prompt:'Here are the results from a survey I conducted: [paste or describe results]. Please summarize: the most significant positive findings, the most significant concerns, surprising or unexpected findings, patterns across different respondent groups if applicable, and the three most important things the data suggests we should change or investigate.', tip:'Survey results summaries should always include what you are going to do with the findings.' },
+{ id:'O064', role:'operations', category:'Data & Reporting', title:'Lessons Learned Document', prompt:'We recently completed [project / program / initiative]. It [went well / had challenges / ended early]. What worked was [what worked]. What did not work was [what did not]. What we would do differently is [changes]. What we want to make sure we repeat is [keep]. Write a lessons learned document of approximately 300 words organized around these themes, written for the team that will do this next time.', tip:'Lessons learned documents written for the next team are more useful than ones written for the current team\'s closure.' },
+{ id:'O065', role:'operations', category:'Data & Reporting', title:'Metric Definition', prompt:'I need to define and document [metric name] for our organization. This metric is meant to measure [what it measures]. The formula or method for calculating it is [calculation]. The data source is [source]. The frequency of measurement is [frequency]. The person responsible for tracking it is [owner]. Write a metric definition document that is clear enough for a new team member to understand and replicate.', tip:'Undocumented metrics get calculated differently by different people over time. Document them while they are fresh.' },
+
+// O66-75: Creative & Content Tasks
+{ id:'O066', role:'operations', category:'Creative & Content', title:'Five Headline Options', prompt:'I need a headline for [article / email / campaign / landing page]. The audience is [audience]. The main message is [message]. The tone should be [tone]. The format is [format]. Write five different headline options that each take a different approach: one direct, one question, one surprising statistic or claim, one benefit-focused, and one story or curiosity hook.', tip:'Headline testing across these five types will tell you what resonates with your specific audience.' },
+{ id:'O067', role:'operations', category:'Creative & Content', title:'Product or Program Description', prompt:'I need to write a description of [product, service, or program] for [audience on platform/context]. The key benefit to the reader is [benefit]. The features that deliver that benefit are [features]. The tone should be [tone]. The length should be approximately [word count]. Draft a description that leads with the benefit, explains how we deliver it, and ends with a clear call to action.', tip:'Features tell. Benefits sell. Lead with what the person gets, not what the product does.' },
+{ id:'O068', role:'operations', category:'Creative & Content', title:'Creative Brief for a Designer or Vendor', prompt:'I need to commission [design / video / photography / writing] for [project]. The audience is [audience]. The purpose is [purpose]. The key message is [message]. The tone and visual style should feel like [describe: modern / warm / bold / minimal / etc.]. The deliverables I need are [deliverables]. The timeline is [timeline]. The budget is [budget]. Write a creative brief that gives the vendor or designer enough to quote and enough to start without a dozen follow-up questions.', tip:'Creative briefs that show examples of "tone we like" and "tone we do not want" save revision rounds.' },
+{ id:'O069', role:'operations', category:'Creative & Content', title:'Blog or Article Outline', prompt:'I want to write a blog post or article about [topic] for [audience]. The main argument or insight I want to make is [insight]. The evidence or examples I have to support it are [evidence]. The conventional wisdom I am challenging or extending is [conventional wisdom]. Create an outline with: a hook, three to four main sections with key points for each, and a strong conclusion with a call to action.', tip:'Articles that challenge a conventional assumption in the first paragraph hold attention longer.' },
+{ id:'O070', role:'operations', category:'Creative & Content', title:'Tagline Options', prompt:'I need a tagline for [organization / program / campaign]. Our mission is [mission]. The audience we want to connect with is [audience]. The feeling we want to evoke is [feeling]. The tone should be [tone: bold / warm / professional / playful]. Write ten tagline options: five that are direct and clear, three that are evocative or emotional, and two that are unexpected or provocative. I will select or combine.', tip:'Taglines work best when tested with the actual audience. Generate options first, test second.' },
+{ id:'O071', role:'operations', category:'Creative & Content', title:'Event Description', prompt:'I need to write a description for [event] to be posted on [platform / invitation / website]. The event is on [date] at [time and location]. The audience is [audience]. The reason someone should attend is [value to them]. The tone should be [energetic / formal / conversational]. Draft a description under 150 words that makes the event feel worth attending and ends with a clear registration call to action.', tip:'Event descriptions that focus on what attendees will experience outperform ones that focus on what presenters will say.' },
+{ id:'O072', role:'operations', category:'Creative & Content', title:'Job Posting That Attracts the Right Candidate', prompt:'I am posting a job for [role title] at [organization type]. The actual work this person will do is [honest description]. The person who will thrive in this role has [character and working style]. The person who will struggle has [honest challenges]. The compensation is [range]. Draft a job posting that is honest about the role, uses plain language, avoids clichés like "rock star" and "fast-paced environment," and makes the right person want to apply.', tip:'Job postings that describe the actual work (not the ideal outcomes) attract better candidates.' },
+{ id:'O073', role:'operations', category:'Creative & Content', title:'Testimonial Request', prompt:'I want to request a testimonial from [client / participant / partner] about [their experience with our work]. What I would most like them to speak to is [specific angle]. A strong testimonial for our purposes would address [what makes a good testimonial]. Draft a request that is brief, makes it easy to say yes, gives them enough guidance to write something useful, and offers to draft something for their approval if they prefer.', tip:'Offering to draft the testimonial for approval removes the biggest barrier to getting one.' },
+{ id:'O074', role:'operations', category:'Creative & Content', title:'Crowdfunding or Campaign Copy', prompt:'I am running a [fundraising / crowdfunding / awareness] campaign for [cause or organization]. The goal is [amount or outcome]. The story I want to tell is [story]. The urgency is [why now]. The ask is [specific ask]. Draft campaign copy with: an opening hook, the core story, the ask, and the impact their contribution will have. Keep it under 300 words and make it feel personal.', tip:'Campaigns that give a specific use for a specific amount ("$50 covers one month of supplies for one child") outperform vague appeals.' },
+{ id:'O075', role:'operations', category:'Creative & Content', title:'LinkedIn Post That Gets Engagement', prompt:'I want to write a LinkedIn post about [topic / insight / announcement / experience]. The audience I am trying to reach is [audience]. The one thing I want them to think or feel after reading it is [outcome]. My perspective or personal experience relevant to this topic is [perspective]. Draft a LinkedIn post of approximately 150-200 words that opens with a hook, builds to an insight, and ends with a question that invites comments.', tip:'LinkedIn posts that start with a personal story or counterintuitive observation get more engagement than those that start with announcements.' },
+
+// O76-85: Problem Solving & Thinking
+{ id:'O076', role:'operations', category:'Problem Solving', title:'Root Cause Analysis', prompt:'We experienced the following problem: [describe problem]. The immediate cause appears to be [surface cause]. But I suspect the underlying issue is [your hypothesis]. Please help me do a root cause analysis by asking "why" five levels deep, starting with the problem I described. For each level, tell me what contributing factor I should investigate further.', tip:'Most operational problems that recur have a systemic root cause, not a people cause. Look for the system.' },
+{ id:'O077', role:'operations', category:'Problem Solving', title:'Stuck Problem Unsticker', prompt:'I have been trying to solve [problem] for [time period] without success. The approaches I have already tried are [approaches]. The constraints I am working within are [constraints]. What feels stuck is [what is stuck]. Please challenge my framing of this problem. Am I solving the right problem? What assumption might I be making that is limiting my options? What would someone with no prior knowledge of this situation try?', tip:'Problems that persist are usually misdefined. Ask AI to reframe the problem before generating solutions.' },
+{ id:'O078', role:'operations', category:'Problem Solving', title:'Three Alternative Approaches', prompt:'I am trying to [achieve goal / solve problem]. My current approach is [approach]. It is not working well because [reason]. Please suggest three alternative approaches that are genuinely different from what I am doing now. For each approach describe: what it involves, what it would require me to change or give up, and what the risk is if it does not work.', tip:'Alternatives that require giving something up are often more honest and more effective than ones that feel like additions.' },
+{ id:'O079', role:'operations', category:'Problem Solving', title:'What Am I Missing', prompt:'I am about to [take action / make decision / launch initiative]. Here is my plan: [describe plan]. What are the most important things I am likely missing or underestimating? What have similar efforts gotten wrong that I should avoid? What does this look like in six months if my optimistic assumptions are wrong?', tip:'This prompt is most valuable right before you commit to a course of action.' },
+{ id:'O080', role:'operations', category:'Problem Solving', title:'Conflict Navigation', prompt:'There is a conflict between [parties] about [issue]. My understanding of each side is: [side A position] and [side B position]. The shared interest both parties actually have is [shared interest]. I am in the position of [your role: neutral / advocate / stakeholder]. What are my options for moving toward resolution? What is the most likely thing to make this worse if I am not careful?', tip:'Naming the shared interest before addressing positions is the most consistent conflict resolution move that works.' },
+{ id:'O081', role:'operations', category:'Problem Solving', title:'Process Improvement Analysis', prompt:'Here is a process we currently use for [process]: [describe steps]. The problems with this process are [problems: slow, error-prone, confusing, etc.]. The constraints I cannot change are [constraints]. Please analyze this process and suggest: one change that would have the biggest impact on speed, one change that would reduce errors, and one change that would make it easier to hand off to someone new.', tip:'Process improvement works best when you start with the step that causes the most complaints. Symptoms point to the problem.' },
+{ id:'O082', role:'operations', category:'Problem Solving', title:'Prioritization When Everything Is Urgent', prompt:'Everything on my list feels urgent right now. Here is my list: [list everything]. Here are the actual hard deadlines: [deadlines]. Here is the impact if each item is delayed: [impact]. Help me distinguish between what is genuinely urgent, what feels urgent because of anxiety, and what is important but not time-sensitive. Give me a prioritized list of no more than five things to do today.', tip:'Urgency is often constructed. Ask "what actually happens if this is not done today?" for each item.' },
+{ id:'O083', role:'operations', category:'Problem Solving', title:'Stakeholder Resistance Analysis', prompt:'I am trying to implement [change] and encountering resistance from [stakeholders or groups]. The resistance looks like [describe behaviors or pushback]. I believe the underlying concern is [hypothesis]. What are the most productive ways to respond to this resistance? What should I not do that might make it worse? What would make these stakeholders feel genuinely heard rather than managed?', tip:'Resistance that is met with more persuasion usually digs in. Resistance met with genuine curiosity often shifts.' },
+{ id:'O084', role:'operations', category:'Problem Solving', title:'Scope Creep Management', prompt:'Our project [project name] has experienced scope creep in the following ways: [describe how scope has expanded]. The original goal was [goal]. The current ask has grown to [current ask]. The constraints of our resources and timeline have not changed. Help me think through: how to have a conversation about scope with [client / manager / stakeholder], what to say yes to versus no to, and how to prevent this from recurring.', tip:'Scope conversations go better when you show the tradeoff rather than just saying no. "We can do X if we drop Y."' },
+{ id:'O085', role:'operations', category:'Problem Solving', title:'Decision Under Uncertainty', prompt:'I need to make a decision about [decision] but I am missing [key information]. The decision cannot wait until I have that information because [deadline or consequence]. The options available to me are [options]. The worst outcome if I decide wrong is [worst case]. The cost of delaying is [cost of delay]. Help me think through: how to make a good decision with incomplete information, what I can do to reduce the key uncertainty quickly, and how to build in a correction point if I turn out to be wrong.', tip:'Decisions made under uncertainty are better when they include a built-in review point at 30 or 60 days.' },
+
+// O86-100: Personal Productivity
+{ id:'O086', role:'operations', category:'Personal Productivity', title:'Morning Planning Prompt', prompt:'It is the start of my work day. Here is what is on my plate today: [list everything]. Here is what I did not finish yesterday: [unfinished items]. Here are my priorities for the week: [priorities]. Help me build a realistic plan for today with: three outcomes that would make today a success, a sequence for the morning that protects my best thinking hours, and anything I should push off or delegate.', tip:'Planning the day at the start of the day rather than the night before uses actual context.' },
+{ id:'O087', role:'operations', category:'Personal Productivity', title:'Email That Has Been in Draft Too Long', prompt:'I have been avoiding sending this email for [time] because [reason for avoiding it]. Here is the draft I have: [paste draft or describe what you need to say]. What is making me avoid this and is that concern valid? Help me either: send a better version of this email, or decide what I actually need to do before I can send it.', tip:'Emails you avoid sending usually need either a decision you have not made or a conversation you have not had.' },
+{ id:'O088', role:'operations', category:'Personal Productivity', title:'Habit or System Design', prompt:'I want to build a habit or system for [area: keeping inbox zero / tracking deadlines / following up on leads / weekly review / etc.]. My current situation is [current situation]. The times I have tried this before it failed because [failure mode]. My work environment is [describe: remote, open office, heavy meetings, etc.]. Design a simple, specific system I can start today that has the fewest possible steps and the most likely chance of sticking.', tip:'Systems that require new behavior fail. Systems that replace existing behavior with better behavior tend to stick.' },
+{ id:'O089', role:'operations', category:'Personal Productivity', title:'Preparing for a Hard Conversation', prompt:'I need to have a conversation with [person: colleague, manager, direct report, vendor] about [topic]. I have been putting it off because [reason]. The outcome I want is [outcome]. What I am afraid will happen is [fear]. Help me prepare: how to open the conversation, the key point I need to make without being harsh, and how to handle the two most likely responses.', tip:'Most feared conversations are less bad in reality than in anticipation. The preparation reduces the fear more than it changes the outcome.' },
+{ id:'O090', role:'operations', category:'Personal Productivity', title:'Learning Summary for Yourself', prompt:'I just finished [reading / training / workshop / course] on [topic]. The most important things I learned are [things]. The thing that surprised me most was [surprise]. The thing I want to apply in my work in the next 30 days is [application]. Write a personal learning summary I can refer back to in three months to see what I actually used.', tip:'Learning that is documented immediately after is retained longer and applied more consistently.' },
+{ id:'O091', role:'operations', category:'Personal Productivity', title:'Performance Self-Review', prompt:'I am preparing my self-review for [review period]. My goals for this period were [goals]. What I accomplished was [accomplishments, with specifics]. Where I fell short was [gaps, honestly]. What I learned was [learning]. What I want to develop in the next period is [development]. Write a self-review that is honest, appropriately confident about my accomplishments, and frames development areas as forward-looking commitments rather than failures.', tip:'Performance reviews that are too positive are not taken seriously. Name the real gap and what you are doing about it.' },
+{ id:'O092', role:'operations', category:'Personal Productivity', title:'Professional Development Plan', prompt:'I want to grow in [skill area / career direction]. My current level is [current level]. Where I want to be in 12 months is [target]. The opportunities available to me are [opportunities: training, projects, mentors, etc.]. The time I can invest is approximately [time per week]. Design a 12-month development plan that is specific, realistic, and prioritizes the activities with the highest return on my time.', tip:'Development plans built around real projects outperform ones built around courses and reading lists.' },
+{ id:'O093', role:'operations', category:'Personal Productivity', title:'Asking for What You Need at Work', prompt:'I need to ask my [manager / organization] for [raise / more flexibility / better tools / recognition / different role]. I have not asked yet because [hesitation]. The case for my ask is [your case]. The concern they are most likely to have is [their likely concern]. Draft a way to frame this ask that is direct, grounded in my contribution, and positions it as a business case rather than a personal demand.', tip:'Requests framed as business cases get better responses than requests framed as personal needs, even when they are the same thing.' },
+{ id:'O094', role:'operations', category:'Personal Productivity', title:'Feedback Request', prompt:'I want to ask [colleague / manager / mentor] for feedback on [specific area of my work or behavior]. I am asking because [reason]. The kind of feedback that would be most useful to me is [describe: specific examples, honest assessment, etc.]. Draft a feedback request that is specific enough to get useful feedback rather than generic reassurance, and makes it easy for the person to be honest.', tip:'Asking for feedback on a specific situation or behavior produces more useful responses than asking "how am I doing?"' },
+{ id:'O095', role:'operations', category:'Personal Productivity', title:'Setting Boundaries with a Colleague', prompt:'A colleague [or manager / client / vendor] has been [making requests / behaving in a way] that is [impacting my work / crossing a line / creating an unsustainable dynamic]. The specific situation is [situation]. I want to address this without damaging the relationship or being labeled as difficult. Draft a response that is professional, direct, names the specific behavior, and clearly states what I need going forward.', tip:'Boundary conversations that name the behavior (not the person\'s character) get better responses.' },
+{ id:'O096', role:'operations', category:'Personal Productivity', title:'Post-Meeting Personal Debrief', prompt:'I just had a meeting with [person or group] about [topic]. How I think it went: [your assessment]. The moments I handled well were [moments]. The moments I wish I had handled differently were [moments]. What I said I would do next is [commitments]. Write a brief personal debrief that captures the one insight I should carry into future similar meetings.', tip:'Post-meeting debriefs written within an hour are most accurate and most useful.' },
+{ id:'O097', role:'operations', category:'Personal Productivity', title:'Work Transition Handoff Document', prompt:'I am [going on leave / transitioning to a new role / handing off a project]. The person taking over is [background]. They need to know: [list critical knowledge, contacts, in-progress items, pending decisions, and known landmines]. Write a handoff document organized by priority that gives them everything they need to hit the ground running and nothing they do not need.', tip:'Handoff documents that include the "why" behind current decisions are far more useful than ones that only describe the "what."' },
+{ id:'O098', role:'operations', category:'Personal Productivity', title:'Negotiating a Deadline', prompt:'I need to negotiate a deadline extension for [project / deliverable]. The original deadline was [date]. I need until [new date] because [honest reason]. The impact on the other party is [impact]. What I can offer to mitigate that impact is [offer]. Draft a request that is honest about the reason, does not over-explain or over-apologize, and makes it easy to say yes to the new timeline.', tip:'Deadline extension requests that include what you will deliver by the new date are more credible than ones that only explain why you are late.' },
+{ id:'O099', role:'operations', category:'Personal Productivity', title:'Saying No Without Damaging the Relationship', prompt:'I need to decline [request / invitation / project / extra work] from [person or group]. The reason I need to say no is [reason: capacity, fit, timing, etc.]. The relationship matters to me and I do not want to damage it. Draft a decline that is direct, does not over-explain, offers an alternative if appropriate, and leaves the door open for future collaboration.', tip:'Declining that includes a genuine alternative ("I can\'t do this, but I know someone who could") is remembered positively.' },
+{ id:'O100', role:'operations', category:'Personal Productivity', title:'End of Week Reflection', prompt:'This week I [describe the week: busy, challenging, productive, frustrating]. The wins were [wins]. The things I wish had gone differently were [things]. The things that are carrying into next week unresolved are [unresolved]. One thing I learned about myself or my work this week is [learning]. Write a brief end-of-week reflection that closes out the week cleanly and sets one intention for next week.', tip:'A consistent end-of-week reflection practice, even 10 minutes, compounds into significant self-awareness over a year.' },
+
+]; // end PROMPTS
+
+// ═══════════════════════════════════════════════════════
+//  STATE
+// ═══════════════════════════════════════════════════════
+let currentRole = 'all';
+let currentCat  = 'All';
+let currentSearch = '';
+
+// ═══════════════════════════════════════════════════════
+//  DERIVED CATEGORIES
+// ═══════════════════════════════════════════════════════
+function getCats(role) {
+  const set = new Set();
+  PROMPTS.forEach(p => {
+    if (role === 'all' || p.role === role) set.add(p.category);
+  });
+  return ['All', ...Array.from(set).sort()];
+}
+
+// ═══════════════════════════════════════════════════════
+//  RENDER CATEGORY BAR
+// ═══════════════════════════════════════════════════════
+function renderCatBar() {
+  const cats = getCats(currentRole);
+  const container = document.getElementById('catBtns');
+  container.innerHTML = '';
+  cats.forEach(cat => {
+    const btn = document.createElement('button');
+    btn.className = 'pl-cat-btn' + (cat === currentCat ? ' active' : '');
+    btn.textContent = cat;
+    btn.addEventListener('click', () => {
+      currentCat = cat;
+      renderCatBar();
+      renderGrid();
+    });
+    container.appendChild(btn);
+  });
+}
+
+// ═══════════════════════════════════════════════════════
+//  FILTER
+// ═══════════════════════════════════════════════════════
+function getFiltered() {
+  const q = currentSearch.toLowerCase().trim();
+  return PROMPTS.filter(p => {
+    const roleOk = currentRole === 'all' || p.role === currentRole;
+    const catOk  = currentCat === 'All' || p.category === currentCat;
+    const searchOk = !q || [p.title, p.prompt, p.category, p.tip]
+      .some(s => s.toLowerCase().includes(q));
+    return roleOk && catOk && searchOk;
+  });
+}
+
+// ═══════════════════════════════════════════════════════
+//  RENDER GRID
+// ═══════════════════════════════════════════════════════
+function renderGrid() {
+  const filtered = getFiltered();
+  const grid = document.getElementById('promptGrid');
+  const badge = document.getElementById('countBadge');
+  badge.textContent = filtered.length + ' prompt' + (filtered.length !== 1 ? 's' : '');
+
+  if (filtered.length === 0) {
+    grid.innerHTML = '<div class="pl-empty">No prompts match your filters. Try a different search or category.</div>';
+    return;
+  }
+
+  grid.innerHTML = '';
+  filtered.forEach((p, i) => {
+    const card = document.createElement('div');
+    card.className = 'pl-card';
+    card.style.animationDelay = Math.min(i * 0.03, 0.4) + 's';
+
+    // Format prompt with variable highlighting
+    const formattedPrompt = p.prompt.replace(/\[([^\]]+)\]/g,
+      '<em class="pl-var">[$1]</em>');
+
+    const roleBadgeClass = p.role === 'executive' ? 'pl-badge-exec' : 'pl-badge-ops';
+    const roleBadgeText  = p.role === 'executive' ? 'Executive' : 'Operations';
+
+    card.innerHTML = `
+      <div class="pl-card-header">
+        <div class="pl-card-meta">
+          <div class="pl-card-badges">
+            <span class="pl-badge ${roleBadgeClass}">${roleBadgeText}</span>
+            <span class="pl-badge pl-badge-cat">${p.category}</span>
+          </div>
+          <span class="pl-card-title">${p.title}</span>
+        </div>
+        <span class="pl-card-num">${p.id}</span>
+      </div>
+      <div class="pl-card-body">
+        <p class="pl-prompt-text">${formattedPrompt}</p>
+      </div>
+      <div class="pl-card-footer">
+        ${p.tip ? `<span class="pl-tip">💡 ${p.tip}</span>` : '<span></span>'}
+        <button class="pl-copy-btn" data-id="${p.id}" data-prompt="${encodeURIComponent(p.prompt)}">Copy</button>
+      </div>
+    `;
+    grid.appendChild(card);
+  });
+
+  // Attach copy handlers
+  grid.querySelectorAll('.pl-copy-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const text = decodeURIComponent(btn.getAttribute('data-prompt'));
+      navigator.clipboard.writeText(text).then(() => {
+        btn.textContent = 'Copied!';
+        btn.classList.add('copied');
+        setTimeout(() => {
+          btn.textContent = 'Copy';
+          btn.classList.remove('copied');
+        }, 2000);
+      }).catch(() => {
+        // Fallback
+        const ta = document.createElement('textarea');
+        ta.value = text;
+        ta.style.position = 'fixed';
+        ta.style.opacity = '0';
+        document.body.appendChild(ta);
+        ta.select();
+        document.execCommand('copy');
+        document.body.removeChild(ta);
+        btn.textContent = 'Copied!';
+        btn.classList.add('copied');
+        setTimeout(() => {
+          btn.textContent = 'Copy';
+          btn.classList.remove('copied');
+        }, 2000);
+      });
+    });
+  });
+}
+
+// ═══════════════════════════════════════════════════════
+//  ROLE TABS
+// ═══════════════════════════════════════════════════════
+document.querySelectorAll('.pl-role-tab').forEach(tab => {
+  tab.addEventListener('click', () => {
+    document.querySelectorAll('.pl-role-tab').forEach(t => t.classList.remove('active'));
+    tab.classList.add('active');
+    currentRole = tab.getAttribute('data-role');
+    currentCat = 'All';
+    renderCatBar();
+    renderGrid();
+  });
+});
+
+// ═══════════════════════════════════════════════════════
+//  SEARCH
+// ═══════════════════════════════════════════════════════
+let searchTimer;
+document.getElementById('searchInput').addEventListener('input', e => {
+  clearTimeout(searchTimer);
+  searchTimer = setTimeout(() => {
+    currentSearch = e.target.value;
+    renderGrid();
+  }, 200);
+});
+
+// ═══════════════════════════════════════════════════════
+//  INIT
+// ═══════════════════════════════════════════════════════
+renderCatBar();
+renderGrid();
+</script>
+</body>
+</html>

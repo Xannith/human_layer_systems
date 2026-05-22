@@ -1,0 +1,337 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact | Joshua Bechtel</title>
+    <link rel="stylesheet" href="/styles.css">
+    <style>
+        /* Extra contact-page styles */
+        .contact-intro-strip {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 16px;
+            margin-bottom: 40px;
+        }
+        .contact-intro-card {
+            background: var(--white);
+            border: 1px solid rgba(95,138,95,0.18);
+            border-top: 3px solid var(--sage);
+            border-radius: 7px;
+            padding: 18px 20px;
+            cursor: pointer;
+            transition: box-shadow 0.18s, border-top-color 0.18s;
+        }
+        .contact-intro-card:hover,
+        .contact-intro-card.active {
+            box-shadow: 0 4px 18px rgba(31,59,31,0.1);
+            border-top-color: var(--moss);
+        }
+        .contact-intro-card h3 {
+            font-family: 'DM Serif Display', serif;
+            font-size: 1rem;
+            color: var(--forest);
+            margin-bottom: 4px;
+        }
+        .contact-intro-card p {
+            font-size: 0.82rem;
+            color: var(--slate);
+            margin: 0;
+        }
+        @media (max-width: 700px) {
+            .contact-intro-strip { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body class="page-shell has-sidebar">
+
+<button class="sidebar-toggle" id="sidebarToggle" aria-label="Open navigation">&#9776;</button>
+<div class="sidebar-overlay" id="sidebarOverlay"></div>
+
+<aside class="sidebar" id="sidebar"></aside>
+
+<div class="page-body">
+
+    <header class="site-header">
+        <a class="wordmark" href="/">Joshua Bechtel</a>
+        <p class="site-tagline">Enterprise Knowledge Architecture &nbsp;&middot;&nbsp; AI Fluency &nbsp;&middot;&nbsp; Content Systems</p>
+    </header>
+
+    <nav class="top-nav"></nav>
+
+    <main class="page-content">
+
+        <p class="page-eyebrow">Contact</p>
+        <h1 class="page-title">Start the right<br><em>conversation.</em></h1>
+        <p class="page-intro">
+            Choose the path that fits your situation. Each form asks for the information
+            that makes the conversation useful from the first exchange.
+            I respond to all inquiries personally within two business days.
+        </p>
+
+        <!-- Intro cards that also function as tab selectors -->
+        <div class="contact-intro-strip">
+            <div class="contact-intro-card" onclick="activateTab('consult')" id="card-consult">
+                <h3>Consulting inquiry</h3>
+                <p>You have a knowledge system, AI fluency, or content architecture challenge and want to explore an engagement.</p>
+            </div>
+            <div class="contact-intro-card" onclick="activateTab('hire')" id="card-hire">
+                <h3>Role or opportunity</h3>
+                <p>You are a hiring manager or recruiter with a Director, Senior Manager, or Principal-level opportunity to discuss.</p>
+            </div>
+            <div class="contact-intro-card" onclick="activateTab('speak')" id="card-speak">
+                <h3>Speaking request</h3>
+                <p>You are organizing an event and want to discuss a keynote, workshop, or executive briefing.</p>
+            </div>
+        </div>
+
+        <!-- Tab selectors -->
+        <div class="contact-tabs">
+            <button class="contact-tab" data-tab="consult">Consulting</button>
+            <button class="contact-tab" data-tab="hire">Role / Opportunity</button>
+            <button class="contact-tab" data-tab="speak">Speaking</button>
+        </div>
+
+        <!-- ── CONSULTING FORM ──────────────────────────── -->
+        <div class="contact-form-panel" id="panel-consult">
+            <p style="margin-bottom:24px; font-size:0.95rem; color:var(--slate);">
+                Tell me about the problem your organization is facing. The more specific you can be,
+                the more useful our first conversation will be. You do not need a fully formed brief &mdash;
+                just an honest description of what is broken.
+            </p>
+            <form action="https://formspree.io/f/mjgazrzr" method="POST">
+                <input type="hidden" name="_subject" value="Consulting Inquiry - joshuabechtel.com">
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="c-name">Your name</label>
+                        <input type="text" id="c-name" name="name" required placeholder="Full name">
+                    </div>
+                    <div class="form-group">
+                        <label for="c-title">Your title</label>
+                        <input type="text" id="c-title" name="title" placeholder="e.g. Director of Knowledge Management">
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="c-email">Work email</label>
+                        <input type="email" id="c-email" name="email" required placeholder="you@company.com">
+                    </div>
+                    <div class="form-group">
+                        <label for="c-org">Organization</label>
+                        <input type="text" id="c-org" name="organization" placeholder="Company name">
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="c-size">Organization size</label>
+                        <select id="c-size" name="org_size">
+                            <option value="">Select&hellip;</option>
+                            <option>Under 500 employees</option>
+                            <option>500&ndash;2,000 employees</option>
+                            <option>2,000&ndash;10,000 employees</option>
+                            <option>10,000+ employees</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="c-engagement">Engagement type (if known)</label>
+                        <select id="c-engagement" name="engagement_type">
+                            <option value="">Not sure yet</option>
+                            <option>Knowledge System Audit</option>
+                            <option>Content Architecture Design</option>
+                            <option>AI Fluency &amp; Transformation</option>
+                            <option>Legacy Documentation Modernization</option>
+                            <option>Embedded Strategic Advisory</option>
+                            <option>Content Production Modernization</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="c-problem">Describe the problem you are trying to solve</label>
+                    <textarea id="c-problem" name="problem" rows="5" placeholder="What is broken? What have you already tried? What does success look like?"></textarea>
+                </div>
+                <div class="form-group">
+                    <label for="c-timeline">Approximate timeline</label>
+                    <select id="c-timeline" name="timeline">
+                        <option value="">Select&hellip;</option>
+                        <option>Exploring options, no fixed timeline</option>
+                        <option>Looking to start in the next 30 days</option>
+                        <option>Looking to start in 1&ndash;3 months</option>
+                        <option>Planning ahead, 3+ months out</option>
+                    </select>
+                </div>
+                <button type="submit" class="btn btn-gold btn-full">Send Consulting Inquiry</button>
+            </form>
+        </div>
+
+        <!-- ── HIRE FORM ────────────────────────────────── -->
+        <div class="contact-form-panel" id="panel-hire">
+            <p style="margin-bottom:24px; font-size:0.95rem; color:var(--slate);">
+                I am open to Director, Senior Manager, and Principal-level roles in knowledge management,
+                AI content strategy, and enterprise content architecture. Remote preferred.
+                Tell me about the role and organization.
+            </p>
+            <form action="https://formspree.io/f/xdawjzjd" method="POST">
+                <input type="hidden" name="_subject" value="Role Inquiry - joshuabechtel.com">
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="h-name">Your name</label>
+                        <input type="text" id="h-name" name="name" required placeholder="Full name">
+                    </div>
+                    <div class="form-group">
+                        <label for="h-email">Your email</label>
+                        <input type="email" id="h-email" name="email" required placeholder="you@company.com">
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="h-company">Company</label>
+                        <input type="text" id="h-company" name="company" placeholder="Company name">
+                    </div>
+                    <div class="form-group">
+                        <label for="h-role-title">Role title</label>
+                        <input type="text" id="h-role-title" name="role_title" placeholder="e.g. Director of Knowledge Management">
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="h-level">Seniority level</label>
+                        <select id="h-level" name="level">
+                            <option value="">Select&hellip;</option>
+                            <option>Principal / Staff</option>
+                            <option>Senior Manager</option>
+                            <option>Director</option>
+                            <option>Senior Director</option>
+                            <option>VP / Head of</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="h-remote">Work arrangement</label>
+                        <select id="h-remote" name="remote">
+                            <option value="">Select&hellip;</option>
+                            <option>Fully remote</option>
+                            <option>Remote with occasional travel</option>
+                            <option>Hybrid (specified location)</option>
+                            <option>On-site required</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="h-description">Role description or context</label>
+                    <textarea id="h-description" name="description" rows="4" placeholder="Brief description of the role, team, and why you think it might be a fit."></textarea>
+                </div>
+                <div class="form-group">
+                    <label for="h-salary">Compensation range (optional)</label>
+                    <input type="text" id="h-salary" name="salary" placeholder="e.g. $150k&ndash;$180k + equity">
+                </div>
+                <button type="submit" class="btn btn-primary btn-full">Send Role Inquiry</button>
+            </form>
+        </div>
+
+        <!-- ── SPEAKING FORM ───────────────────────────── -->
+        <div class="contact-form-panel" id="panel-speak">
+            <p style="margin-bottom:24px; font-size:0.95rem; color:var(--slate);">
+                I prepare specifically for each event and do not deliver a generic presentation.
+                Tell me about your audience, your event, and what you want attendees to leave with.
+                The more context you provide, the better I can assess fit and format.
+            </p>
+            <form action="https://formspree.io/f/mzdjwgwo" method="POST">
+                <input type="hidden" name="_subject" value="Speaking Request - joshuabechtel.com">
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="s-name">Your name</label>
+                        <input type="text" id="s-name" name="name" required placeholder="Full name">
+                    </div>
+                    <div class="form-group">
+                        <label for="s-email">Your email</label>
+                        <input type="email" id="s-email" name="email" required placeholder="you@organization.com">
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="s-event">Event name</label>
+                        <input type="text" id="s-event" name="event_name" placeholder="Conference or event name">
+                    </div>
+                    <div class="form-group">
+                        <label for="s-date">Event date or date range</label>
+                        <input type="text" id="s-date" name="event_date" placeholder="e.g. October 2025 or a specific date">
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="s-format">Preferred format</label>
+                        <select id="s-format" name="format">
+                            <option value="">Select&hellip;</option>
+                            <option>Keynote (45&ndash;60 min)</option>
+                            <option>Workshop (2&ndash;4 hrs)</option>
+                            <option>Executive Briefing (60&ndash;90 min)</option>
+                            <option>Panel participation</option>
+                            <option>Not sure yet</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="s-size">Expected audience size</label>
+                        <select id="s-size" name="audience_size">
+                            <option value="">Select&hellip;</option>
+                            <option>Under 50</option>
+                            <option>50&ndash;200</option>
+                            <option>200&ndash;500</option>
+                            <option>500+</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="s-topic">Topic interest</label>
+                    <select id="s-topic" name="topic">
+                        <option value="">Select closest match&hellip;</option>
+                        <option>The Future of Enterprise Knowledge Systems</option>
+                        <option>From Documentation Chaos to Scalable Knowledge</option>
+                        <option>AI Fluency Starts With Content Architecture</option>
+                        <option>Stateless Content Design for the Modern Enterprise</option>
+                        <option>Knowledge Governance Without the Bureaucracy</option>
+                        <option>Other / open to discussion</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="s-audience">Describe your audience</label>
+                    <textarea id="s-audience" name="audience_description" rows="3" placeholder="Who will be in the room? What are their roles, challenges, and level of familiarity with knowledge management or AI?"></textarea>
+                </div>
+                <div class="form-group">
+                    <label for="s-outcome">What do you want attendees to leave with?</label>
+                    <textarea id="s-outcome" name="desired_outcome" rows="3" placeholder="What problem should the session solve for your audience? What do you want them to think, feel, or do differently after?"></textarea>
+                </div>
+                <button type="submit" class="btn btn-primary btn-full">Send Speaking Request</button>
+            </form>
+        </div>
+
+    </main>
+
+    <footer>
+        <div class="footer-name">Joshua Bechtel</div>
+        <div class="footer-tagline">Knowledge Architecture &nbsp;&middot;&nbsp; AI Fluency &nbsp;&middot;&nbsp; Enterprise Content Systems</div>
+    </footer>
+
+</div>
+
+<script src="/nav.js"></script>
+<script src="/quiz.js"></script>
+<script src="/microinteractions.js"></script>
+<script>
+// Sync the intro cards with the tab state
+function activateTab(name) {
+    document.querySelectorAll('.contact-tab').forEach(function(t) {
+        t.classList.toggle('active', t.dataset.tab === name);
+    });
+    document.querySelectorAll('.contact-form-panel').forEach(function(p) {
+        p.classList.toggle('active', p.id === 'panel-' + name);
+    });
+    document.querySelectorAll('.contact-intro-card').forEach(function(c) {
+        c.classList.toggle('active', c.id === 'card-' + name);
+    });
+}
+// Default to consulting unless URL param says otherwise
+var params = new URLSearchParams(window.location.search);
+var type = params.get('type') || 'consult';
+activateTab(type);
+</script>
+</body>
+</html>

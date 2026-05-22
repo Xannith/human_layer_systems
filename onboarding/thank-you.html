@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>You're In | Joshua Bechtel</title>
+    <meta name="robots" content="noindex, nofollow">
+    <link rel="stylesheet" href="/styles.css">
+    <style>
+        .ty-wrap {
+            max-width: 640px;
+            margin: 0 auto;
+            padding: 80px 40px 100px;
+            text-align: center;
+        }
+        .ty-icon {
+            width: 64px;
+            height: 64px;
+            border-radius: 50%;
+            background: rgba(95,140,95,0.12);
+            border: 1px solid rgba(95,140,95,0.3);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 32px;
+            font-size: 28px;
+        }
+        .ty-eyebrow {
+            font-size: 0.72rem;
+            font-weight: 700;
+            letter-spacing: 0.16em;
+            text-transform: uppercase;
+            color: var(--gold);
+            display: block;
+            margin-bottom: 16px;
+        }
+        .ty-wrap h1 {
+            font-family: 'DM Serif Display', serif;
+            font-size: clamp(2rem, 4vw, 2.8rem);
+            color: var(--forest);
+            line-height: 1.15;
+            margin-bottom: 20px;
+        }
+        .ty-wrap h1 em { color: var(--gold); font-style: italic; }
+        .ty-body {
+            font-size: 1rem;
+            color: var(--slate);
+            line-height: 1.8;
+            margin-bottom: 16px;
+        }
+        .ty-divider {
+            width: 40px;
+            height: 2px;
+            background: var(--gold);
+            margin: 36px auto;
+            border: none;
+        }
+        .ty-next {
+            text-align: left;
+            background: var(--parchment);
+            border: 1px solid rgba(45,90,45,0.12);
+            border-radius: 10px;
+            padding: 28px 32px;
+            margin-bottom: 40px;
+        }
+        .ty-next h3 {
+            font-family: 'DM Serif Display', serif;
+            font-size: 1.15rem;
+            color: var(--forest);
+            margin-bottom: 16px;
+        }
+        .ty-step {
+            display: flex;
+            gap: 14px;
+            align-items: flex-start;
+            margin-bottom: 14px;
+        }
+        .ty-step:last-child { margin-bottom: 0; }
+        .ty-step-num {
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            background: var(--forest);
+            color: var(--foam);
+            font-size: 0.75rem;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+            margin-top: 1px;
+        }
+        .ty-step-text {
+            font-size: 0.92rem;
+            color: var(--slate);
+            line-height: 1.6;
+        }
+        .ty-step-text strong {
+            color: var(--forest);
+            font-weight: 600;
+        }
+        @media (max-width: 600px) {
+            .ty-wrap { padding: 60px 24px 80px; }
+            .ty-next { padding: 24px 20px; }
+        }
+    </style>
+</head>
+<body class="page-shell has-sidebar">
+
+<button class="sidebar-toggle" id="sidebarToggle" aria-label="Open navigation">&#9776;</button>
+<div class="sidebar-overlay" id="sidebarOverlay"></div>
+<aside class="sidebar" id="sidebar"></aside>
+
+<div class="page-body">
+    <header class="site-header">
+        <a class="wordmark" href="/">Joshua Bechtel</a>
+        <p class="site-tagline">Enterprise Knowledge Architecture &nbsp;&middot;&nbsp; AI Fluency &nbsp;&middot;&nbsp; Content Systems</p>
+    </header>
+    <nav class="top-nav"></nav>
+
+    <main class="page-content">
+        <div class="ty-wrap">
+
+            <div class="ty-icon">&#10003;</div>
+
+            <span class="ty-eyebrow">Intake Received</span>
+            <h1>You&rsquo;re in.<br><em>Let&rsquo;s get to work.</em></h1>
+
+            <p class="ty-body">Your intake form came through. I&rsquo;ll review everything you shared before we meet so our first session starts with context instead of catching up.</p>
+
+            <p class="ty-body">Expect a message from me within one business day to confirm your first session time.</p>
+
+            <hr class="ty-divider">
+
+            <div class="ty-next">
+                <h3>What happens next</h3>
+                <div class="ty-step">
+                    <div class="ty-step-num">1</div>
+                    <div class="ty-step-text"><strong>I review your intake.</strong> I read through everything you submitted and start thinking about where we begin.</div>
+                </div>
+                <div class="ty-step">
+                    <div class="ty-step-num">2</div>
+                    <div class="ty-step-text"><strong>You get a confirmation.</strong> I&rsquo;ll reach out to confirm your first session time and send a calendar invite with the meeting link.</div>
+                </div>
+                <div class="ty-step">
+                    <div class="ty-step-num">3</div>
+                    <div class="ty-step-text"><strong>We show up ready.</strong> Session one is focused, practical, and built around what you actually brought to the form. No wasted time.</div>
+                </div>
+            </div>
+
+            <p class="ty-body" style="font-size:0.9rem; opacity:0.75;">Questions in the meantime? Email me directly at <a href="mailto:josh@joshuabechtel.com" style="color:var(--gold); text-decoration:none; font-weight:600;">josh@joshuabechtel.com</a></p>
+
+            <div style="margin-top:40px;">
+                <a href="/" class="btn btn-outline">Back to the site</a>
+            </div>
+
+        </div>
+    </main>
+
+    <footer>
+        <div class="footer-name">Joshua Bechtel</div>
+        <div class="footer-tagline">Knowledge Architecture &nbsp;&middot;&nbsp; AI Fluency &nbsp;&middot;&nbsp; Enterprise Content Systems</div>
+    </footer>
+</div>
+
+<script src="/nav.js"></script>
+<script src="/quiz.js"></script>
+<script src="/microinteractions.js"></script>
+</body>
+</html>

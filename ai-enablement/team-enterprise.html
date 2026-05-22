@@ -1,0 +1,745 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Team & Enterprise AI Programs | Joshua Bechtel</title>
+    <meta name="description" content="The 60-Day AI Fluency Engagement. Fixed scope, fixed price. Three tiers: Spark Foundation, Standard Enablement, and Premium Transformation. You keep everything on Day 61.">
+    <link rel="stylesheet" href="/styles.css">
+    <style>
+        /* ── PAGE-SPECIFIC STYLES ─────────────────────────── */
+        .problem-callout {
+            background: var(--forest);
+            border-radius: 10px;
+            padding: 28px 32px;
+            margin: 32px 0;
+        }
+        .problem-callout p {
+            font-size: 1.05rem;
+            color: rgba(255,255,255,0.82);
+            line-height: 1.75;
+            margin: 0;
+        }
+        .problem-callout p strong { color: var(--foam); }
+
+        /* Who this is for */
+        .who-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 16px;
+            margin: 24px 0 40px;
+        }
+        .who-card {
+            background: var(--white);
+            border: 1px solid rgba(95,138,95,0.2);
+            border-radius: 10px;
+            padding: 22px 24px;
+        }
+        .who-role {
+            font-weight: 700;
+            font-size: 0.95rem;
+            color: var(--forest);
+            margin-bottom: 8px;
+        }
+        .who-pain {
+            font-size: 0.88rem;
+            color: var(--slate);
+            line-height: 1.6;
+            margin: 0;
+        }
+
+        /* Deliverables */
+        .deliverables-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            gap: 14px;
+            margin: 24px 0 40px;
+        }
+        .d-card {
+            background: var(--white);
+            border: 1px solid rgba(95,138,95,0.18);
+            border-radius: 10px;
+            padding: 20px 22px;
+        }
+        .d-card.tangible   { border-left: 3px solid var(--moss); }
+        .d-card.measurable { border-left: 3px solid var(--gold); }
+        .d-type {
+            font-size: 0.65rem;
+            font-weight: 700;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            margin-bottom: 6px;
+        }
+        .d-card.tangible   .d-type { color: var(--moss); }
+        .d-card.measurable .d-type { color: var(--gold); }
+        .d-title {
+            font-size: 0.92rem;
+            font-weight: 700;
+            color: var(--forest);
+            margin-bottom: 6px;
+        }
+        .d-desc {
+            font-size: 0.82rem;
+            color: var(--slate);
+            line-height: 1.55;
+            margin: 0;
+        }
+
+        /* Proof stats */
+        .proof-row {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 14px;
+            margin: 24px 0 40px;
+        }
+        .proof-card {
+            background: var(--parchment);
+            border: 1px solid rgba(95,138,95,0.15);
+            border-radius: 8px;
+            padding: 18px 16px;
+        }
+        .proof-num {
+            font-family: 'DM Serif Display', serif;
+            font-size: 1.7rem;
+            color: var(--forest);
+            line-height: 1;
+            margin-bottom: 6px;
+        }
+        .proof-desc {
+            font-size: 0.78rem;
+            color: var(--slate);
+            line-height: 1.5;
+            margin: 0;
+        }
+
+        /* Pricing cards */
+        .pricing-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 16px;
+            margin: 32px 0 28px;
+        }
+        .pricing-card {
+            background: var(--white);
+            border: 1px solid rgba(95,138,95,0.2);
+            border-radius: 12px;
+            padding: 28px 22px;
+            display: flex;
+            flex-direction: column;
+            position: relative;
+        }
+        .pricing-card.featured { border: 2px solid var(--moss); }
+        .most-label {
+            position: absolute;
+            top: -12px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: var(--moss);
+            color: var(--white);
+            font-size: 0.65rem;
+            font-weight: 700;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            padding: 3px 14px;
+            border-radius: 20px;
+            white-space: nowrap;
+        }
+        .pricing-badge {
+            display: inline-block;
+            font-size: 0.65rem;
+            font-weight: 700;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            padding: 3px 10px;
+            border-radius: 3px;
+            margin-bottom: 10px;
+        }
+        .pricing-badge.spark    { background: rgba(159,202,159,0.3); color: var(--forest); }
+        .pricing-badge.standard { background: var(--forest); color: var(--mist); }
+        .pricing-badge.premium  { background: var(--gold); color: var(--white); }
+        .pricing-name {
+            font-family: 'DM Serif Display', serif;
+            font-size: 1.25rem;
+            color: var(--forest);
+            margin-bottom: 6px;
+        }
+        .pricing-sub {
+            font-size: 0.82rem;
+            color: var(--slate);
+            line-height: 1.5;
+            margin-bottom: 18px;
+        }
+        .pricing-price {
+            font-family: 'DM Serif Display', serif;
+            font-size: 2rem;
+            color: var(--forest);
+            line-height: 1;
+            margin-bottom: 4px;
+        }
+        .pricing-note {
+            font-size: 0.72rem;
+            color: var(--sage);
+            margin-bottom: 18px;
+        }
+        .p-divider {
+            height: 1px;
+            background: rgba(159,202,159,0.25);
+            margin: 14px 0;
+        }
+        .p-section-label {
+            font-size: 0.62rem;
+            font-weight: 700;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            color: var(--sage);
+            margin-bottom: 8px;
+        }
+        .p-feature {
+            font-size: 0.8rem;
+            padding: 4px 0 4px 18px;
+            border-bottom: 1px solid rgba(159,202,159,0.12);
+            line-height: 1.45;
+            position: relative;
+            color: var(--forest);
+        }
+        .p-feature:last-of-type { border-bottom: none; }
+        .p-feature::before {
+            content: '✓';
+            position: absolute;
+            left: 0;
+            color: var(--sage);
+            font-size: 0.72rem;
+        }
+        .p-feature.out {
+            color: var(--slate);
+            opacity: 0.4;
+        }
+        .p-feature.out::before { content: '–'; }
+        .pricing-spacer { flex: 1; min-height: 14px; }
+        .pricing-cta {
+            display: block;
+            text-align: center;
+            padding: 10px;
+            border-radius: 6px;
+            font-size: 0.84rem;
+            font-weight: 600;
+            text-decoration: none;
+            margin-top: 18px;
+            transition: all 0.15s;
+        }
+        .pricing-cta.outline {
+            border: 1.5px solid rgba(95,138,95,0.4);
+            color: var(--forest);
+        }
+        .pricing-cta.outline:hover { background: var(--foam); }
+        .pricing-cta.solid {
+            background: var(--forest);
+            color: var(--white);
+            border: none;
+        }
+        .pricing-cta.solid:hover { background: var(--moss); }
+
+        /* Comparison table */
+        .compare-wrap {
+            border: 1px solid rgba(95,138,95,0.2);
+            border-radius: 10px;
+            overflow: hidden;
+            margin: 0 0 12px;
+        }
+        .compare-head {
+            display: grid;
+            grid-template-columns: 1.6fr 1fr 1fr 1fr;
+            background: var(--forest);
+        }
+        .ch-cell {
+            padding: 11px 14px;
+            font-size: 0.68rem;
+            font-weight: 700;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            color: var(--mist);
+            text-align: center;
+        }
+        .ch-cell.label { text-align: left; color: rgba(159,202,159,0.55); }
+        .cr {
+            display: grid;
+            grid-template-columns: 1.6fr 1fr 1fr 1fr;
+            border-top: 1px solid rgba(159,202,159,0.15);
+        }
+        .cr:nth-child(even) .cd { background: var(--parchment); }
+        .cd {
+            padding: 9px 14px;
+            font-size: 0.8rem;
+            color: var(--slate);
+            border-right: 1px solid rgba(159,202,159,0.12);
+            text-align: center;
+        }
+        .cd:last-child { border-right: none; }
+        .cd.label { text-align: left; color: var(--forest); font-weight: 500; }
+        .cd.yes    { color: var(--moss); font-weight: 600; }
+        .cd.no     { color: var(--slate); opacity: 0.35; }
+        .cd.val    { color: var(--forest); font-weight: 600; }
+        .compare-footnote {
+            font-size: 0.72rem;
+            color: var(--sage);
+            font-style: italic;
+            line-height: 1.6;
+            padding: 14px 18px;
+            background: var(--parchment);
+            border-top: 1px solid rgba(159,202,159,0.2);
+        }
+
+
+        /* ── SIX DOMAINS SECTION ────────────────────────────── */
+        .domains-intro {
+            font-size: 0.95rem;
+            color: var(--slate);
+            max-width: 660px;
+            margin-bottom: 24px;
+            line-height: 1.65;
+        }
+        .domains-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 14px;
+            margin: 0 0 40px;
+        }
+        .domain-card {
+            background: var(--white);
+            border: 1px solid rgba(95,138,95,0.18);
+            border-radius: 10px;
+            overflow: hidden;
+        }
+        .domain-header {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            padding: 16px 20px;
+            cursor: pointer;
+            user-select: none;
+            transition: background 0.15s;
+        }
+        .domain-header:hover { background: var(--parchment); }
+        .domain-num {
+            font-family: 'DM Serif Display', serif;
+            font-size: 1.4rem;
+            color: var(--mist);
+            line-height: 1;
+            flex-shrink: 0;
+            width: 28px;
+            text-align: center;
+        }
+        .domain-card.included .domain-num { color: var(--sage); }
+        .domain-title-block { flex: 1; }
+        .domain-name {
+            font-size: 0.92rem;
+            font-weight: 700;
+            color: var(--forest);
+            margin-bottom: 2px;
+        }
+        .domain-tag {
+            font-size: 0.68rem;
+            font-weight: 600;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            color: var(--sage);
+        }
+        .domain-tag.elective { color: var(--gold); }
+        .domain-chevron {
+            font-size: 0.75rem;
+            color: var(--sage);
+            transition: transform 0.2s;
+            flex-shrink: 0;
+        }
+        .domain-card.open .domain-chevron { transform: rotate(90deg); }
+        .domain-body {
+            display: none;
+            padding: 0 20px 16px;
+            border-top: 1px solid rgba(159,202,159,0.2);
+        }
+        .domain-card.open .domain-body { display: block; }
+        .domain-deliverable {
+            font-size: 0.82rem;
+            color: var(--slate);
+            padding: 5px 0 5px 16px;
+            border-bottom: 1px solid rgba(159,202,159,0.1);
+            position: relative;
+            line-height: 1.4;
+        }
+        .domain-deliverable:last-child { border-bottom: none; }
+        .domain-deliverable::before {
+            content: '◦';
+            position: absolute;
+            left: 0;
+            color: var(--sage);
+            font-size: 0.7rem;
+        }
+        .domain-tier-note {
+            font-size: 0.72rem;
+            font-style: italic;
+            color: var(--sage);
+            margin: 10px 0 0;
+        }
+        @media (max-width: 860px) {
+            .pricing-grid  { grid-template-columns: 1fr; }
+            .proof-row     { grid-template-columns: 1fr 1fr; }
+            .who-grid      { grid-template-columns: 1fr; }
+            .compare-head,
+            .cr            { grid-template-columns: 1fr; }
+            .ch-cell.label,
+            .cd.label      { font-weight: 700; background: var(--parchment); }
+        }
+    </style>
+</head>
+<body class="page-shell has-sidebar">
+<button class="sidebar-toggle" id="sidebarToggle" aria-label="Open navigation">&#9776;</button>
+<div class="sidebar-overlay" id="sidebarOverlay"></div>
+<aside class="sidebar" id="sidebar"></aside>
+<div class="page-body">
+    <header class="site-header">
+        <a class="wordmark" href="/">Joshua Bechtel</a>
+        <p class="site-tagline">Enterprise Knowledge Architecture &nbsp;&middot;&nbsp; AI Fluency &nbsp;&middot;&nbsp; Content Systems</p>
+    </header>
+    <nav class="top-nav"></nav>
+    <main class="page-content">
+
+        <p class="page-eyebrow">AI Fluency &mdash; Team &amp; Enterprise</p>
+        <h1 class="page-title">Stop hiring contractors to solve a problem<br><em>contractors can&rsquo;t fix.</em></h1>
+        <p class="page-intro">Most organizations cycle through technical writing contractors every 6&ndash;8 months &mdash; not because the work is done, but because the foundation was never built. This engagement builds it. In 60 days, you leave with the framework, the training, and the internal capacity to sustain both.</p>
+
+        <!-- THE ACTUAL PROBLEM -->
+        <div class="problem-callout">
+            <p>You&rsquo;re not understaffed. You&rsquo;re under-systematized. <strong>Every contractor cycle costs $150,000&ndash;$350,000 and leaves nothing behind.</strong> No style guide, no process, no trained staff &mdash; just a pile of documents and a slot on next year&rsquo;s contractor budget. This engagement ends that cycle permanently.</p>
+        </div>
+
+        <hr class="divider">
+
+        <!-- WHO THIS IS FOR -->
+        <h2 class="section-title">Who this is for</h2>
+        <div class="who-grid">
+            <div class="who-card">
+                <p class="who-role">The person who keeps hiring contractors</p>
+                <p class="who-pain">You know the cycle: define the need, write the job req, screen candidates, onboard, deliver, repeat. You don&rsquo;t need more contractors. You need this to stop.</p>
+            </div>
+            <div class="who-card">
+                <p class="who-role">The person managing headcount against demand</p>
+                <p class="who-pain">Every engagement is another negotiation you didn&rsquo;t want. This replaces a recurring staffing problem with a one-time infrastructure investment.</p>
+            </div>
+        </div>
+
+        <hr class="divider">
+
+        <!-- WHAT YOU HAVE ON DAY 61 -->
+        <h2 class="section-title">What you have on Day 61</h2>
+        <p style="font-size:0.95rem; color:var(--slate); max-width:660px; margin-bottom:0;">Every deliverable has an observable completion criterion. Nothing is delivered that cannot be measured against your own definition of success.</p>
+        <div class="deliverables-grid">
+            <div class="d-card tangible">
+                <p class="d-type">Tangible</p>
+                <p class="d-title">Style guide + terminology foundation</p>
+                <p class="d-desc">A complete organizational style guide with lexicon, tone standards, and terminology sheets. The single document that answers 85% of your documentation questions.</p>
+            </div>
+            <div class="d-card tangible">
+                <p class="d-type">Tangible</p>
+                <p class="d-title">Documentation update process</p>
+                <p class="d-desc">A verified, modern process for how documentation gets changed &mdash; including SME sign-off requirements. No more undocumented workarounds or quality-score chasing.</p>
+            </div>
+            <div class="d-card tangible">
+                <p class="d-type">Tangible</p>
+                <p class="d-title">Non-writer contribution framework</p>
+                <p class="d-desc">A clear map of what your non-technical staff can own in the documentation lifecycle &mdash; with tools and guardrails so they can actually do it.</p>
+            </div>
+            <div class="d-card tangible">
+                <p class="d-type">Tangible</p>
+                <p class="d-title">AI tool configuration + training</p>
+                <p class="d-desc">Practical AI literacy for your team &mdash; not a seminar, but applied tool use fitted to your actual workflow. Built and tested during the engagement.</p>
+            </div>
+            <div class="d-card measurable">
+                <p class="d-type">Measurable</p>
+                <p class="d-title">Adoption baseline + benchmarks</p>
+                <p class="d-desc">Defined metrics so you can see whether your people are using what was built. Adoption doesn&rsquo;t happen by accident &mdash; we build the conditions for it.</p>
+            </div>
+            <div class="d-card measurable">
+                <p class="d-type">Measurable</p>
+                <p class="d-title">Contractor dependency reduction</p>
+                <p class="d-desc">A documented before/after of what your organization previously outsourced versus what it can now do internally. Quantifiable ROI against your contractor spend.</p>
+            </div>
+        </div>
+
+        <hr class="divider">
+
+        <!-- PROOF -->
+        <h2 class="section-title">Proof of concept</h2>
+        <div class="proof-row">
+            <div class="proof-card">
+                <p class="proof-num">8,568</p>
+                <p class="proof-desc">employees reached in enterprise AI rollout</p>
+            </div>
+            <div class="proof-card">
+                <p class="proof-num">80%+</p>
+                <p class="proof-desc">tool retention at 45 days &mdash; a metric most rollouts never measure</p>
+            </div>
+            <div class="proof-card">
+                <p class="proof-num">45 days</p>
+                <p class="proof-desc">delivered against a 90-day scope</p>
+            </div>
+            <div class="proof-card">
+                <p class="proof-num">20+ yrs</p>
+                <p class="proof-desc">enterprise knowledge architecture and documentation systems</p>
+            </div>
+        </div>
+
+
+        <hr class="divider">
+
+        <!-- SIX DOMAINS -->
+        <h2 class="section-title">The six domains of the engagement</h2>
+        <p class="domains-intro">Every engagement is built from these six domains. Spark includes Domains 1 and 6 by default. Standard adds two elective domains. Premium includes all six. Click any domain to see exactly what&rsquo;s in it.</p>
+
+        <div class="domains-grid">
+
+            <div class="domain-card included open">
+                <div class="domain-header" onclick="toggleDomain(this)">
+                    <span class="domain-num">1</span>
+                    <div class="domain-title-block">
+                        <p class="domain-name">Content Standards &amp; Governance</p>
+                        <span class="domain-tag">Included in all tiers</span>
+                    </div>
+                    <span class="domain-chevron">&#8250;</span>
+                </div>
+                <div class="domain-body">
+                    <div class="domain-deliverable">Organizational style guide</div>
+                    <div class="domain-deliverable">Editorial standards for manuals and formal documentation</div>
+                    <div class="domain-deliverable">Voice and tone guidelines (brand-integrated)</div>
+                    <div class="domain-deliverable">Terminology database / controlled vocabulary</div>
+                    <div class="domain-deliverable">Content governance policies (including SME sign-off protocol)</div>
+                    <div class="domain-deliverable">Documentation formatting and structure standards</div>
+                    <div class="domain-deliverable">Metadata schema and tagging standards</div>
+                    <div class="domain-deliverable">Accessibility guidelines (ESL / multilingual considerations)</div>
+                    <p class="domain-tier-note">Spark includes core deliverables. Standard and Premium include the full domain.</p>
+                </div>
+            </div>
+
+            <div class="domain-card">
+                <div class="domain-header" onclick="toggleDomain(this)">
+                    <span class="domain-num">2</span>
+                    <div class="domain-title-block">
+                        <p class="domain-name">Content Architecture &amp; Structure</p>
+                        <span class="domain-tag elective">Elective domain</span>
+                    </div>
+                    <span class="domain-chevron">&#8250;</span>
+                </div>
+                <div class="domain-body">
+                    <div class="domain-deliverable">Information architecture (IA) blueprint</div>
+                    <div class="domain-deliverable">Topic-based authoring guidelines</div>
+                    <div class="domain-deliverable">Content chunking strategy</div>
+                    <div class="domain-deliverable">Reuse strategy (simplified, sustainable)</div>
+                    <div class="domain-deliverable">Taxonomy and classification framework</div>
+                    <div class="domain-deliverable">Navigation and labeling standards</div>
+                    <p class="domain-tier-note">Available as an elective in Standard. Included in Premium.</p>
+                </div>
+            </div>
+
+            <div class="domain-card">
+                <div class="domain-header" onclick="toggleDomain(this)">
+                    <span class="domain-num">3</span>
+                    <div class="domain-title-block">
+                        <p class="domain-name">Authoring &amp; Creation Assets</p>
+                        <span class="domain-tag elective">Elective domain</span>
+                    </div>
+                    <span class="domain-chevron">&#8250;</span>
+                </div>
+                <div class="domain-body">
+                    <div class="domain-deliverable">Writing checklists</div>
+                    <div class="domain-deliverable">Plain language guidelines</div>
+                    <div class="domain-deliverable">Inclusive language guidelines</div>
+                    <div class="domain-deliverable">Authoring templates (SOPs, how-tos, FAQs)</div>
+                    <p class="domain-tier-note">Available as an elective in Standard. Included in Premium.</p>
+                </div>
+            </div>
+
+            <div class="domain-card">
+                <div class="domain-header" onclick="toggleDomain(this)">
+                    <span class="domain-num">4</span>
+                    <div class="domain-title-block">
+                        <p class="domain-name">Process &amp; Workflow</p>
+                        <span class="domain-tag elective">Elective domain</span>
+                    </div>
+                    <span class="domain-chevron">&#8250;</span>
+                </div>
+                <div class="domain-body">
+                    <div class="domain-deliverable">Content lifecycle documentation</div>
+                    <div class="domain-deliverable">Version control and change management standards</div>
+                    <div class="domain-deliverable">Content audit plan (scheduled, not aspirational)</div>
+                    <div class="domain-deliverable">Content intake and request process (including access governance)</div>
+                    <p class="domain-tier-note">Available as an elective in Standard. Included in Premium.</p>
+                </div>
+            </div>
+
+            <div class="domain-card">
+                <div class="domain-header" onclick="toggleDomain(this)">
+                    <span class="domain-num">5</span>
+                    <div class="domain-title-block">
+                        <p class="domain-name">Measurement &amp; Optimization</p>
+                        <span class="domain-tag elective">Elective domain</span>
+                    </div>
+                    <span class="domain-chevron">&#8250;</span>
+                </div>
+                <div class="domain-body">
+                    <div class="domain-deliverable">Content performance metrics framework</div>
+                    <div class="domain-deliverable">Search and findability standards</div>
+                    <div class="domain-deliverable">User feedback and collection framework</div>
+                    <div class="domain-deliverable">Content quality scoring rubric</div>
+                    <p class="domain-tier-note">Available as an elective in Standard. Included in Premium.</p>
+                </div>
+            </div>
+
+            <div class="domain-card included">
+                <div class="domain-header" onclick="toggleDomain(this)">
+                    <span class="domain-num">6</span>
+                    <div class="domain-title-block">
+                        <p class="domain-name">AI Fluency &amp; Guidelines</p>
+                        <span class="domain-tag">Included in all tiers</span>
+                    </div>
+                    <span class="domain-chevron">&#8250;</span>
+                </div>
+                <div class="domain-body">
+                    <div class="domain-deliverable">AI usage policy (including data confidentiality guidelines)</div>
+                    <div class="domain-deliverable">AI authoring guidelines</div>
+                    <div class="domain-deliverable">AI tool configuration and recommendations</div>
+                    <div class="domain-deliverable">AI literacy program framework and training</div>
+                    <p class="domain-tier-note">Spark includes core AI policy and awareness. Standard adds crawl/walk/run prompt training. Premium includes full prompt engineering and workflow integration.</p>
+                </div>
+            </div>
+
+        </div>
+
+        <!-- PRICING -->
+        <h2 class="section-title" id="pricing">Choose your tier</h2>
+        <p style="font-size:0.95rem; color:var(--slate); max-width:660px; margin-bottom:0;">All three tiers are fixed-scope and fixed-price. The difference is how many of the six knowledge architecture domains are included and how deeply AI workflow integration goes.</p>
+
+        <div class="pricing-grid">
+
+            <div class="pricing-card">
+                <span class="pricing-badge spark">Spark</span>
+                <p class="pricing-name">Foundation</p>
+                <p class="pricing-sub">For organizations that need to stop the bleeding before they can build anything else. Core standards, governance, and AI literacy baseline.</p>
+                <p class="pricing-price">$45,000</p>
+                <p class="pricing-note">Fixed price &middot; Up to 60 days</p>
+                <div class="p-divider"></div>
+                <p class="p-section-label">Domains included</p>
+                <div class="p-feature">Domain 1 &mdash; core standards and governance</div>
+                <div class="p-feature">Domain 6 &mdash; AI usage policy and basic literacy</div>
+                <div class="p-divider"></div>
+                <p class="p-section-label">What you get</p>
+                <div class="p-feature">Organizational style guide</div>
+                <div class="p-feature">Terminology database</div>
+                <div class="p-feature">Content governance policy</div>
+                <div class="p-feature">AI usage policy + data confidentiality guidelines</div>
+                <div class="p-feature">AI literacy training (awareness and guardrails)</div>
+                <div class="p-feature out">Prompt development training</div>
+                <div class="p-feature out">Elective domains</div>
+                <div class="p-feature out">30-day post-engagement check-in</div>
+                <div class="pricing-spacer"></div>
+                <a href="/contact.html?type=consult" class="pricing-cta outline">Start the Conversation</a>
+            </div>
+
+            <div class="pricing-card featured">
+                <span class="most-label">Most engagements</span>
+                <span class="pricing-badge standard">Standard</span>
+                <p class="pricing-name">Enablement</p>
+                <p class="pricing-sub">Full enablement. Foundation plus two domains your organization needs most. Crawl/walk/run prompt training and a full team session.</p>
+                <p class="pricing-price">$65,000</p>
+                <p class="pricing-note">Fixed price &middot; Up to 60 days</p>
+                <div class="p-divider"></div>
+                <p class="p-section-label">Domains included</p>
+                <div class="p-feature">Domain 1 &mdash; full standards and governance</div>
+                <div class="p-feature">Domain 6 &mdash; AI Fluency and prompt training</div>
+                <div class="p-feature">2 elective domains (client selects at kickoff)</div>
+                <div class="p-divider"></div>
+                <p class="p-section-label">What you get</p>
+                <div class="p-feature">Everything in Spark</div>
+                <div class="p-feature">Crawl / walk / run prompt development training</div>
+                <div class="p-feature">Full team training session</div>
+                <div class="p-feature">2 elective domains from the framework</div>
+                <div class="p-feature">Client-defined adoption benchmarks</div>
+                <div class="p-feature out">30-day post-engagement check-in</div>
+                <div class="pricing-spacer"></div>
+                <a href="/contact.html?type=consult" class="pricing-cta solid">Start the Conversation</a>
+            </div>
+
+            <div class="pricing-card">
+                <span class="pricing-badge premium">Premium</span>
+                <p class="pricing-name">Transformation</p>
+                <p class="pricing-sub">Full transformation. All six domains, deep AI workflow integration, and a 30-day post-engagement check-in included.</p>
+                <p class="pricing-price">$95,000+</p>
+                <p class="pricing-note">Scoped engagement &middot; 60&ndash;90 days</p>
+                <div class="p-divider"></div>
+                <p class="p-section-label">Domains included</p>
+                <div class="p-feature">All six domains</div>
+                <div class="p-feature">Full AI workflow integration</div>
+                <div class="p-feature">On-site option available</div>
+                <div class="p-divider"></div>
+                <p class="p-section-label">What you get</p>
+                <div class="p-feature">Everything in Standard</div>
+                <div class="p-feature">3&ndash;4 elective domains from the framework</div>
+                <div class="p-feature">Full prompt engineering + tool configuration</div>
+                <div class="p-feature">AI workflow integration in client environment</div>
+                <div class="p-feature">30-day post-engagement check-in</div>
+                <div class="p-feature">On-site sessions available (travel addendum)</div>
+                <div class="pricing-spacer"></div>
+                <a href="/contact.html?type=consult" class="pricing-cta outline">Start the Conversation</a>
+            </div>
+
+        </div>
+
+        <!-- COMPARISON TABLE -->
+        <div class="compare-wrap">
+            <div class="compare-head">
+                <div class="ch-cell label">Feature</div>
+                <div class="ch-cell">Spark</div>
+                <div class="ch-cell">Standard</div>
+                <div class="ch-cell">Premium</div>
+            </div>
+            <div class="cr"><div class="cd label">Timeline</div><div class="cd val">Up to 60 days</div><div class="cd val">Up to 60 days</div><div class="cd val">60&ndash;90 days</div></div>
+            <div class="cr"><div class="cd label">Domain 1 &mdash; standards and governance</div><div class="cd yes">Core</div><div class="cd yes">Full</div><div class="cd yes">Full</div></div>
+            <div class="cr"><div class="cd label">Domain 6 &mdash; AI Fluency</div><div class="cd yes">Core</div><div class="cd yes">Full</div><div class="cd yes">Full</div></div>
+            <div class="cr"><div class="cd label">Elective domains</div><div class="cd no">&mdash;</div><div class="cd val">2</div><div class="cd val">3&ndash;4</div></div>
+            <div class="cr"><div class="cd label">AI literacy training</div><div class="cd yes">Awareness</div><div class="cd yes">Crawl/walk/run</div><div class="cd yes">Full engineering</div></div>
+            <div class="cr"><div class="cd label">Team training session</div><div class="cd no">&mdash;</div><div class="cd yes">Included</div><div class="cd yes">Included</div></div>
+            <div class="cr"><div class="cd label">Adoption benchmarks</div><div class="cd no">&mdash;</div><div class="cd yes">Included</div><div class="cd yes">Included</div></div>
+            <div class="cr"><div class="cd label">30-day post check-in</div><div class="cd no">&mdash;</div><div class="cd no">&mdash;</div><div class="cd yes">Included</div></div>
+            <div class="cr"><div class="cd label">On-site option</div><div class="cd no">&mdash;</div><div class="cd no">&mdash;</div><div class="cd yes">Available</div></div>
+            <div class="cr"><div class="cd label">SOW expiration</div><div class="cd" style="font-size:0.72rem">90 days from signing</div><div class="cd" style="font-size:0.72rem">90 days from signing</div><div class="cd" style="font-size:0.72rem">90 days from signing</div></div>
+            <div class="compare-footnote">All tiers are fixed-scope and fixed-price. The SOW expires if Day 1 has not been confirmed within 90 days of signing. On-site work is subject to a separate travel and expenses addendum. Pricing does not include software licensing or tool subscriptions.</div>
+        </div>
+
+        <hr class="divider">
+
+        <!-- FINAL CTA -->
+        <div class="callout">
+            <h3>Ready to stop the contractor cycle?</h3>
+            <p>Engagements are fixed-scope, fixed-price, and limited per quarter. A Discovery Session is the right first step &mdash; no pitch, no pressure, just a clear picture of whether this is the right fit for your organization.</p>
+            <div class="btn-row">
+                <a href="/contact.html?type=discovery" class="btn btn-gold">Book a Discovery Session</a>
+                <a href="/ai-enablement/" class="btn btn-outline-white">See All Programs</a>
+            </div>
+        </div>
+
+    </main>
+    <footer>
+        <div class="footer-name">Joshua Bechtel</div>
+        <div class="footer-tagline">Knowledge Architecture &nbsp;&middot;&nbsp; AI Fluency &nbsp;&middot;&nbsp; Enterprise Content Systems</div>
+    </footer>
+</div>
+
+<script>
+function toggleDomain(header) {
+    var card = header.parentElement;
+    card.classList.toggle('open');
+}
+</script>
+<script src="/nav.js"></script>
+<script src="/quiz.js"></script>
+<script src="/microinteractions.js"></script>
+</body>
+</html>

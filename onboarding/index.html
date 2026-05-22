@@ -1,0 +1,329 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Client Intake | Joshua Bechtel</title>
+    <meta name="robots" content="noindex, nofollow">
+    <link rel="stylesheet" href="/styles.css">
+    <style>
+        .intake-wrap {
+            max-width: 720px;
+            margin: 0 auto;
+            padding: 60px 40px 80px;
+        }
+        .intake-eyebrow {
+            font-size: 0.72rem;
+            font-weight: 700;
+            letter-spacing: 0.16em;
+            text-transform: uppercase;
+            color: var(--gold);
+            display: block;
+            margin-bottom: 16px;
+        }
+        .intake-wrap h1 {
+            font-family: 'DM Serif Display', serif;
+            font-size: clamp(1.9rem, 4vw, 2.6rem);
+            color: var(--forest);
+            line-height: 1.15;
+            margin-bottom: 16px;
+        }
+        .intake-wrap h1 em { color: var(--gold); font-style: italic; }
+        .intake-lead {
+            font-size: 1rem;
+            color: var(--slate);
+            line-height: 1.75;
+            margin-bottom: 40px;
+            border-bottom: 1px solid rgba(45,90,45,0.12);
+            padding-bottom: 32px;
+        }
+        .intake-section {
+            margin-bottom: 36px;
+        }
+        .intake-section-label {
+            font-size: 0.68rem;
+            font-weight: 700;
+            letter-spacing: 0.14em;
+            text-transform: uppercase;
+            color: var(--sage);
+            display: block;
+            margin-bottom: 16px;
+            padding-bottom: 8px;
+            border-bottom: 1px solid rgba(45,90,45,0.12);
+        }
+        .checkbox-group {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+            margin-top: 8px;
+        }
+        .checkbox-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 10px;
+            padding: 10px 14px;
+            border: 1px solid rgba(45,90,45,0.2);
+            border-radius: 6px;
+            cursor: pointer;
+            transition: border-color 0.15s, background 0.15s;
+        }
+        .checkbox-item:hover {
+            border-color: var(--sage);
+            background: rgba(95,140,95,0.04);
+        }
+        .checkbox-item input[type="checkbox"] {
+            margin-top: 2px;
+            flex-shrink: 0;
+            accent-color: var(--forest);
+            width: 16px;
+            height: 16px;
+        }
+        .checkbox-item label {
+            font-size: 0.88rem;
+            color: var(--slate);
+            cursor: pointer;
+            line-height: 1.4;
+        }
+        .avail-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            gap: 10px;
+        }
+        .avail-item {
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+        }
+        .avail-item label {
+            font-size: 0.82rem;
+            color: var(--slate);
+            font-weight: 500;
+        }
+        .avail-item select {
+            font-size: 0.88rem;
+        }
+        .intake-note {
+            font-size: 0.82rem;
+            color: var(--slate);
+            opacity: 0.75;
+            margin-top: 24px;
+            line-height: 1.6;
+        }
+        @media (max-width: 600px) {
+            .intake-wrap { padding: 40px 24px 60px; }
+            .checkbox-group { grid-template-columns: 1fr; }
+            .avail-row { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body class="page-shell has-sidebar">
+
+<button class="sidebar-toggle" id="sidebarToggle" aria-label="Open navigation">&#9776;</button>
+<div class="sidebar-overlay" id="sidebarOverlay"></div>
+<aside class="sidebar" id="sidebar"></aside>
+
+<div class="page-body">
+    <header class="site-header">
+        <a class="wordmark" href="/">Joshua Bechtel</a>
+        <p class="site-tagline">Enterprise Knowledge Architecture &nbsp;&middot;&nbsp; AI Fluency &nbsp;&middot;&nbsp; Content Systems</p>
+    </header>
+    <nav class="top-nav"></nav>
+
+    <main class="page-content">
+        <div class="intake-wrap">
+
+            <span class="intake-eyebrow">Before We Begin</span>
+            <h1>Let&rsquo;s make sure<br><em>session one counts.</em></h1>
+            <p class="intake-lead">This form helps me show up prepared. The more honest and specific you are, the more useful our first session will be. Nothing here is graded &mdash; there are no wrong answers, only useful ones. Takes about five minutes.</p>
+
+            <form action="https://formspree.io/f/xwvwbbab" method="POST">
+                <input type="hidden" name="_subject" value="New Client Intake — joshuabechtel.com">
+                <input type="hidden" name="_next" value="https://joshuabechtel.com/onboarding/thank-you.html">
+
+                <!-- ── SECTION 1: WHO YOU ARE ─────────────────── -->
+                <div class="intake-section">
+                    <span class="intake-section-label">Who you are</span>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="i-name">Your name</label>
+                            <input type="text" id="i-name" name="name" required placeholder="Full name">
+                        </div>
+                        <div class="form-group">
+                            <label for="i-email">Your email</label>
+                            <input type="email" id="i-email" name="email" required placeholder="you@example.com">
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="i-role">Your role or title</label>
+                            <input type="text" id="i-role" name="role" placeholder="e.g. Operations Manager, Solopreneur, Director of HR">
+                        </div>
+                        <div class="form-group">
+                            <label for="i-org">Organization or business name</label>
+                            <input type="text" id="i-org" name="organization" placeholder="Or 'Independent' if self-employed">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="i-industry">What industry or field are you in?</label>
+                        <input type="text" id="i-industry" name="industry" placeholder="e.g. Healthcare, Legal, Nonprofit, Real Estate, Tech">
+                    </div>
+                </div>
+
+                <!-- ── SECTION 2: AI EXPERIENCE ───────────────── -->
+                <div class="intake-section">
+                    <span class="intake-section-label">Your AI experience</span>
+                    <div class="form-group">
+                        <label for="i-experience">How would you describe your current experience with AI tools?</label>
+                        <select id="i-experience" name="ai_experience" required>
+                            <option value="">Select the one that fits best&hellip;</option>
+                            <option>Complete beginner — I have not used AI tools yet</option>
+                            <option>Curious beginner — I have tried a few things but nothing regular</option>
+                            <option>Occasional user — I use AI sometimes but not consistently</option>
+                            <option>Regular user — I use AI tools most days for specific tasks</option>
+                            <option>Power user — AI is deeply embedded in how I work</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>Which AI tools have you used? (Check all that apply)</label>
+                        <div class="checkbox-group">
+                            <label class="checkbox-item">
+                                <input type="checkbox" name="tools" value="ChatGPT">
+                                <label>ChatGPT (OpenAI)</label>
+                            </label>
+                            <label class="checkbox-item">
+                                <input type="checkbox" name="tools" value="Claude">
+                                <label>Claude (Anthropic)</label>
+                            </label>
+                            <label class="checkbox-item">
+                                <input type="checkbox" name="tools" value="Copilot">
+                                <label>Microsoft Copilot</label>
+                            </label>
+                            <label class="checkbox-item">
+                                <input type="checkbox" name="tools" value="Gemini">
+                                <label>Google Gemini</label>
+                            </label>
+                            <label class="checkbox-item">
+                                <input type="checkbox" name="tools" value="Perplexity">
+                                <label>Perplexity</label>
+                            </label>
+                            <label class="checkbox-item">
+                                <input type="checkbox" name="tools" value="Canva AI">
+                                <label>Canva AI</label>
+                            </label>
+                            <label class="checkbox-item">
+                                <input type="checkbox" name="tools" value="Notion AI">
+                                <label>Notion AI</label>
+                            </label>
+                            <label class="checkbox-item">
+                                <input type="checkbox" name="tools" value="Other / Not sure">
+                                <label>Other / Not sure</label>
+                            </label>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="i-tools-other">Any other tools worth mentioning?</label>
+                        <input type="text" id="i-tools-other" name="tools_other" placeholder="Automation tools, industry-specific platforms, anything else">
+                    </div>
+                </div>
+
+                <!-- ── SECTION 3: GOALS & PAIN POINTS ────────── -->
+                <div class="intake-section">
+                    <span class="intake-section-label">What you&rsquo;re working on</span>
+                    <div class="form-group">
+                        <label for="i-goal">What is the main thing you are hoping to get out of this program?</label>
+                        <textarea id="i-goal" name="main_goal" rows="4" placeholder="Be as specific or as general as you like. What does success look like for you?"></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label for="i-friction">What is the biggest friction point in your work right now — AI-related or not?</label>
+                        <textarea id="i-friction" name="friction_point" rows="4" placeholder="What slows you down? What takes too long? What do you keep putting off?"></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label for="i-tried">What have you already tried when it comes to using AI in your work?</label>
+                        <textarea id="i-tried" name="already_tried" rows="3" placeholder="What worked, what didn't, what you gave up on. Nothing is embarrassing here."></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label for="i-worry">Is there anything about AI that concerns or worries you?</label>
+                        <textarea id="i-worry" name="concerns" rows="3" placeholder="Privacy, accuracy, job security, keeping up — whatever is on your mind."></textarea>
+                    </div>
+                </div>
+
+                <!-- ── SECTION 4: AVAILABILITY ────────────────── -->
+                <div class="intake-section">
+                    <span class="intake-section-label">Your schedule</span>
+                    <div class="form-group">
+                        <label for="i-timezone">Your time zone</label>
+                        <select id="i-timezone" name="timezone">
+                            <option value="">Select&hellip;</option>
+                            <option>Eastern (ET)</option>
+                            <option>Central (CT)</option>
+                            <option>Mountain (MT)</option>
+                            <option>Pacific (PT)</option>
+                            <option>Other — I will note it below</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>Which days generally work best for you?</label>
+                        <div class="checkbox-group">
+                            <label class="checkbox-item">
+                                <input type="checkbox" name="days" value="Monday">
+                                <label>Monday</label>
+                            </label>
+                            <label class="checkbox-item">
+                                <input type="checkbox" name="days" value="Tuesday">
+                                <label>Tuesday</label>
+                            </label>
+                            <label class="checkbox-item">
+                                <input type="checkbox" name="days" value="Wednesday">
+                                <label>Wednesday</label>
+                            </label>
+                            <label class="checkbox-item">
+                                <input type="checkbox" name="days" value="Thursday">
+                                <label>Thursday</label>
+                            </label>
+                            <label class="checkbox-item">
+                                <input type="checkbox" name="days" value="Friday">
+                                <label>Friday</label>
+                            </label>
+                            <label class="checkbox-item">
+                                <input type="checkbox" name="days" value="Weekends">
+                                <label>Weekends</label>
+                            </label>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="i-time">What time of day works best?</label>
+                        <select id="i-time" name="preferred_time">
+                            <option value="">Select&hellip;</option>
+                            <option>Early morning (before 9am)</option>
+                            <option>Morning (9am &ndash; 12pm)</option>
+                            <option>Midday (12pm &ndash; 2pm)</option>
+                            <option>Afternoon (2pm &ndash; 5pm)</option>
+                            <option>Evening (after 5pm)</option>
+                            <option>Flexible &mdash; it varies week to week</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="i-notes">Anything else I should know before we meet?</label>
+                        <textarea id="i-notes" name="additional_notes" rows="3" placeholder="Schedule constraints, communication preferences, context that didn't fit anywhere else."></textarea>
+                    </div>
+                </div>
+
+                <button type="submit" class="btn btn-gold btn-full">Submit Intake Form</button>
+
+                <p class="intake-note">Everything you share here is confidential. I will review this before our first session and reach out to confirm your meeting time. If you have questions before then, email me at josh@joshuabechtel.com.</p>
+
+            </form>
+        </div>
+    </main>
+
+    <footer>
+        <div class="footer-name">Joshua Bechtel</div>
+        <div class="footer-tagline">Knowledge Architecture &nbsp;&middot;&nbsp; AI Fluency &nbsp;&middot;&nbsp; Enterprise Content Systems</div>
+    </footer>
+</div>
+
+<script src="/nav.js"></script>
+<script src="/quiz.js"></script>
+<script src="/microinteractions.js"></script>
+</body>
+</html>

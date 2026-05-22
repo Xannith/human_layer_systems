@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Client Resources | Joshua Bechtel</title>
+    <meta name="description" content="AI Essentials Guide and Prompt Library — client resources available after your first engagement.">
+    <link rel="stylesheet" href="/styles.css">
+    <style>
+        .res-gate {
+            background: var(--forest);
+            min-height: 60vh;
+            display: flex;
+            align-items: center;
+        }
+        .res-gate-inner {
+            max-width: 680px;
+            margin: 0 auto;
+            padding: 80px 40px;
+            text-align: center;
+        }
+        .res-eyebrow {
+            font-size: 0.72rem;
+            font-weight: 700;
+            letter-spacing: 0.18em;
+            text-transform: uppercase;
+            color: var(--gold);
+            display: block;
+            margin-bottom: 24px;
+        }
+        .res-gate h1 {
+            font-family: 'DM Serif Display', serif;
+            font-size: clamp(1.9rem, 4vw, 2.8rem);
+            color: var(--foam);
+            line-height: 1.15;
+            margin-bottom: 20px;
+        }
+        .res-gate h1 em { color: var(--gold); font-style: italic; }
+        .res-gate-lead {
+            font-size: 1rem;
+            color: rgba(207,232,207,0.75);
+            line-height: 1.75;
+            margin-bottom: 1.1rem;
+            max-width: 520px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        .res-divider {
+            width: 40px;
+            height: 2px;
+            background: var(--gold);
+            margin: 36px auto;
+            border: none;
+        }
+        .res-code-block {
+            background: rgba(0,0,0,0.3);
+            border: 1px solid rgba(184,134,11,0.3);
+            border-radius: 8px;
+            padding: 28px 32px;
+            max-width: 440px;
+            margin: 0 auto;
+            text-align: left;
+        }
+        .res-code-label {
+            font-size: 0.7rem;
+            font-weight: 700;
+            letter-spacing: 0.18em;
+            text-transform: uppercase;
+            color: var(--gold);
+            display: block;
+            margin-bottom: 16px;
+        }
+        .res-code-input-row {
+            display: flex;
+            gap: 10px;
+        }
+        .res-code-input {
+            flex: 1;
+            background: rgba(255,255,255,0.08);
+            border: 1px solid rgba(159,202,159,0.25);
+            border-radius: 5px;
+            padding: 11px 16px;
+            color: var(--foam);
+            font-size: 0.95rem;
+            font-family: 'DM Sans', sans-serif;
+            letter-spacing: 0.1em;
+            outline: none;
+        }
+        .res-code-input::placeholder { color: rgba(207,232,207,0.35); }
+        .res-code-input:focus { border-color: var(--gold); }
+        .res-code-btn {
+            background: var(--gold);
+            color: var(--white);
+            border: none;
+            border-radius: 5px;
+            padding: 11px 20px;
+            font-size: 0.88rem;
+            font-weight: 700;
+            font-family: 'DM Sans', sans-serif;
+            cursor: pointer;
+            transition: background 0.2s;
+            white-space: nowrap;
+        }
+        .res-code-btn:hover { background: var(--gold-lt); }
+        .res-code-msg {
+            font-size: 0.85rem;
+            margin-top: 12px;
+            min-height: 20px;
+            color: rgba(207,232,207,0.55);
+            text-align: center;
+        }
+        .res-code-msg.success { color: #7ecf7e; }
+        .res-code-msg.error   { color: #e07070; }
+
+        .res-cards {
+            display: none;
+            max-width: 860px;
+            margin: 0 auto;
+            padding: 64px 40px;
+        }
+        .res-cards h2 {
+            font-family: 'DM Serif Display', serif;
+            font-size: 1.8rem;
+            color: var(--forest);
+            margin-bottom: 10px;
+        }
+        .res-cards-lead {
+            font-size: 1rem;
+            color: var(--slate);
+            line-height: 1.7;
+            margin-bottom: 40px;
+        }
+        .res-cards-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 24px;
+        }
+        .res-card {
+            background: var(--parchment);
+            border: 1px solid rgba(45,90,45,0.15);
+            border-radius: 10px;
+            padding: 32px 28px;
+        }
+        .res-card-badge {
+            font-size: 0.68rem;
+            font-weight: 700;
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+            color: var(--forest);
+            background: rgba(95,140,95,0.15);
+            padding: 4px 10px;
+            border-radius: 4px;
+            display: inline-block;
+            margin-bottom: 16px;
+        }
+        .res-card h3 {
+            font-family: 'DM Serif Display', serif;
+            font-size: 1.25rem;
+            color: var(--forest);
+            margin-bottom: 10px;
+        }
+        .res-card p {
+            font-size: 0.92rem;
+            color: var(--slate);
+            line-height: 1.7;
+            margin-bottom: 20px;
+        }
+
+        @media (max-width: 600px) {
+            .res-gate-inner { padding: 60px 24px; }
+            .res-code-input-row { flex-direction: column; }
+            .res-cards { padding: 48px 24px; }
+        }
+    </style>
+</head>
+<body class="page-shell has-sidebar">
+
+<button class="sidebar-toggle" id="sidebarToggle" aria-label="Open navigation">&#9776;</button>
+<div class="sidebar-overlay" id="sidebarOverlay"></div>
+
+<aside class="sidebar" id="sidebar"></aside>
+<div class="page-body">
+    <header class="site-header">
+        <a class="wordmark" href="/">Joshua Bechtel</a>
+        <p class="site-tagline">Enterprise Knowledge Architecture &nbsp;&middot;&nbsp; AI Fluency &nbsp;&middot;&nbsp; Content Systems</p>
+    </header>
+    <nav class="top-nav"></nav>
+
+    <!-- ── GATE ───────────────────────────────────────────────── -->
+    <section class="res-gate">
+        <div class="res-gate-inner">
+            <span class="res-eyebrow">Client Resources</span>
+            <h1>These resources are<br><em>earned, not free.</em></h1>
+            <p class="res-gate-lead">The AI Essentials Guide and Prompt Library are available to clients after an initial engagement. They are living documents that grow over time and are worth protecting.</p>
+            <p class="res-gate-lead">If you have completed an engagement and received an access code, enter it below. If you haven&rsquo;t yet worked together and want to, the right first step is a conversation.</p>
+
+            <hr class="res-divider">
+
+            <div class="res-code-block">
+                <span class="res-code-label">Client Access</span>
+                <div class="res-code-input-row">
+                    <input class="res-code-input" type="password" id="resCodeInput" placeholder="Enter your access code" autocomplete="off">
+                    <button class="res-code-btn" id="resCodeBtn">Unlock</button>
+                </div>
+                <p class="res-code-msg" id="resCodeMsg"></p>
+            </div>
+
+            <div style="margin-top:32px;">
+                <a href="/contact.html?type=consult" class="btn btn-outline-white">Start a Conversation &rarr;</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- ── RESOURCE CARDS (revealed after correct code) ───────── -->
+    <div class="res-cards" id="resCards">
+        <h2>Your Resources</h2>
+        <p class="res-cards-lead">Everything below is updated as the programs evolve. Bookmark this page and check back after engagements for new additions.</p>
+        <div class="res-cards-grid">
+            <div class="res-card">
+                <span class="res-card-badge">AI Essentials Guide</span>
+                <h3>The Plain-Language AI Reference</h3>
+                <p>How to access AI tools, what every term means, and the three rules that apply to every AI interaction. Written for executives and teams who are starting from scratch and do not want to feel talked down to.</p>
+                <a href="/ai-enablement/essentials-guide.html" class="btn btn-primary-green">Open the Guide</a>
+            </div>
+            <div class="res-card">
+                <span class="res-card-badge">Prompt Library</span>
+                <h3>Executive &amp; Administrative Prompts</h3>
+                <p>Tested, role-specific prompts organized by function and use case. Writing, summarization, research, strategy, governance, communications, and decision support. Filterable, copyable, ready to use.</p>
+                <a href="/ai-enablement/prompt-library.html" class="btn btn-primary-green">Open the Library</a>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <div class="footer-name">Joshua Bechtel</div>
+        <div class="footer-tagline">Knowledge Architecture &nbsp;&middot;&nbsp; AI Fluency &nbsp;&middot;&nbsp; Enterprise Content Systems</div>
+    </footer>
+</div>
+
+<script src="/nav.js"></script>
+<script src="/quiz.js"></script>
+<script src="/microinteractions.js"></script>
+<script>
+(function () {
+    // Client resource access code — rotate this whenever needed
+    var ACCESS_CODE = 'RESOURCES2026';
+
+    var input  = document.getElementById('resCodeInput');
+    var btn    = document.getElementById('resCodeBtn');
+    var msg    = document.getElementById('resCodeMsg');
+    var cards  = document.getElementById('resCards');
+
+    // Auto-reveal for returning clients who already unlocked
+    try {
+        if (localStorage.getItem('jb_res_unlocked') === '1') {
+            cards.style.display = 'block';
+            input.disabled = true;
+            btn.disabled = true;
+            msg.textContent = 'Welcome back.';
+            msg.className = 'res-code-msg success';
+        }
+    } catch (e) {}
+
+    btn.addEventListener('click', checkCode);
+    input.addEventListener('keydown', function (e) {
+        if (e.key === 'Enter') checkCode();
+    });
+
+    function checkCode() {
+        var val = input.value.trim().toUpperCase();
+        if (val === ACCESS_CODE) {
+            try { localStorage.setItem('jb_res_unlocked', '1'); } catch (e) {}
+            cards.style.display = 'block';
+            msg.textContent = 'Welcome back. Your resources are below.';
+            msg.className = 'res-code-msg success';
+            input.disabled = true;
+            btn.disabled = true;
+            cards.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        } else if (val === '') {
+            msg.textContent = 'Please enter your access code.';
+            msg.className = 'res-code-msg error';
+        } else {
+            msg.textContent = 'That code is not recognized. Reach out if you think something is wrong.';
+            msg.className = 'res-code-msg error';
+            input.value = '';
+            input.focus();
+        }
+    }
+}());
+</script>
+</body>
+</html>

@@ -1,0 +1,403 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Team AI Intensive | Joshua Bechtel</title>
+    <meta name="description" content="A one-week AI Fluency deployment for teams of up to 20. Real adoption, real workflows, real governance. Coming soon.">
+    <link rel="stylesheet" href="/styles.css">
+    <style>
+        /* ── TEAM INTENSIVE PLACEHOLDER ───────────────── */
+
+        .ti-hero {
+            background: var(--forest);
+            position: relative;
+            overflow: hidden;
+        }
+        .ti-hero::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background:
+                radial-gradient(ellipse 65% 60% at 85% 25%, rgba(95,140,95,0.14) 0%, transparent 65%),
+                radial-gradient(ellipse 40% 50% at 0% 95%, rgba(27,58,42,0.6) 0%, transparent 55%);
+            pointer-events: none;
+        }
+        .ti-hero-inner {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 80px 40px 72px;
+            position: relative;
+        }
+        .ti-eyebrow {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            letter-spacing: 0.13em;
+            text-transform: uppercase;
+            color: var(--mist);
+            margin-bottom: 22px;
+        }
+        .ti-eyebrow::before {
+            content: '';
+            display: inline-block;
+            width: 24px;
+            height: 1px;
+            background: var(--mist);
+            opacity: 0.6;
+        }
+        .ti-hero h1 {
+            font-family: 'DM Serif Display', serif;
+            font-size: clamp(2.2rem, 4vw, 3rem);
+            line-height: 1.1;
+            color: #fff;
+            margin-bottom: 18px;
+            max-width: 700px;
+        }
+        .ti-hero h1 em { color: var(--mist); font-style: italic; }
+        .ti-hero-sub {
+            font-size: 1.05rem;
+            color: rgba(255,255,255,0.72);
+            line-height: 1.72;
+            max-width: 580px;
+            margin-bottom: 36px;
+        }
+        .ti-status-pill {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: rgba(255,255,255,0.07);
+            border: 1px solid rgba(159,202,159,0.25);
+            border-radius: 4px;
+            padding: 8px 16px;
+            font-size: 0.76rem;
+            font-weight: 600;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            color: var(--mist);
+        }
+        .ti-status-dot {
+            width: 7px;
+            height: 7px;
+            border-radius: 50%;
+            background: var(--gold);
+            box-shadow: 0 0 8px rgba(184,134,11,0.6);
+            animation: pulse 2s ease-in-out infinite;
+        }
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.4; }
+        }
+
+        /* ── MAIN CONTENT ────────────────────────────── */
+        .ti-main {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 72px 40px 80px;
+        }
+
+        /* What is coming */
+        .ti-coming-block {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 24px;
+            margin-bottom: 56px;
+        }
+        .ti-coming-card {
+            background: var(--white);
+            border: 1px solid rgba(95,138,95,0.18);
+            border-top: 3px solid var(--sage);
+            border-radius: 8px;
+            padding: 26px 24px;
+        }
+        .ti-coming-card h3 {
+            font-family: 'DM Serif Display', serif;
+            font-size: 1.1rem;
+            color: var(--forest);
+            margin-bottom: 8px;
+        }
+        .ti-coming-card p {
+            font-size: 0.9rem;
+            color: var(--slate);
+            line-height: 1.65;
+            margin: 0;
+        }
+        .ti-coming-card .ti-card-icon {
+            font-size: 1.4rem;
+            margin-bottom: 10px;
+            display: block;
+        }
+
+        /* Divider with label */
+        .ti-divider {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            margin-bottom: 40px;
+        }
+        .ti-divider-line {
+            flex: 1;
+            height: 1px;
+            background: rgba(90,140,106,0.2);
+        }
+        .ti-divider-label {
+            font-size: 0.72rem;
+            font-weight: 600;
+            letter-spacing: 0.14em;
+            text-transform: uppercase;
+            color: var(--sage);
+            white-space: nowrap;
+        }
+
+        /* While you wait */
+        .ti-while-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 16px;
+            margin-bottom: 56px;
+        }
+        .ti-while-card {
+            display: flex;
+            gap: 16px;
+            align-items: flex-start;
+            padding: 20px 20px;
+            background: var(--parchment);
+            border: 1px solid rgba(95,138,95,0.15);
+            border-radius: 8px;
+            text-decoration: none;
+            transition: box-shadow 0.18s, transform 0.18s;
+        }
+        .ti-while-card:hover {
+            box-shadow: 0 6px 20px rgba(27,58,42,0.1);
+            transform: translateY(-2px);
+        }
+        .ti-while-icon {
+            font-size: 1.4rem;
+            flex-shrink: 0;
+            margin-top: 2px;
+        }
+        .ti-while-card h4 {
+            font-family: 'DM Serif Display', serif;
+            font-size: 1rem;
+            color: var(--forest);
+            margin-bottom: 4px;
+        }
+        .ti-while-card p {
+            font-size: 0.84rem;
+            color: var(--slate);
+            line-height: 1.55;
+            margin: 0;
+        }
+        .ti-while-card .ti-while-link {
+            font-size: 0.74rem;
+            font-weight: 600;
+            color: var(--sage);
+            letter-spacing: 0.05em;
+            margin-top: 8px;
+            display: block;
+        }
+
+        /* Notify CTA */
+        .ti-notify {
+            background: var(--forest);
+            border-radius: 10px;
+            padding: 44px 48px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 40px;
+            flex-wrap: wrap;
+        }
+        .ti-notify-text h3 {
+            font-family: 'DM Serif Display', serif;
+            font-size: 1.5rem;
+            color: var(--white);
+            margin-bottom: 8px;
+        }
+        .ti-notify-text p {
+            color: rgba(255,255,255,0.68);
+            font-size: 0.95rem;
+            max-width: 460px;
+            margin: 0;
+            line-height: 1.65;
+        }
+        .ti-notify-ctas {
+            display: flex;
+            gap: 12px;
+            flex-shrink: 0;
+            flex-wrap: wrap;
+        }
+        .btn-ti-gold {
+            background: var(--gold);
+            color: var(--white);
+        }
+        .btn-ti-gold:hover {
+            background: var(--gold-lt, #c9a227);
+            transform: translateY(-1px);
+        }
+        .btn-ti-outline {
+            background: transparent;
+            color: var(--foam);
+            border: 1.5px solid var(--mist);
+        }
+        .btn-ti-outline:hover {
+            background: rgba(159,202,159,0.12);
+            transform: translateY(-1px);
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .ti-hero-inner { padding: 56px 24px 48px; }
+            .ti-main { padding: 48px 24px 60px; }
+            .ti-coming-block { grid-template-columns: 1fr; }
+            .ti-while-grid { grid-template-columns: 1fr; }
+            .ti-notify { flex-direction: column; padding: 32px 28px; }
+        }
+    </style>
+</head>
+<body class="page-shell has-sidebar">
+
+<!-- ── SIDEBAR ──────────────────────────────────────────── -->
+<button class="sidebar-toggle" id="sidebarToggle" aria-label="Open navigation">&#9776;</button>
+<div class="sidebar-overlay" id="sidebarOverlay"></div>
+
+<aside class="sidebar" id="sidebar"></aside>
+
+<!-- ── PAGE BODY ─────────────────────────────────────────── -->
+<div class="page-body">
+
+<!-- ── HEADER ───────────────────────────────────────────── -->
+<header class="site-header">
+    <a class="wordmark" href="/">Joshua Bechtel</a>
+    <p class="site-tagline">Enterprise Knowledge Architecture &nbsp;&middot;&nbsp; AI Fluency &nbsp;&middot;&nbsp; Content Systems</p>
+</header>
+
+<nav class="top-nav"></nav>
+
+<!-- ── HERO ─────────────────────────────────────────────── -->
+<section class="ti-hero">
+    <div class="ti-hero-inner">
+        <span class="ti-eyebrow">AI Fluency &nbsp;&middot;&nbsp; Team Track</span>
+        <h1>Team AI Intensive</h1>
+        <p class="ti-hero-sub">
+            A one-week deployment for teams of up to 20. Real adoption, real workflows,
+            real governance &mdash; built from your organization's actual work, not
+            someone else's case studies.
+        </p>
+        <div class="ti-status-pill">
+            <span class="ti-status-dot"></span>
+            Program content in development &nbsp;&middot;&nbsp; Available for early engagements
+        </div>
+    </div>
+</section>
+
+<!-- ── MAIN ──────────────────────────────────────────────── -->
+<main style="background: var(--parchment); border-top: 1px solid rgba(90,140,106,0.2);">
+<div class="ti-main">
+
+    <!-- What is being built -->
+    <div class="ti-divider">
+        <div class="ti-divider-line"></div>
+        <span class="ti-divider-label">What this program will deliver</span>
+        <div class="ti-divider-line"></div>
+    </div>
+
+    <div class="ti-coming-block">
+        <div class="ti-coming-card">
+            <span class="ti-card-icon">📋</span>
+            <h3>Real Adoption, Not Awareness</h3>
+            <p>Five half-day sessions built around your actual workflows. Participants leave having used AI on real tasks, not watched someone else demonstrate it. The program ends with a governance framework your team built together.</p>
+        </div>
+        <div class="ti-coming-card">
+            <span class="ti-card-icon">🗂️</span>
+            <h3>Governance Your Team Will Follow</h3>
+            <p>An AI Acceptable Use Policy, a decision framework for what goes into AI and what does not, and a department-level playbook. Built during the program with your people, not handed down from outside.</p>
+        </div>
+        <div class="ti-coming-card">
+            <span class="ti-card-icon">🗺️</span>
+            <h3>Workflow Integration by Department</h3>
+            <p>Each team maps their highest-frequency tasks against AI capabilities. They leave with tested prompts, personal workflow protocols, and a clear picture of where AI saves real time in their specific role.</p>
+        </div>
+        <div class="ti-coming-card">
+            <span class="ti-card-icon">📈</span>
+            <h3>A 90-Day Adoption Roadmap</h3>
+            <p>The program closes with a plan your organization owns. Champions named, checkpoints set, a measurement framework defined, and an executive deployment report delivered to your leadership the same week.</p>
+        </div>
+    </div>
+
+    <!-- While you wait -->
+    <div class="ti-divider">
+        <div class="ti-divider-line"></div>
+        <span class="ti-divider-label">Available right now</span>
+        <div class="ti-divider-line"></div>
+    </div>
+
+    <div class="ti-while-grid">
+        <a class="ti-while-card" href="/ai-enablement/executive-intensive.html">
+            <span class="ti-while-icon">🎯</span>
+            <div>
+                <h4>Executive AI Intensive</h4>
+                <p>The executive-track program is fully built and available now. Three sessions, one-on-one, built around your role and your decisions. Includes the compliance and governance bridge your team will need.</p>
+                <span class="ti-while-link">View the program &rarr;</span>
+            </div>
+        </a>
+        <a class="ti-while-card" href="/ai-enablement/prompt-library.html">
+            <span class="ti-while-icon">📚</span>
+            <div>
+                <h4>Prompt Library &mdash; Free</h4>
+                <p>200 tested prompts organized by role and task. Operations and executive tracks. Your team can start using these today, right now, no program required. Copy, customize, apply.</p>
+                <span class="ti-while-link">Browse the library &rarr;</span>
+            </div>
+        </a>
+        <a class="ti-while-card" href="/ai-enablement/essentials-guide.html">
+            <span class="ti-while-icon">📖</span>
+            <div>
+                <h4>AI Essentials Guide &mdash; Free</h4>
+                <p>A plain-language reference covering how AI tools work, what every term means, and the three rules that apply to every AI interaction. Written for people with no technical background.</p>
+                <span class="ti-while-link">Read the guide &rarr;</span>
+            </div>
+        </a>
+        <a class="ti-while-card" href="/ai-enablement/">
+            <span class="ti-while-icon">◈</span>
+            <div>
+                <h4>Programs Overview</h4>
+                <p>See the full picture of both programs, the complete deliverables list, pricing, and the five reasons the cost of waiting is higher than it looks right now.</p>
+                <span class="ti-while-link">See all programs &rarr;</span>
+            </div>
+        </a>
+    </div>
+
+    <!-- Notify CTA -->
+    <div class="ti-notify">
+        <div class="ti-notify-text">
+            <h3>Interested in an early engagement?</h3>
+            <p>
+                The program is in active development and available for pilot engagements now.
+                Early clients get direct input into the final content and a reduced rate in exchange
+                for candid feedback. If your team is ready to move, let's talk.
+            </p>
+        </div>
+        <div class="ti-notify-ctas">
+            <a class="btn btn-ti-gold" href="/contact.html?type=consult">Schedule a Conversation</a>
+            <a class="btn btn-ti-outline" href="/ai-enablement/">View All Programs</a>
+        </div>
+    </div>
+
+</div>
+</main>
+
+<!-- ── FOOTER ─────────────────────────────────────────── -->
+<footer>
+    <div class="footer-left">Joshua Bechtel</div>
+    <div class="footer-right">Knowledge Architecture &nbsp;&middot;&nbsp; AI Fluency &nbsp;&middot;&nbsp; Enterprise Content Systems</div>
+</footer>
+
+</div><!-- /.page-body -->
+
+<script src="/nav.js"></script>
+<script src="/quiz.js"></script>
+<script src="/microinteractions.js"></script>
+</body>
+</html>

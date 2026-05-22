@@ -1,0 +1,1104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Essentials Guide | Joshua Bechtel</title>
+    <meta name="description" content="A plain-language reference for executives. How to access AI tools, what every term means, and the three rules that apply to every AI interaction. No technical background required.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Mono:wght@400;500&family=Lora:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/styles.css">
+    <style>
+        /* ── ESSENTIALS GUIDE PAGE ─────────────────────────── */
+
+        /* Typography override for long-form reading */
+        .eg-body {
+            font-family: 'Lora', 'Georgia', serif;
+            font-size: 17px;
+            line-height: 1.82;
+            color: #2a3428;
+        }
+
+        /* ── HERO ────────────────────────────────────────── */
+        .eg-hero {
+            background: var(--forest);
+            position: relative;
+            overflow: hidden;
+        }
+        .eg-hero::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background:
+                radial-gradient(ellipse 65% 70% at 85% 20%, rgba(95,140,95,0.14) 0%, transparent 65%),
+                radial-gradient(ellipse 40% 50% at 0% 95%, rgba(27,58,42,0.65) 0%, transparent 55%);
+            pointer-events: none;
+        }
+        .eg-hero-inner {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 72px 40px 64px;
+            position: relative;
+        }
+        .eg-eyebrow {
+            font-family: 'DM Mono', monospace;
+            font-size: 0.7rem;
+            font-weight: 500;
+            letter-spacing: 0.18em;
+            text-transform: uppercase;
+            color: var(--mist);
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .eg-eyebrow::before {
+            content: '';
+            display: inline-block;
+            width: 24px;
+            height: 1px;
+            background: var(--mist);
+            opacity: 0.6;
+        }
+        .eg-hero h1 {
+            font-family: 'DM Serif Display', serif;
+            font-size: clamp(2.2rem, 4vw, 3.2rem);
+            line-height: 1.1;
+            color: #fff;
+            margin-bottom: 14px;
+        }
+        .eg-hero h1 em { color: var(--mist); font-style: italic; }
+        .eg-hero-sub {
+            font-family: 'Lora', serif;
+            font-size: 1.05rem;
+            color: rgba(255,255,255,0.7);
+            line-height: 1.7;
+            margin-bottom: 36px;
+            max-width: 620px;
+        }
+        .eg-meta-bar {
+            display: flex;
+            gap: 28px;
+            flex-wrap: wrap;
+            align-items: center;
+        }
+        .eg-meta-item {
+            font-family: 'DM Mono', monospace;
+            font-size: 0.68rem;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            color: rgba(255,255,255,0.45);
+            display: flex;
+            align-items: center;
+            gap: 7px;
+        }
+        .eg-meta-item::before {
+            content: '◆';
+            font-size: 0.4rem;
+            color: var(--mist);
+            opacity: 0.6;
+        }
+
+        /* ── READING LAYOUT ──────────────────────────────── */
+        .eg-layout {
+            display: grid;
+            grid-template-columns: 220px 1fr;
+            gap: 0;
+            max-width: 1140px;
+            margin: 0 auto;
+            align-items: start;
+        }
+
+        /* ── STICKY TOC ──────────────────────────────────── */
+        .eg-toc {
+            position: sticky;
+            top: 24px;
+            padding: 40px 0 40px 40px;
+            max-height: calc(100vh - 48px);
+            overflow-y: auto;
+            scrollbar-width: none;
+        }
+        .eg-toc::-webkit-scrollbar { display: none; }
+        .eg-toc-label {
+            font-family: 'DM Mono', monospace;
+            font-size: 0.62rem;
+            font-weight: 500;
+            letter-spacing: 0.16em;
+            text-transform: uppercase;
+            color: var(--sage);
+            margin-bottom: 16px;
+        }
+        .eg-toc-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+        .eg-toc-list li { margin: 0; }
+        .eg-toc-list a {
+            display: block;
+            font-family: 'Lora', serif;
+            font-size: 0.82rem;
+            color: var(--slate);
+            text-decoration: none;
+            padding: 5px 0 5px 12px;
+            border-left: 2px solid rgba(90,140,106,0.2);
+            line-height: 1.4;
+            transition: color 0.15s, border-color 0.15s;
+        }
+        .eg-toc-list a:hover {
+            color: var(--forest);
+            border-left-color: var(--sage);
+        }
+        .eg-toc-list a.active {
+            color: var(--forest);
+            border-left-color: var(--forest);
+            font-style: italic;
+        }
+        .eg-toc-section {
+            font-family: 'DM Mono', monospace;
+            font-size: 0.58rem;
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+            color: var(--sage);
+            padding: 14px 0 5px 12px;
+            opacity: 0.7;
+        }
+        .eg-toc-divider {
+            height: 1px;
+            background: rgba(90,140,106,0.15);
+            margin: 12px 0;
+        }
+        .eg-toc-cta {
+            margin-top: 28px;
+            padding: 16px 14px;
+            background: var(--parchment);
+            border: 1px solid rgba(90,140,106,0.2);
+            border-radius: 6px;
+        }
+        .eg-toc-cta p {
+            font-family: 'Lora', serif;
+            font-size: 0.8rem;
+            color: var(--slate);
+            line-height: 1.5;
+            margin-bottom: 10px;
+        }
+        .eg-toc-cta a {
+            font-family: 'DM Mono', monospace;
+            font-size: 0.68rem;
+            font-weight: 500;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            color: var(--forest);
+            text-decoration: none;
+            border-bottom: 1px solid rgba(90,140,106,0.4);
+            transition: border-color 0.15s;
+        }
+        .eg-toc-cta a:hover { border-bottom-color: var(--forest); }
+
+        /* ── ARTICLE CONTENT ─────────────────────────────── */
+        .eg-article {
+            padding: 48px 48px 80px 48px;
+            border-left: 1px solid rgba(90,140,106,0.15);
+            min-width: 0;
+        }
+
+        /* Opening note */
+        .eg-opening-note {
+            background: var(--parchment);
+            border: 1px solid rgba(90,140,106,0.2);
+            border-left: 4px solid var(--sage);
+            border-radius: 0 6px 6px 0;
+            padding: 22px 26px;
+            margin-bottom: 52px;
+        }
+        .eg-opening-note p {
+            font-family: 'Lora', serif;
+            font-size: 0.97rem;
+            color: var(--slate);
+            line-height: 1.75;
+            margin: 0;
+            font-style: italic;
+        }
+        .eg-opening-note p strong {
+            font-style: normal;
+            color: var(--forest);
+        }
+
+        /* Part headers */
+        .eg-part {
+            margin-bottom: 0;
+        }
+        .eg-part-header {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            margin-bottom: 8px;
+            padding-top: 56px;
+        }
+        .eg-part-header:first-child { padding-top: 0; }
+        .eg-part-num {
+            font-family: 'DM Mono', monospace;
+            font-size: 0.68rem;
+            font-weight: 500;
+            letter-spacing: 0.14em;
+            text-transform: uppercase;
+            color: var(--sage);
+            white-space: nowrap;
+        }
+        .eg-part-rule {
+            flex: 1;
+            height: 1px;
+            background: rgba(90,140,106,0.25);
+        }
+        .eg-part h2 {
+            font-family: 'DM Serif Display', serif;
+            font-size: 1.9rem;
+            color: var(--forest);
+            line-height: 1.12;
+            margin-bottom: 6px;
+        }
+        .eg-part-subtitle {
+            font-family: 'Lora', serif;
+            font-size: 1rem;
+            color: var(--slate);
+            font-style: italic;
+            margin-bottom: 36px;
+        }
+
+        /* Section headers (within parts) */
+        .eg-section {
+            margin-bottom: 44px;
+            scroll-margin-top: 80px;
+        }
+        .eg-section h3 {
+            font-family: 'DM Serif Display', serif;
+            font-size: 1.35rem;
+            color: var(--forest);
+            line-height: 1.2;
+            margin-bottom: 14px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid rgba(90,140,106,0.2);
+        }
+
+        /* Body text */
+        .eg-article p {
+            font-family: 'Lora', serif;
+            font-size: 1rem;
+            color: #2a3428;
+            line-height: 1.82;
+            margin-bottom: 18px;
+            max-width: 680px;
+        }
+        .eg-article p:last-child { margin-bottom: 0; }
+
+        /* Access method cards */
+        .eg-access-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 14px;
+            margin-bottom: 36px;
+        }
+        .eg-access-card {
+            background: var(--white);
+            border: 1px solid rgba(90,140,106,0.18);
+            border-radius: 8px;
+            padding: 22px 22px;
+            transition: box-shadow 0.18s;
+        }
+        .eg-access-card:hover {
+            box-shadow: 0 4px 18px rgba(27,58,42,0.09);
+        }
+        .eg-access-card-icon {
+            font-size: 1.4rem;
+            margin-bottom: 10px;
+            display: block;
+        }
+        .eg-access-card h4 {
+            font-family: 'DM Serif Display', serif;
+            font-size: 1.05rem;
+            color: var(--forest);
+            margin-bottom: 8px;
+        }
+        .eg-access-card p {
+            font-size: 0.88rem;
+            line-height: 1.65;
+            color: var(--slate);
+            margin: 0;
+            max-width: 100%;
+        }
+        .eg-access-card.recommended {
+            border-color: var(--sage);
+            background: rgba(90,140,106,0.04);
+        }
+        .eg-access-badge {
+            display: inline-block;
+            font-family: 'DM Mono', monospace;
+            font-size: 0.6rem;
+            font-weight: 500;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            color: var(--sage);
+            border: 1px solid rgba(90,140,106,0.35);
+            border-radius: 2px;
+            padding: 2px 8px;
+            margin-bottom: 10px;
+        }
+
+        /* Start recommendation callout */
+        .eg-callout {
+            border: 1px solid rgba(90,140,106,0.25);
+            border-left: 4px solid var(--forest);
+            border-radius: 0 6px 6px 0;
+            padding: 18px 22px;
+            background: rgba(27,58,42,0.04);
+            margin: 28px 0;
+            max-width: 680px;
+        }
+        .eg-callout-label {
+            font-family: 'DM Mono', monospace;
+            font-size: 0.62rem;
+            font-weight: 500;
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+            color: var(--sage);
+            margin-bottom: 8px;
+        }
+        .eg-callout p {
+            font-size: 0.95rem;
+            line-height: 1.7;
+            color: var(--slate);
+            margin: 0;
+            max-width: 100%;
+        }
+        .eg-callout p strong { color: var(--forest); }
+
+        /* Interface diagram */
+        .eg-interface-diagram {
+            background: var(--white);
+            border: 1px solid rgba(90,140,106,0.2);
+            border-radius: 10px;
+            overflow: hidden;
+            margin: 28px 0 36px;
+            max-width: 600px;
+        }
+        .eg-interface-header {
+            background: var(--forest);
+            padding: 10px 16px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .eg-dot {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background: rgba(255,255,255,0.25);
+        }
+        .eg-interface-label {
+            font-family: 'DM Mono', monospace;
+            font-size: 0.62rem;
+            color: rgba(255,255,255,0.5);
+            letter-spacing: 0.08em;
+            margin-left: 4px;
+        }
+        .eg-interface-body {
+            padding: 16px;
+        }
+        .eg-interface-convo {
+            min-height: 80px;
+            border: 1px solid rgba(90,140,106,0.15);
+            border-radius: 6px;
+            padding: 12px 14px;
+            margin-bottom: 10px;
+            background: var(--parchment);
+            font-family: 'Lora', serif;
+            font-size: 0.82rem;
+            color: var(--slate);
+            font-style: italic;
+        }
+        .eg-interface-convo span {
+            display: block;
+            margin-bottom: 6px;
+            padding-bottom: 6px;
+            border-bottom: 1px solid rgba(90,140,106,0.12);
+            font-style: normal;
+        }
+        .eg-interface-convo span:last-child { border-bottom: none; margin-bottom: 0; padding-bottom: 0; }
+        .eg-interface-convo .user-msg { text-align: right; color: var(--forest); }
+        .eg-interface-convo .ai-msg { text-align: left; color: var(--slate); }
+        .eg-interface-input {
+            display: flex;
+            gap: 8px;
+            align-items: center;
+        }
+        .eg-interface-input-box {
+            flex: 1;
+            background: var(--white);
+            border: 1px solid rgba(90,140,106,0.35);
+            border-radius: 6px;
+            padding: 10px 14px;
+            font-family: 'Lora', serif;
+            font-size: 0.82rem;
+            color: var(--slate);
+        }
+        .eg-interface-send {
+            background: var(--forest);
+            color: white;
+            border: none;
+            border-radius: 5px;
+            padding: 10px 16px;
+            font-family: 'DM Mono', monospace;
+            font-size: 0.72rem;
+            cursor: default;
+        }
+        .eg-interface-annotations {
+            padding: 12px 16px;
+            border-top: 1px solid rgba(90,140,106,0.1);
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 8px;
+        }
+        .eg-annotation {
+            font-family: 'DM Mono', monospace;
+            font-size: 0.62rem;
+            color: var(--sage);
+            letter-spacing: 0.05em;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+        .eg-annotation::before {
+            content: '→';
+            opacity: 0.6;
+        }
+
+        /* Term definitions */
+        .eg-term-block {
+            margin-bottom: 40px;
+            scroll-margin-top: 80px;
+            padding-bottom: 40px;
+            border-bottom: 1px solid rgba(90,140,106,0.12);
+        }
+        .eg-term-block:last-child { border-bottom: none; padding-bottom: 0; }
+        .eg-term-header {
+            display: flex;
+            align-items: baseline;
+            gap: 14px;
+            margin-bottom: 12px;
+        }
+        .eg-term-name {
+            font-family: 'DM Serif Display', serif;
+            font-size: 1.3rem;
+            color: var(--forest);
+            line-height: 1.1;
+        }
+        .eg-term-tag {
+            font-family: 'DM Mono', monospace;
+            font-size: 0.6rem;
+            font-weight: 500;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            color: var(--sage);
+            border: 1px solid rgba(90,140,106,0.3);
+            border-radius: 2px;
+            padding: 2px 8px;
+            white-space: nowrap;
+        }
+
+        /* Three rules */
+        .eg-rules-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 16px;
+            margin: 28px 0;
+            max-width: 680px;
+        }
+        .eg-rule-card {
+            display: grid;
+            grid-template-columns: 56px 1fr;
+            gap: 20px;
+            background: var(--white);
+            border: 1px solid rgba(90,140,106,0.18);
+            border-radius: 8px;
+            overflow: hidden;
+            transition: box-shadow 0.18s;
+        }
+        .eg-rule-card:hover { box-shadow: 0 4px 18px rgba(27,58,42,0.09); }
+        .eg-rule-num {
+            background: var(--forest);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: 'DM Serif Display', serif;
+            font-size: 1.6rem;
+            color: rgba(255,255,255,0.3);
+            font-weight: 700;
+        }
+        .eg-rule-body { padding: 20px 20px 20px 0; }
+        .eg-rule-body h4 {
+            font-family: 'DM Serif Display', serif;
+            font-size: 1.05rem;
+            color: var(--forest);
+            margin-bottom: 6px;
+        }
+        .eg-rule-body p {
+            font-size: 0.9rem;
+            color: var(--slate);
+            line-height: 1.65;
+            margin: 0;
+            max-width: 100%;
+        }
+
+        /* Closing note */
+        .eg-closing {
+            margin-top: 56px;
+            padding: 28px 32px;
+            background: var(--forest);
+            border-radius: 10px;
+            max-width: 680px;
+        }
+        .eg-closing p {
+            font-family: 'Lora', serif;
+            font-size: 1rem;
+            color: rgba(255,255,255,0.78);
+            line-height: 1.75;
+            margin-bottom: 18px;
+            max-width: 100%;
+        }
+        .eg-closing p:last-child { margin-bottom: 0; }
+        .eg-closing p strong { color: var(--foam); }
+        .eg-closing-ctas {
+            display: flex;
+            gap: 12px;
+            flex-wrap: wrap;
+            margin-top: 20px;
+        }
+        .btn-eg-primary {
+            background: var(--gold);
+            color: var(--white);
+        }
+        .btn-eg-primary:hover {
+            background: var(--gold-lt, #c9a227);
+            transform: translateY(-1px);
+        }
+        .btn-eg-outline {
+            background: transparent;
+            color: var(--foam);
+            border: 1.5px solid var(--mist);
+        }
+        .btn-eg-outline:hover {
+            background: rgba(159,202,159,0.12);
+            transform: translateY(-1px);
+        }
+
+        /* Print button */
+        .eg-print-bar {
+            background: var(--parchment);
+            border-bottom: 1px solid rgba(90,140,106,0.2);
+            padding: 10px 40px;
+        }
+        .eg-print-inner {
+            max-width: 1140px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: flex-end;
+            align-items: center;
+            gap: 16px;
+        }
+        .eg-print-note {
+            font-family: 'DM Mono', monospace;
+            font-size: 0.64rem;
+            letter-spacing: 0.06em;
+            color: var(--sage);
+        }
+        .eg-print-btn {
+            font-family: 'DM Mono', monospace;
+            font-size: 0.64rem;
+            font-weight: 500;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            color: var(--forest);
+            background: transparent;
+            border: 1px solid rgba(90,140,106,0.35);
+            border-radius: 3px;
+            padding: 6px 14px;
+            cursor: pointer;
+            transition: all 0.15s;
+        }
+        .eg-print-btn:hover {
+            background: var(--forest);
+            color: var(--foam);
+            border-color: var(--forest);
+        }
+
+        /* ── RESPONSIVE ──────────────────────────────────── */
+        @media (max-width: 880px) {
+            .eg-layout { grid-template-columns: 1fr; }
+            .eg-toc { display: none; }
+            .eg-article { border-left: none; padding: 32px 24px 60px; }
+            .eg-access-grid { grid-template-columns: 1fr; }
+            .eg-hero-inner { padding: 52px 24px 48px; }
+            .eg-print-bar { padding: 10px 24px; }
+        }
+        @media (max-width: 600px) {
+            .eg-hero h1 { font-size: 2rem; }
+            .eg-rule-card { grid-template-columns: 44px 1fr; }
+        }
+
+        @media print {
+            .sidebar, .site-header, .top-nav, .eg-toc,
+            .eg-print-bar, footer, .sidebar-toggle { display: none !important; }
+            .page-shell, .page-body { display: block !important; }
+            .eg-layout { grid-template-columns: 1fr; }
+            .eg-article { border: none; padding: 0; }
+            .eg-hero { background: #fff !important; }
+            .eg-hero h1, .eg-eyebrow, .eg-hero-sub, .eg-meta-item { color: #000 !important; }
+        }
+    </style>
+</head>
+<body class="page-shell has-sidebar">
+
+<!-- ── SIDEBAR ──────────────────────────────────────────── -->
+<button class="sidebar-toggle" id="sidebarToggle" aria-label="Open navigation">&#9776;</button>
+<div class="sidebar-overlay" id="sidebarOverlay"></div>
+
+<aside class="sidebar" id="sidebar"></aside>
+
+<!-- ── PAGE BODY ─────────────────────────────────────────── -->
+<div class="page-body">
+
+<!-- ── HEADER ───────────────────────────────────────────── -->
+<header class="site-header">
+    <a class="wordmark" href="/">Joshua Bechtel</a>
+    <p class="site-tagline">Enterprise Knowledge Architecture &nbsp;&middot;&nbsp; AI Fluency &nbsp;&middot;&nbsp; Content Systems</p>
+</header>
+
+<nav class="top-nav"></nav>
+
+<!-- ── HERO ─────────────────────────────────────────────── -->
+<section class="eg-hero">
+    <div class="eg-hero-inner">
+        <p class="eg-eyebrow">AI Fluency &nbsp;&middot;&nbsp; Free Resource</p>
+        <h1>AI Essentials Guide</h1>
+        <p class="eg-hero-sub">
+            A plain-language reference for executives. How to access AI tools, what every
+            term means, and the three rules that apply to every AI interaction.
+            No technical background required.
+        </p>
+        <div class="eg-meta-bar">
+            <span class="eg-meta-item">4 Sections</span>
+            <span class="eg-meta-item">16 Definitions</span>
+            <span class="eg-meta-item">Free &mdash; No Login Required</span>
+            <span class="eg-meta-item">Print-Friendly</span>
+        </div>
+    </div>
+</section>
+
+<!-- ── PRINT BAR ─────────────────────────────────────────── -->
+<div class="eg-print-bar">
+    <div class="eg-print-inner">
+        <span class="eg-print-note">Companion document for the Executive AI Intensive</span>
+        <button class="eg-print-btn" onclick="window.print()">&#9113; Print or Save as PDF</button>
+    </div>
+</div>
+
+<!-- ── READING LAYOUT ────────────────────────────────────── -->
+<div style="background: var(--parchment); border-top: 1px solid rgba(90,140,106,0.15);">
+<div class="eg-layout">
+
+    <!-- ── STICKY TOC ───────────────────────────────────── -->
+    <nav class="eg-toc" id="egToc">
+        <p class="eg-toc-label">Contents</p>
+        <ul class="eg-toc-list">
+            <li><span class="eg-toc-section">Before You Begin</span></li>
+            <li><a href="#note" data-target="note">A Note Before You Read</a></li>
+            <div class="eg-toc-divider"></div>
+            <li><span class="eg-toc-section">Part 1 &nbsp;&middot;&nbsp; Access</span></li>
+            <li><a href="#browser" data-target="browser">Web Browser Version</a></li>
+            <li><a href="#desktop" data-target="desktop">Desktop Application</a></li>
+            <li><a href="#mobile" data-target="mobile">Mobile App</a></li>
+            <li><a href="#extension" data-target="extension">Browser Extension</a></li>
+            <li><a href="#start" data-target="start">Where to Start</a></li>
+            <div class="eg-toc-divider"></div>
+            <li><span class="eg-toc-section">Part 2 &nbsp;&middot;&nbsp; Interface</span></li>
+            <li><a href="#convo-window" data-target="convo-window">Conversation Window</a></li>
+            <li><a href="#input-box" data-target="input-box">Input Box</a></li>
+            <li><a href="#response-area" data-target="response-area">Response Area</a></li>
+            <li><a href="#history" data-target="history">Conversation History</a></li>
+            <div class="eg-toc-divider"></div>
+            <li><span class="eg-toc-section">Part 3 &nbsp;&middot;&nbsp; Terms</span></li>
+            <li><a href="#term-prompt" data-target="term-prompt">Prompt</a></li>
+            <li><a href="#term-response" data-target="term-response">Response / Output</a></li>
+            <li><a href="#term-context" data-target="term-context">Context</a></li>
+            <li><a href="#term-hallucination" data-target="term-hallucination">Hallucination</a></li>
+            <li><a href="#term-iteration" data-target="term-iteration">Iteration</a></li>
+            <li><a href="#term-hitl" data-target="term-hitl">Human in the Loop</a></li>
+            <li><a href="#term-llm" data-target="term-llm">LLM</a></li>
+            <li><a href="#term-model" data-target="term-model">Model</a></li>
+            <li><a href="#term-agentic" data-target="term-agentic">Agentic AI</a></li>
+            <li><a href="#term-enterprise" data-target="term-enterprise">Enterprise vs Consumer</a></li>
+            <li><a href="#term-token" data-target="term-token">Token</a></li>
+            <li><a href="#term-temperature" data-target="term-temperature">Temperature</a></li>
+            <li><a href="#term-system" data-target="term-system">System Prompt</a></li>
+            <div class="eg-toc-divider"></div>
+            <li><span class="eg-toc-section">Part 4 &nbsp;&middot;&nbsp; Rules</span></li>
+            <li><a href="#three-rules" data-target="three-rules">The Three Rules</a></li>
+        </ul>
+        <div class="eg-toc-cta">
+            <p>Ready to put this into practice?</p>
+            <a href="/ai-enablement/executive-intensive.html">See the Executive AI Intensive &rarr;</a>
+        </div>
+    </nav>
+
+    <!-- ── ARTICLE ───────────────────────────────────────── -->
+    <article class="eg-article eg-body">
+
+        <!-- Opening Note -->
+        <div class="eg-opening-note" id="note">
+            <p>
+                <strong>Nothing in this guide requires a technical background.</strong>
+                It is written for leaders who are excellent at what they do and who did not get
+                there by memorizing software manuals. Every term is defined the way you would
+                explain it to a smart colleague who has been off the grid for two years. If
+                something is still unclear after reading it, bring the question to Session 1.
+                That is exactly what Session 1 is for.
+            </p>
+        </div>
+
+        <!-- ── PART 1 ─────────────────────────────────── -->
+        <div class="eg-part">
+            <div class="eg-part-header">
+                <span class="eg-part-num">Part 1</span>
+                <div class="eg-part-rule"></div>
+            </div>
+            <h2>How to Access AI</h2>
+            <p class="eg-part-subtitle">The four ways you get there</p>
+
+            <p>AI tools are not software you install once and find on your desktop forever. They live in multiple places and you can reach them however is most convenient for the moment. Here are the four primary ways to access the tools we will use in this program.</p>
+
+            <div class="eg-access-grid">
+                <div class="eg-access-card recommended" id="browser">
+                    <span class="eg-access-badge">Start Here</span>
+                    <span class="eg-access-card-icon">🌐</span>
+                    <h4>Web Browser Version</h4>
+                    <p>Open Chrome, Safari, Firefox, or Edge and go to the tool's web address. For Claude that is claude.ai. For ChatGPT that is chatgpt.com. For Gemini that is gemini.google.com. Log in, see a text box, type in it. That is the whole thing. Nothing to install.</p>
+                </div>
+                <div class="eg-access-card" id="desktop">
+                    <span class="eg-access-badge">Optional</span>
+                    <span class="eg-access-card-icon">💻</span>
+                    <h4>Desktop Application</h4>
+                    <p>A downloadable app that lives on your computer. Slightly smoother than the browser version because it does not compete with your other tabs. For most executives the browser and desktop app feel nearly identical. An option, not a requirement.</p>
+                </div>
+                <div class="eg-access-card" id="mobile">
+                    <span class="eg-access-badge">Recommended for Voice</span>
+                    <span class="eg-access-card-icon">📱</span>
+                    <h4>Mobile App</h4>
+                    <p>Same tool, smaller screen. The reason to use it is voice input &mdash; tap the microphone, speak naturally, and the AI receives your spoken words as a prompt. For executives who think faster than they type, this is often the highest-leverage access point in the program.</p>
+                </div>
+                <div class="eg-access-card" id="extension">
+                    <span class="eg-access-badge">Advanced</span>
+                    <span class="eg-access-card-icon">🔌</span>
+                    <h4>Browser Extension</h4>
+                    <p>A small add-on that attaches to your browser and lets you access AI without navigating away from what you are doing. Highlight an email, open the AI sidebar, draft a response right there. A workflow efficiency tool for when you are already comfortable with the basics.</p>
+                </div>
+            </div>
+
+            <div class="eg-callout" id="start">
+                <p class="eg-callout-label">Where to Start</p>
+                <p><strong>Start with the web browser version.</strong> It works on every device, requires no installation, and is exactly what we will use in our sessions together. Once you are comfortable, explore the mobile app for voice input and on-the-go use. Everything else is optional and can wait.</p>
+            </div>
+        </div>
+
+        <!-- ── PART 2 ─────────────────────────────────── -->
+        <div class="eg-part">
+            <div class="eg-part-header" style="padding-top: 56px;">
+                <span class="eg-part-num">Part 2</span>
+                <div class="eg-part-rule"></div>
+            </div>
+            <h2>The Parts of an AI Interaction</h2>
+            <p class="eg-part-subtitle">A map of what you are looking at</p>
+
+            <p>When you open an AI tool for the first time the interface is usually simpler than you expect. Here is a map of what you are looking at and what each part does.</p>
+
+            <div class="eg-interface-diagram">
+                <div class="eg-interface-header">
+                    <div class="eg-dot"></div>
+                    <div class="eg-dot"></div>
+                    <div class="eg-dot"></div>
+                    <span class="eg-interface-label">AI Tool &mdash; Browser Window</span>
+                </div>
+                <div class="eg-interface-body">
+                    <div class="eg-interface-convo">
+                        <span class="user-msg">You: Help me draft a memo to my board about our Q3 results.</span>
+                        <span class="ai-msg">AI: Of course. To draft something that fits your board's expectations, could you share a few key figures and the tone you want to strike &mdash; confident, cautious, or somewhere in between?</span>
+                        <span class="user-msg">You: Revenue is up 12%, expenses slightly over. Tone should be direct and factual.</span>
+                    </div>
+                    <div class="eg-interface-input">
+                        <div class="eg-interface-input-box">Type your next message&hellip;</div>
+                        <div class="eg-interface-send">&#8593;</div>
+                    </div>
+                </div>
+                <div class="eg-interface-annotations">
+                    <span class="eg-annotation">Conversation Window (scrolls)</span>
+                    <span class="eg-annotation">Input Box (where you type)</span>
+                    <span class="eg-annotation">Your messages appear here</span>
+                    <span class="eg-annotation">Send Button (or press Enter)</span>
+                </div>
+            </div>
+
+            <div class="eg-section" id="convo-window">
+                <h3>The Conversation Window</h3>
+                <p>The large area that takes up most of the screen. Your messages appear on one side, typically the right or bottom, and the AI's responses appear on the other. As the conversation continues the window scrolls down to show the history of the exchange.</p>
+                <p>Think of it exactly like a text message thread. You send something. You get something back. You respond. It goes back and forth. The conversation window is just a text message thread with a very capable correspondent.</p>
+            </div>
+
+            <div class="eg-section" id="input-box">
+                <h3>The Input Box and Send Button</h3>
+                <p>The rectangular box at the bottom of the screen is where your prompt goes. You click into it, type your message, and press Enter or click the send button. Some input boxes also have a microphone icon for voice input.</p>
+                <p>Pressing Shift and Enter creates a new line within your message without sending it &mdash; useful when you want to write a longer, multi-paragraph prompt.</p>
+            </div>
+
+            <div class="eg-section" id="response-area">
+                <h3>The Response Area</h3>
+                <p>The space where the AI's reply appears. Responses stream in word by word in real time rather than appearing all at once. This is normal. You do not need to wait for the full response before you start reading.</p>
+                <p>After the response finishes you can respond in the input box, ask a follow-up, tell it what to change, or start a completely new direction. The conversation continues as long as you want it to.</p>
+            </div>
+
+            <div class="eg-section" id="history">
+                <h3>The New Conversation Button and History</h3>
+                <p>Usually labeled New Chat or found as a plus icon in a sidebar. Clicking this starts a fresh conversation with no history from previous exchanges. Use this when you are starting a genuinely new topic.</p>
+                <p>Within a single conversation the AI remembers everything that has been said. Across different conversations it does not. If you start a new conversation and want the AI to have context from a previous one, you need to provide that context in your new prompt.</p>
+                <p>A list of your previous conversations is usually visible in a sidebar on the left side of the screen. You can click any previous conversation to return to it and continue where you left off.</p>
+            </div>
+        </div>
+
+        <!-- ── PART 3 ─────────────────────────────────── -->
+        <div class="eg-part">
+            <div class="eg-part-header" style="padding-top: 56px;">
+                <span class="eg-part-num">Part 3</span>
+                <div class="eg-part-rule"></div>
+            </div>
+            <h2>The Core Terminology</h2>
+            <p class="eg-part-subtitle">Words we will use and what they mean</p>
+
+            <div class="eg-term-block" id="term-prompt">
+                <div class="eg-term-header">
+                    <span class="eg-term-name">Prompt</span>
+                    <span class="eg-term-tag">Most Important</span>
+                </div>
+                <p>A prompt is what you type into the input box to start or continue a conversation with AI. It is your instruction, your question, your request. It can be one sentence or several paragraphs. It can be casual or highly structured. The quality of what you get back is directly related to the clarity of what you put in.</p>
+                <p>The word comes from the theater. A prompter whispers lines to an actor who has forgotten them. You are prompting the AI to produce something. That is the whole concept.</p>
+                <p>Every interaction with AI begins with a prompt. Learning to write better prompts is the primary skill we build in Session 2.</p>
+            </div>
+
+            <div class="eg-term-block" id="term-response">
+                <div class="eg-term-header">
+                    <span class="eg-term-name">Response or Output</span>
+                    <span class="eg-term-tag">Basic</span>
+                </div>
+                <p>What the AI produces in reply to your prompt. Also sometimes called a completion, a generation, or the AI's answer. We will use the word response or output throughout the program.</p>
+                <p>Responses are not retrieved from a database of correct answers. They are generated fresh each time based on the patterns the AI learned during training and the specific context you provided in your prompt. This is why two slightly different prompts can produce notably different responses.</p>
+            </div>
+
+            <div class="eg-term-block" id="term-context">
+                <div class="eg-term-header">
+                    <span class="eg-term-name">Context</span>
+                    <span class="eg-term-tag">High Leverage</span>
+                </div>
+                <p>The information the AI has available when generating a response. Context includes everything said in the current conversation plus whatever you include in your current prompt.</p>
+                <p>Context is one of the most important concepts in using AI effectively. The more relevant context you provide, the better the response. If you ask AI to help you draft a board memo without telling it anything about your organization, your board, or the situation, you will get a generic memo. If you tell it who you are, what your organization does, who the audience is, and what tone fits the relationship, you will get something that sounds like it came from your desk.</p>
+                <p>Providing good context is the difference between AI that feels like a powerful tool and AI that feels like a disappointing parlor trick.</p>
+            </div>
+
+            <div class="eg-term-block" id="term-hallucination">
+                <div class="eg-term-header">
+                    <span class="eg-term-name">Hallucination</span>
+                    <span class="eg-term-tag">Risk Awareness</span>
+                </div>
+                <p>When AI generates something that is factually incorrect, fabricated, or misleading while presenting it with complete confidence. The term comes from the psychological phenomenon of perceiving something that is not there.</p>
+                <p>Hallucinations happen because AI generates plausible responses based on patterns rather than retrieving verified facts. It does not know what it does not know and it does not always flag uncertainty clearly.</p>
+                <p>This is why the rule <em>you verify before it leaves your desk</em> exists. It is not a flaw that will be entirely eliminated. It is a characteristic of how these systems work that requires your judgment as the human in the loop. We cover real-world hallucination examples in detail during the program.</p>
+            </div>
+
+            <div class="eg-term-block" id="term-iteration">
+                <div class="eg-term-header">
+                    <span class="eg-term-name">Iteration</span>
+                    <span class="eg-term-tag">Workflow</span>
+                </div>
+                <p>The process of refining an AI response through follow-up prompts. Rather than expecting the first response to be perfect, you treat it as a draft and iterate toward what you actually need.</p>
+                <p>Iteration is not a sign that AI is failing. It is the intended workflow. The executives who get the best results from AI are almost always the ones who iterate most naturally, treating the exchange like a working conversation rather than a one-shot query.</p>
+            </div>
+
+            <div class="eg-term-block" id="term-hitl">
+                <div class="eg-term-header">
+                    <span class="eg-term-name">Human in the Loop</span>
+                    <span class="eg-term-tag">Core Principle</span>
+                </div>
+                <p>The practice of keeping a human involved in reviewing, judging, and taking responsibility for AI outputs before they are used or acted upon. The human in the loop reads what AI produces, evaluates whether it is accurate and appropriate, makes any necessary changes, and takes ownership of the final output.</p>
+                <p>In the context of this program, you are always the human in the loop. AI assists. You decide. That relationship does not change regardless of how capable the tools become.</p>
+            </div>
+
+            <div class="eg-term-block" id="term-llm">
+                <div class="eg-term-header">
+                    <span class="eg-term-name">LLM &mdash; Large Language Model</span>
+                    <span class="eg-term-tag">Technical</span>
+                </div>
+                <p>The technical category that most AI tools fall into. A large language model is an AI system trained on enormous amounts of text that has learned to generate language in response to prompts. Claude, ChatGPT, Gemini, and Grok are all large language models.</p>
+                <p>The practical implication: these tools are fundamentally language tools. They are exceptionally good at anything involving reading, writing, summarizing, explaining, and generating text. They are less reliable for tasks requiring precise calculation, real-time information, or guaranteed factual accuracy.</p>
+            </div>
+
+            <div class="eg-term-block" id="term-model">
+                <div class="eg-term-header">
+                    <span class="eg-term-name">Model</span>
+                    <span class="eg-term-tag">Technical</span>
+                </div>
+                <p>The underlying AI system that powers the tool you are using. Different models have different capabilities, strengths, and behaviors. Claude is a model made by Anthropic. GPT-4 is a model made by OpenAI and powers ChatGPT. Gemini is a model made by Google.</p>
+                <p>When people talk about AI getting smarter or a new version being released they are usually talking about a new model. You do not need to understand how models work technically. Think of the model as the engine under the hood, and different engines have different personalities and capabilities, which we cover in the program.</p>
+            </div>
+
+            <div class="eg-term-block" id="term-agentic">
+                <div class="eg-term-header">
+                    <span class="eg-term-name">Agentic AI</span>
+                    <span class="eg-term-tag">Emerging</span>
+                </div>
+                <p>A newer category of AI that can take a goal, break it into steps, and execute those steps autonomously without a human prompting each individual action.</p>
+                <p>Basic AI responds to one prompt at a time. Agentic AI can chain actions together, use tools, browse the web, write and run code, and complete multi-step tasks with minimal human intervention between steps.</p>
+                <p>Most of what we use in this program is basic conversational AI. Agentic AI is where the field is heading, and understanding that it exists prepares you for the governance conversations coming in your organization. When AI can act autonomously, the human-in-the-loop question becomes significantly more complex and significantly more important.</p>
+            </div>
+
+            <div class="eg-term-block" id="term-enterprise">
+                <div class="eg-term-header">
+                    <span class="eg-term-name">Enterprise vs Consumer AI</span>
+                    <span class="eg-term-tag">Governance</span>
+                </div>
+                <p>Consumer AI tools are the free or personal subscription versions. They are accessible to anyone, require only a personal account, and are designed for individual use.</p>
+                <p>Enterprise AI tools are versions of the same products with additional features and protections for organizational use. Enterprise agreements typically include explicit commitments about how your data is handled, guarantees that your inputs will not be used to train the model, administrative controls, and compliance documentation.</p>
+                <p>The practical implication: consumer tools are fine for personal productivity use with non-sensitive information. Organizational deployment, especially with information that touches clients, donors, employees, or legal matters, should use enterprise-grade tools with appropriate agreements in place. We cover this in detail in Session 3.</p>
+            </div>
+
+            <div class="eg-term-block" id="term-token">
+                <div class="eg-term-header">
+                    <span class="eg-term-name">Token</span>
+                    <span class="eg-term-tag">Technical</span>
+                </div>
+                <p>The unit of text that AI models process. A token is roughly three quarters of a word on average. You do not need to think about tokens directly, but the concept explains some AI behaviors.</p>
+                <p>The most relevant thing to know: AI tools have a context window limit, meaning there is a maximum amount of text they can process in a single conversation. For most current tools this limit is large enough that you will never hit it in normal use. For very long documents you may need to work in sections.</p>
+            </div>
+
+            <div class="eg-term-block" id="term-temperature">
+                <div class="eg-term-header">
+                    <span class="eg-term-name">Temperature</span>
+                    <span class="eg-term-tag">Technical</span>
+                </div>
+                <p>A technical setting that controls how creative or conservative an AI's responses are. High temperature produces more varied, unexpected, creative outputs. Low temperature produces more predictable, focused, conservative outputs.</p>
+                <p>Most consumer AI tools manage this automatically and you never need to adjust it directly. It is worth knowing the concept exists because it explains why asking for creative brainstorming produces different-feeling output than asking for a precise factual summary. The tool is adjusting its behavior based on the type of task.</p>
+            </div>
+
+            <div class="eg-term-block" id="term-system">
+                <div class="eg-term-header">
+                    <span class="eg-term-name">System Prompt</span>
+                    <span class="eg-term-tag">Governance</span>
+                </div>
+                <p>Instructions given to the AI before a conversation begins that shape its behavior throughout the session. In most consumer tools the system prompt is set by the tool developer and you do not see or interact with it directly.</p>
+                <p>In enterprise deployments, organizations can customize the system prompt to give the AI specific instructions relevant to their context &mdash; for example, always respond in our organization's brand voice, or never discuss competitor products. This is why the same underlying model can behave differently in different contexts and applications.</p>
+            </div>
+        </div>
+
+        <!-- ── PART 4 ─────────────────────────────────── -->
+        <div class="eg-part" id="three-rules">
+            <div class="eg-part-header" style="padding-top: 56px;">
+                <span class="eg-part-num">Part 4</span>
+                <div class="eg-part-rule"></div>
+            </div>
+            <h2>The Three Rules</h2>
+            <p class="eg-part-subtitle">The only things you need to remember before Session 1</p>
+
+            <p>If you remember nothing else from this guide, remember these three things. They apply to every interaction with AI in every context for the rest of your career.</p>
+
+            <div class="eg-rules-grid">
+                <div class="eg-rule-card">
+                    <div class="eg-rule-num">1</div>
+                    <div class="eg-rule-body">
+                        <h4>You are always the author.</h4>
+                        <p>Anything AI produces that leaves your desk has your name on it. The thinking, the judgment, and the accountability are yours. AI helped you get there. The output reflects you.</p>
+                    </div>
+                </div>
+                <div class="eg-rule-card">
+                    <div class="eg-rule-num">2</div>
+                    <div class="eg-rule-body">
+                        <h4>Verify before it goes anywhere.</h4>
+                        <p>AI can be confidently wrong. Read what it produces like an editor reviewing a draft, not like a passive recipient accepting a final document. If something sounds off, push back on it.</p>
+                    </div>
+                </div>
+                <div class="eg-rule-card">
+                    <div class="eg-rule-num">3</div>
+                    <div class="eg-rule-body">
+                        <h4>The first response is a draft, not a decision.</h4>
+                        <p>Your instinct to refine, redirect, and push back on AI output is correct. Use it. The conversation continues until you have what you actually need.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Closing -->
+            <div class="eg-closing">
+                <p>
+                    <strong>This guide is a living reference.</strong> Bring it to your sessions.
+                    Add to it as you learn. The best version of this document is the one you have
+                    marked up, questioned, and made your own.
+                </p>
+                <p>
+                    If something here raised a question, bring it to Session 1. That is exactly
+                    what Session 1 is for. Nothing in this program requires you to have figured
+                    anything out on your own first.
+                </p>
+                <div class="eg-closing-ctas">
+                    <a class="btn btn-eg-primary" href="/contact.html?type=consult">Schedule a Discovery Call</a>
+                    <a class="btn btn-eg-outline" href="/ai-enablement/executive-intensive.html">See the Executive Intensive</a>
+                </div>
+            </div>
+        </div>
+
+    </article><!-- /.eg-article -->
+</div><!-- /.eg-layout -->
+</div>
+
+<!-- ── FOOTER ─────────────────────────────────────────── -->
+<footer>
+    <div class="footer-left">Joshua Bechtel</div>
+    <div class="footer-right">Knowledge Architecture &nbsp;&middot;&nbsp; AI Fluency &nbsp;&middot;&nbsp; Enterprise Content Systems</div>
+</footer>
+
+</div><!-- /.page-body -->
+
+<script src="/nav.js"></script>
+<script src="/quiz.js"></script>
+<script src="/microinteractions.js"></script>
+<script>
+// ── Scroll-tracking TOC ──────────────────────────────────
+const tocLinks = document.querySelectorAll('#egToc a[data-target]');
+const targets  = Array.from(tocLinks).map(a => document.getElementById(a.dataset.target)).filter(Boolean);
+
+function updateToc() {
+    const scrollY = window.scrollY + 120;
+    let active = null;
+    targets.forEach(t => { if (scrollY >= t.offsetTop) active = t.id; });
+    tocLinks.forEach(a => {
+        a.classList.toggle('active', a.dataset.target === active);
+    });
+}
+
+window.addEventListener('scroll', updateToc, { passive: true });
+updateToc();
+
+// ── Smooth scroll for TOC links ─────────────────────────
+tocLinks.forEach(a => {
+    a.addEventListener('click', e => {
+        e.preventDefault();
+        const target = document.getElementById(a.dataset.target);
+        if (target) target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    });
+});
+</script>
+</body>
+</html>
