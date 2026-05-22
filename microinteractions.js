@@ -1,4 +1,4 @@
-/* microinteractions.js — joshuabechtel.com
+/* microinteractions.js — humanlayersystems.com
    Progressive enhancement only. If JS fails, nothing breaks.
    Respects prefers-reduced-motion throughout.
 */

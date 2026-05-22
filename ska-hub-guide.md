@@ -1,6 +1,6 @@
 # SKA Knowledge Hub — User Guide
 
-**URL:** [joshuabechtel.com/ska_prototype](https://joshuabechtel.com/ska_prototype/)
+**URL:** [humanlayersystems.com/ska_prototype](https://humanlayersystems.com/ska_prototype/)
 
 ---
 
