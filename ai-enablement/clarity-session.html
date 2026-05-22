@@ -4,169 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>The Clarity Session | Human Layer Systems</title>
-    <meta name="description" content="A monthly AI growth program built around you. Three sessions a month, open access between them, and real momentum — not a course, not a workshop.">
+    <meta name="description" content="A monthly AI growth program built around you. Three sessions a month, open access between them, and real momentum &mdash; not a course, not a workshop.">
     <link rel="stylesheet" href="/styles.css">
-    <style>
-        .clarity-hero {
-            background: var(--forest);
-            position: relative;
-            overflow: hidden;
-        }
-        .clarity-hero::before {
-            content: '';
-            position: absolute;
-            inset: 0;
-            background:
-                radial-gradient(ellipse 70% 60% at 80% 40%, rgba(95,140,95,0.15) 0%, transparent 65%),
-                radial-gradient(ellipse 40% 50% at 5% 90%, rgba(31,59,31,0.6) 0%, transparent 55%);
-            pointer-events: none;
-        }
-        .clarity-hero-inner {
-            max-width: 900px;
-            margin: 0 auto;
-            padding: 80px 40px 72px;
-            position: relative;
-        }
-        .clarity-eyebrow {
-            display: inline-block;
-            font-size: 0.75rem;
-            font-weight: 600;
-            letter-spacing: 0.12em;
-            text-transform: uppercase;
-            color: var(--mist);
-            border: 1px solid rgba(159,202,159,0.35);
-            border-radius: 3px;
-            padding: 5px 12px;
-            margin-bottom: 24px;
-        }
-        .clarity-hero h1 {
-            font-family: 'DM Serif Display', serif;
-            font-size: 2.8rem;
-            line-height: 1.1;
-            color: var(--white);
-            margin-bottom: 20px;
-        }
-        .clarity-hero h1 em { color: var(--mist); font-style: italic; }
-        .clarity-hero-sub {
-            font-size: 1.1rem;
-            color: rgba(255,255,255,0.78);
-            max-width: 640px;
-            line-height: 1.7;
-            margin-bottom: 32px;
-        }
-        .clarity-price-pill {
-            display: inline-flex;
-            align-items: center;
-            gap: 16px;
-            background: rgba(255,255,255,0.08);
-            border: 1px solid rgba(159,202,159,0.3);
-            border-radius: 8px;
-            padding: 16px 24px;
-            margin-bottom: 32px;
-        }
-        .clarity-price-num {
-            font-family: 'DM Serif Display', serif;
-            font-size: 2rem;
-            color: var(--white);
-            line-height: 1;
-        }
-        .clarity-price-detail {
-            font-size: 0.82rem;
-            color: var(--mist);
-            line-height: 1.5;
-        }
-        .clarity-price-detail strong { color: var(--foam); display: block; }
-        .clarity-hero-ctas { display: flex; gap: 12px; flex-wrap: wrap; }
-        .clarity-what-grid {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 16px;
-            margin: 40px 0;
-        }
-        .clarity-what-card {
-            background: var(--white);
-            border: 1px solid rgba(95,138,95,0.2);
-            border-top: 3px solid var(--sage);
-            border-radius: 8px;
-            padding: 24px 22px;
-        }
-        .clarity-what-card h3 {
-            font-family: 'DM Serif Display', serif;
-            font-size: 1.05rem;
-            color: var(--forest);
-            margin-bottom: 10px;
-        }
-        .clarity-what-card p {
-            font-size: 0.9rem;
-            color: var(--slate);
-            line-height: 1.6;
-            margin: 0;
-        }
-        .clarity-vs {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 2px;
-            background: rgba(159,202,159,0.2);
-            border: 1px solid rgba(159,202,159,0.3);
-            border-radius: 10px;
-            overflow: hidden;
-            margin: 40px 0;
-        }
-        .clarity-vs-side { background: var(--white); padding: 28px 32px; }
-        .clarity-vs-side h4 {
-            font-size: 0.72rem;
-            font-weight: 700;
-            letter-spacing: 0.1em;
-            text-transform: uppercase;
-            color: var(--sage);
-            margin-bottom: 16px;
-        }
-        .clarity-vs-side ul {
-            list-style: none;
-            margin: 0; padding: 0;
-            display: flex; flex-direction: column; gap: 8px;
-        }
-        .clarity-vs-side ul li {
-            font-size: 0.9rem;
-            color: var(--slate);
-            padding-left: 18px;
-            position: relative;
-            line-height: 1.5;
-        }
-        .clarity-vs-side ul li::before {
-            content: '✓';
-            position: absolute;
-            left: 0;
-            color: var(--sage);
-            font-size: 0.75rem;
-        }
-        .clarity-next {
-            background: var(--parchment);
-            border: 1px solid rgba(95,138,95,0.2);
-            border-radius: 10px;
-            padding: 32px 36px;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            gap: 24px;
-            flex-wrap: wrap;
-            margin-top: 48px;
-        }
-        .clarity-next p {
-            font-size: 0.95rem;
-            color: var(--slate);
-            max-width: 520px;
-            margin: 0;
-            line-height: 1.65;
-        }
-        .clarity-next p strong { color: var(--forest); }
-        @media (max-width: 768px) {
-            .clarity-hero h1 { font-size: 2rem; }
-            .clarity-what-grid { grid-template-columns: 1fr; }
-            .clarity-vs { grid-template-columns: 1fr; }
-            .clarity-hero-inner { padding: 60px 24px 52px; }
-        }
-    </style>
 </head>
 <body class="page-shell has-sidebar">
 <button class="sidebar-toggle" id="sidebarToggle" aria-label="Open navigation">&#9776;</button>
@@ -189,8 +28,10 @@
                 your actual work, build your actual skills, and keep moving you forward month by month.
                 The most accessible way to work with me directly.
             </p>
+
+            <!-- 3a: Pricing updated to $650/month primary -->
             <div class="clarity-price-pill">
-                <div class="clarity-price-num">$750<span style="font-size:1.2rem">/mo</span></div>
+                <div class="clarity-price-num">$650<span class="clarity-price-mo">/mo</span></div>
                 <div class="clarity-price-detail">
                     <strong>Three sessions &middot; open access between them</strong>
                     3-month minimum &middot; cancel anytime after
@@ -253,6 +94,21 @@
 
         <hr class="divider">
 
+        <!-- 3c: Greg Wood testimonial placeholder -->
+        <blockquote class="testimonial-block">
+            <!-- PLACEHOLDER: Greg Wood testimonial text to be inserted before deployment -->
+            [Greg&rsquo;s testimonial text will be provided and inserted here before deployment.]
+        </blockquote>
+        <p class="testimonial-attribution">Greg Wood, L&amp;D Professional</p>
+
+        <!-- 3e: Kelly video testimonial placeholder -->
+        <div class="video-testimonial-placeholder">
+            <!-- PLACEHOLDER: Kelly video testimonial embed to be inserted when recording is available -->
+            Video testimonial coming soon &mdash; Kelly, Attorney &amp; Mediator
+        </div>
+
+        <hr class="divider">
+
         <h2 class="section-title">How the commitment works</h2>
         <div class="distinction-list">
             <div class="distinction-item">
@@ -270,24 +126,33 @@
             <div class="distinction-item">
                 <div>
                     <h4>What it costs</h4>
-                    <p>$750 per month. Three sessions, open access between them, and a genuine working relationship for less than most organizations spend on a single contractor day.</p>
+                    <p>$650 per month for founding clients &mdash; locked in for the life of your engagement. Standard rate is $750 per month. Three sessions, open access between them, and a genuine working relationship.</p>
                 </div>
             </div>
         </div>
 
+        <!-- 3b: Testimonial exchange callout -->
+        <div class="callout-box">
+            Founding clients start with a complimentary first month in exchange for an honest testimonial. If it is not working after 30 days, we part as friends. No hard sell. No awkward exit.
+        </div>
+
         <div class="callout">
             <h3>The Clarity Session</h3>
-            <p>$750/month &nbsp;&middot;&nbsp; Three sessions &nbsp;&middot;&nbsp; Open access between sessions &nbsp;&middot;&nbsp; 3-month minimum</p>
-            <p><strong style="color:#d4a017;">Founding client rate: $650/month.</strong> Save $100/month &mdash; ask when you reach out.</p>
+            <p>$650/month founding rate &nbsp;&middot;&nbsp; Three sessions &nbsp;&middot;&nbsp; Open access between sessions &nbsp;&middot;&nbsp; 3-month minimum</p>
+            <p><span class="founding-gold">Standard rate $750/month. Founding clients lock in $650/month for the life of their engagement.</span></p>
+            <!-- OPEN ITEM: Calendly integration for direct booking — future task -->
             <div class="btn-row">
                 <a href="/contact.html?type=consult" class="btn btn-gold">Start the Conversation</a>
                 <a href="/ai-enablement/" class="btn btn-outline-white">See All Programs</a>
             </div>
         </div>
 
+        <!-- 3d: Podcast mention -->
+        <p>Also on <a href="/podcast.html" class="inline-link">Pattern Recognized</a>, the podcast. New episodes weekly.</p>
+
         <div class="clarity-next">
             <p><strong>Not sure if The Clarity Session is right for you?</strong> The Individual Programs page has a side-by-side comparison of Clarity Session and Spark Solo, or you can start with a free Discovery Session and we&rsquo;ll figure it out together.</p>
-            <div style="display:flex;gap:10px;flex-wrap:wrap;flex-shrink:0;">
+            <div class="clarity-next-btns">
                 <a class="btn btn-primary" href="/spark-solo">See Spark Solo details</a>
                 <a class="btn btn-outline" href="/contact.html?type=discovery">Book Discovery Session</a>
             </div>

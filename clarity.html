@@ -4,227 +4,13 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>The Clarity Session | Human Layer Systems</title>
-    <meta name="description" content="A monthly AI growth program built around you. Three sessions, open access between them, $750/month. No course. No workshop. A real working relationship.">
+    <meta name="description" content="A monthly AI growth program built around you. Three sessions, open access between them, $650/month founding rate. No course. No workshop. A real working relationship.">
     <meta name="robots" content="noindex">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
-    <style>
-        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-
-        :root {
-            --forest:  #1F3B1F;
-            --moss:    #2D5A2D;
-            --sage:    #5F8C5F;
-            --mist:    #9FCA9F;
-            --foam:    #CFE8CF;
-            --parchment: #F4F8F4;
-            --white:   #FFFFFF;
-            --slate:   #4A5A4A;
-            --gold:    #B8860B;
-        }
-
-        body {
-            font-family: 'DM Sans', sans-serif;
-            background: var(--parchment);
-            color: var(--slate);
-            line-height: 1.65;
-            min-height: 100vh;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            padding: 40px 20px;
-        }
-
-        .card {
-            background: var(--white);
-            border-radius: 16px;
-            max-width: 540px;
-            width: 100%;
-            overflow: hidden;
-            box-shadow: 0 4px 32px rgba(31,59,31,0.1), 0 1px 4px rgba(0,0,0,0.06);
-        }
-
-        .card-top {
-            background: var(--forest);
-            padding: 36px 40px 32px;
-            position: relative;
-            overflow: hidden;
-        }
-        .card-top::before {
-            content: '';
-            position: absolute;
-            inset: 0;
-            background: radial-gradient(ellipse 80% 60% at 90% 20%, rgba(95,140,95,0.18) 0%, transparent 70%);
-            pointer-events: none;
-        }
-        .eyebrow {
-            font-size: 0.7rem;
-            font-weight: 600;
-            letter-spacing: 0.12em;
-            text-transform: uppercase;
-            color: var(--mist);
-            margin-bottom: 14px;
-            position: relative;
-        }
-        .card-top h1 {
-            font-family: 'DM Serif Display', serif;
-            font-size: 1.9rem;
-            line-height: 1.15;
-            color: var(--white);
-            margin-bottom: 12px;
-            position: relative;
-        }
-        .card-top h1 em { color: var(--mist); font-style: italic; }
-        .card-top p {
-            font-size: 0.92rem;
-            color: rgba(255,255,255,0.75);
-            line-height: 1.65;
-            position: relative;
-        }
-
-        .price-row {
-            display: flex;
-            align-items: center;
-            gap: 16px;
-            padding: 20px 40px;
-            background: var(--foam);
-            border-bottom: 1px solid rgba(95,138,95,0.15);
-        }
-        .price-num {
-            font-family: 'DM Serif Display', serif;
-            font-size: 2.2rem;
-            color: var(--forest);
-            line-height: 1;
-            white-space: nowrap;
-        }
-        .price-detail {
-            font-size: 0.82rem;
-            color: var(--slate);
-            line-height: 1.5;
-        }
-        .price-detail strong {
-            color: var(--forest);
-            display: block;
-            font-size: 0.88rem;
-        }
-
-        .card-body { padding: 28px 40px 32px; }
-
-        .what-list { list-style: none; margin-bottom: 24px; }
-        .what-list li {
-            font-size: 0.9rem;
-            color: var(--slate);
-            padding: 8px 0 8px 22px;
-            border-bottom: 1px solid rgba(159,202,159,0.2);
-            position: relative;
-            line-height: 1.5;
-        }
-        .what-list li:last-child { border-bottom: none; }
-        .what-list li::before {
-            content: '✓';
-            position: absolute;
-            left: 0;
-            color: var(--sage);
-            font-size: 0.8rem;
-            top: 9px;
-        }
-
-        .for-you {
-            background: var(--parchment);
-            border-radius: 8px;
-            padding: 16px 18px;
-            margin-bottom: 24px;
-            font-size: 0.85rem;
-            color: var(--slate);
-            line-height: 1.65;
-        }
-        .for-you strong { color: var(--forest); }
-
-        .founding-note {
-            font-size: 0.78rem;
-            color: var(--gold);
-            font-weight: 600;
-            text-align: center;
-            margin-bottom: 14px;
-        }
-
-        .cta-btn {
-            display: block;
-            width: 100%;
-            background: linear-gradient(180deg, #3d7a3d 0%, #2d5a2d 42%, #1a3d1a 100%);
-            color: var(--white);
-            text-align: center;
-            padding: 15px 20px;
-            border-radius: 50px;
-            font-family: 'DM Sans', sans-serif;
-            font-size: 0.95rem;
-            font-weight: 600;
-            text-decoration: none;
-            position: relative;
-            overflow: hidden;
-            box-shadow:
-                0 1px 0 rgba(255,255,255,0.28) inset,
-                0 -2px 4px rgba(0,0,0,0.3) inset,
-                0 4px 14px rgba(45,90,45,0.5),
-                0 1px 3px rgba(0,0,0,0.35);
-            transition: all 0.18s cubic-bezier(0.23,1,0.32,1);
-        }
-        .cta-btn::before {
-            content: '';
-            position: absolute;
-            top: 0; left: 8%; right: 8%;
-            height: 48%;
-            background: linear-gradient(180deg, rgba(255,255,255,0.28) 0%, rgba(255,255,255,0.03) 100%);
-            border-radius: 50px 50px 60% 60%;
-            pointer-events: none;
-        }
-        .cta-btn:hover {
-            transform: translateY(-2px);
-            box-shadow:
-                0 1px 0 rgba(255,255,255,0.35) inset,
-                0 -2px 4px rgba(0,0,0,0.25) inset,
-                0 8px 24px rgba(45,90,45,0.6),
-                0 2px 6px rgba(0,0,0,0.28);
-        }
-
-        .sig {
-            text-align: center;
-            padding: 18px 40px 24px;
-            border-top: 1px solid rgba(159,202,159,0.2);
-            font-size: 0.78rem;
-            color: var(--sage);
-        }
-        .sig strong {
-            display: block;
-            font-family: 'DM Serif Display', serif;
-            font-size: 0.95rem;
-            color: var(--forest);
-            font-weight: 400;
-            margin-bottom: 2px;
-        }
-
-        @media (prefers-reduced-motion: no-preference) {
-            @keyframes breathe {
-                0%, 100% { box-shadow: 0 1px 0 rgba(255,255,255,0.28) inset, 0 -2px 4px rgba(0,0,0,0.3) inset, 0 4px 14px rgba(45,90,45,0.5), 0 1px 3px rgba(0,0,0,0.35); }
-                50%       { box-shadow: 0 1px 0 rgba(255,255,255,0.28) inset, 0 -2px 4px rgba(0,0,0,0.3) inset, 0 6px 28px rgba(45,90,45,0.72), 0 1px 3px rgba(0,0,0,0.35); }
-            }
-            .cta-btn { animation: breathe 3s ease-in-out infinite; }
-            .cta-btn:hover { animation: none; }
-        }
-
-        @media (max-width: 480px) {
-            body { padding: 20px 16px; justify-content: flex-start; }
-            .card-top, .price-row, .card-body, .sig { padding-left: 24px; padding-right: 24px; }
-            .card-top h1 { font-size: 1.6rem; }
-            .price-num { font-size: 1.8rem; }
-        }
-    </style>
+    <link rel="stylesheet" href="/styles.css">
 </head>
-<body>
+<body class="ad-page-layout">
 
-<div class="card">
+<div class="ad-card">
 
     <div class="card-top">
         <p class="eyebrow">AI Fluency &mdash; Individual</p>
@@ -232,12 +18,20 @@
         <p>Not a course. Not a workshop. A real working relationship where we look at your actual work, build your actual skills, and keep moving you forward month by month.</p>
     </div>
 
+    <!-- 1b: Testimonial exchange callout -->
+    <div class="card-segment">
+        <div class="callout-box">
+            Founding clients start with a complimentary first month in exchange for an honest testimonial. If it is not working after 30 days, we part as friends. No hard sell. No awkward exit.
+        </div>
+    </div>
+
+    <!-- 1a: Pricing — $650 primary, standard rate noted below -->
     <div class="price-row">
-        <div class="price-num">$750<span style="font-family:'DM Sans',sans-serif;font-size:1.1rem;font-weight:400">/mo</span></div>
+        <div class="price-num">$650<span class="price-unit">/mo</span></div>
         <div class="price-detail">
             <strong>Three sessions &middot; open access between them</strong>
             3-month minimum &middot; month-to-month after that
-            <span style="display:block; margin-top:6px; font-size:0.75rem; font-weight:600; color:var(--gold);">&#9670;&nbsp; Founding client rate: $650/month &mdash; ask when you reach out &nbsp;&#9670;</span>
+            <span class="payment">Standard rate $750/month. Founding clients lock in $650/month for the life of their engagement.</span>
         </div>
     </div>
 
@@ -251,17 +45,26 @@
             <li>Stay as long as it&rsquo;s useful, cancel anytime after month three</li>
         </ul>
 
-        <div class="for-you">
+        <!-- 1d: Greg Wood testimonial placeholder -->
+        <blockquote class="testimonial-block">
+            <!-- PLACEHOLDER: Greg Wood testimonial text to be inserted before deployment -->
+            [Greg&rsquo;s testimonial text will be provided and inserted here before deployment.]
+        </blockquote>
+        <p class="testimonial-attribution">Greg Wood, L&amp;D Professional</p>
+
+        <div class="ad-for-you">
             <strong>This is for you if&hellip;</strong> you want to get genuinely good at AI, not just dabble. You have real work to do and you want someone in your corner who helps you figure out where AI fits, builds habits that stick, and troubleshoots when things don&rsquo;t work the way you expected.
         </div>
 
-        <p class="founding-note">&#9670;&nbsp; Founding client rate: $650/month &mdash; save $100/month &nbsp;&#9670;</p>
-
-        <a class="cta-btn" href="/contact.html?type=consult">Start the Conversation &rarr;</a>
+        <!-- 1c: Updated CTA button -->
+        <a class="cta-btn" href="/contact.html?type=consult">Claim Your First Month Free &rarr;</a>
 
     </div>
 
-    <div class="sig">
+    <!-- 1e: Podcast mention -->
+    <div class="ad-sig">
+        <p>Also on <a href="/podcast.html" class="inline-link">Pattern Recognized</a>, the podcast. New episodes weekly.</p>
+        <!-- OPEN ITEM: Calendly integration for direct booking — future task -->
         <strong>Human Layer Systems</strong>
         Knowledge Architecture &middot; AI Fluency &middot; Enterprise Content Systems
     </div>

@@ -77,6 +77,7 @@
     { href: '/consulting/',      text: 'Consulting' },
     { href: '/ai-enablement/',   text: 'AI Fluency' },
     { href: '/speaking/',        text: 'Speaking' },
+    { href: '/podcast.html',    text: 'Podcast' },
     { href: '/work/',            text: 'Work' },
     { href: '/contact.html',     text: 'Contact' },
   ];
