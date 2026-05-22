@@ -107,7 +107,7 @@
     if (!sidebar) return;
 
     var html = '<a class="sidebar-logo" href="/">'
-             +   '<span class="name">Joshua Bechtel</span>'
+             +   '<span class="name">Human Layer Systems</span>'
              +   '<span class="role">Knowledge Architecture &amp; AI Strategy</span>'
              + '</a>'
              + '<nav class="sidebar-nav">';
