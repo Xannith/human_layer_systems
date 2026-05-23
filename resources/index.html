@@ -9,13 +9,13 @@
     <style>
         /* Map old v1 variable names to v2 equivalents for this page */
         :root {
-            --forest:    var(--color-hls-forest);
-            --foam:      var(--color-soft-growth);
+            --forest:    var(--color-deep-interface);
+            --foam:      var(--color-soft-blue);
             --white:     var(--color-clean-white);
             --gold:      #B8860B;
             --gold-lt:   #D4A820;
             --slate:     #3D4F45;
-            --parchment: var(--color-soft-growth);
+            --parchment: var(--color-soft-blue);
         }
         .res-gate {
             background: var(--forest);
@@ -48,7 +48,7 @@
         .res-gate h1 em { color: var(--gold); font-style: italic; }
         .res-gate-lead {
             font-size: 1rem;
-            color: rgba(207,232,207,0.75);
+            color: rgba(232,245,255,0.75);
             line-height: 1.75;
             margin-bottom: 1.1rem;
             max-width: 520px;
@@ -87,7 +87,7 @@
         .res-code-input {
             flex: 1;
             background: rgba(255,255,255,0.08);
-            border: 1px solid rgba(159,202,159,0.25);
+            border: 1px solid rgba(30,167,255,0.17);
             border-radius: 5px;
             padding: 11px 16px;
             color: var(--foam);
@@ -96,7 +96,7 @@
             letter-spacing: 0.1em;
             outline: none;
         }
-        .res-code-input::placeholder { color: rgba(207,232,207,0.35); }
+        .res-code-input::placeholder { color: rgba(232,245,255,0.35); }
         .res-code-input:focus { border-color: var(--gold); }
         .res-code-btn {
             background: var(--gold);
@@ -116,7 +116,7 @@
             font-size: 0.85rem;
             margin-top: 12px;
             min-height: 20px;
-            color: rgba(207,232,207,0.55);
+            color: rgba(232,245,255,0.55);
             text-align: center;
         }
         .res-code-msg.success { color: #7ecf7e; }
@@ -147,7 +147,7 @@
         }
         .res-card {
             background: var(--parchment);
-            border: 1px solid rgba(45,90,45,0.15);
+            border: 1px solid rgba(11,79,138,0.15);
             border-radius: 10px;
             padding: 32px 28px;
         }
@@ -157,7 +157,7 @@
             letter-spacing: 0.12em;
             text-transform: uppercase;
             color: var(--forest);
-            background: rgba(95,140,95,0.15);
+            background: rgba(11,79,138,0.15);
             padding: 4px 10px;
             border-radius: 4px;
             display: inline-block;
