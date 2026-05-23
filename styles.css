@@ -2154,6 +2154,88 @@ footer {
     margin-bottom: 0;
 }
 
+/* ── PROMPT LIBRARY — FLUENCY BADGES & CONTENT TYPE LABELS ── */
+.pl-card-meta2 {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-top: 6px;
+}
+.pl-fluency-badge {
+    display: inline-block;
+    font-size: 0.68rem;
+    font-weight: 600;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    padding: 2px 8px;
+    border-radius: 20px;
+    line-height: 1.6;
+}
+.pl-fluency-crawl {
+    background: #E8F4ED;
+    color: #2D5C3F;
+}
+.pl-fluency-walk {
+    background: #E8F0FB;
+    color: #1A56A0;
+}
+.pl-fluency-run {
+    background: #FDF3E3;
+    color: #92580A;
+}
+.pl-content-type {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.65rem;
+    font-weight: 400;
+    letter-spacing: 0.04em;
+    color: rgba(61,74,64,0.55);
+    text-transform: uppercase;
+}
+
+/* ── PROMPT LIBRARY — FLUENCY FILTER ROW ── */
+.pl-ctrl-row--fluency {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 8px 0 6px;
+    border-top: 1px solid rgba(255,255,255,0.1);
+}
+.pl-fluency-label {
+    font-size: 0.65rem;
+    font-weight: 600;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.5);
+    white-space: nowrap;
+}
+.pl-fluency-tabs {
+    display: flex;
+    gap: 6px;
+    flex-wrap: wrap;
+}
+.pl-fluency-tab {
+    background: rgba(255,255,255,0.08);
+    border: 1px solid rgba(255,255,255,0.15);
+    color: rgba(255,255,255,0.7);
+    font-size: 0.7rem;
+    font-weight: 600;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    padding: 4px 14px;
+    border-radius: 20px;
+    cursor: pointer;
+    transition: background 0.15s, color 0.15s, border-color 0.15s;
+}
+.pl-fluency-tab:hover {
+    background: rgba(255,255,255,0.15);
+    color: #fff;
+}
+.pl-fluency-tab.active {
+    background: rgba(255,255,255,0.22);
+    border-color: rgba(255,255,255,0.4);
+    color: #fff;
+}
+
 @media (max-width: 960px) {
     .hero-inner              { padding: 60px 24px; }
     .hero h1                 { font-size: 2.4rem; }
