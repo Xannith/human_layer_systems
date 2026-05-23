@@ -145,9 +145,18 @@ body {
   max-width: 1200px;
   margin: 0 auto;
   display: flex;
+  flex-direction: column;
+}
+.pl-ctrl-row {
+  display: flex;
   align-items: stretch;
-  gap: 0;
-  height: 64px;
+}
+.pl-ctrl-row--primary {
+  height: 40px;
+  border-bottom: 1px solid rgba(255,255,255,0.08);
+}
+.pl-ctrl-row--secondary {
+  height: 52px;
 }
 .pl-role-tabs {
   display: flex;
@@ -453,9 +462,10 @@ body {
 @media (max-width: 768px) {
   .pl-hero { padding: 52px 20px 44px; }
   .pl-controls { padding: 0 20px; }
-  .pl-controls-inner { height: auto; flex-wrap: wrap; padding: 10px 0; gap: 8px; }
+  .pl-ctrl-row--primary { height: 36px; }
+  .pl-ctrl-row--secondary { height: auto; flex-wrap: wrap; padding: 6px 0; gap: 6px; }
   .pl-role-tabs { width: 100%; }
-  .pl-role-tab { flex: 1; padding: 10px 8px; font-size: 0.65rem; }
+  .pl-role-tab { flex: 1; padding: 8px 6px; font-size: 0.63rem; }
   .pl-search-wrap { padding: 0; width: 100%; }
   .pl-count-badge { display: none; }
   .pl-cat-bar { padding: 0 20px; }
@@ -517,19 +527,25 @@ body {
 <!-- ── STICKY CONTROLS ───────────────────────────────────── -->
 <div class="pl-controls" id="controls">
   <div class="pl-controls-inner">
-    <div class="pl-role-tabs">
-      <button class="pl-role-tab active" data-role="all">All <span class="tab-count"></span></button>
-      <button class="pl-role-tab" data-role="executive">Executive <span class="tab-count"></span></button>
-      <button class="pl-role-tab" data-role="operations">Operations <span class="tab-count"></span></button>
-      <button class="pl-role-tab" data-role="consultant">Consultant <span class="tab-count"></span></button>
-      <button class="pl-role-tab" data-role="career">Career <span class="tab-count"></span></button>
-      <button class="pl-role-tab" data-role="entrepreneur">Entrepreneur <span class="tab-count"></span></button>
+    <div class="pl-ctrl-row pl-ctrl-row--primary">
+      <div class="pl-role-tabs">
+        <button class="pl-role-tab active" data-role="all">All <span class="tab-count"></span></button>
+        <button class="pl-role-tab" data-role="executive">Executive <span class="tab-count"></span></button>
+        <button class="pl-role-tab" data-role="operations">Operations <span class="tab-count"></span></button>
+      </div>
     </div>
-    <div class="pl-divider"></div>
-    <div class="pl-search-wrap">
-      <input class="pl-search" id="searchInput" type="text" placeholder="Search prompts&hellip;" autocomplete="off">
+    <div class="pl-ctrl-row pl-ctrl-row--secondary">
+      <div class="pl-role-tabs">
+        <button class="pl-role-tab" data-role="consultant">Consultant <span class="tab-count"></span></button>
+        <button class="pl-role-tab" data-role="career">Career <span class="tab-count"></span></button>
+        <button class="pl-role-tab" data-role="entrepreneur">Entrepreneur <span class="tab-count"></span></button>
+      </div>
+      <div class="pl-divider"></div>
+      <div class="pl-search-wrap">
+        <input class="pl-search" id="searchInput" type="text" placeholder="Search prompts&hellip;" autocomplete="off">
+      </div>
+      <span class="pl-count-badge" id="countBadge">200 prompts</span>
     </div>
-    <span class="pl-count-badge" id="countBadge">200 prompts</span>
   </div>
 </div>
 
@@ -1177,7 +1193,7 @@ document.getElementById('searchInput').addEventListener('input', e => {
 // ═══════════════════════════════════════════════════════
 document.getElementById('totalCount').textContent = PROMPTS.length;
 document.getElementById('execCount').textContent  = PROMPTS.filter(p => p.role === 'executive').length;
-document.getElementById('opsCount').textContent   = PROMPTS.filter(p => p.role === 'operations').length;
+document.getElementById('opsCount').textContent   = PROMPTS.filter(p => p.role !== 'executive').length;
 document.getElementById('domainCount').textContent = new Set(PROMPTS.map(p => p.category)).size;
 document.querySelectorAll('.pl-role-tab').forEach(tab => {
   const role  = tab.getAttribute('data-role');
