@@ -23,7 +23,7 @@
       id:    'nav-explore',
       links: [
         { href: '/',                icon: '◈', text: 'Home' },
-        { href: '/ai-enablement/',  icon: '◈', text: 'AI Fluency' },
+        { href: '/ai-enablement/',  icon: '◈', text: 'AI Enablement' },
         { href: '/consulting/',     icon: '◦', text: 'Services' },
         { href: '/podcast.html',    icon: '◦', text: 'Podcast' },
         { href: '/about.html',      icon: '◦', text: 'About' },
@@ -49,10 +49,11 @@
 
   var TOP_NAV_LINKS = [
     { href: '/',               text: 'Home' },
-    { href: '/ai-enablement/', text: 'AI Fluency' },
     { href: '/consulting/',    text: 'Services' },
-    { href: '/podcast.html',   text: 'Podcast' },
+    { href: '/ai-enablement/', text: 'AI Enablement' },
+    { href: '/knowledge.html', text: 'Knowledge' },
     { href: '/about.html',     text: 'About' },
+    { href: '/podcast.html',   text: 'Podcast' },
     { href: '/contact.html',   text: 'Contact' },
   ];
 
