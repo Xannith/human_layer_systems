@@ -19,51 +19,27 @@
 
   var NAV_GROUPS = [
     {
-      label: 'Services',
-      id:    'nav-services',
+      label: 'Explore',
+      id:    'nav-explore',
       links: [
-        { href: '/consulting/ai-readiness.html',         icon: '◈', text: 'AI Fluency' },
-        { href: '/consulting/audit.html',                icon: '◦', text: 'Knowledge System Audit' },
-        { href: '/consulting/architecture.html',         icon: '◦', text: 'Content Architecture' },
-        { href: '/consulting/legacy-modernization.html', icon: '◦', text: 'Legacy Modernization' },
-        { href: '/consulting/advisory.html',             icon: '◦', text: 'Strategic Advisory' },
-        { href: '/consulting/production.html',           icon: '◦', text: 'Production Modernization' },
-        { href: '/consulting/',                          icon: '◎', text: 'Consulting Overview' },
-        { href: '/speaking/',                            icon: '◎', text: 'Speaking' },
+        { href: '/',                icon: '◈', text: 'Home' },
+        { href: '/ai-enablement/',  icon: '◈', text: 'AI Fluency' },
+        { href: '/consulting/',     icon: '◦', text: 'Services' },
+        { href: '/podcast.html',    icon: '◦', text: 'Podcast' },
+        { href: '/about.html',      icon: '◦', text: 'About' },
+        { href: '/contact.html',    icon: '✉', text: 'Contact' },
       ]
     },
     {
-      label: 'AI Fluency',
-      id:    'nav-ai',
+      label: 'Proof',
+      id:    'nav-proof',
       links: [
-        { href: '/ai-enablement/',                          icon: '◈', text: 'Programs Overview' },
-        { href: '/ai-enablement/clarity-session.html',      icon: '◆', text: 'Clarity Session' },
-        { href: '/ai-enablement/individual-programs.html',  icon: '◦', text: 'Individual' },
-        { href: '/ai-enablement/team-enterprise.html',      icon: '◦', text: 'Team & Enterprise' },
-        { href: '/ai-enablement/intensive.html',            icon: '◦', text: 'Intensive & Embedded' },
-        { href: '/ai-enablement/the-full-monty.html',       icon: '◇', text: 'Deep AI Transformation' },
-      ]
-    },
-    {
-      label: 'Work',
-      id:    'nav-work',
-      links: [
-        { href: '/work/',                  icon: '◻', text: 'Work Overview' },
         { href: '/work/case-studies.html', icon: '◼', text: 'Case Studies' },
-        { href: '/work/methodology.html',  icon: '◇', text: 'Methodology' },
-        { href: '/samples/',               icon: '◦', text: 'Examples' },
-        { href: '/knowledge.html',         icon: '◈', text: 'SKA Framework' },
+        { href: '/knowledge.html',         icon: '◈', text: 'Stateless Knowledge Architecture' },
       ]
     },
     {
-      label: 'Connect',
-      id:    'nav-connect',
-      links: [
-        { href: '/contact.html', icon: '✉', text: 'Contact' },
-      ]
-    },
-    {
-      label: 'Resources',
+      label: 'Client Resources',
       id:    'nav-resources',
       links: [
         { href: '/resources/', icon: '⚿', text: 'Client Resources' },
@@ -72,14 +48,12 @@
   ];
 
   var TOP_NAV_LINKS = [
-    { href: '/',                 text: 'Home' },
-    { href: '/about.html',       text: 'About' },
-    { href: '/consulting/',      text: 'Consulting' },
-    { href: '/ai-enablement/',   text: 'AI Fluency' },
-    { href: '/speaking/',        text: 'Speaking' },
-    { href: '/podcast.html',    text: 'Podcast' },
-    { href: '/work/',            text: 'Work' },
-    { href: '/contact.html',     text: 'Contact' },
+    { href: '/',               text: 'Home' },
+    { href: '/ai-enablement/', text: 'AI Fluency' },
+    { href: '/consulting/',    text: 'Services' },
+    { href: '/podcast.html',   text: 'Podcast' },
+    { href: '/about.html',     text: 'About' },
+    { href: '/contact.html',   text: 'Contact' },
   ];
 
 
@@ -219,6 +193,9 @@
         });
     }
   } catch (e) {}
+
+  // Home ('/') should open the Explore group
+  if (path === '' || path === '/') activeGroupId = 'nav-explore';
 
   // Open active group only — everything else starts closed
   NAV_GROUPS.forEach(function (group) {
