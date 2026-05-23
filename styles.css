@@ -59,11 +59,40 @@ body {
 
 /* ── SITE HEADER ────────────────────────────────────────────── */
 .site-header {
-    background: var(--color-deep-interface);
+    background: linear-gradient(
+        135deg,
+        rgba(7, 26, 58, 0.95) 0%,
+        rgba(11, 79, 138, 0.82) 100%
+    );
+    backdrop-filter: blur(14px) saturate(145%);
+    -webkit-backdrop-filter: blur(14px) saturate(145%);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.10);
+    box-shadow:
+        0 6px 24px rgba(0, 0, 0, 0.28),
+        inset 0 1px 0 rgba(255, 255, 255, 0.16);
     text-align: center;
     padding: 32px 20px 18px;
     position: relative;
     z-index: 10;
+    overflow: hidden;
+}
+.site-header::after {
+    content: '';
+    position: absolute;
+    left: 0; right: 0; top: 0;
+    height: 44%;
+    pointer-events: none;
+    background: linear-gradient(
+        180deg,
+        rgba(255, 255, 255, 0.14) 0%,
+        rgba(255, 255, 255, 0.03) 60%,
+        rgba(255, 255, 255, 0) 100%
+    );
+}
+.site-header .wordmark,
+.site-header .site-tagline {
+    position: relative;
+    z-index: 1;
 }
 
 .site-header .wordmark {
@@ -86,7 +115,17 @@ body {
 
 /* ── TOP NAV (horizontal, below header) ──────────────────── */
 .top-nav {
-    background: var(--color-deep-interface);
+    background: linear-gradient(
+        135deg,
+        rgba(9, 33, 72, 0.96) 0%,
+        rgba(13, 63, 110, 0.88) 100%
+    );
+    backdrop-filter: blur(12px) saturate(130%);
+    -webkit-backdrop-filter: blur(12px) saturate(130%);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+    box-shadow:
+        0 4px 18px rgba(0, 0, 0, 0.20),
+        inset 0 1px 0 rgba(255, 255, 255, 0.10);
     padding: 14px 24px;
     text-align: center;
     position: relative;
@@ -101,6 +140,8 @@ body {
     font-size: 0.95rem;
     display: inline-block;
     transition: color 0.15s;
+    position: relative;
+    z-index: 1;
 }
 .top-nav a:hover { color: var(--color-electric-blue); text-decoration: underline; }
 .top-nav a.active { color: var(--color-electric-blue); text-decoration: underline; }
