@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>AI Prompt Library | Human Layer Systems</title>
-<meta name="description" content="200 tested, role-specific AI prompts for executives and administrative professionals. Filterable by role and category. Copy and use immediately.">
+<meta name="description" content="200 tested, role-specific AI prompts for executives and administrative professionals. Filterable by role and domain. Copy and use immediately.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Mono:wght@400;500&family=Lora:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet">
@@ -15,7 +15,7 @@
   --pl-forest: #1B3A2A;
   --pl-moss:   #2E5E42;
   --pl-sage:   #5A8C6A;
-  --pl-mist:   #9FCAA0;
+  --pl-mist:   #7EC8F5;
   --pl-foam:   #CFE8CF;
   --pl-parch:  #F5F2EC;
   --pl-white:  #FFFFFF;
@@ -23,6 +23,8 @@
   --pl-gold:   #B8860B;
   --pl-exec:   #1B3A2A;
   --pl-ops:    #2E5E42;
+  --pl-blue-hdr:  #0B4F8A;
+  --pl-blue-ctrl: #0a4070;
   --font-disp: 'DM Serif Display', serif;
   --font-body: 'Lora', serif;
   --font-mono: 'DM Mono', monospace;
@@ -40,7 +42,7 @@ body {
 
 /* ── HERO ─────────────────────────────────────────────── */
 .pl-hero {
-  background: var(--pl-forest);
+  background: var(--pl-blue-hdr);
   padding: 72px 40px 60px;
   position: relative;
   overflow: hidden;
@@ -50,8 +52,8 @@ body {
   position: absolute;
   inset: 0;
   background:
-    radial-gradient(ellipse 70% 80% at 80% 10%, rgba(90,140,106,0.14) 0%, transparent 65%),
-    radial-gradient(ellipse 40% 50% at 0% 100%, rgba(27,58,42,0.7) 0%, transparent 55%);
+    radial-gradient(ellipse 70% 80% at 80% 10%, rgba(30,167,255,0.12) 0%, transparent 65%),
+    radial-gradient(ellipse 40% 50% at 0% 100%, rgba(10,64,112,0.7) 0%, transparent 55%);
   pointer-events: none;
 }
 .pl-hero::after {
@@ -132,12 +134,12 @@ body {
 
 /* ── CONTROLS ─────────────────────────────────────────── */
 .pl-controls {
-  background: var(--pl-moss);
+  background: var(--pl-blue-ctrl);
   padding: 0 40px;
   position: sticky;
   top: 0;
   z-index: 90;
-  box-shadow: 0 2px 16px rgba(27,58,42,0.25);
+  box-shadow: 0 2px 16px rgba(10,64,112,0.35);
 }
 .pl-controls-inner {
   max-width: 1200px;
@@ -201,14 +203,14 @@ body {
   color: #fff;
   outline: none;
   transition: background 0.18s, border-color 0.18s;
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='14' height='14' viewBox='0 0 24 24' fill='none' stroke='rgba(159,202,160,0.6)' stroke-width='2'%3E%3Ccircle cx='11' cy='11' r='8'/%3E%3Cpath d='m21 21-4.35-4.35'/%3E%3C/svg%3E");
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='14' height='14' viewBox='0 0 24 24' fill='none' stroke='rgba(126,200,245,0.6)' stroke-width='2'%3E%3Ccircle cx='11' cy='11' r='8'/%3E%3Cpath d='m21 21-4.35-4.35'/%3E%3C/svg%3E");
   background-repeat: no-repeat;
   background-position: 12px center;
 }
 .pl-search::placeholder { color: rgba(255,255,255,0.35); }
 .pl-search:focus {
   background-color: rgba(255,255,255,0.12);
-  border-color: rgba(159,202,160,0.4);
+  border-color: rgba(126,200,245,0.4);
 }
 .pl-count-badge {
   font-family: var(--font-mono);
@@ -489,8 +491,8 @@ body {
         <span class="pl-stat-label">Operations Prompts</span>
       </div>
       <div class="pl-stat">
-        <span class="pl-stat-num">20</span>
-        <span class="pl-stat-label">Categories</span>
+        <span class="pl-stat-num" id="domainCount">—</span>
+        <span class="pl-stat-label">Domains</span>
       </div>
       <div class="pl-stat">
         <span class="pl-stat-num">0</span>
@@ -799,7 +801,7 @@ let currentCat  = 'All';
 let currentSearch = '';
 
 // ═══════════════════════════════════════════════════════
-//  DERIVED CATEGORIES
+//  DERIVED DOMAINS
 // ═══════════════════════════════════════════════════════
 function getCats(role) {
   const set = new Set();
@@ -810,7 +812,7 @@ function getCats(role) {
 }
 
 // ═══════════════════════════════════════════════════════
-//  RENDER CATEGORY BAR
+//  RENDER DOMAIN BAR
 // ═══════════════════════════════════════════════════════
 function renderCatBar() {
   const cats = getCats(currentRole);
@@ -853,7 +855,7 @@ function renderGrid() {
   badge.textContent = filtered.length + ' prompt' + (filtered.length !== 1 ? 's' : '');
 
   if (filtered.length === 0) {
-    grid.innerHTML = '<div class="pl-empty">No prompts match your filters. Try a different search or category.</div>';
+    grid.innerHTML = '<div class="pl-empty">No prompts match your filters. Try a different search or domain.</div>';
     return;
   }
 
@@ -953,6 +955,8 @@ document.getElementById('searchInput').addEventListener('input', e => {
 // ═══════════════════════════════════════════════════════
 //  INIT
 // ═══════════════════════════════════════════════════════
+document.getElementById('domainCount').textContent =
+  new Set(PROMPTS.map(p => p.category)).size;
 renderCatBar();
 renderGrid();
 </script>
