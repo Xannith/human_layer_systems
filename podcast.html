@@ -6,6 +6,61 @@
     <title>Pattern Recognized | Human Layer Systems</title>
     <meta name="description" content="Pattern Recognized is a podcast about AI literacy, adoption, and the gap between what organizations think AI does and what it actually does. Audio only. No fluff. New episodes weekly.">
     <link rel="stylesheet" href="/styles.css">
+    <style>
+        .podcast-subscribe {
+            margin: 2.5rem 0;
+            padding: 1.75rem 2rem;
+            border-radius: 16px;
+            background: rgba(7,18,12,0.94);
+            border: 1px solid rgba(124,255,63,0.25);
+        }
+        .podcast-subscribe h2 {
+            font-family: 'DM Serif Display', serif;
+            font-size: 1.25rem;
+            color: var(--color-clean-white);
+            margin: 0 0 1.1rem;
+            font-weight: 400;
+            letter-spacing: 0.01em;
+        }
+        .podcast-link-grid {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.6rem;
+        }
+        .podcast-link-grid a {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            padding: 0.6rem 1.1rem;
+            min-height: 44px;
+            border-radius: 999px;
+            text-decoration: none;
+            font-family: 'DM Sans', sans-serif;
+            font-size: 0.83rem;
+            font-weight: 700;
+            letter-spacing: 0.03em;
+            background: var(--color-midnight-blue);
+            color: var(--color-signal-chartreuse);
+            border: 1px solid rgba(124,255,63,0.38);
+            transition: transform 0.18s ease, background 0.18s ease, color 0.18s ease, border-color 0.18s ease;
+        }
+        .podcast-link-grid a:hover,
+        .podcast-link-grid a:focus-visible {
+            transform: translateY(-2px);
+            background: var(--color-signal-chartreuse);
+            color: var(--color-midnight-blue);
+            border-color: var(--color-signal-chartreuse);
+            outline: none;
+        }
+        .podcast-link-grid a:focus:not(:focus-visible) { outline: none; }
+        @media (max-width: 600px) {
+            .podcast-link-grid { display: grid; grid-template-columns: 1fr 1fr; }
+            .podcast-subscribe { padding: 1.5rem; }
+        }
+        @media (max-width: 360px) {
+            .podcast-link-grid { grid-template-columns: 1fr; }
+        }
+    </style>
 </head>
 <body class="page-shell has-sidebar">
 <button class="sidebar-toggle" id="sidebarToggle" aria-label="Open navigation">&#9776;</button>
@@ -26,8 +81,19 @@
         <p class="page-intro">A podcast about AI literacy, adoption, and the gap between what organizations think AI does and what it actually does.</p>
         <p>Audio only. No fluff. New episodes weekly.</p>
 
-        <!-- OPEN ITEM: Update subscribe link with actual Podbean show URL when known -->
-        <p>Subscribe on <a href="https://www.podbean.com" class="inline-link">Podbean</a></p>
+        <section class="podcast-subscribe" aria-labelledby="podcast-subscribe-heading">
+            <h2 id="podcast-subscribe-heading">Subscribe on</h2>
+            <div class="podcast-link-grid">
+                <a href="https://patternrecognized.podbean.com" target="_blank" rel="noopener noreferrer" aria-label="Subscribe to Pattern Recognized on Podbean">Podbean</a>
+                <a href="https://podcasts.apple.com/us/podcast/pattern-recognized/id1896798330" target="_blank" rel="noopener noreferrer" aria-label="Subscribe to Pattern Recognized on Apple Podcasts">Apple Podcasts</a>
+                <a href="https://open.spotify.com/show/033juugfXs2G39lc0JPwO2" target="_blank" rel="noopener noreferrer" aria-label="Subscribe to Pattern Recognized on Spotify">Spotify</a>
+                <a href="https://music.amazon.com/podcasts/1c879dc7-8ff4-48ad-9e13-73641c5dd402" target="_blank" rel="noopener noreferrer" aria-label="Subscribe to Pattern Recognized on Amazon Music">Amazon Music</a>
+                <a href="https://iheart.com/podcast/334107637" target="_blank" rel="noopener noreferrer" aria-label="Subscribe to Pattern Recognized on iHeartRadio">iHeartRadio</a>
+                <a href="https://player.fm/series/3733743" target="_blank" rel="noopener noreferrer" aria-label="Subscribe to Pattern Recognized on Player FM">Player FM</a>
+                <a href="https://www.podchaser.com/podcasts/pattern-recognized-6491357" target="_blank" rel="noopener noreferrer" aria-label="Subscribe to Pattern Recognized on Podchaser">Podchaser</a>
+                <a href="https://www.boomplay.com/podcasts/145643" target="_blank" rel="noopener noreferrer" aria-label="Subscribe to Pattern Recognized on Boomplay">Boomplay</a>
+            </div>
+        </section>
 
         <hr class="divider">
 
