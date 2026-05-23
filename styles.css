@@ -1307,11 +1307,7 @@ footer {
     pointer-events: none;
 }
 .hero-inner {
-    display: grid;
-    grid-template-columns: 1.15fr 1fr;
-    gap: 60px;
-    align-items: center;
-    max-width: 1200px;
+    max-width: 860px;
     margin: 0 auto;
     padding: 90px 40px 80px;
     position: relative;
@@ -1384,32 +1380,6 @@ footer {
 }
 .btn-outline-gold:hover { background: var(--color-soft-blue); }
 
-.hero-photo-wrap { display: flex; justify-content: center; align-items: center; }
-.hero-photo-frame { position: relative; max-width: 420px; width: 100%; }
-.hero-photo-frame::before {
-    content: '';
-    position: absolute;
-    inset: -12px -12px 12px 12px;
-    border: 1.5px solid rgba(232,249,230,0.3);
-    border-radius: 14px;
-    pointer-events: none;
-}
-.hero-photo-frame figure {
-    background: rgba(255,255,255,0.06);
-    border: 1px solid rgba(232,249,230,0.25);
-    border-radius: 12px;
-    padding: 12px;
-    text-align: center;
-    backdrop-filter: blur(4px);
-}
-.hero-photo-frame img { width: 100%; border-radius: 8px; display: block; }
-.hero-photo-frame figcaption {
-    font-size: 0.82rem;
-    color: var(--color-soft-growth);
-    font-style: italic;
-    margin-top: 10px;
-    opacity: 0.8;
-}
 
 .trust-bar { background: var(--color-deep-system); padding: 18px 40px; }
 .trust-bar-inner {
@@ -1898,10 +1868,8 @@ footer {
 .hp-podcast-section { background: var(--color-clean-white); border-top: 1px solid var(--color-border-gray); }
 
 @media (max-width: 960px) {
-    .hero-inner              { grid-template-columns: 1fr; gap: 48px; padding: 60px 24px; }
+    .hero-inner              { padding: 60px 24px; }
     .hero h1                 { font-size: 2.4rem; }
-    .hero-photo-wrap         { order: -1; }
-    .hero-photo-frame        { max-width: 360px; }
     .positioning-body        { grid-template-columns: 1fr; gap: 36px; }
     .flagship-inner          { grid-template-columns: 1fr; }
     .engagements-grid        { grid-template-columns: 1fr; }
