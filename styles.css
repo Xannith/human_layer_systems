@@ -2259,3 +2259,564 @@ footer {
     .trust-item      { font-size: 0.75rem; }
     .flagship-proof  { grid-template-columns: 1fr 1fr; }
 }
+
+/* ============================================================
+   STATELESS KNOWLEDGE ARCHITECTURE — knowledge.html
+   All classes prefixed .ska- to avoid collision with site styles.
+   Amber (#92580A / #FDF6E3) and teal (#156B65 / #EEF9F8) are
+   defined locally here; blue reuses site --color-deep-interface.
+   ============================================================ */
+
+/* ── SKA HERO ─────────────────────────────────────────────── */
+.ska-hero {
+    background: linear-gradient(160deg, var(--color-hls-forest) 0%, var(--color-deep-interface) 100%);
+    position: relative;
+    overflow: hidden;
+}
+.ska-hero::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background:
+        radial-gradient(ellipse at 80% 20%, rgba(30,167,255,0.10) 0%, transparent 55%),
+        radial-gradient(ellipse at 15% 80%, rgba(20,90,50,0.18) 0%, transparent 55%);
+    pointer-events: none;
+}
+.ska-hero-inner {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 80px 48px 72px;
+    position: relative;
+}
+.ska-hero-eyebrow {
+    font-size: 0.72rem;
+    font-weight: 600;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--color-soft-blue);
+    margin-bottom: 20px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    opacity: 0.9;
+}
+.ska-hero-eyebrow::before {
+    content: '';
+    display: inline-block;
+    width: 28px;
+    height: 1px;
+    background: var(--color-electric-blue);
+    opacity: 0.6;
+}
+.ska-hero-title {
+    font-family: 'DM Serif Display', Georgia, serif;
+    font-size: clamp(2.6rem, 5vw, 4rem);
+    line-height: 1.06;
+    color: #fff;
+    margin-bottom: 18px;
+    letter-spacing: -0.01em;
+    max-width: 640px;
+}
+.ska-hero-title em {
+    font-style: italic;
+    color: var(--color-soft-growth);
+}
+.ska-hero-sub {
+    font-size: 1.05rem;
+    color: rgba(255,255,255,0.78);
+    max-width: 560px;
+    line-height: 1.65;
+    margin-bottom: 32px;
+}
+.ska-hero-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+}
+.ska-hero-tag {
+    font-size: 0.68rem;
+    font-weight: 600;
+    letter-spacing: 0.09em;
+    text-transform: uppercase;
+    color: var(--color-soft-blue);
+    padding: 5px 12px;
+    border: 1px solid rgba(232,245,255,0.28);
+    border-radius: 3px;
+}
+
+/* ── SKA SECTION STRUCTURE ───────────────────────────────── */
+.ska-sec {
+    margin-bottom: 64px;
+    padding-top: 48px;
+    border-top: 1px solid var(--color-border-gray);
+    opacity: 0;
+    transform: translateY(16px);
+    transition: opacity 0.5s ease, transform 0.5s ease;
+}
+.ska-sec:first-child { border-top: none; padding-top: 0; }
+.ska-sec.ska-visible { opacity: 1; transform: none; }
+.ska-sec-number {
+    font-size: 0.68rem;
+    font-weight: 700;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--color-deep-interface);
+    margin-bottom: 10px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+.ska-sec-number::after {
+    content: '';
+    display: inline-block;
+    width: 32px;
+    height: 1px;
+    background: var(--color-border-gray);
+}
+h2.ska-sec-title {
+    font-family: 'DM Serif Display', Georgia, serif;
+    font-size: 1.9rem;
+    color: var(--color-deep-interface);
+    line-height: 1.15;
+    margin-bottom: 20px;
+    letter-spacing: -0.01em;
+}
+h3.ska-sub-title {
+    font-family: 'DM Serif Display', Georgia, serif;
+    font-size: 1.2rem;
+    color: var(--color-deep-interface);
+    margin-top: 36px;
+    margin-bottom: 12px;
+    line-height: 1.3;
+}
+h4.ska-subsub-title {
+    font-size: 0.95rem;
+    font-weight: 600;
+    color: var(--color-deep-interface);
+    margin-top: 24px;
+    margin-bottom: 8px;
+}
+.ska-sec p {
+    font-size: 0.975rem;
+    color: var(--color-ink-black);
+    margin-bottom: 16px;
+    line-height: 1.75;
+}
+.ska-sec p:last-child { margin-bottom: 0; }
+.ska-sec ul,
+.ska-sec ol { padding-left: 1.4em; margin-bottom: 16px; }
+.ska-sec li {
+    font-size: 0.95rem;
+    color: var(--color-ink-black);
+    margin-bottom: 9px;
+    line-height: 1.7;
+}
+.ska-sec ol { list-style: decimal; }
+.ska-sec code {
+    font-family: 'Courier New', Courier, monospace;
+    font-size: 0.82em;
+    background: var(--color-soft-blue);
+    color: var(--color-deep-interface);
+    padding: 1px 6px;
+    border-radius: 3px;
+    border: 1px solid rgba(11,79,138,0.2);
+}
+
+/* ── SKA CALLOUTS ────────────────────────────────────────── */
+.ska-callout {
+    position: relative;
+    padding: 18px 20px 18px 50px;
+    margin: 28px 0;
+    border-radius: 4px;
+    border: 1px solid var(--color-border-gray);
+    border-left-width: 3px;
+    background: var(--color-soft-blue);
+}
+.ska-callout::before {
+    content: attr(data-icon);
+    position: absolute;
+    left: 16px;
+    top: 18px;
+    font-size: 0.9rem;
+    line-height: 1;
+}
+.ska-callout--amber {
+    border-left-color: #C99A3F;
+    background: #FDF6E3;
+}
+.ska-callout--teal {
+    border-left-color: #3AADA7;
+    background: #EEF9F8;
+}
+.ska-callout--blue {
+    border-left-color: var(--color-deep-interface);
+    background: var(--color-soft-blue);
+}
+.ska-callout-label {
+    font-size: 0.62rem;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: #92580A;
+    margin-bottom: 8px;
+    display: block;
+}
+.ska-callout--teal  .ska-callout-label { color: #156B65; }
+.ska-callout--blue  .ska-callout-label { color: var(--color-deep-interface); }
+.ska-callout > p {
+    font-size: 0.9rem;
+    margin-bottom: 8px;
+    color: var(--color-ink-black);
+}
+.ska-callout > p:last-child { margin-bottom: 0; }
+
+/* ── SKA TABLES ─────────────────────────────────────────── */
+.ska-tbl-wrap {
+    overflow-x: auto;
+    margin: 24px 0;
+    border: 1px solid var(--color-border-gray);
+    border-radius: 6px;
+}
+.ska-tbl-wrap table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.875rem;
+}
+.ska-tbl-wrap thead tr { background: var(--color-soft-blue); }
+.ska-tbl-wrap thead th {
+    padding: 10px 14px;
+    text-align: left;
+    font-size: 0.66rem;
+    font-weight: 700;
+    letter-spacing: 0.09em;
+    text-transform: uppercase;
+    color: var(--color-deep-interface);
+    white-space: nowrap;
+    border-bottom: 1px solid var(--color-border-gray);
+}
+.ska-tbl-wrap tbody td {
+    padding: 10px 14px;
+    color: var(--color-ink-black);
+    border-bottom: 1px solid var(--color-border-gray);
+    vertical-align: top;
+    line-height: 1.6;
+}
+.ska-tbl-wrap tbody td:first-child {
+    font-weight: 600;
+    color: var(--color-deep-interface);
+    white-space: nowrap;
+}
+.ska-tbl-wrap tbody tr:hover td { background: var(--color-soft-growth); }
+.ska-tbl-wrap tbody tr:last-child td { border-bottom: none; }
+.ska-tbl-wrap code {
+    font-family: 'Courier New', Courier, monospace;
+    font-size: 0.8em;
+    background: var(--color-soft-blue);
+    color: var(--color-deep-interface);
+    padding: 1px 5px;
+    border-radius: 3px;
+    border: 1px solid rgba(11,79,138,0.2);
+}
+
+/* ── SKA PRINCIPLE GRID ──────────────────────────────────── */
+.ska-principle-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+    margin: 24px 0;
+}
+.ska-p-card {
+    background: #fff;
+    border: 1px solid var(--color-border-gray);
+    border-radius: 4px;
+    overflow: hidden;
+    display: flex;
+    transition: border-color 0.2s, box-shadow 0.2s;
+}
+.ska-p-card:hover {
+    border-color: var(--color-deep-interface);
+    box-shadow: 0 4px 12px rgba(11,79,138,0.08);
+}
+.ska-p-num {
+    width: 44px;
+    flex-shrink: 0;
+    background: var(--color-soft-blue);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'DM Serif Display', Georgia, serif;
+    font-size: 1rem;
+    font-weight: 700;
+    color: var(--color-deep-interface);
+    border-right: 1px solid var(--color-border-gray);
+}
+.ska-p-body { padding: 12px 14px; flex: 1; }
+.ska-p-body > strong {
+    display: block;
+    font-size: 0.82rem;
+    font-weight: 600;
+    color: var(--color-deep-interface);
+    margin-bottom: 5px;
+}
+.ska-p-body > p {
+    font-size: 0.78rem;
+    color: var(--color-ink-black);
+    margin: 0;
+    line-height: 1.55;
+}
+
+/* ── SKA PIPELINE ────────────────────────────────────────── */
+.ska-pipeline {
+    margin: 24px 0;
+    position: relative;
+}
+.ska-pipeline::before {
+    content: '';
+    position: absolute;
+    left: 19px;
+    top: 28px;
+    bottom: 28px;
+    width: 2px;
+    background: linear-gradient(to bottom, var(--color-deep-interface), var(--color-electric-blue));
+    opacity: 0.2;
+}
+.ska-pipe-step {
+    display: flex;
+    gap: 18px;
+    align-items: flex-start;
+    padding-bottom: 20px;
+    position: relative;
+}
+.ska-pipe-step:last-child { padding-bottom: 0; }
+.ska-pipe-dot {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background: var(--color-soft-blue);
+    border: 2px solid var(--color-deep-interface);
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.72rem;
+    font-weight: 700;
+    color: var(--color-deep-interface);
+    position: relative;
+    z-index: 1;
+}
+.ska-pipe-content { padding-top: 8px; }
+.ska-pipe-content > strong {
+    display: block;
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: var(--color-deep-interface);
+    margin-bottom: 4px;
+}
+.ska-pipe-content > p {
+    font-size: 0.875rem;
+    color: var(--color-ink-black);
+    margin: 0;
+    line-height: 1.65;
+}
+
+/* ── SKA MATURITY MODEL ──────────────────────────────────── */
+.ska-maturity {
+    margin: 24px 0;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+.ska-m-row {
+    display: flex;
+    align-items: stretch;
+    border: 1px solid var(--color-border-gray);
+    border-radius: 4px;
+    overflow: hidden;
+    transition: box-shadow 0.2s;
+}
+.ska-m-row:hover { box-shadow: 0 2px 10px rgba(7,18,12,0.08); }
+.ska-m-lvl {
+    width: 44px;
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'DM Serif Display', Georgia, serif;
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: #fff;
+}
+.ska-m-name {
+    width: 160px;
+    flex-shrink: 0;
+    padding: 12px 14px;
+    background: #fff;
+    border-left: 1px solid var(--color-border-gray);
+    border-right: 1px solid var(--color-border-gray);
+    display: flex;
+    align-items: center;
+}
+.ska-m-name strong {
+    font-size: 0.82rem;
+    font-weight: 600;
+    color: var(--color-ink-black);
+}
+.ska-m-desc {
+    flex: 1;
+    padding: 12px 16px;
+    background: var(--color-soft-growth);
+    font-size: 0.82rem;
+    color: var(--color-ink-black);
+    line-height: 1.6;
+    display: flex;
+    align-items: center;
+}
+
+/* ── SKA ARCHITECTURE STACK ──────────────────────────────── */
+.ska-arch-stack {
+    margin: 24px 0;
+    max-width: 680px;
+    border: 1px solid var(--color-border-gray);
+    border-radius: 6px;
+    overflow: hidden;
+}
+.ska-arch-row {
+    display: flex;
+    align-items: center;
+    padding: 13px 18px;
+    border-bottom: 1px solid var(--color-border-gray);
+    gap: 16px;
+}
+.ska-arch-row:last-child { border-bottom: none; }
+.ska-arch-row.top {
+    background: linear-gradient(90deg, rgba(11,79,138,0.06), transparent);
+}
+.ska-arch-row.top .ska-arch-n  { border-color: var(--color-deep-interface); color: var(--color-deep-interface); font-weight: 700; }
+.ska-arch-row.top .ska-arch-lbl { color: var(--color-deep-interface); font-weight: 600; }
+.ska-arch-n {
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    border: 1px solid var(--color-border-gray);
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.7rem;
+    font-weight: 500;
+    color: var(--color-ink-black);
+}
+.ska-arch-lbl {
+    font-size: 0.875rem;
+    font-weight: 500;
+    color: var(--color-ink-black);
+    flex: 1;
+}
+.ska-arch-desc {
+    font-size: 0.78rem;
+    color: var(--color-ink-black);
+    opacity: 0.75;
+    flex: 2;
+    line-height: 1.5;
+}
+
+/* ── SKA AGENT CARDS ─────────────────────────────────────── */
+.ska-agents {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+    margin: 28px 0;
+}
+.ska-agent-card {
+    border: 1px solid var(--color-border-gray);
+    border-top: 3px solid var(--color-deep-interface);
+    border-radius: 6px;
+    overflow: hidden;
+    transition: box-shadow 0.2s, transform 0.2s;
+}
+.ska-agent-card:hover {
+    box-shadow: 0 6px 20px rgba(11,79,138,0.10);
+    transform: translateY(-2px);
+}
+.ska-agent-head {
+    padding: 20px 20px 14px;
+    background: var(--color-soft-blue);
+    border-bottom: 1px solid var(--color-border-gray);
+}
+.ska-agent-head h4 {
+    font-family: 'DM Serif Display', Georgia, serif;
+    font-size: 1.1rem;
+    color: var(--color-deep-interface);
+    margin-bottom: 4px;
+}
+.ska-agent-head span {
+    font-size: 0.66rem;
+    font-weight: 700;
+    letter-spacing: 0.10em;
+    text-transform: uppercase;
+    color: var(--color-deep-interface);
+    opacity: 0.7;
+}
+.ska-agent-body { padding: 16px 18px; background: #fff; }
+.ska-agent-body > p {
+    font-size: 0.875rem;
+    margin-bottom: 12px;
+    color: var(--color-ink-black);
+    line-height: 1.65;
+}
+.ska-agent-body ul { padding-left: 1.2em; margin: 0; }
+.ska-agent-body li {
+    font-size: 0.82rem;
+    color: var(--color-ink-black);
+    margin-bottom: 5px;
+    line-height: 1.6;
+}
+
+/* ── SKA TABLE OF CONTENTS ───────────────────────────────── */
+.ska-toc-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2px 40px;
+    margin: 20px 0;
+}
+.ska-toc-link {
+    display: flex;
+    gap: 12px;
+    align-items: baseline;
+    padding: 7px 0;
+    border-bottom: 1px solid var(--color-border-gray);
+    text-decoration: none;
+    transition: border-color 0.15s;
+}
+.ska-toc-link:hover { border-bottom-color: var(--color-deep-interface); }
+.ska-toc-link:hover .ska-toc-name { color: var(--color-deep-interface); }
+.ska-toc-n {
+    font-size: 0.68rem;
+    color: var(--color-deep-interface);
+    opacity: 0.65;
+    flex-shrink: 0;
+    width: 30px;
+    font-weight: 600;
+}
+.ska-toc-name {
+    font-size: 0.875rem;
+    color: var(--color-ink-black);
+    transition: color 0.15s;
+    line-height: 1.4;
+}
+
+/* ── SKA RESPONSIVE ──────────────────────────────────────── */
+@media (max-width: 900px) {
+    .ska-hero-inner       { padding: 52px 24px 48px; }
+    .ska-hero-title       { font-size: 2.4rem; }
+    .ska-principle-grid   { grid-template-columns: 1fr; }
+    .ska-agents           { grid-template-columns: 1fr; }
+    .ska-toc-grid         { grid-template-columns: 1fr; }
+    .ska-m-name           { width: 120px; }
+    .ska-arch-desc        { display: none; }
+}
+@media (max-width: 600px) {
+    .ska-hero-title       { font-size: 1.9rem; }
+    h2.ska-sec-title      { font-size: 1.55rem; }
+    .ska-arch-desc        { display: none; }
+}
