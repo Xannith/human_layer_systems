@@ -16,7 +16,7 @@
  * To rotate access: change PASSPHRASE below and redeploy.
  */
 (function () {
-  var PASSPHRASE  = "fluency2026";
+  var PASSPHRASE  = "change me";   /* <-- update this one value to rotate access */
   var SESSION_KEY = "hls_toolkit_auth";
 
   if (sessionStorage.getItem(SESSION_KEY) === "ok") return;
