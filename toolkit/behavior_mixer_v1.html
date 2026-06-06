@@ -1,0 +1,664 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Behavior Mixer</title>
+<style>
+  :root {
+    --green-deep: #2D5C3F;
+    --green-mid: #3A7451;
+    --green-light: #E8F4ED;
+    --chartreuse: #8FB81E;
+    --chartreuse-soft: #EAF3D2;
+    --blue: #1E6FD6;
+    --ink: #23302A;
+    --muted: #5C6B63;
+    --paper: #F7F8F4;
+    --line: #DCDAD0;
+    --card: #FFFFFF;
+    --amber-bg: #FAEEDA;
+    --amber-ink: #7A4A0A;
+    --radius: 12px;
+    --font: "Aptos", "Segoe UI", -apple-system, system-ui, sans-serif;
+    --mono: "Cascadia Code", "Consolas", ui-monospace, monospace;
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    background: var(--paper);
+    color: var(--ink);
+    font-family: var(--font);
+    line-height: 1.5;
+    padding: 28px 20px 56px;
+  }
+  .wrap { max-width: 1240px; margin: 0 auto; }
+
+  header.top { margin-bottom: 22px; }
+  h1 {
+    font-size: 27px; font-weight: 600; letter-spacing: -0.01em;
+    color: var(--green-deep); margin: 0 0 4px;
+  }
+  .tagline { font-size: 15px; color: var(--muted); margin: 0 0 2px; }
+  .thesis {
+    font-size: 13px; color: var(--green-mid); font-weight: 500;
+    margin-top: 10px; padding: 8px 14px;
+    background: var(--green-light); border-radius: 8px; display: inline-block;
+  }
+
+  .grid {
+    display: grid;
+    grid-template-columns: 320px 360px 1fr;
+    gap: 16px;
+    align-items: start;
+  }
+  @media (max-width: 1080px) {
+    .grid { grid-template-columns: 1fr; }
+  }
+
+  .panel {
+    background: var(--card);
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    padding: 18px;
+    box-shadow: 0 1px 2px rgba(40,50,45,0.04);
+  }
+  .panel-label {
+    font-size: 11px; font-weight: 600; letter-spacing: 0.07em;
+    text-transform: uppercase; color: var(--muted); margin-bottom: 12px;
+  }
+
+  /* Email */
+  .email {
+    font-size: 13px; color: var(--ink); line-height: 1.6;
+    background: var(--paper); border: 1px solid var(--line);
+    border-radius: 8px; padding: 14px; max-height: 340px; overflow-y: auto;
+  }
+  .email .subj { font-weight: 600; color: var(--green-deep); margin-bottom: 8px; font-size: 13px; }
+  .email p { margin: 0 0 9px; }
+  .email p:last-child { margin-bottom: 0; }
+
+  .task-label { font-size: 11px; font-weight: 600; letter-spacing: 0.07em; text-transform: uppercase; color: var(--muted); margin: 18px 0 8px; }
+  .tasks { display: flex; flex-direction: column; gap: 7px; }
+  .task-btn {
+    text-align: left; font-family: var(--font); font-size: 13.5px; font-weight: 500;
+    border: 1px solid var(--line); background: var(--card); color: var(--ink);
+    padding: 10px 13px; border-radius: 8px; cursor: pointer; transition: all 0.15s ease;
+  }
+  .task-btn:hover { border-color: var(--green-mid); }
+  .task-btn.active { background: var(--green-deep); color: #fff; border-color: var(--green-deep); }
+  .task-btn .hint { display: block; font-size: 11px; font-weight: 400; opacity: 0.75; margin-top: 2px; }
+
+  /* Sliders */
+  .slider-block { margin-bottom: 20px; }
+  .slider-head { display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 3px; }
+  .slider-name { font-size: 14px; font-weight: 600; color: var(--green-deep); }
+  .slider-val { font-size: 12px; font-weight: 600; color: var(--green-mid); font-family: var(--mono); }
+  .slider-desc { font-size: 11.5px; color: var(--muted); margin-bottom: 9px; min-height: 28px; }
+  input[type=range] {
+    -webkit-appearance: none; appearance: none; width: 100%; height: 6px;
+    border-radius: 6px; background: var(--line); outline: none; cursor: pointer;
+  }
+  input[type=range]::-webkit-slider-thumb {
+    -webkit-appearance: none; appearance: none; width: 20px; height: 20px;
+    border-radius: 50%; background: var(--chartreuse); border: 3px solid var(--card);
+    box-shadow: 0 1px 3px rgba(40,50,45,0.3); cursor: pointer;
+  }
+  input[type=range]::-moz-range-thumb {
+    width: 20px; height: 20px; border-radius: 50%; background: var(--chartreuse);
+    border: 3px solid var(--card); box-shadow: 0 1px 3px rgba(40,50,45,0.3); cursor: pointer;
+  }
+  .scale-row { display: flex; justify-content: space-between; font-size: 10px; color: var(--muted); margin-top: 4px; }
+
+  /* Triangle */
+  .tri-card { margin-top: 6px; }
+  #tri { width: 100%; height: auto; display: block; }
+  .tri-caption { font-size: 11px; color: var(--muted); text-align: center; margin-top: 4px; }
+
+  .preset-row { display: flex; gap: 6px; flex-wrap: wrap; margin-top: 14px; }
+  .preset-btn {
+    font-family: var(--font); font-size: 11.5px; font-weight: 500;
+    border: 1px solid var(--line); background: var(--card); color: var(--muted);
+    padding: 5px 10px; border-radius: 999px; cursor: pointer; transition: all 0.15s ease;
+  }
+  .preset-btn:hover { border-color: var(--chartreuse); color: var(--ink); }
+
+  /* Output */
+  .gen-meta { font-size: 11.5px; color: var(--muted); margin-bottom: 10px; }
+  .gen-meta b { color: var(--green-mid); font-weight: 600; }
+  .facts-chip {
+    display: inline-block; font-size: 10.5px; font-weight: 600; letter-spacing: 0.04em;
+    background: var(--green-light); color: var(--green-deep); padding: 2px 9px;
+    border-radius: 999px; margin-left: 6px;
+  }
+  .output {
+    font-size: 14px; line-height: 1.62; color: var(--ink);
+    background: var(--paper); border: 1px solid var(--line); border-radius: 8px;
+    padding: 16px; white-space: pre-wrap; min-height: 120px;
+    animation: fadein 0.45s ease;
+  }
+  @keyframes fadein { from { opacity: 0.3; } to { opacity: 1; } }
+  .output.flash { box-shadow: 0 0 0 2px var(--chartreuse); transition: box-shadow 0.1s ease; }
+
+  /* Sensitivity */
+  .sens { margin-top: 18px; }
+  .sens-row { display: flex; align-items: center; gap: 10px; margin-bottom: 8px; }
+  .sens-name { width: 84px; font-size: 13px; font-weight: 600; color: var(--green-deep); flex-shrink: 0; }
+  .bar-track { flex: 1; height: 8px; background: var(--line); border-radius: 6px; overflow: hidden; }
+  .bar-fill { height: 100%; background: var(--green-mid); border-radius: 6px; transition: width 0.5s ease, background 0.3s ease; }
+  .sens-label { width: 78px; font-size: 11.5px; font-weight: 600; text-align: right; flex-shrink: 0; }
+  .sens-explain {
+    font-size: 13px; color: var(--ink); line-height: 1.55; margin-top: 12px;
+    padding: 12px 14px; background: var(--green-light); border-radius: 8px;
+  }
+  .sens-explain .lead { font-weight: 600; color: var(--green-deep); }
+
+  .risk {
+    margin-top: 14px; font-size: 13px; line-height: 1.5;
+    background: var(--amber-bg); color: var(--amber-ink);
+    border-left: 3px solid #E8972C; border-radius: 0 8px 8px 0; padding: 11px 14px;
+  }
+  .risk b { font-weight: 600; }
+  .risk.hidden { display: none; }
+
+  .disclaimer { font-size: 11.5px; color: var(--muted); margin-top: 22px; border-top: 1px solid var(--line); padding-top: 12px; line-height: 1.5; }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <header class="top">
+    <h1>Behavior Mixer</h1>
+    <p class="tagline">Same input. Same task. Different voice.</p>
+    <span class="thesis">Parameters are not switches. They are weights. They shape what the model is more likely to express.</span>
+  </header>
+
+  <div class="grid">
+
+    <!-- LEFT: source + task -->
+    <div class="panel">
+      <div class="panel-label">The source</div>
+      <div class="email">
+        <div class="subj">re: rollout?? + deck</div>
+        <p>Hey so I wanted to circle back on the rollout thing because honestly I'm a little lost on where we landed. I was still editing the deck from last week but then I heard maybe we're not even doing the phased thing anymore and leadership wants to just launch the whole thing faster, which is fine, but that changes like everything in slides 8 thru 14 so I don't want to keep polishing those if they're getting cut.</p>
+        <p>Also the training piece, I thought Marcus had it but in standup he said he thought it was on my plate or possibly Dana's? Nobody really said. And I don't want to start building it out if it's not mine and then we have two versions floating around again like the onboarding doc situation.</p>
+        <p>Should I just wait til everyone's aligned before I touch anything else, or keep going. I feel like if I wait we lose a week but if I go I might redo work. Lemme know what you think when you get a sec, no rush but also kind of a rush lol.</p>
+        <p>Thanks</p>
+      </div>
+
+      <div class="task-label">The task</div>
+      <div class="tasks" id="tasks">
+        <button class="task-btn active" data-task="summarize">Summarize this email<span class="hint">facts stay fixed, tone flexes a little</span></button>
+        <button class="task-btn" data-task="followup">Draft a follow-up response<span class="hint">all three weights bite hard</span></button>
+        <button class="task-btn" data-task="schedule">Schedule a meeting<span class="hint">control decides what this even is</span></button>
+      </div>
+    </div>
+
+    <!-- MIDDLE: sliders + triangle -->
+    <div class="panel">
+      <div class="panel-label">The behavior weights</div>
+
+      <div class="slider-block">
+        <div class="slider-head"><span class="slider-name">Directness</span><span class="slider-val" id="v-directness">50</span></div>
+        <div class="slider-desc" id="d-directness">How bluntly the point is stated.</div>
+        <input type="range" id="directness" min="0" max="100" value="50">
+        <div class="scale-row"><span>Softened</span><span>Plain</span><span>Blunt</span></div>
+      </div>
+
+      <div class="slider-block">
+        <div class="slider-head"><span class="slider-name">Warmth</span><span class="slider-val" id="v-warmth">50</span></div>
+        <div class="slider-desc" id="d-warmth">How relational the tone is.</div>
+        <input type="range" id="warmth" min="0" max="100" value="50">
+        <div class="scale-row"><span>Transactional</span><span>Personal</span><span>Padded</span></div>
+      </div>
+
+      <div class="slider-block">
+        <div class="slider-head"><span class="slider-name">Control</span><span class="slider-val" id="v-control">50</span></div>
+        <div class="slider-desc" id="d-control">How much the AI takes the wheel.</div>
+        <input type="range" id="control" min="0" max="100" value="50">
+        <div class="scale-row"><span>Asks</span><span>Recommends</span><span>Assigns</span></div>
+      </div>
+
+      <div class="tri-card">
+        <svg id="tri" viewBox="0 0 300 270" role="img" aria-label="Behavior profile triangle"></svg>
+        <div class="tri-caption">Your behavior profile. The dot leans toward whichever weight is highest.</div>
+      </div>
+
+      <div class="preset-row" id="presets">
+        <button class="preset-btn" data-p="55,50,80">Recommended start</button>
+        <button class="preset-btn" data-p="95,15,90">Drill sergeant</button>
+        <button class="preset-btn" data-p="20,90,20">Gentle peer</button>
+        <button class="preset-btn" data-p="50,50,50">All neutral</button>
+      </div>
+    </div>
+
+    <!-- RIGHT: output + sensitivity -->
+    <div class="panel">
+      <div class="panel-label">The output</div>
+      <div class="gen-meta" id="gen-meta"></div>
+      <div class="output" id="output"></div>
+
+      <div class="sens">
+        <div class="panel-label">Behavior sensitivity</div>
+        <div class="sens-row"><span class="sens-name">Directness</span><div class="bar-track"><div class="bar-fill" id="bar-directness"></div></div><span class="sens-label" id="lab-directness"></span></div>
+        <div class="sens-row"><span class="sens-name">Warmth</span><div class="bar-track"><div class="bar-fill" id="bar-warmth"></div></div><span class="sens-label" id="lab-warmth"></span></div>
+        <div class="sens-row"><span class="sens-name">Control</span><div class="bar-track"><div class="bar-fill" id="bar-control"></div></div><span class="sens-label" id="lab-control"></span></div>
+        <div class="sens-explain" id="sens-explain"></div>
+      </div>
+
+      <div class="risk hidden" id="risk"></div>
+    </div>
+
+  </div>
+
+  <p class="disclaimer">This is a teaching model, not a literal map of how a language model works. The three weights are simplified stand-ins for the many influences that shape a model's output. The point is the pattern: the same input and task can produce different results depending on how those weights interact, and some weights matter far more for one task than another.</p>
+
+</div>
+
+<script>
+/* ============================================================
+   STATE
+   ============================================================ */
+const state = { task: "summarize", directness: 50, warmth: 50, control: 50 };
+
+/* ============================================================
+   BANDS  (drives the generator, not the sensitivity readout)
+   ============================================================ */
+function band(v) {
+  if (v <= 15) return "vlow";
+  if (v <= 40) return "low";
+  if (v <= 60) return "neutral";
+  if (v <= 85) return "high";
+  return "vhigh";
+}
+
+/* ============================================================
+   GENERATOR  (compositional: assembles output from fragments
+   selected by weight bands. This is a tiny identity-aware
+   assembly engine, behavior weights standing in for metadata.)
+   ============================================================ */
+
+// The three LOCKED facts. Identical across all settings for Summarize.
+const FACTS = [
+  "Rollout direction is unclear. The original plan was phased, but leadership may now want an accelerated full launch. This affects slides 8 to 14 of the deck.",
+  "Ownership of the training piece is undefined. It may sit with Marcus, Dana, or the sender, and no one has confirmed.",
+  "The sender is unsure whether to pause until everyone aligns or keep working, weighing a lost week against possible rework."
+];
+
+function genSummarize(d, w, c) {
+  const open = {
+    vlow: "It sounds like there may be a little uncertainty around the rollout, if I'm reading this right.",
+    low: "There is some uncertainty around the rollout that needs clarifying.",
+    neutral: "The sender is unsure about several aspects of the rollout.",
+    high: "The sender is blocked on three open questions about the rollout.",
+    vhigh: "Three things are unresolved and the sender's work is stalled."
+  }[band(d)];
+
+  const warmthLine = {
+    vlow: "", low: "", neutral: "",
+    high: " It is a reasonable thing to feel unsure about.",
+    vhigh: " It is completely understandable to feel stuck here, this is a genuinely confusing spot."
+  }[band(w)];
+
+  const facts = FACTS.map((f, i) => (i + 1) + ". " + f).join("\n");
+
+  const close = {
+    vlow: "\n\n(No next step suggested. This is just the summary.)",
+    low: "",
+    neutral: "",
+    high: "\n\nSuggested next step: confirm the rollout direction before doing more deck work.",
+    vhigh: "\n\nRecommended next step: confirm the rollout decision with leadership first, since the deck scope and the training ownership both depend on it. Assign the training owner in the same conversation."
+  }[band(c)];
+
+  return open + warmthLine + "\n\n" + facts + close;
+}
+
+function genFollowup(d, w, c) {
+  const opener = {
+    vlow: "", low: "Hi,\n\n", neutral: "Hi,\n\n",
+    high: "Hey, thanks for flagging all this.\n\n",
+    vhigh: "Hey, thank you for laying all this out so clearly, I know it is a lot to juggle.\n\n"
+  }[band(w)];
+
+  const ack = {
+    vlow: "", low: "", neutral: "",
+    high: "Totally reasonable to feel unsure with this many open threads. ",
+    vhigh: "First, please do not stress. It is completely understandable to feel stuck, and pausing to check was the right call. "
+  }[band(w)];
+
+  const frame = {
+    vlow: "No pressure at all on any of this, just some thoughts. ",
+    low: "A few thoughts, take them or leave them. ",
+    neutral: "", high: "Here is where I land. ", vhigh: "Straight answer. "
+  }[band(d)];
+
+  const waitGo = {
+    vlow: "On whether to wait or keep going, what is your instinct? I am happy to follow your lead either way.",
+    low: "On whether to wait or keep going, maybe we hold for now? Open to either though.",
+    neutral: "On whether to wait or keep going, I would lean toward a quick alignment before more work, but let me know.",
+    high: "Do not keep building blind. We align first, then you work once.",
+    vhigh: "Stop work on the uncertain pieces as of now. Here is the plan, no need to wait on full consensus."
+  }[band(c)];
+
+  const deck = {
+    vlow: "For the deck, do you want to keep going on slides 8 to 14, or set them aside?",
+    low: "For the deck, maybe pause slides 8 to 14 until we know the direction?",
+    neutral: "For the deck, I would suggest holding slides 8 to 14 until the rollout direction is settled.",
+    high: "Deck: pause slides 8 to 14 until the rollout call is made. No point polishing what may get cut.",
+    vhigh: "Deck: freeze slides 8 to 14 immediately. I will confirm phased versus accelerated with leadership today and get you an answer by end of day."
+  }[band(c)];
+
+  const training = {
+    vlow: "For the training piece, any idea who should own it? Want to figure it out together?",
+    low: "For the training piece, could we check whether it is you, Marcus, or Dana before anyone builds?",
+    neutral: "For the training piece, let us confirm the owner, you, Marcus, or Dana, before building, so we do not end up with two versions.",
+    high: "Training: confirm the owner before anyone builds. We are not repeating the onboarding doc duplication.",
+    vhigh: "Training: I am assigning a single owner today so we do not get duplicate versions like the onboarding doc. You will know who by end of day."
+  }[band(c)];
+
+  const closer = {
+    vlow: "Let me know what you are thinking and we will go from there.",
+    low: "Let me know how you would like to proceed.",
+    neutral: "Want me to chase down the rollout decision so you are not blocked?",
+    high: "I will get the rollout answer moving. Hold the uncertain pieces until I confirm.",
+    vhigh: "I will send the confirmations and loop you in. Sit tight until then."
+  }[band(c)];
+
+  const warmthTail = {
+    vlow: "", low: "", neutral: "",
+    high: " Thanks again for the heads up.",
+    vhigh: " You have got this."
+  }[band(w)];
+
+  return opener + ack + frame + waitGo + "\n\n" + deck + "\n\n" + training + "\n\n" + closer + warmthTail;
+}
+
+function genSchedule(d, w, c) {
+  const dPrefix = {
+    vlow: "Just a thought, but ", low: "", neutral: "", high: "", vhigh: "Doing this now: "
+  }[band(d)];
+
+  const body = {
+    vlow: "would it be worth getting everyone in a room? If so, when works for you all?",
+    low: "it might be worth a quick sync. Want me to find a time that works for you, Marcus, and Dana?",
+    neutral: "I will set up a short sync. Does sometime tomorrow afternoon work? I will find a slot that fits everyone.",
+    high: "I am scheduling a 30 minute alignment for tomorrow at 2pm with you, Marcus, and Dana. Agenda: confirm rollout direction, assign the training owner, decide deck scope.",
+    vhigh: "Meeting booked, tomorrow 2:00 to 2:30pm. Required: you, Marcus, Dana, and me. Agenda in order: (1) phased versus accelerated, decided in the room; (2) training owner assigned; (3) deck slides 8 to 14, keep or cut. Come ready to decide, not discuss. Calendar invite to follow."
+  }[band(c)];
+
+  // capitalize first letter of body when no prefix
+  let text = dPrefix + body;
+  if (!dPrefix) text = body.charAt(0).toUpperCase() + body.slice(1);
+
+  const warmthTail = {
+    vlow: "", low: "", neutral: "",
+    high: " Appreciate everyone's flexibility.",
+    vhigh: " Thanks all, this will save us a messy week."
+  }[band(w)];
+
+  return text + warmthTail;
+}
+
+function generate() {
+  const { task, directness: d, warmth: w, control: c } = state;
+  if (task === "summarize") return genSummarize(d, w, c);
+  if (task === "followup") return genFollowup(d, w, c);
+  return genSchedule(d, w, c);
+}
+
+/* ============================================================
+   SENSITIVITY ENGINE  (rule-based, deterministic, tied to the
+   SAME logic as generation so the readout can never contradict
+   what the user sees)
+   ============================================================ */
+const COEFF = {
+  summarize: { directness: 0.30, warmth: 0.10, control: 0.20 },
+  followup:  { directness: 0.80, warmth: 0.70, control: 0.90 },
+  schedule:  { directness: 0.30, warmth: 0.20, control: 1.00 }
+};
+
+function dist(v) { return Math.abs(v - 50) / 50; } // 0 at neutral, 1 at extreme
+
+function impactLabel(x) {
+  if (x < 0.08) return "Minimal";
+  if (x < 0.28) return "Low";
+  if (x < 0.52) return "Medium";
+  if (x < 0.78) return "High";
+  return "Very high";
+}
+
+function sensitivity() {
+  const co = COEFF[state.task];
+  const raw = {
+    directness: co.directness * dist(state.directness),
+    warmth: co.warmth * dist(state.warmth),
+    control: co.control * dist(state.control)
+  };
+  return raw;
+}
+
+function explainText(raw) {
+  const entries = Object.entries(raw).sort((a, b) => b[1] - a[1]);
+  const top = entries[0][0];
+  const topMoved = raw[top] > 0.05; // did anything actually move?
+  const cap = { directness: "Directness", warmth: "Warmth", control: "Control" };
+
+  if (state.task === "summarize") {
+    let lead = "A summary holds the facts steady. ";
+    let detail = "The three open issues, rollout direction, training ownership, and wait or go, stay the same no matter how you set the dials. ";
+    let note;
+    if (!topMoved) {
+      note = "With every dial near neutral, the framing is plain and no next step is added.";
+    } else if (top === "control") {
+      note = "Raising Control is the one place a summary flexes: it adds a suggested next step at the end. It still did not change a single fact.";
+    } else if (top === "directness") {
+      note = "Raising Directness made the opening phrasing plainer, but it did not add or remove any fact.";
+    } else {
+      note = "Raising Warmth added a small acknowledging line and nothing else.";
+    }
+    return { lead, body: detail + note };
+  }
+
+  if (state.task === "followup") {
+    const low = entries[2][0];
+    let lead, body;
+    if (!topMoved) {
+      lead = "All three dials are near neutral. ";
+      body = "The reply lands as a balanced, middle of the road note. Push any dial and watch this one move the most of the three tasks.";
+      return { lead, body };
+    }
+    if (top === "control") {
+      lead = "Control had the strongest effect. ";
+      body = "The email never settled who owns the training piece or whether to wait, so Control decides the most. At high Control the reply assigns owners and sets deadlines. At low Control it asks the sender what they want to do. " + cap[low] + " shifted the tone but not the decision.";
+    } else if (top === "directness") {
+      lead = "Directness had the strongest effect. ";
+      body = "It changed how firmly the reply states its position, from tentative suggestions to flat instructions. The underlying recommendation stayed the same. " + cap[low] + " mattered least at these settings.";
+    } else {
+      lead = "Warmth had the strongest effect. ";
+      body = "It changed how much the reply validates the sender before getting to the substance. The actual next steps did not change. " + cap[low] + " mattered least at these settings.";
+    }
+    return { lead, body };
+  }
+
+  // schedule
+  let lead, body;
+  if (!topMoved) {
+    lead = "Every dial is near neutral. ";
+    body = "The message offers to set up a sync without fully committing. Raise Control and the whole message changes character.";
+    return { lead, body };
+  }
+  if (top === "control") {
+    lead = "Control decides what this message even is. ";
+    body = "Because the email left every next step undefined, Control carries almost all the weight here. Low Control asks for availability. High Control books the room, names the attendees, and sets the agenda. Directness and Warmth barely register on this task.";
+  } else {
+    lead = cap[top] + " carried the visible change here. ";
+    body = "With Control near neutral, the message neither fully commits nor fully defers, so the smaller dials show through. Move Control and it will take over.";
+  }
+  return { lead, body };
+}
+
+/* ============================================================
+   RISK WARNINGS
+   ============================================================ */
+function riskWarning(d, w, c) {
+  const hi = v => v >= 67, lo = v => v <= 33;
+  if (hi(d) && lo(w) && hi(c)) return "High Directness, low Warmth, high Control. This may read as aggressive or dismissive.";
+  if (lo(d) && hi(w) && lo(c)) return "Low Directness, high Warmth, low Control. This may feel kind, but it may not actually resolve the issue.";
+  if (hi(w) && hi(c)) return "High Warmth and high Control. This can land well if the relationship is strong. Otherwise it may feel polished but managerial.";
+  if (lo(c) && hi(d)) return "High Directness, low Control. This may sound critical without giving enough direction.";
+  return null;
+}
+
+/* ============================================================
+   RENDER
+   ============================================================ */
+const descs = {
+  directness: {
+    vlow: "Very softened. Heavily hedged and cushioned.",
+    low: "Softened. Leans on gentle, tentative phrasing.",
+    neutral: "Balanced. States the point without much hedging.",
+    high: "Plain. Clear and unsoftened.",
+    vhigh: "Blunt. May read as abrupt."
+  },
+  warmth: {
+    vlow: "Very transactional. No relational language.",
+    low: "Transactional. Minimal warmth.",
+    neutral: "Balanced. A little acknowledgement.",
+    high: "Personal. Validating and supportive.",
+    vhigh: "Very padded. May over apologize or over reassure."
+  },
+  control: {
+    vlow: "Fully defers. Asks the human to decide everything.",
+    low: "Collaborative. Asks before acting.",
+    neutral: "Recommends. Suggests a next step.",
+    high: "Takes the wheel. Assigns owners and steps.",
+    vhigh: "Fully directive. May feel rigid or bossy."
+  }
+};
+
+function fmtOutput(text) {
+  return text.split("\n").map(line => {
+    if (line.trim() === "") return "";
+    return line;
+  }).join("\n");
+}
+
+function render(flash) {
+  // slider readouts + descriptions
+  ["directness", "warmth", "control"].forEach(k => {
+    document.getElementById("v-" + k).textContent = state[k];
+    document.getElementById("d-" + k).textContent = descs[k][band(state[k])];
+  });
+
+  // triangle dot
+  drawTriangle();
+
+  // output
+  const out = document.getElementById("output");
+  out.textContent = fmtOutput(generate());
+  if (flash) {
+    out.classList.add("flash");
+    setTimeout(() => out.classList.remove("flash"), 160);
+  }
+
+  // gen meta
+  const labelOf = v => ({ vlow: "very low", low: "low", neutral: "neutral", high: "high", vhigh: "very high" })[band(v)];
+  let meta = "Generated with Directness <b>" + labelOf(state.directness) + "</b>, Warmth <b>" + labelOf(state.warmth) + "</b>, Control <b>" + labelOf(state.control) + "</b>.";
+  if (state.task === "summarize") meta += " <span class='facts-chip'>Facts: locked</span>";
+  document.getElementById("gen-meta").innerHTML = meta;
+
+  // sensitivity
+  const raw = sensitivity();
+  const max = COEFF[state.task];
+  ["directness", "warmth", "control"].forEach(k => {
+    const pct = Math.round(raw[k] * 100);
+    const fill = document.getElementById("bar-" + k);
+    fill.style.width = Math.max(pct, 2) + "%";
+    // color the dominant bar electric blue, others green
+    const top = Object.entries(raw).sort((a, b) => b[1] - a[1])[0][0];
+    fill.style.background = (k === top && raw[k] > 0.05) ? "var(--blue)" : "var(--green-mid)";
+    document.getElementById("lab-" + k).textContent = impactLabel(raw[k]);
+  });
+
+  const ex = explainText(raw);
+  document.getElementById("sens-explain").innerHTML = "<span class='lead'>" + ex.lead + "</span>" + ex.body;
+
+  // risk
+  const riskEl = document.getElementById("risk");
+  const r = riskWarning(state.directness, state.warmth, state.control);
+  if (r) { riskEl.classList.remove("hidden"); riskEl.innerHTML = "<b>Expression risk:</b> " + r; }
+  else { riskEl.classList.add("hidden"); }
+}
+
+/* ============================================================
+   TRIANGLE
+   ============================================================ */
+const TRI = {
+  d: { x: 150, y: 34, label: "DIRECTNESS" },
+  w: { x: 38, y: 232, label: "WARMTH" },
+  c: { x: 262, y: 232, label: "CONTROL" }
+};
+
+function drawTriangle() {
+  const svg = document.getElementById("tri");
+  const dn = state.directness / 100, wn = state.warmth / 100, cn = state.control / 100;
+  const sum = (dn + wn + cn) || 1;
+  const dotX = (dn * TRI.d.x + wn * TRI.w.x + cn * TRI.c.x) / sum;
+  const dotY = (dn * TRI.d.y + wn * TRI.w.y + cn * TRI.c.y) / sum;
+
+  svg.innerHTML = `
+    <polygon points="${TRI.d.x},${TRI.d.y} ${TRI.w.x},${TRI.w.y} ${TRI.c.x},${TRI.c.y}"
+      fill="#EAF3D2" stroke="#C9D9A6" stroke-width="1.5"/>
+    <line x1="${TRI.d.x}" y1="${TRI.d.y}" x2="150" y2="166" stroke="#D9E4C2" stroke-width="1"/>
+    <line x1="${TRI.w.x}" y1="${TRI.w.y}" x2="150" y2="166" stroke="#D9E4C2" stroke-width="1"/>
+    <line x1="${TRI.c.x}" y1="${TRI.c.y}" x2="150" y2="166" stroke="#D9E4C2" stroke-width="1"/>
+    <line x1="${dotX}" y1="${dotY}" x2="150" y2="166" stroke="#8FB81E" stroke-width="1" stroke-dasharray="3 3" opacity="0.6"/>
+    <circle cx="${dotX}" cy="${dotY}" r="9" fill="#1E6FD6" stroke="#fff" stroke-width="2.5"/>
+    <text x="${TRI.d.x}" y="${TRI.d.y - 10}" text-anchor="middle" font-size="11" font-weight="700" fill="#2D5C3F" font-family="var(--font)">${TRI.d.label}</text>
+    <text x="${TRI.d.x}" y="${TRI.d.y + 4}" text-anchor="middle" font-size="11" font-weight="700" fill="#3A7451" font-family="var(--mono)">${state.directness}</text>
+    <text x="${TRI.w.x - 4}" y="${TRI.w.y + 16}" text-anchor="middle" font-size="11" font-weight="700" fill="#2D5C3F" font-family="var(--font)">${TRI.w.label}</text>
+    <text x="${TRI.w.x - 4}" y="${TRI.w.y + 30}" text-anchor="middle" font-size="11" font-weight="700" fill="#3A7451" font-family="var(--mono)">${state.warmth}</text>
+    <text x="${TRI.c.x + 4}" y="${TRI.c.y + 16}" text-anchor="middle" font-size="11" font-weight="700" fill="#2D5C3F" font-family="var(--font)">${TRI.c.label}</text>
+    <text x="${TRI.c.x + 4}" y="${TRI.c.y + 30}" text-anchor="middle" font-size="11" font-weight="700" fill="#3A7451" font-family="var(--mono)">${state.control}</text>
+  `;
+}
+
+/* ============================================================
+   EVENTS
+   ============================================================ */
+document.getElementById("tasks").addEventListener("click", e => {
+  const b = e.target.closest(".task-btn"); if (!b) return;
+  state.task = b.dataset.task;
+  document.querySelectorAll(".task-btn").forEach(x => x.classList.toggle("active", x === b));
+  render(true);
+});
+
+["directness", "warmth", "control"].forEach(k => {
+  document.getElementById(k).addEventListener("input", e => {
+    state[k] = +e.target.value;
+    render(false);
+  });
+});
+
+document.getElementById("presets").addEventListener("click", e => {
+  const b = e.target.closest(".preset-btn"); if (!b) return;
+  const [d, w, c] = b.dataset.p.split(",").map(Number);
+  state.directness = d; state.warmth = w; state.control = c;
+  document.getElementById("directness").value = d;
+  document.getElementById("warmth").value = w;
+  document.getElementById("control").value = c;
+  render(true);
+});
+
+/* ============================================================
+   INIT  (open on an asymmetric preset so the first move
+   produces visible contrast, avoiding the bland-default trap)
+   ============================================================ */
+state.directness = 55; state.warmth = 50; state.control = 80;
+document.getElementById("directness").value = 55;
+document.getElementById("warmth").value = 50;
+document.getElementById("control").value = 80;
+render(false);
+</script>
+</body>
+</html>
