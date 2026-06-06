@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Trust Dial</title>
+<style>
+  :root {
+    --green-deep: #2D5C3F; --green-mid: #3A7451; --green-tint: #E8F4ED;
+    --blue: #1E6FD6; --blue-tint: #E6F1FB;
+    --amber: #C77D18; --amber-tint: #FBF1DF;
+    --red: #B0341D; --red-tint: #F6E5E1;
+    --ink: #23302A; --muted: #5C6B63; --paper: #FAFAF6; --line: #DCDAD0; --card: #FFFFFF;
+    --font: "Aptos", "Segoe UI", -apple-system, system-ui, sans-serif;
+  }
+  * { box-sizing: border-box; }
+  body { margin: 0; background: var(--paper); color: var(--ink); font-family: var(--font); line-height: 1.55; padding: 32px 20px 60px; }
+  .wrap { max-width: 1040px; margin: 0 auto; }
+  h1 { font-size: 30px; font-weight: 600; letter-spacing: -0.01em; color: var(--green-deep); margin: 0 0 6px; }
+  .sub { font-size: 15px; color: var(--muted); max-width: 760px; margin: 0 0 24px; }
+  .ctl-label { font-size: 11px; font-weight: 600; letter-spacing: 0.07em; text-transform: uppercase; color: var(--muted); margin-bottom: 7px; display: block; }
+  .pills { display: flex; gap: 6px; flex-wrap: wrap; margin-bottom: 20px; }
+  .pill { border: 1px solid var(--line); background: var(--card); color: var(--ink); font-family: var(--font); font-size: 13.5px; font-weight: 500; padding: 7px 14px; border-radius: 999px; cursor: pointer; transition: all 0.16s ease; }
+  .pill:hover { border-color: var(--green-mid); }
+  .pill.active { background: var(--green-deep); color: #fff; border-color: transparent; }
+  .dial-ends { display: flex; justify-content: space-between; font-size: 11.5px; color: var(--muted); margin-bottom: 6px; }
+  .dial { display: grid; grid-template-columns: repeat(5, 1fr); gap: 6px; margin-bottom: 6px; }
+  .seg { border: 1px solid var(--line); border-radius: 9px; padding: 12px 10px 11px; cursor: pointer; text-align: center; position: relative; transition: all 0.16s ease; }
+  .seg .lnum { font-size: 11px; font-weight: 700; color: var(--muted); }
+  .seg .lname { font-size: 12.5px; font-weight: 600; color: var(--ink); margin-top: 2px; line-height: 1.25; }
+  .seg.z-green { background: var(--green-tint); }
+  .seg.z-amber { background: var(--amber-tint); }
+  .seg.z-red { background: var(--red-tint); }
+  .seg.active { box-shadow: 0 0 0 2px var(--green-deep) inset; }
+  .seg.active .marker { position: absolute; top: -9px; left: 50%; transform: translateX(-50%); width: 0; height: 0; border-left: 6px solid transparent; border-right: 6px solid transparent; border-top: 7px solid var(--green-deep); }
+  .zone-key { display: flex; flex-wrap: wrap; gap: 14px; font-size: 11.5px; color: var(--muted); margin-bottom: 18px; }
+  .zone-key .k { display: flex; align-items: center; gap: 6px; }
+  .zone-key .sw { width: 12px; height: 12px; border-radius: 3px; }
+  .sw.g { background: var(--green-tint); border: 1px solid var(--green-mid); }
+  .sw.a { background: var(--amber-tint); border: 1px solid var(--amber); }
+  .sw.r { background: var(--red-tint); border: 1px solid var(--red); }
+  .stakes { font-size: 13.5px; color: var(--muted); margin-bottom: 18px; }
+  .stakes b { color: var(--ink); font-weight: 600; }
+  .cols { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin-bottom: 18px; }
+  @media (max-width: 720px) { .cols { grid-template-columns: 1fr; } }
+  .rolecard { background: var(--card); border: 1px solid var(--line); border-radius: 11px; padding: 14px 16px; }
+  .rolecard.human { border-left: 4px solid var(--green-deep); }
+  .rolecard.ai { border-left: 4px solid var(--blue); }
+  .rolecard .rlbl { font-size: 11px; font-weight: 700; letter-spacing: 0.05em; text-transform: uppercase; margin-bottom: 5px; }
+  .rolecard.human .rlbl { color: var(--green-deep); }
+  .rolecard.ai .rlbl { color: var(--blue); }
+  .rolecard p { margin: 0; font-size: 14px; color: var(--ink); }
+  .verdict { border-radius: 12px; padding: 15px 18px; margin-bottom: 16px; }
+  .verdict.green { background: var(--green-tint); border-left: 4px solid var(--green-mid); }
+  .verdict.amber { background: var(--amber-tint); border-left: 4px solid var(--amber); }
+  .verdict.red { background: var(--red-tint); border-left: 4px solid var(--red); }
+  .verdict .vhead { font-size: 13px; font-weight: 700; letter-spacing: 0.04em; text-transform: uppercase; margin-bottom: 5px; }
+  .verdict.green .vhead { color: var(--green-deep); }
+  .verdict.amber .vhead { color: #8A5A12; }
+  .verdict.red .vhead { color: #7A2415; }
+  .verdict p { margin: 0; font-size: 14px; }
+  .verdict.green p { color: #1F3D2B; } .verdict.amber p { color: #5A4310; } .verdict.red p { color: #6A2113; }
+  .verdict .ceiling { margin-top: 8px; font-size: 12.5px; font-weight: 600; }
+  .ready { background: var(--card); border: 1px solid var(--line); border-radius: 12px; padding: 15px 18px; }
+  .ready h3 { margin: 0 0 10px; font-size: 14px; font-weight: 600; color: var(--green-deep); }
+  .ready ul { margin: 0; padding: 0; list-style: none; }
+  .ready li { font-size: 13.5px; color: var(--ink); padding: 5px 0 5px 24px; position: relative; }
+  .ready li::before { content: "\2713"; position: absolute; left: 0; top: 5px; color: var(--green-mid); font-weight: 700; }
+  .ready .none { font-size: 13.5px; color: var(--muted); }
+  .ready .debt { margin-top: 11px; padding-top: 11px; border-top: 1px dashed var(--line); font-size: 13px; color: #8A5A12; }
+  .foot { margin-top: 26px; font-size: 12.5px; color: var(--muted); border-top: 1px solid var(--line); padding-top: 14px; max-width: 840px; }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <h1>Trust Dial</h1>
+  <p class="sub">How much should you let AI do? It is not one setting you flip for the whole company. It is per task, and where it can safely sit depends on the stakes and on whether you have done the work to be there. Pick a task, move the dial, and watch the safe zone change. Part of the AI Fluency toolkit.</p>
+
+  <span class="ctl-label">Task</span>
+  <div class="pills" id="taskPills"></div>
+
+  <div class="dial-ends"><span>More human control</span><span>More AI autonomy</span></div>
+  <div class="dial" id="dial"></div>
+  <div class="zone-key">
+    <span class="k"><span class="sw g"></span> Appropriate</span>
+    <span class="k"><span class="sw a"></span> Caution, controls required</span>
+    <span class="k"><span class="sw r"></span> Over the line</span>
+  </div>
+
+  <p class="stakes" id="stakes"></p>
+
+  <div class="cols">
+    <div class="rolecard human"><div class="rlbl">What you do</div><p id="humanRole"></p></div>
+    <div class="rolecard ai"><div class="rlbl">What the AI does</div><p id="aiRole"></p></div>
+  </div>
+
+  <div class="verdict" id="verdict"></div>
+
+  <div class="ready" id="ready"></div>
+
+  <div class="foot">The dial is the gate made operational. Moving up is not a question of how clever the model is, it is a question of stakes, reversibility, and readiness. Each step toward autonomy assumes the process underneath is documented and verified, monitored while it runs, and reversible when it goes wrong. That is the same rule as the rest of the suite: do not automate what you cannot explain. The safe zone is not fixed, it is earned, task by task.</div>
+</div>
+
+<script>
+const LEVELS = [
+  { name: "Human only", human: "You do the whole task yourself.", ai: "Not involved." },
+  { name: "AI assists", human: "You write and own it. The AI gives you a draft to react to.", ai: "Drafts a starting point. You change anything you want." },
+  { name: "AI suggests, you decide", human: "You make every call. The AI proposes, you approve or reject each one.", ai: "Proposes options. Nothing leaves without your yes." },
+  { name: "AI acts, you review", human: "You review before it ships. The AI completes the task and hands it to you.", ai: "Does the task, then waits for your review." },
+  { name: "AI acts autonomously", human: "You audit samples after the fact. You watch the aggregate, not each case.", ai: "Completes and ships on its own." }
+];
+
+const TASKS = [
+  { id: "notes", name: "Draft meeting notes", stakes: "Low stakes. A wrong summary is annoying and quick to fix.", greenMax: 5, amberMax: 5, ceiling: "running autonomously is fine for most teams" },
+  { id: "email", name: "Reply to a customer", stakes: "Medium stakes. A bad reply reaches a customer, but you can follow up.", greenMax: 4, amberMax: 5, ceiling: "AI acts, you review" },
+  { id: "refund", name: "Approve a refund or spend", stakes: "High stakes. This moves money and is hard to claw back.", greenMax: 3, amberMax: 4, ceiling: "AI suggests, you decide" }
+];
+
+const READINESS = [
+  { lvl: 2, text: "The process is written down, not living only in someone's head." },
+  { lvl: 3, text: "A verification step the AI runs before it proposes anything." },
+  { lvl: 4, text: "Monitoring that watches what the AI does, the observer agent from the orchestration." },
+  { lvl: 5, text: "A rollback path and an after-the-fact audit, because no human sees each case before it ships." }
+];
+
+const VERDICT = {
+  green: { head: "Appropriate", text: "The stakes and reversibility support this level of autonomy for this task." },
+  amber: { head: "Caution", text: "Safe only with strong controls in place: verification, monitoring, and a rollback path. Many teams are not ready to be here yet." },
+  red: { head: "Over the line", text: "For this task the stakes are too high and the action too hard to reverse to hand over this much autonomy." }
+};
+
+let taskIdx = 0;
+let level = 3;
+
+function zoneOf(task, lvl) {
+  if (lvl <= task.greenMax) return "green";
+  if (lvl <= task.amberMax) return "amber";
+  return "red";
+}
+
+function buildTasks() {
+  const wrap = document.getElementById("taskPills");
+  wrap.innerHTML = "";
+  TASKS.forEach((t, i) => {
+    const b = document.createElement("button");
+    b.className = "pill" + (i === taskIdx ? " active" : "");
+    b.textContent = t.name;
+    b.addEventListener("click", () => {
+      taskIdx = i;
+      document.querySelectorAll(".pill").forEach(p => p.classList.toggle("active", p === b));
+      render();
+    });
+    wrap.appendChild(b);
+  });
+}
+
+function buildDial() {
+  const dial = document.getElementById("dial");
+  const task = TASKS[taskIdx];
+  dial.innerHTML = "";
+  LEVELS.forEach((lv, i) => {
+    const n = i + 1;
+    const zone = zoneOf(task, n);
+    const seg = document.createElement("div");
+    seg.className = "seg z-" + zone + (n === level ? " active" : "");
+    seg.innerHTML = (n === level ? "<span class='marker'></span>" : "") + "<span class='lnum'>" + n + "</span><span class='lname'>" + lv.name + "</span>";
+    seg.addEventListener("click", () => { level = n; render(); });
+    dial.appendChild(seg);
+  });
+}
+
+function render() {
+  const task = TASKS[taskIdx];
+  buildDial();
+  document.getElementById("stakes").innerHTML = "<b>" + task.name + ".</b> " + task.stakes;
+  document.getElementById("humanRole").textContent = LEVELS[level - 1].human;
+  document.getElementById("aiRole").textContent = LEVELS[level - 1].ai;
+
+  const zone = zoneOf(task, level);
+  const v = VERDICT[zone];
+  const vbox = document.getElementById("verdict");
+  vbox.className = "verdict " + zone;
+  vbox.innerHTML = "<div class='vhead'>" + v.head + "</div><p>" + v.text + "</p>" +
+    "<div class='ceiling'>Recommended ceiling for most teams: " + task.ceiling + ".</div>";
+
+  const ready = document.getElementById("ready");
+  const reqs = READINESS.filter(r => r.lvl <= level);
+  let inner = "<h3>To sit here safely, you need</h3>";
+  if (reqs.length === 0) {
+    inner += "<p class='none'>No special controls. The human does everything.</p>";
+  } else {
+    inner += "<ul>" + reqs.map(r => "<li>" + r.text + "</li>").join("") + "</ul>";
+  }
+  inner += "<div class='debt'>Every step up assumes the knowledge underneath is documented and verified. You cannot automate what you cannot explain.</div>";
+  ready.innerHTML = inner;
+}
+
+buildTasks();
+render();
+</script>
+</body>
+</html>

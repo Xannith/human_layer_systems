@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Epistemic Debt Demonstrator</title>
+<style>
+  :root {
+    --green-deep: #2D5C3F; --green-mid: #3A7451; --green-tint: #E8F4ED;
+    --blue: #1E6FD6; --amber: #C77D18; --amber-tint: #FBF1DF; --red: #B0341D;
+    --ink: #23302A; --muted: #5C6B63; --paper: #FAFAF6; --line: #DCDAD0; --card: #FFFFFF;
+    --font: "Aptos", "Segoe UI", -apple-system, system-ui, sans-serif;
+  }
+  * { box-sizing: border-box; }
+  body { margin: 0; background: var(--paper); color: var(--ink); font-family: var(--font); line-height: 1.55; padding: 32px 20px 60px; }
+  .wrap { max-width: 1080px; margin: 0 auto; }
+  h1 { font-size: 30px; font-weight: 600; letter-spacing: -0.01em; color: var(--green-deep); margin: 0 0 6px; }
+  .sub { font-size: 15px; color: var(--muted); max-width: 760px; margin: 0 0 22px; }
+  .toggle-row { display: flex; flex-wrap: wrap; align-items: center; gap: 14px 20px; margin-bottom: 8px; }
+  .ctl-label { font-size: 11px; font-weight: 600; letter-spacing: 0.07em; text-transform: uppercase; color: var(--muted); }
+  .switch { display: inline-flex; border: 1px solid var(--line); border-radius: 999px; overflow: hidden; background: var(--card); }
+  .switch button { border: none; background: transparent; font-family: var(--font); font-size: 13.5px; font-weight: 600; padding: 8px 18px; cursor: pointer; color: var(--muted); transition: all 0.16s ease; }
+  .switch button.on[data-mode="bleeding"] { background: var(--amber); color: #fff; }
+  .switch button.on[data-mode="reconciled"] { background: var(--green-deep); color: #fff; }
+  .status { font-size: 13px; color: var(--muted); margin: 0 0 20px; }
+  .status b { font-weight: 600; }
+  .status.bleed b { color: #8A5A12; }
+  .status.recon b { color: var(--green-deep); }
+  .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; align-items: start; }
+  @media (max-width: 800px) { .grid { grid-template-columns: 1fr; } }
+  .col-label { font-size: 11px; font-weight: 600; letter-spacing: 0.06em; text-transform: uppercase; color: var(--muted); margin: 0 0 10px; }
+  .frag { background: var(--card); border: 1px solid var(--line); border-radius: 10px; padding: 12px 15px; margin-bottom: 10px; transition: all 0.18s ease; }
+  .frag-head { display: flex; justify-content: space-between; align-items: baseline; gap: 10px; margin-bottom: 5px; }
+  .frag-src { font-size: 13px; font-weight: 600; color: var(--ink); }
+  .frag-date { font-size: 11.5px; color: var(--muted); }
+  .frag-meta { font-size: 11.5px; color: var(--muted); margin-bottom: 5px; }
+  .frag-text { font-size: 13.5px; color: #33403A; }
+  .frag.conflict { border-color: var(--amber); box-shadow: 0 0 0 1px var(--amber) inset; }
+  .frag-flag { font-size: 11px; font-weight: 600; color: #8A5A12; margin-top: 7px; }
+  .frag.canonical { border-color: var(--green-mid); background: var(--green-tint); }
+  .badge { font-size: 10px; font-weight: 700; letter-spacing: 0.05em; text-transform: uppercase; padding: 2px 8px; border-radius: 999px; }
+  .badge.can { background: var(--green-deep); color: #fff; }
+  .badge.sup { background: #E3E0D6; color: #7A7568; }
+  .frag.superseded { opacity: 0.62; }
+  .frag.superseded .frag-text { text-decoration: line-through; text-decoration-color: #B8B2A4; }
+  .qpills { display: flex; flex-direction: column; gap: 8px; margin-bottom: 16px; }
+  .qpill { text-align: left; border: 1px solid var(--line); background: var(--card); color: var(--ink); font-family: var(--font); font-size: 13.5px; font-weight: 500; padding: 10px 14px; border-radius: 10px; cursor: pointer; transition: all 0.16s ease; }
+  .qpill:hover { border-color: var(--green-mid); }
+  .qpill.active { border-color: var(--green-deep); box-shadow: 0 0 0 1px var(--green-deep) inset; }
+  .answer { background: var(--card); border: 1px solid var(--line); border-radius: 12px; padding: 0; overflow: hidden; }
+  .answer-head { display: flex; align-items: center; gap: 8px; padding: 11px 16px; border-bottom: 1px solid var(--line); }
+  .ai-dot { width: 9px; height: 9px; border-radius: 50%; background: var(--blue); }
+  .answer-head span { font-size: 12px; font-weight: 600; color: var(--muted); letter-spacing: 0.04em; }
+  .answer-body { padding: 16px; }
+  .answer-text { font-size: 14.5px; color: var(--ink); margin: 0 0 14px; }
+  .tags { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 14px; }
+  .tag { font-size: 11.5px; font-weight: 600; padding: 4px 10px; border-radius: 999px; }
+  .tag.conf { background: #EDEFF4; color: #44506B; }
+  .tag.wrong { background: var(--amber-tint); color: #8A5A12; }
+  .tag.right { background: var(--green-tint); color: var(--green-deep); }
+  .why { border-radius: 0 8px 8px 0; padding: 11px 14px; font-size: 13.5px; }
+  .why.bleed { background: var(--amber-tint); border-left: 3px solid var(--amber); color: #5A4310; }
+  .why.recon { background: var(--green-tint); border-left: 3px solid var(--green-mid); color: #1F3D2B; }
+  .why .wlbl { font-size: 10.5px; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase; opacity: 0.8; display: block; margin-bottom: 3px; }
+  .empty { color: var(--muted); font-size: 14px; padding: 8px 2px; }
+  .foot { margin-top: 28px; font-size: 12.5px; color: var(--muted); border-top: 1px solid var(--line); padding-top: 14px; max-width: 840px; }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <h1>Epistemic Debt Demonstrator</h1>
+  <p class="sub">An AI assistant answering questions from a company's own knowledge base. The knowledge base is quietly bleeding: several fragments about the same policy disagree, and none is marked canonical. Ask a question, then reconcile the corpus and ask again. Same model, same question. Watch what changes. Part of the AI Fluency toolkit.</p>
+
+  <div class="toggle-row">
+    <span class="ctl-label">Corpus state</span>
+    <div class="switch" id="switch">
+      <button data-mode="bleeding" class="on">Bleeding</button>
+      <button data-mode="reconciled">Reconciled</button>
+    </div>
+  </div>
+  <p class="status bleed" id="status"></p>
+
+  <div class="grid">
+    <div>
+      <p class="col-label">The knowledge base</p>
+      <div id="kb"></div>
+    </div>
+    <div>
+      <p class="col-label">Ask the assistant</p>
+      <div class="qpills" id="qpills"></div>
+      <div class="answer" id="answer"></div>
+    </div>
+  </div>
+
+  <div class="foot">AI faithfully reproduces the corpus it retrieves from. A corpus that contradicts itself produces an assistant that contradicts itself, with full confidence, because the model cannot tell a canonical source from a stale variant when nothing in the architecture marks the difference. You cannot prompt your way out of that. The fix is not a better model, it is a corpus that has earned faithfulness: contradictions reconciled into one canonical source, the old variants superseded with their lineage preserved. That is epistemic debt, and paying it down is the work that has to come before the tooling.</div>
+</div>
+
+<script>
+const FRAGMENTS = [
+  { id: "f1", src: "Support Handbook", date: "2023", text: "Any support agent can issue a refund. Customers may request a refund within 30 days of purchase." },
+  { id: "f2", src: "Sales Wiki", date: "2024", text: "Refunds are available within 60 days, for all plans, no questions asked." },
+  { id: "f3", src: "Finance SOP", date: "2022", text: "Refunds over $100 require manager approval. No refunds after 14 days, except annual plans." },
+  { id: "f4", src: "Onboarding Deck", date: "2024", text: "Enterprise contracts are non-refundable per the MSA." }
+];
+
+const CANONICAL = { src: "Refund Policy", meta: "owned by Finance, reviewed 2026", text: "Monthly plans have a 30 day refund window. Annual plans are refundable on a prorated basis. Enterprise contracts are non-refundable per the MSA. Any refund over $100 requires manager approval." };
+
+const QUESTIONS = [
+  { id: "q1", q: "How long does a customer have to request a refund?", conflict: ["f1","f2","f3"],
+    bleed: { answer: "Customers have 60 days to request a refund, for all plans, no questions asked.", why: "Three fragments give three different windows: 30, 60, and 14 days. The model answered with the most recent and most generous source and stated it with full confidence. It is faithful to a corpus that contradicts itself." },
+    recon: { answer: "It depends on the plan. Monthly plans have a 30 day window. Annual plans are refundable on a prorated basis. Enterprise contracts are non-refundable. Any refund over $100 needs manager approval.", why: "The contradicting fragments were reconciled into one canonical policy and the old variants were superseded. Same model, same question, trustworthy answer." } },
+  { id: "q2", q: "Can a support agent issue a refund on their own?", conflict: ["f1","f3"],
+    bleed: { answer: "Yes. Any support agent can issue a refund directly.", why: "The support handbook says any agent can issue a refund. The finance SOP says anything over $100 needs manager approval. The model followed the handbook and dropped the financial control entirely." },
+    recon: { answer: "Under $100, yes. Anything over $100 requires manager approval, per the canonical policy.", why: "The canonical policy preserves the financial control the handbook had quietly lost." } },
+  { id: "q3", q: "Can an enterprise customer get a refund?", conflict: ["f2","f4"],
+    bleed: { answer: "Yes. Enterprise customers can get a refund within 60 days, like all plans.", why: "One fragment says refunds apply to all plans within 60 days. Another says enterprise contracts are non-refundable. The model followed the broad claim and contradicted the MSA, which is the expensive kind of wrong." },
+    recon: { answer: "No. Enterprise contracts are non-refundable per the MSA. The 60 day language applied only to self-serve plans.", why: "Reconciliation scoped the 60 day rule to self-serve and preserved the enterprise exception." } }
+];
+
+let mode = "bleeding";
+let selQ = null;
+
+function renderStatus() {
+  const s = document.getElementById("status");
+  if (mode === "bleeding") {
+    s.className = "status bleed";
+    s.innerHTML = "<b>4 fragments</b>, <b>3 unresolved contradictions</b>, no canonical source. The assistant has no way to tell which version is true.";
+  } else {
+    s.className = "status recon";
+    s.innerHTML = "<b>1 canonical source</b>, 4 fragments superseded, <b>0 contradictions</b>. The assistant now retrieves a corpus that has earned faithfulness.";
+  }
+}
+
+function renderKB() {
+  const kb = document.getElementById("kb");
+  const conflict = selQ ? QUESTIONS.find(q => q.id === selQ).conflict : [];
+  let html = "";
+  if (mode === "reconciled") {
+    html += "<div class='frag canonical'><div class='frag-head'><span class='frag-src'>" + CANONICAL.src + "</span><span class='badge can'>Canonical</span></div>" +
+      "<div class='frag-meta'>" + CANONICAL.meta + "</div><div class='frag-text'>" + CANONICAL.text + "</div></div>";
+    FRAGMENTS.forEach(f => {
+      html += "<div class='frag superseded'><div class='frag-head'><span class='frag-src'>" + f.src + "</span><span class='badge sup'>Superseded</span></div>" +
+        "<div class='frag-text'>" + f.text + "</div></div>";
+    });
+  } else {
+    FRAGMENTS.forEach(f => {
+      const isC = conflict.indexOf(f.id) >= 0;
+      html += "<div class='frag" + (isC ? " conflict" : "") + "'><div class='frag-head'><span class='frag-src'>" + f.src + "</span><span class='frag-date'>" + f.date + "</span></div>" +
+        "<div class='frag-text'>" + f.text + "</div>" + (isC ? "<div class='frag-flag'>Conflicts on this question</div>" : "") + "</div>";
+    });
+  }
+  kb.innerHTML = html;
+}
+
+function renderAnswer() {
+  const a = document.getElementById("answer");
+  if (!selQ) { a.innerHTML = "<div class='answer-body'><p class='empty'>Pick a question to see how the assistant answers from this corpus.</p></div>"; return; }
+  const q = QUESTIONS.find(x => x.id === selQ);
+  const d = mode === "bleeding" ? q.bleed : q.recon;
+  const groundTag = mode === "bleeding"
+    ? "<span class='tag wrong'>Reproduces a contradiction</span>"
+    : "<span class='tag right'>Grounded in the canonical source</span>";
+  const whyClass = mode === "bleeding" ? "bleed" : "recon";
+  a.innerHTML = "<div class='answer-head'><span class='ai-dot'></span><span>AI ASSISTANT</span></div>" +
+    "<div class='answer-body'><p class='answer-text'>" + d.answer + "</p>" +
+    "<div class='tags'><span class='tag conf'>Model confidence: high</span>" + groundTag + "</div>" +
+    "<div class='why " + whyClass + "'><span class='wlbl'>What happened</span>" + d.why + "</div></div>";
+}
+
+function buildQuestions() {
+  const wrap = document.getElementById("qpills");
+  wrap.innerHTML = "";
+  QUESTIONS.forEach(q => {
+    const b = document.createElement("button");
+    b.className = "qpill" + (q.id === selQ ? " active" : "");
+    b.textContent = q.q;
+    b.addEventListener("click", () => {
+      selQ = q.id;
+      document.querySelectorAll(".qpill").forEach(p => p.classList.toggle("active", p === b));
+      renderKB(); renderAnswer();
+    });
+    wrap.appendChild(b);
+  });
+}
+
+document.getElementById("switch").addEventListener("click", e => {
+  const b = e.target.closest("button"); if (!b) return;
+  mode = b.dataset.mode;
+  document.querySelectorAll("#switch button").forEach(x => x.classList.toggle("on", x === b));
+  renderStatus(); renderKB(); renderAnswer();
+});
+
+buildQuestions();
+renderStatus();
+renderKB();
+renderAnswer();
+</script>
+</body>
+</html>

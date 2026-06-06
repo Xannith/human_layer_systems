@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Telemetry and the Loop</title>
+<style>
+  :root {
+    --green-deep: #2D5C3F; --green-mid: #3A7451; --green-tint: #E8F4ED;
+    --blue: #1E6FD6; --blue-tint: #E6F1FB;
+    --amber: #C77D18; --amber-tint: #FBF1DF;
+    --red: #B0341D; --red-tint: #F6E5E1;
+    --ink: #23302A; --muted: #5C6B63; --paper: #FAFAF6; --line: #DCDAD0; --card: #FFFFFF;
+    --font: "Aptos", "Segoe UI", -apple-system, system-ui, sans-serif;
+  }
+  * { box-sizing: border-box; }
+  body { margin: 0; background: var(--paper); color: var(--ink); font-family: var(--font); line-height: 1.55; padding: 32px 20px 60px; }
+  .wrap { max-width: 1040px; margin: 0 auto; }
+  h1 { font-size: 30px; font-weight: 600; letter-spacing: -0.01em; color: var(--green-deep); margin: 0 0 6px; }
+  .sub { font-size: 15px; color: var(--muted); max-width: 760px; margin: 0 0 20px; }
+  .statline { font-size: 13px; color: var(--muted); margin: 0 0 18px; }
+  .statline b { color: var(--ink); font-weight: 600; }
+  .toggle-row { display: flex; flex-wrap: wrap; align-items: center; gap: 12px 18px; margin-bottom: 18px; }
+  .ctl-label { font-size: 11px; font-weight: 600; letter-spacing: 0.07em; text-transform: uppercase; color: var(--muted); }
+  .switch { display: inline-flex; border: 1px solid var(--line); border-radius: 999px; overflow: hidden; background: var(--card); }
+  .switch button { border: none; background: transparent; font-family: var(--font); font-size: 13.5px; font-weight: 600; padding: 8px 18px; cursor: pointer; color: var(--muted); transition: all 0.16s ease; }
+  .switch button.on { background: var(--green-deep); color: #fff; }
+  .lens-note { font-size: 13px; color: var(--muted); }
+  .grid { display: grid; grid-template-columns: 1.5fr 1fr; gap: 18px; align-items: start; }
+  @media (max-width: 800px) { .grid { grid-template-columns: 1fr; } }
+  .row { background: var(--card); border: 1px solid var(--line); border-radius: 10px; padding: 12px 14px; margin-bottom: 9px; cursor: pointer; transition: box-shadow 0.16s ease, border-color 0.16s ease; }
+  .row:hover { box-shadow: 0 2px 10px rgba(40,50,45,0.07); }
+  .row.active { border-color: var(--green-deep); box-shadow: 0 0 0 1px var(--green-deep) inset; }
+  .row-top { display: flex; justify-content: space-between; align-items: center; gap: 10px; margin-bottom: 6px; }
+  .row-name { font-size: 14px; font-weight: 600; color: var(--ink); }
+  .sbadge { font-size: 10.5px; font-weight: 700; letter-spacing: 0.04em; text-transform: uppercase; padding: 3px 9px; border-radius: 999px; white-space: nowrap; }
+  .sbadge.green { background: var(--green-tint); color: var(--green-deep); }
+  .sbadge.amber { background: var(--amber-tint); color: #8A5A12; }
+  .sbadge.red { background: var(--red-tint); color: #7A2415; }
+  .signal { display: flex; align-items: center; gap: 12px; font-size: 13px; color: var(--muted); }
+  .trend { font-weight: 700; }
+  .trend.up { color: var(--green-mid); } .trend.down { color: var(--amber); } .trend.flat { color: var(--muted); }
+  .bar { flex: 1; max-width: 160px; height: 7px; background: #ECEAE0; border-radius: 4px; overflow: hidden; }
+  .bar i { display: block; height: 100%; border-radius: 4px; }
+  .panel { background: var(--card); border: 1px solid var(--line); border-radius: 12px; padding: 18px 20px; position: sticky; top: 20px; }
+  .panel h3 { margin: 0 0 2px; font-size: 16px; font-weight: 600; color: var(--green-deep); }
+  .panel .ptag { font-size: 12px; color: var(--muted); margin: 0 0 14px; }
+  .panel .lbl { font-size: 11px; font-weight: 600; letter-spacing: 0.06em; text-transform: uppercase; color: var(--muted); margin: 13px 0 3px; }
+  .panel p { margin: 0; font-size: 13.5px; color: var(--ink); }
+  .rec { border-left: 3px solid var(--green-mid); background: var(--green-tint); border-radius: 0 8px 8px 0; padding: 10px 13px; margin-top: 4px; }
+  .rec p { font-size: 13.5px; color: #1F3D2B; }
+  .rec.loop { border-left-color: var(--red); background: var(--red-tint); }
+  .rec.loop p { color: #6A2113; }
+  .empty { font-size: 13.5px; color: var(--muted); }
+  .loopstrip { margin-top: 20px; background: var(--card); border: 1px solid var(--line); border-radius: 12px; padding: 16px 18px; }
+  .loopstrip h3 { margin: 0 0 4px; font-size: 14px; font-weight: 600; color: var(--green-deep); }
+  .loopstrip .ldesc { font-size: 13px; color: var(--muted); margin: 0 0 12px; }
+  .loopflow { display: flex; flex-wrap: wrap; align-items: center; gap: 10px; }
+  .loopitem { background: var(--red-tint); border: 1px solid #E3B7AC; border-radius: 9px; padding: 9px 13px; font-size: 13px; color: #6A2113; max-width: 360px; }
+  .loopitem b { font-weight: 600; }
+  .loparrow { font-size: 18px; color: var(--green-mid); }
+  .awaretag { background: var(--green-tint); border: 1px solid var(--green-mid); border-radius: 9px; padding: 9px 13px; font-size: 13px; font-weight: 600; color: var(--green-deep); }
+  .foot { margin-top: 24px; font-size: 12.5px; color: var(--muted); border-top: 1px solid var(--line); padding-top: 14px; max-width: 840px; }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <h1>Telemetry and the Loop</h1>
+  <p class="sub">Optimization is where the system watches itself. Every capability you stood up reports back: who is using it, whether it still works, and where it is quietly failing. The findings do not pile up in a report. They open the next Awareness cycle. This is what turns a rollout into a standing capability. Part of the AI Fluency toolkit.</p>
+  <p class="statline" id="statline"></p>
+
+  <div class="toggle-row">
+    <span class="ctl-label">Lens</span>
+    <div class="switch" id="switch">
+      <button data-lens="demand" class="on">Demand</button>
+      <button data-lens="health">Health</button>
+    </div>
+    <span class="lens-note" id="lensNote"></span>
+  </div>
+
+  <div class="grid">
+    <div id="list"></div>
+    <div class="panel" id="panel"></div>
+  </div>
+
+  <div class="loopstrip" id="loopstrip"></div>
+
+  <div class="foot">A rollout without telemetry is a guess that ages badly. With it, the system tells you which capabilities earned trust, which are drifting, and which are failing for a reason no prompt can fix. The last one matters most: when corrections spike because the underlying knowledge contradicts itself, the answer is not a better model, it is reconciling the corpus, which sends the work back to Awareness. The loop is not decoration. It is the difference between a project that ends and a capability that compounds.</p></div>
+</div>
+
+<script>
+const CAPS = [
+  { id: "triage", name: "Ticket triage pipeline",
+    demand: { line: "1,240 runs/wk", trend: "up", teams: "4 teams", note: "Demand rising as more queues onboard." },
+    health: { rate: 6, reviewed: "reviewed this month", note: "Stable. Low override rate." },
+    status: "Healthy", zone: "green",
+    rec: "Keep running and onboard the remaining queues. This is a candidate to raise on the trust dial.", loop: false },
+  { id: "status", name: "Weekly status automation",
+    demand: { line: "38 runs/wk", trend: "flat", teams: "12 teams", note: "Steady weekly cadence." },
+    health: { rate: 14, reviewed: "reviewed 6 weeks ago", note: "Edits creeping up. The template may be going stale." },
+    status: "Watch", zone: "amber",
+    rec: "Refine the template against what people are editing. Re-review the prompt before the override rate climbs further.", loop: false },
+  { id: "expense", name: "Expense check automation",
+    demand: { line: "410 runs/wk", trend: "up", teams: "3 teams", note: "Picked up after the finance mandate." },
+    health: { rate: 4, reviewed: "reviewed this month", note: "Clean. The rules are holding." },
+    status: "Healthy", zone: "green",
+    rec: "Keep. Lowest correction rate in the set. Safe to consider a higher autonomy level for the rote checks.", loop: false },
+  { id: "callsum", name: "Call summary assistant",
+    demand: { line: "95 runs/wk", trend: "down", teams: "2 teams", note: "Usage falling. CS may be reverting to manual." },
+    health: { rate: 22, reviewed: "reviewed 3 months ago", note: "High override rate. People are rewriting the output." },
+    status: "Needs review", zone: "amber",
+    rec: "High corrections plus falling use is the signature of quiet abandonment. Investigate why people stopped trusting it before it dies on its own.", loop: false },
+  { id: "refund", name: "Refund policy assistant",
+    demand: { line: "320 runs/wk", trend: "up", teams: "Support", note: "Heavy use at the front line." },
+    health: { rate: 31, reviewed: "source docs stale", note: "Agents constantly correcting answers. The underlying policy docs contradict each other." },
+    status: "Knowledge gap", zone: "red",
+    rec: "This is not a prompt problem. Corrections spike because the corpus is bleeding. Reconcile the refund policy into one canonical source, then the assistant becomes trustworthy.", loop: true,
+    loopReason: "Contradictory source docs. Fix the knowledge before trusting the assistant." },
+  { id: "notes", name: "Meeting notes draft",
+    demand: { line: "600 runs/wk", trend: "up", teams: "Many teams", note: "Broadly adopted, low friction." },
+    health: { rate: 8, reviewed: "reviewed this month", note: "Healthy and widely used." },
+    status: "Healthy", zone: "green",
+    rec: "Keep. Lowest stakes and highest adoption in the set.", loop: false }
+];
+
+let lens = "demand";
+let sel = null;
+
+function trendGlyph(t) { return t === "up" ? "\u2191" : t === "down" ? "\u2193" : "\u2192"; }
+function rateColor(r) { return r < 10 ? "var(--green-mid)" : r <= 20 ? "var(--amber)" : "var(--red)"; }
+
+function renderStat() {
+  const flagged = CAPS.filter(c => c.loop).length;
+  document.getElementById("statline").innerHTML = "<b>" + CAPS.length + " capabilities live</b>, <b>" + flagged + "</b> flagged for the next Awareness cycle.";
+  document.getElementById("lensNote").textContent = lens === "demand"
+    ? "Who is using what, and where demand is moving."
+    : "Whether each capability still works, by how often a human has to correct it.";
+}
+
+function renderList() {
+  const list = document.getElementById("list");
+  list.innerHTML = "";
+  CAPS.forEach(c => {
+    const row = document.createElement("div");
+    row.className = "row" + (c.id === sel ? " active" : "");
+    let signal;
+    if (lens === "demand") {
+      signal = "<div class='signal'><span class='trend " + c.demand.trend + "'>" + trendGlyph(c.demand.trend) + " " + c.demand.line + "</span><span>" + c.demand.teams + "</span></div>";
+    } else {
+      signal = "<div class='signal'><span>" + c.health.rate + "% corrected</span><span class='bar'><i style='width:" + Math.min(c.health.rate * 2.6, 100) + "%;background:" + rateColor(c.health.rate) + "'></i></span><span>" + c.health.reviewed + "</span></div>";
+    }
+    row.innerHTML = "<div class='row-top'><span class='row-name'>" + c.name + "</span><span class='sbadge " + c.zone + "'>" + c.status + "</span></div>" + signal;
+    row.addEventListener("click", () => { sel = c.id; renderList(); renderPanel(); });
+    list.appendChild(row);
+  });
+}
+
+function renderPanel() {
+  const panel = document.getElementById("panel");
+  if (!sel) {
+    panel.innerHTML = "<h3>Read the signals</h3><p class='ptag'>Click a capability.</p><p>Each one reports two things: demand, how much it is used and by whom, and health, how often a human has to correct it. Together they tell you what to keep, what to refine, and what to send back to Awareness.</p>";
+    return;
+  }
+  const c = CAPS.find(x => x.id === sel);
+  panel.innerHTML = "<h3>" + c.name + "</h3><p class='ptag'>" + c.status + "</p>" +
+    "<div class='lbl'>Demand</div><p>" + c.demand.line + " " + trendGlyph(c.demand.trend) + ", " + c.demand.teams + ". " + c.demand.note + "</p>" +
+    "<div class='lbl'>Health</div><p>" + c.health.rate + "% of outputs corrected by a human, " + c.health.reviewed + ". " + c.health.note + "</p>" +
+    "<div class='lbl'>Recommendation</div><div class='rec" + (c.loop ? " loop" : "") + "'><p>" + c.rec + "</p></div>";
+}
+
+function renderLoop() {
+  const strip = document.getElementById("loopstrip");
+  const flagged = CAPS.filter(c => c.loop);
+  let inner = "<h3>The loop closes here</h3><p class='ldesc'>Optimization does not end the work. These findings open the next Awareness cycle.</p><div class='loopflow'>";
+  flagged.forEach(c => {
+    inner += "<div class='loopitem'><b>" + c.name + "</b>. " + c.loopReason + "</div>";
+  });
+  inner += "<span class='loparrow'>\u2192</span><span class='awaretag'>Back to Awareness</span></div>";
+  strip.innerHTML = inner;
+}
+
+document.getElementById("switch").addEventListener("click", e => {
+  const b = e.target.closest("button"); if (!b) return;
+  lens = b.dataset.lens;
+  document.querySelectorAll("#switch button").forEach(x => x.classList.toggle("on", x === b));
+  renderStat(); renderList();
+});
+
+renderStat();
+renderList();
+renderPanel();
+renderLoop();
+</script>
+</body>
+</html>

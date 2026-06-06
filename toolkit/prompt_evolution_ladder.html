@@ -1,0 +1,406 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Prompt Evolution Ladder</title>
+<style>
+  :root {
+    --green-deep: #2D5C3F; --green-mid: #3A7451; --blue: #1E6FD6;
+    --amber: #C77D18; --teal: #2E8B8B; --ink: #23302A; --muted: #5C6B63;
+    --paper: #FAFAF6; --line: #DCDAD0; --card: #FFFFFF;
+    --font: "Aptos", "Segoe UI", -apple-system, system-ui, sans-serif;
+  }
+  * { box-sizing: border-box; }
+  body { margin: 0; background: var(--paper); color: var(--ink); font-family: var(--font); line-height: 1.55; padding: 32px 20px 60px; }
+  .wrap { max-width: 1080px; margin: 0 auto; }
+  h1 { font-size: 30px; font-weight: 600; letter-spacing: -0.01em; color: var(--green-deep); margin: 0 0 6px; }
+  .sub { font-size: 15px; color: var(--muted); max-width: 760px; margin: 0 0 24px; }
+  .controls { display: flex; flex-wrap: wrap; gap: 18px 28px; align-items: flex-start; margin-bottom: 10px; }
+  .ctl-group { display: flex; flex-direction: column; gap: 7px; }
+  .ctl-group.unlocks { border-left: 1px solid var(--line); padding-left: 24px; }
+  .ctl-label { font-size: 11px; font-weight: 600; letter-spacing: 0.07em; text-transform: uppercase; color: var(--muted); }
+  .pills { display: flex; gap: 6px; flex-wrap: wrap; }
+  .pill { border: 1px solid var(--line); background: var(--card); color: var(--ink); font-family: var(--font); font-size: 13.5px; font-weight: 500; padding: 7px 14px; border-radius: 999px; cursor: pointer; transition: all 0.16s ease; }
+  .pill:hover { border-color: var(--green-mid); }
+  .pill.active { color: #fff; border-color: transparent; }
+  .pill.lvl[data-l="crawl"].active { background: var(--green-mid); }
+  .pill.lvl[data-l="walk"].active { background: var(--blue); }
+  .pill.lvl[data-l="run"].active { background: var(--amber); }
+  .pill.lvl[data-l="fly"].active { background: var(--green-deep); }
+  .pill.task.active { background: var(--green-deep); }
+  .flypill { border-style: dashed; }
+  .dot { display: inline-block; width: 8px; height: 8px; border-radius: 50%; margin-right: 7px; vertical-align: middle; }
+  .leveldesc { font-size: 13.5px; color: var(--muted); margin: 6px 0 18px; min-height: 20px; }
+  .leveldesc strong { color: var(--ink); font-weight: 600; }
+  .grid { display: grid; grid-template-columns: 1.55fr 1fr; gap: 20px; align-items: start; }
+  @media (max-width: 760px) { .grid { grid-template-columns: 1fr; } }
+  .stackhead { display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 10px; gap: 12px; }
+  .stackhead .meter { font-size: 12.5px; color: var(--muted); }
+  .stackhead .meter b { color: var(--green-deep); font-weight: 600; }
+  .copybtn { border: 1px solid var(--line); background: var(--card); color: var(--ink); font-family: var(--font); font-size: 12.5px; font-weight: 500; padding: 5px 12px; border-radius: 999px; cursor: pointer; white-space: nowrap; }
+  .copybtn:hover { border-color: var(--green-mid); }
+  .runbuilds { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; margin-bottom: 14px; padding-bottom: 12px; border-bottom: 1px dashed var(--line); }
+  .rb-label { font-size: 11px; font-weight: 600; letter-spacing: 0.06em; text-transform: uppercase; color: var(--muted); }
+  .rb-pill { font-size: 12.5px; font-weight: 500; color: #6B4A0C; background: #FBF1DF; border: 1px solid #EAD2A4; border-radius: 999px; padding: 4px 11px; }
+  .block { background: var(--card); border: 1px solid var(--line); border-left: 4px solid var(--line); border-radius: 0 10px 10px 0; padding: 12px 16px; margin-bottom: 10px; cursor: pointer; opacity: 0; transform: translateY(8px); transition: opacity 0.4s ease, transform 0.4s ease, box-shadow 0.16s ease; }
+  .block.show { opacity: 1; transform: none; }
+  .block:hover { box-shadow: 0 2px 10px rgba(40,50,45,0.07); }
+  .block.selected { box-shadow: 0 0 0 2px currentColor inset; }
+  .block .bhead { display: flex; align-items: center; gap: 10px; margin-bottom: 5px; }
+  .block .blabel { font-size: 14px; font-weight: 600; }
+  .block .badge { font-size: 10.5px; font-weight: 600; letter-spacing: 0.05em; text-transform: uppercase; padding: 2px 8px; border-radius: 999px; color: #fff; }
+  .block .btext { font-size: 13.5px; color: #33403A; }
+  .block.crawl { border-left-color: var(--green-mid); color: var(--green-mid); }
+  .block.crawl .badge { background: var(--green-mid); } .block.crawl .blabel { color: var(--green-deep); }
+  .block.walk { border-left-color: var(--blue); color: var(--blue); }
+  .block.walk .badge { background: var(--blue); } .block.walk .blabel { color: #0C447C; }
+  .block.run { border-left-color: var(--amber); color: var(--amber); }
+  .block.run .badge { background: var(--amber); } .block.run .blabel { color: #6B4A0C; }
+  .flywrap { background: var(--card); border: 1px solid var(--line); border-radius: 12px; padding: 6px; }
+  #stack svg { width: 100%; height: auto; display: block; }
+  #stack svg text { font-family: var(--font); }
+  .flynode { transition: opacity 0.4s ease; }
+  .panel { background: var(--card); border: 1px solid var(--line); border-radius: 12px; padding: 18px 20px; position: sticky; top: 20px; }
+  .panel h3 { margin: 0 0 4px; font-size: 16px; font-weight: 600; color: var(--green-deep); }
+  .panel .ptag { font-size: 12px; color: var(--muted); margin: 0 0 14px; }
+  .panel .lbl { font-size: 11px; font-weight: 600; letter-spacing: 0.06em; text-transform: uppercase; color: var(--muted); margin: 14px 0 4px; }
+  .panel p { margin: 0; font-size: 14px; color: var(--ink); }
+  .breaks { background: #FBF1DF; border-left: 3px solid var(--amber); border-radius: 0 8px 8px 0; padding: 10px 13px; margin-top: 5px; }
+  .breaks p { font-size: 13.5px; color: #5A4310; }
+  .libmap { font-size: 13px; color: var(--muted); margin-top: 4px; }
+  .libmap b { color: var(--ink); font-weight: 600; }
+  .foot { margin-top: 26px; font-size: 12.5px; color: var(--muted); border-top: 1px solid var(--line); padding-top: 14px; max-width: 840px; }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <h1>Prompt Evolution Ladder</h1>
+  <p class="sub">Crawl, Walk, and Run are one animal getting stronger: one person, one capability, more skill. Fly is a different animal, orchestration, where you operate the whole system through a dashboard. Click any block or machine to see what it does and what breaks without it. Part of the AI Fluency toolkit.</p>
+
+  <div class="controls">
+    <div class="ctl-group">
+      <span class="ctl-label">Task</span>
+      <div class="pills" id="taskPills"></div>
+    </div>
+    <div class="ctl-group">
+      <span class="ctl-label">Foundation</span>
+      <div class="pills">
+        <button class="pill lvl active" data-l="crawl"><span class="dot" style="background:#3A7451"></span>Crawl</button>
+        <button class="pill lvl" data-l="walk"><span class="dot" style="background:#1E6FD6"></span>Walk</button>
+        <button class="pill lvl" data-l="run"><span class="dot" style="background:#C77D18"></span>Run</button>
+      </div>
+    </div>
+    <div class="ctl-group unlocks">
+      <span class="ctl-label">What it unlocks</span>
+      <div class="pills">
+        <button class="pill lvl flypill" data-l="fly"><span class="dot" style="background:#2D5C3F"></span>Fly</button>
+      </div>
+    </div>
+  </div>
+  <div class="leveldesc" id="leveldesc"></div>
+
+  <div class="grid">
+    <div>
+      <div class="stackhead">
+        <span class="meter" id="meter"></span>
+        <button class="copybtn" id="copyBtn">Copy prompt</button>
+      </div>
+      <div id="stack"></div>
+    </div>
+    <div class="panel" id="panel"></div>
+  </div>
+
+  <div class="foot">The levels map onto the prompt library tiers. Crawl is single task execution. Walk is multi input synthesis built for genuine two turn work. Run is building a capability you can hand off: a full pipeline prompt, an agent even a clumsy one, or a tool like this ladder. Fly is orchestration: a dashboard you operate that drives many single purpose agents, some chained into pipelines, with one agent watching the others and reporting back. Nobody reaches Fly without mastering the foundation, and nobody flies without guidance. The next version adds a tool skin that maps the agents onto a specific product's features for a partner channel.</div>
+</div>
+
+<script>
+const LEVELS = {
+  crawl: { name: "Crawl", desc: "Single task, single shot. Just enough to get a usable result.", lib: "2+ prompts, single task execution.", blocks: ["task"], view: "stack" },
+  walk:  { name: "Walk",  desc: "Multi input. Role, context, and constraints shape the answer. Built for genuine two turn work.", lib: "4+ prompts, multi input synthesis.", blocks: ["task","role","context","constraints"], view: "stack" },
+  run:   { name: "Run",   desc: "Build a capability you can hand off: a full pipeline prompt, an agent even a clumsy one, or a tool. Format, an example, and a verification step make it repeatable.", lib: "Full pipeline prompts, agents, and tools.", blocks: ["task","role","context","constraints","format","example","verify"], view: "stack" },
+  fly:   { name: "Fly",   desc: "The unit is the dashboard. You operate one control surface that drives many single purpose agents, some chained into pipelines. You stop touching prompts and agents directly and start conducting them.", lib: "Orchestration. One control surface coordinating many single purpose agents and pipelines.", view: "fly" }
+};
+
+const ORDER = ["role","context","task","constraints","format","example","verify"];
+
+const BLOCK = {
+  task:        { label: "Task", level: "crawl", does: "States the job in one clear instruction.", breaks: "Without it there is no prompt at all." },
+  role:        { label: "Role", level: "walk", does: "Anchors the model's perspective, vocabulary, and standards.", breaks: "Without it you get generic, audience-less output." },
+  context:     { label: "Context", level: "walk", does: "Supplies the situational facts the model cannot infer.", breaks: "Without it the model fills the gaps with guesses, and the guesses are often wrong." },
+  constraints: { label: "Constraints", level: "walk", does: "Bounds length, tone, and what must be flagged.", breaks: "Without it output drifts in length and tone and skips what actually matters." },
+  format:      { label: "Output format", level: "run", does: "Makes the result structured, parseable, and comparable from one run to the next.", breaks: "Without it every run looks different and nothing can be automated on top of it." },
+  example:     { label: "Example", level: "run", does: "Shows the target by demonstration instead of describing it.", breaks: "Without it the model approximates your standard rather than matching it." },
+  verify:      { label: "Verification step", level: "run", does: "Builds a self check into the prompt before anything is delivered.", breaks: "Without it errors ship silently and a human has to catch them after the fact." }
+};
+
+const USER = { does: "You drive the dashboard, not the agents. You operate one control surface and it operates the whole system.", breaks: "Without a director the system runs with no one owning the decisions, which is automating what you cannot explain." };
+const GUIDANCE = { does: "Mastery and review on the orchestration. Nobody flies solo.", breaks: "Without guidance, one wrong setting on the dashboard propagates across every agent at once." };
+const DASHBOARD = { does: "Your single control surface. From here you start, route, pause, and watch every agent without opening any of them. This is what makes Fly orchestration rather than a pile of agents.", breaks: "Without the dashboard you have parts, not a system, and you are back to running each agent by hand, which is Run." };
+
+const TASKS = [
+  { id: "call", name: "Summarize a customer call", content: {
+    task: "Summarize this customer call transcript.",
+    role: "You are a customer success lead who owns the account relationship.",
+    context: "The call was a renewal conversation with an account whose usage has declined over the last quarter.",
+    constraints: "Keep the summary under 150 words. Use a neutral, factual tone. Always flag any signal of churn risk.",
+    format: "Return four labeled sections: Summary, Action items, Churn risk (low, medium, high), Next contact date.",
+    example: "Example. Summary: account raised concerns about onboarding speed. Action items: schedule training (owner: Dana, due Fri). Churn risk: medium. Next contact: within 7 days.",
+    verify: "Before finishing, confirm every action item has an owner and a due date. If any is missing, ask for it rather than guessing."
+  }, fly: {
+    chain: "Chained, these three single purpose agents produce a risk dossier no single agent should attempt alone.",
+    pipe: [
+      { label: "Extract", does: "Pulls the key signals out of the transcript. One job, done well.", breaks: "Without it the pipeline reasons over the raw transcript and misweights the call." },
+      { label: "Score risk", does: "Scores churn risk against a rubric. One job, done well.", breaks: "Without it there is no consistent risk read." },
+      { label: "Draft dossier", does: "Assembles the dossier with action items. One job, done well.", breaks: "Without it the signals never become something a human can act on." }
+    ],
+    monitor: { label: "Monitor", does: "A single purpose agent that watches the pipeline run and reports its output and confidence back to the dashboard.", breaks: "Without it the dashboard is blank and you are driving blind." }
+  } },
+  { id: "status", name: "Draft a project status update", content: {
+    task: "Write a status update for this project.",
+    role: "You are the project lead reporting to a cross functional steering group.",
+    context: "The project is two weeks behind on one milestone but on track overall, and leadership is sensitive to slippage.",
+    constraints: "Keep it to one screen. Lead with status, not narrative. Name risks plainly and pair each one with a mitigation.",
+    format: "Return: Overall status (green, amber, red), Highlights, Risks with mitigations, Asks of leadership.",
+    example: "Example. Overall: amber. Highlights: auth module shipped. Risks: vendor delay on the data feed, mitigation: parallel path with a backup vendor. Asks: approve backup vendor spend.",
+    verify: "Before finishing, check that every risk has a mitigation and every ask has a clear decision owner. Flag any that do not."
+  }, fly: {
+    chain: "Chained, these three single purpose agents produce a leadership ready status no single agent should attempt alone.",
+    pipe: [
+      { label: "Collect", does: "Gathers the tracker, standup notes, and budget. One job, done well.", breaks: "Without it the status reflects memory, not the actual state." },
+      { label: "Draft status", does: "Writes the structured update with risks and mitigations. One job, done well.", breaks: "Without it there is nothing to review." },
+      { label: "Verify", does: "Checks every risk has a mitigation and every ask an owner. One job, done well.", breaks: "Without it leadership gets risks with no plan and asks with no owner." }
+    ],
+    monitor: { label: "Monitor", does: "A single purpose agent that watches the pipeline run and feeds slippage and quality signals back to the dashboard.", breaks: "Without it slippage stays invisible until it is a crisis." }
+  } },
+  { id: "triage", name: "Triage support tickets", content: {
+    task: "Triage this batch of incoming support tickets.",
+    role: "You are a support operations analyst responsible for routing and prioritization.",
+    context: "Volume spikes on Mondays, and a subset of tickets are actually sales questions misfiled as support.",
+    constraints: "Do not resolve tickets, only classify and route. Escalate anything mentioning data loss or security immediately.",
+    format: "For each ticket return: Category, Priority (P1 to P4), Suggested queue, Escalate (yes or no).",
+    example: "Example. Ticket: 'cannot log in since the update'. Category: access. Priority: P2. Queue: Tier 1. Escalate: no.",
+    verify: "Before finishing, confirm no ticket mentioning security or data loss was marked below P1. If one is, correct it and note why."
+  }, fly: {
+    chain: "Chained, these three single purpose agents triage a whole batch no single agent should attempt alone.",
+    pipe: [
+      { label: "Classify", does: "Tags category, priority, and queue. One job, done well.", breaks: "Without it triage is inconsistent and cannot be measured." },
+      { label: "Group dupes", does: "Groups duplicates of known incidents. One job, done well.", breaks: "Without it the same incident is handled dozens of times." },
+      { label: "Route", does: "Sends each ticket to the right queue. One job, done well.", breaks: "Without it tickets never reach the right team." }
+    ],
+    monitor: { label: "Monitor", does: "A single purpose agent that watches the pipeline run and reports volume and misclassification rates back to the dashboard.", breaks: "Without it the team never sees where triage is failing." }
+  } }
+];
+
+let level = "crawl";
+let taskIdx = 0;
+let selBlock = null;
+let selFly = null;
+
+function buildTaskPills() {
+  const wrap = document.getElementById("taskPills");
+  wrap.innerHTML = "";
+  TASKS.forEach((t, i) => {
+    const b = document.createElement("button");
+    b.className = "pill task" + (i === taskIdx ? " active" : "");
+    b.textContent = t.name;
+    b.addEventListener("click", () => {
+      taskIdx = i;
+      document.querySelectorAll(".task").forEach(p => p.classList.toggle("active", p === b));
+      render();
+    });
+    wrap.appendChild(b);
+  });
+}
+
+function assembledText(visible) {
+  const c = TASKS[taskIdx].content;
+  return visible.map(k => BLOCK[k].label + ": " + c[k]).join("\n\n");
+}
+
+function flyOutline() {
+  const t = TASKS[taskIdx];
+  let s = "FLY orchestration for: " + t.name + "\n\nYou, the director, operate the dashboard.\nGuidance: mastery and review.\n\nDashboard drives a pipeline of single purpose agents:\n";
+  t.fly.pipe.forEach(n => { s += "- " + n.label + ": " + n.does + "\n"; });
+  s += "- " + t.fly.monitor.label + " (watches and reports): " + t.fly.monitor.does + "\n";
+  return s;
+}
+
+function agentEmblem(x, y, label, datak) {
+  const color = "#1E6FD6";
+  return "<g class='flynode' data-k='" + datak + "' style='cursor:pointer'>" +
+    "<text x='" + x + "' y='" + (y - 42) + "' text-anchor='middle' font-size='10' font-weight='700' letter-spacing='0.06em' fill='" + color + "'>AGENT</text>" +
+    "<circle class='ecirc' data-base='2.2' cx='" + x + "' cy='" + y + "' r='27' fill='#fff' stroke='" + color + "' stroke-width='2.2'/>" +
+    "<rect x='" + (x - 11) + "' y='" + (y - 10) + "' width='22' height='14' rx='2' fill='none' stroke='" + color + "' stroke-width='1.5'/>" +
+    "<line x1='" + x + "' y1='" + (y + 4) + "' x2='" + x + "' y2='" + (y + 8) + "' stroke='" + color + "' stroke-width='1.5'/>" +
+    "<line x1='" + (x - 6) + "' y1='" + (y + 9) + "' x2='" + (x + 6) + "' y2='" + (y + 9) + "' stroke='" + color + "' stroke-width='1.5'/>" +
+    "<text x='" + x + "' y='" + (y + 46) + "' text-anchor='middle' font-size='11.5' font-weight='600' fill='#33403A'>" + label + "</text>" +
+    "</g>";
+}
+
+function buildFlySVG(t) {
+  const p = [[180,300],[300,300],[420,300]];
+  const mon = [300,402];
+  let s = "<svg viewBox='0 0 660 500' role='img' aria-label='Fly shown as orchestration: you operate a dashboard control surface that drives a pipeline of three single purpose agents, with a monitoring agent watching them and reporting back to the dashboard, all under your direction with guidance.'>";
+  s += "<defs><marker id='fa' viewBox='0 0 10 10' refX='8' refY='5' markerWidth='6' markerHeight='6' orient='auto-start-reverse'><path d='M2 1L8 5L2 9' fill='none' stroke='context-stroke' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'/></marker></defs>";
+
+  s += "<line x1='322' y1='52' x2='378' y2='60' stroke='#C77D18' stroke-width='1.2' stroke-dasharray='4 3'/>";
+  s += "<line x1='300' y1='74' x2='300' y2='102' stroke='#2D5C3F' stroke-width='1.6'/>";
+  p.forEach(q => { s += "<line x1='300' y1='158' x2='" + q[0] + "' y2='" + (q[1]-27) + "' stroke='#9DBEA9' stroke-width='1.2' stroke-dasharray='5 4'/>"; });
+  p.forEach(q => { s += "<line x1='" + mon[0] + "' y1='" + (mon[1]-27) + "' x2='" + q[0] + "' y2='" + (q[1]+27) + "' stroke='#2E8B8B' stroke-width='1' stroke-dasharray='3 4'/>"; });
+  s += "<path d='M326 392 C 470 380, 502 250, 446 160' fill='none' stroke='#2E8B8B' stroke-width='1.3' marker-end='url(#fa)'/>";
+  s += "<line x1='208' y1='300' x2='266' y2='300' stroke='#1E6FD6' stroke-width='1.6' marker-end='url(#fa)'/>";
+  s += "<line x1='328' y1='300' x2='386' y2='300' stroke='#1E6FD6' stroke-width='1.6' marker-end='url(#fa)'/>";
+
+  s += "<g class='flynode' data-k='dashboard' style='cursor:pointer'>" +
+    "<rect class='ecirc' data-base='1.2' x='130' y='102' width='340' height='56' rx='10' fill='#EDF3EF' stroke='#2D5C3F' stroke-width='1.2'/>" +
+    "<text x='150' y='126' font-size='14' font-weight='600' fill='#2D5C3F'>Dashboard</text>" +
+    "<text x='150' y='144' font-size='11.5' fill='#5C6B63'>your control surface</text>" +
+    "<rect x='322' y='114' width='30' height='12' rx='2' fill='#fff' stroke='#9DBEA9'/>" +
+    "<rect x='360' y='114' width='30' height='12' rx='2' fill='#fff' stroke='#9DBEA9'/>" +
+    "<rect x='398' y='114' width='30' height='12' rx='2' fill='#fff' stroke='#9DBEA9'/>" +
+    "<rect x='322' y='132' width='106' height='6' rx='2' fill='#fff' stroke='#9DBEA9'/></g>";
+
+  s += agentEmblem(p[0][0], p[0][1], t.fly.pipe[0].label, "p0");
+  s += agentEmblem(p[1][0], p[1][1], t.fly.pipe[1].label, "p1");
+  s += agentEmblem(p[2][0], p[2][1], t.fly.pipe[2].label, "p2");
+  s += agentEmblem(mon[0], mon[1], t.fly.monitor.label, "monitor");
+
+  s += "<g class='flynode' data-k='user' style='cursor:pointer'>" +
+    "<circle class='ecirc' data-base='2.2' cx='300' cy='48' r='26' fill='#2D5C3F' stroke='#2D5C3F' stroke-width='2.2'/>" +
+    "<rect x='286' y='38' width='28' height='17' rx='2' fill='none' stroke='#fff' stroke-width='1.5'/>" +
+    "<line x1='300' y1='55' x2='300' y2='59' stroke='#fff' stroke-width='1.5'/>" +
+    "<line x1='293' y1='60' x2='307' y2='60' stroke='#fff' stroke-width='1.5'/>" +
+    "<text x='300' y='92' text-anchor='middle' font-size='12' font-weight='600' fill='#2D5C3F'>You, the director</text></g>";
+
+  s += "<g class='flynode' data-k='guidance' style='cursor:pointer'>" +
+    "<circle class='ecirc' data-base='2' cx='392' cy='56' r='16' fill='#fff' stroke='#C77D18' stroke-width='2' stroke-dasharray='4 3'/>" +
+    "<circle cx='392' cy='56' r='4.5' fill='none' stroke='#C77D18' stroke-width='1.4'/>" +
+    "<text x='392' y='90' text-anchor='middle' font-size='11' font-weight='600' fill='#6B4A0C'>Guidance</text></g>";
+
+  s += "<text x='300' y='482' text-anchor='middle' font-size='11.5' fill='#5C6B63'>" + t.fly.chain + "</text>";
+  s += "</svg>";
+  return s;
+}
+
+function render() {
+  const lv = LEVELS[level];
+  document.getElementById("leveldesc").innerHTML = "<strong>" + lv.name + ".</strong> " + lv.desc;
+  const stack = document.getElementById("stack");
+  const copyBtn = document.getElementById("copyBtn");
+
+  if (lv.view === "fly") {
+    stack.className = "flywrap";
+    stack.innerHTML = buildFlySVG(TASKS[taskIdx]);
+    stack.querySelectorAll(".flynode").forEach(g => g.addEventListener("click", () => { selFly = g.dataset.k; selBlock = null; showAnnotation(); markSelected(); }));
+    document.getElementById("meter").innerHTML = "<b>1</b> dashboard, <b>4</b> agents, directed by you";
+    copyBtn.textContent = "Copy outline";
+    requestAnimationFrame(() => {
+      stack.querySelectorAll(".flynode").forEach((g, i) => { g.style.opacity = 0; setTimeout(() => g.style.opacity = 1, 60 + i * 70); });
+    });
+    showAnnotation(); markSelected();
+    return;
+  }
+
+  stack.className = "";
+  const visible = ORDER.filter(k => lv.blocks.includes(k));
+  const c = TASKS[taskIdx].content;
+  stack.innerHTML = "";
+  if (level === "run") {
+    const rb = document.createElement("div");
+    rb.className = "runbuilds";
+    rb.innerHTML = "<span class='rb-label'>Run builds a capability</span><span class='rb-pill'>a full pipeline prompt (below)</span><span class='rb-pill'>an agent</span><span class='rb-pill'>a tool like this ladder</span>";
+    stack.appendChild(rb);
+  }
+  visible.forEach((k, i) => {
+    const meta = BLOCK[k];
+    const div = document.createElement("div");
+    div.className = "block " + meta.level;
+    div.innerHTML = "<div class='bhead'><span class='blabel'>" + meta.label + "</span><span class='badge'>" + LEVELS[meta.level].name + "</span></div><div class='btext'>" + c[k] + "</div>";
+    div.addEventListener("click", () => { selBlock = k; selFly = null; showAnnotation(); markSelected(); });
+    stack.appendChild(div);
+    requestAnimationFrame(() => setTimeout(() => div.classList.add("show"), i * 55));
+  });
+  const words = assembledText(visible).split(/\s+/).filter(Boolean).length;
+  document.getElementById("meter").innerHTML = "<b>" + visible.length + "</b> components, about <b>" + words + "</b> words";
+  copyBtn.textContent = "Copy prompt";
+  if (!visible.includes(selBlock)) selBlock = null;
+  showAnnotation(); markSelected();
+}
+
+function markSelected() {
+  if (LEVELS[level].view === "fly") {
+    document.querySelectorAll("#stack .ecirc").forEach(c => c.setAttribute("stroke-width", c.getAttribute("data-base")));
+    if (!selFly) return;
+    const g = document.querySelector(".flynode[data-k='" + selFly + "']");
+    if (g) { const sh = g.querySelector(".ecirc"); sh.setAttribute("stroke-width", (parseFloat(sh.getAttribute("data-base")) + 2.2).toString()); }
+    return;
+  }
+  document.querySelectorAll(".block").forEach(b => b.classList.remove("selected"));
+  if (!selBlock) return;
+  const visible = ORDER.filter(k => LEVELS[level].blocks.includes(k));
+  const pos = visible.indexOf(selBlock);
+  if (pos >= 0) {
+    const blocks = document.querySelectorAll(".block");
+    if (blocks[pos]) blocks[pos].classList.add("selected");
+  }
+}
+
+function showAnnotation() {
+  const panel = document.getElementById("panel");
+  const lv = LEVELS[level];
+
+  if (lv.view === "fly") {
+    if (!selFly) {
+      panel.innerHTML = "<h3>Fly orchestration</h3><p class='ptag'>Click the dashboard, an agent, you, or the guidance.</p>" +
+        "<p>The unit is the dashboard, not the prompt. You operate one control surface that drives single purpose agents, some chained into a pipeline, with one agent watching the others and reporting back. You conduct, you do not build.</p>" +
+        "<div class='lbl'>Library tier</div><p class='libmap'><b>Fly:</b> " + lv.lib + "</p>";
+      return;
+    }
+    let title, sub, m;
+    if (selFly === "user") { title = "You, the director"; sub = "Human, on the dashboard"; m = USER; }
+    else if (selFly === "guidance") { title = "Guidance"; sub = "Mastery and review"; m = GUIDANCE; }
+    else if (selFly === "dashboard") { title = "Dashboard"; sub = "Your control surface"; m = DASHBOARD; }
+    else if (selFly === "monitor") { const n = TASKS[taskIdx].fly.monitor; title = n.label; sub = "Monitoring agent"; m = n; }
+    else { const idx = +selFly.slice(1); const n = TASKS[taskIdx].fly.pipe[idx]; title = n.label; sub = "Single purpose agent, step " + (idx + 1) + " of the pipeline"; m = n; }
+    panel.innerHTML = "<h3>" + title + "</h3><p class='ptag'>" + sub + "</p>" +
+      "<div class='lbl'>What it does</div><p>" + m.does + "</p>" +
+      "<div class='lbl'>What breaks without it</div><div class='breaks'><p>" + m.breaks + "</p></div>";
+    return;
+  }
+
+  if (!selBlock) {
+    panel.innerHTML = "<h3>" + lv.name + " level</h3><p class='ptag'>Click any block to inspect it.</p>" +
+      "<p>" + lv.desc + "</p><div class='lbl'>Library tier</div><p class='libmap'><b>" + lv.name + ":</b> " + lv.lib + "</p>";
+    return;
+  }
+  const m = BLOCK[selBlock];
+  panel.innerHTML = "<h3>" + m.label + "</h3><p class='ptag'>Added at " + LEVELS[m.level].name + "</p>" +
+    "<div class='lbl'>What it does</div><p>" + m.does + "</p>" +
+    "<div class='lbl'>What breaks without it</div><div class='breaks'><p>" + m.breaks + "</p></div>";
+}
+
+document.querySelector(".controls").addEventListener("click", e => {
+  const b = e.target.closest(".lvl"); if (!b) return;
+  level = b.dataset.l;
+  document.querySelectorAll(".lvl").forEach(p => p.classList.toggle("active", p === b));
+  selBlock = null; selFly = null;
+  render();
+});
+
+document.getElementById("copyBtn").addEventListener("click", () => {
+  const btn = document.getElementById("copyBtn");
+  let text;
+  if (LEVELS[level].view === "fly") text = flyOutline();
+  else text = assembledText(ORDER.filter(k => LEVELS[level].blocks.includes(k)));
+  const reset = LEVELS[level].view === "fly" ? "Copy outline" : "Copy prompt";
+  try {
+    navigator.clipboard.writeText(text).then(() => { btn.textContent = "Copied"; setTimeout(() => btn.textContent = reset, 1600); });
+  } catch (err) { btn.textContent = "Copy failed"; setTimeout(() => btn.textContent = reset, 1600); }
+});
+
+buildTaskPills();
+render();
+</script>
+</body>
+</html>
