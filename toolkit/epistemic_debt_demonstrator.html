@@ -4,24 +4,14 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Epistemic Debt Demonstrator</title>
+<link rel="stylesheet" href="../styles.css">
+<script src="toolkit-gate.js"></script>
 <style>
-  :root {
-    --green-deep: #2D5C3F; --green-mid: #3A7451; --green-tint: #E8F4ED;
-    --blue: #1E6FD6; --amber: #C77D18; --amber-tint: #FBF1DF; --red: #B0341D;
-    --ink: #23302A; --muted: #5C6B63; --paper: #FAFAF6; --line: #DCDAD0; --card: #FFFFFF;
-    --font: "Aptos", "Segoe UI", -apple-system, system-ui, sans-serif;
-  }
-  * { box-sizing: border-box; }
-  body { margin: 0; background: var(--paper); color: var(--ink); font-family: var(--font); line-height: 1.55; padding: 32px 20px 60px; }
-  .wrap { max-width: 1080px; margin: 0 auto; }
-  h1 { font-size: 30px; font-weight: 600; letter-spacing: -0.01em; color: var(--green-deep); margin: 0 0 6px; }
-  .sub { font-size: 15px; color: var(--muted); max-width: 760px; margin: 0 0 22px; }
-  .toggle-row { display: flex; flex-wrap: wrap; align-items: center; gap: 14px 20px; margin-bottom: 8px; }
-  .ctl-label { font-size: 11px; font-weight: 600; letter-spacing: 0.07em; text-transform: uppercase; color: var(--muted); }
-  .switch { display: inline-flex; border: 1px solid var(--line); border-radius: 999px; overflow: hidden; background: var(--card); }
-  .switch button { border: none; background: transparent; font-family: var(--font); font-size: 13.5px; font-weight: 600; padding: 8px 18px; cursor: pointer; color: var(--muted); transition: all 0.16s ease; }
+  /* tool-unique styles */
+  .wrap { max-width: 1080px; }
   .switch button.on[data-mode="bleeding"] { background: var(--amber); color: #fff; }
   .switch button.on[data-mode="reconciled"] { background: var(--green-deep); color: #fff; }
+  .toggle-row { display: flex; flex-wrap: wrap; align-items: center; gap: 14px 20px; margin-bottom: 8px; }
   .status { font-size: 13px; color: var(--muted); margin: 0 0 20px; }
   .status b { font-weight: 600; }
   .status.bleed b { color: #8A5A12; }
@@ -63,11 +53,12 @@
   .why.recon { background: var(--green-tint); border-left: 3px solid var(--green-mid); color: #1F3D2B; }
   .why .wlbl { font-size: 10.5px; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase; opacity: 0.8; display: block; margin-bottom: 3px; }
   .empty { color: var(--muted); font-size: 14px; padding: 8px 2px; }
-  .foot { margin-top: 28px; font-size: 12.5px; color: var(--muted); border-top: 1px solid var(--line); padding-top: 14px; max-width: 840px; }
+  .foot { margin-top: 28px; max-width: 840px; }
 </style>
 </head>
-<body>
+<body class="tk-tool">
 <div class="wrap">
+  <a class="tk-back" href="index.html">&#8592; Toolkit</a>
   <h1>Epistemic Debt Demonstrator</h1>
   <p class="sub">An AI assistant answering questions from a company's own knowledge base. The knowledge base is quietly bleeding: several fragments about the same policy disagree, and none is marked canonical. Ask a question, then reconcile the corpus and ask again. Same model, same question. Watch what changes. Part of the AI Fluency toolkit.</p>
 

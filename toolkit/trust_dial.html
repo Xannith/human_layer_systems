@@ -4,25 +4,13 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Trust Dial</title>
+<link rel="stylesheet" href="../styles.css">
+<script src="toolkit-gate.js"></script>
 <style>
-  :root {
-    --green-deep: #2D5C3F; --green-mid: #3A7451; --green-tint: #E8F4ED;
-    --blue: #1E6FD6; --blue-tint: #E6F1FB;
-    --amber: #C77D18; --amber-tint: #FBF1DF;
-    --red: #B0341D; --red-tint: #F6E5E1;
-    --ink: #23302A; --muted: #5C6B63; --paper: #FAFAF6; --line: #DCDAD0; --card: #FFFFFF;
-    --font: "Aptos", "Segoe UI", -apple-system, system-ui, sans-serif;
-  }
-  * { box-sizing: border-box; }
-  body { margin: 0; background: var(--paper); color: var(--ink); font-family: var(--font); line-height: 1.55; padding: 32px 20px 60px; }
-  .wrap { max-width: 1040px; margin: 0 auto; }
-  h1 { font-size: 30px; font-weight: 600; letter-spacing: -0.01em; color: var(--green-deep); margin: 0 0 6px; }
-  .sub { font-size: 15px; color: var(--muted); max-width: 760px; margin: 0 0 24px; }
-  .ctl-label { font-size: 11px; font-weight: 600; letter-spacing: 0.07em; text-transform: uppercase; color: var(--muted); margin-bottom: 7px; display: block; }
-  .pills { display: flex; gap: 6px; flex-wrap: wrap; margin-bottom: 20px; }
-  .pill { border: 1px solid var(--line); background: var(--card); color: var(--ink); font-family: var(--font); font-size: 13.5px; font-weight: 500; padding: 7px 14px; border-radius: 999px; cursor: pointer; transition: all 0.16s ease; }
-  .pill:hover { border-color: var(--green-mid); }
-  .pill.active { background: var(--green-deep); color: #fff; border-color: transparent; }
+  /* tool-unique styles */
+  .wrap { max-width: 1040px; }
+  .ctl-label { margin-bottom: 7px; display: block; }
+  .pills { margin-bottom: 20px; }
   .dial-ends { display: flex; justify-content: space-between; font-size: 11.5px; color: var(--muted); margin-bottom: 6px; }
   .dial { display: grid; grid-template-columns: repeat(5, 1fr); gap: 6px; margin-bottom: 6px; }
   .seg { border: 1px solid var(--line); border-radius: 9px; padding: 12px 10px 11px; cursor: pointer; text-align: center; position: relative; transition: all 0.16s ease; }
@@ -68,11 +56,12 @@
   .ready li::before { content: "\2713"; position: absolute; left: 0; top: 5px; color: var(--green-mid); font-weight: 700; }
   .ready .none { font-size: 13.5px; color: var(--muted); }
   .ready .debt { margin-top: 11px; padding-top: 11px; border-top: 1px dashed var(--line); font-size: 13px; color: #8A5A12; }
-  .foot { margin-top: 26px; font-size: 12.5px; color: var(--muted); border-top: 1px solid var(--line); padding-top: 14px; max-width: 840px; }
+  .foot { margin-top: 26px; max-width: 840px; }
 </style>
 </head>
-<body>
+<body class="tk-tool">
 <div class="wrap">
+  <a class="tk-back" href="index.html">&#8592; Toolkit</a>
   <h1>Trust Dial</h1>
   <p class="sub">How much should you let AI do? It is not one setting you flip for the whole company. It is per task, and where it can safely sit depends on the stakes and on whether you have done the work to be there. Pick a task, move the dial, and watch the safe zone change. Part of the AI Fluency toolkit.</p>
 
